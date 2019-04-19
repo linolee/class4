@@ -1,0 +1,7 @@
+@charset "UTF-8";
+#footer{background-color: #888; margin-top: 20px; padding: 20px; color: #DDD; border-top: 1px solid #AAC; height: 100px;}
+#footerTitle{float: right;}
+#footerBtnDiv{margin: auto; text-align: center;}
+#footer a:link {text-decoration: none;	color: white;}
+#footer a:visited {text-decoration: none;	color: white;}
+#footer a:hover {text-decoration: none;	color: #ffb9b9;}

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+#header{height: 150px; border-bottom: 1px solid #AAC; margin-bottom: 30px;}
+#personalMenu{height: 30px; font-size: 15px;}
+#personalMenu ul{margin: 0px; padding-top: 5px;}
+#personalMenu li{float: right; list-style-type: none; padding-left: 10px; padding-right: 10px; height: 20px;}
+#headerContent{height: 100px; vertical-align: middle;}
+#headerContent a{display: inline-block; height: 70px;}
+#logoImg{height: 70px; margin-left: 300px;}
+#searchWindow{display: inline-block; height: 70px; width: 350px; position: absolute;}
+#searchWindow input{width: 70%; margin-top: 25px; border: 3px solid #605CA0; padding: 6px;}
+#searchWindow button{width: 20%; margin-top: 25px; padding: 6px; background-color: #605CA0; color: white; border: 0px;}
+#header input{
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}

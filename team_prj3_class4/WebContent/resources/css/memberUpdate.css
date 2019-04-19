@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+#memberUpdateDiv h3 {
+	margin: auto;
+	text-align: center;
+	font-size: 30px;
+}
+
+#memberUpdateDiv li {
+	width: 500px;
+	list-style: none;
+	margin: auto;
+	margin-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#memberUpdateDiv ul {
+	padding-left: 0px;
+}
+
+#memberUpdateDiv label {
+	font-weight: bold;
+	font-size: 20px;
+	margin-left: 20px;
+	color: #555;
+}
+
+#memberUpdateDiv .inputBox {
+	height: 30px;
+	width: 450px;
+	margin-top: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#memberUpdateDiv #inputBtn {
+	border: 1px solid #AAC;
+	margin: auto;
+	width: 300px;
+	padding: 20px;
+	padding-left: 40px;
+	padding-right: 40px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #605CA0;
+	color: #FFF;
+}
+
+#memberUpdateDiv .selectBox {
+	height: 40px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#memberUpdateDiv #joinBtnDiv {
+	text-align: center;
+	margin: 50px;
+	font-size: 30px;
+	font-weight: bold;
+	font-family: sans-serif;
+}
+
+
+#memberUpdateDiv .checkBox {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #bcbcbc;
+	cursor: pointer;
+	margin-left: 10px;
+}

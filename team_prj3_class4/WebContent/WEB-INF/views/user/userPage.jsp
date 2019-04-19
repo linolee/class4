@@ -1,0 +1,135 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Class4-회원 페이지</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- css -->
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=PT+Sans"
+	rel="stylesheet">
+<style type="text/css">
+#wrapper {
+	font-family: 'PT Sans', sans-serif;
+}
+</style>
+
+<!-- summerNote -->
+<!-- include libraries(jQuery, bootstrap) -->
+<link
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script
+	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+
+<!-- tab -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- include summernote css/js -->
+<link
+	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css"
+	rel="stylesheet">
+<script
+	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<c:import url="../header/header.jsp"></c:import>
+		</div>
+		<div id="container">
+			<div class="areaFix">
+				<label>회원 페이지</label>
+				<div id="tabs">
+					<ul>
+						<li><a href="#fragment-1"><span>회원정보</span></a></li>
+						<li><a href="#fragment-2"><span>비밀번호 변경</span></a></li>
+						<li><a href="#fragment-3"><span>관리자 문의</span></a></li>
+					</ul>
+					<div id="fragment-1">
+						<table>
+							<tr>
+								<th>이름</th>
+								<td>아무개</td>
+							</tr>
+							<tr>
+								<th>아이디</th>
+								<td>djklasdf</td>
+							</tr>
+							<tr>
+								<th>생년월일</th>
+								<td>1991.11.11</td>
+							</tr>
+							<tr>
+								<th>휴대전화</th>
+								<td>010-0000-0000</td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td>asdf@dsfa.com</td>
+							</tr>
+							<tr>
+								<th>관심목록</th>
+								<td>꽃꽃이 레슬링</td>
+							</tr>
+						</table>
+						<input type="button" value="회원정보 수정"> <input type="button"
+							value="회원 탈퇴">
+					</div>
+					<div id="fragment-2">
+						<table>
+							<tr>
+								<td>비밀번호 입력</td>
+								<td><input type="password"></td>
+							</tr>
+							<tr>
+								<td>비밀번호 재입력</td>
+								<td><input type="password"></td>
+							</tr>
+						</table>
+						<br> <input type="button" value="비밀번호 변경">
+					</div>
+					<div id="fragment-3">
+
+						<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
+						<div id="summernote"></div>
+						<script>
+							$('#summernote').summernote({
+								placeholder : '신고 내용을 입력해주세요.',
+								tabsize : 2,
+								height : 300
+							});
+						</script>
+						<div id="reportBtnDiv">
+							<input type="submit" value="제출하기" id="reportSubmitBtn">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<script>
+	$("#tabs").tabs();
+</script>
+		</div>
+		<div id="footer">
+			<c:import url="../footer/footer.jsp" />
+		</div>
+
+
+	</div>
+
+</body>
+</html>

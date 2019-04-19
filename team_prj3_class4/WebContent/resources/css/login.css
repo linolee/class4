@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+#login {
+	width: 500px;
+	text-align: center;
+	list-style-type: none;
+	margin: auto;
+}
+
+#loginNotice {
+	color: #888;
+	margin-bottom: 40px;
+	margin-top: 50px;
+}
+
+#loginID {
+	margin-bottom: 10px;
+}
+
+#loginID input {
+	height: 40px;
+	width: 450px;
+}
+
+#loginPass input{
+	height: 40px;
+	width: 450px;
+	margin-bottom: 50px;
+}
+
+#loginBtnDiv input {
+	text-align: center;
+	width: 90%;
+	height: 70px;
+	background-color: #605CA0;
+	margin: auto;
+	color: #FFF;
+	font-size: 20px;
+	margin-bottom: 50px;
+	border: 0px;
+}
+
+#loginOptionDiv {
+	margin: auto;
+	text-align: center;
+}
+
+#loginOptionDiv table {
+	margin: auto;
+}
+
+#loginOptionDiv td {
+	padding-left: 10px;
+	padding-right: 10px;
+}
