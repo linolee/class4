@@ -1,4 +1,3 @@
-<%@page import="javafx.scene.control.Alert"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,34 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>LMS</title>
-<!-- <link href="css/style.css" rel="stylesheet"> -->
-<link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
+<title>TEST</title>
 <style type="text/css">
 #file { display:none; } 
 </style>
-<%--     <!-- jQuery -->
-	<!-- <script src="./js/jquery.min.js"></script> -->
-<link href="<c:url value="/resources/admin/js/jquery.min.js" />" rel="stylesheet">
-	<!-- 파퍼 자바스크립트 -->
-	<!-- <script src="./js/popper.min.js"></script> -->
-<link href="<c:url value="/resources/admin/js/popper.min.js" />" rel="stylesheet">
-	<!-- 부트스트랩 자바스크립트 -->
-	<!-- <script src="./js/bootstrap.min.js"></script> -->
-<link href="<c:url value="/resources/admin/js/bootstrap.min.js" />" rel="stylesheet"> --%>
-	
+
+<link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
+<script src="<c:url value="/resources/admin/js/bootstrap.min.js" />"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- 합쳐지고 최소화된 최신 CSS --><!-- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
-<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"> -->
-
-<%
-	String filename=request.getParameter("file");
-	pageContext.setAttribute("filename", filename);
-%>
-	
 <script type="text/javascript">
 
 $(function(){

@@ -10121,6 +10121,10 @@ a.text-dark:hover, a.text-dark:focus {
   animation-name: fadeIn;
 }
 
+
+
+
+
 .ps {
   overflow: hidden !important;
   -ms-touch-action: auto;
@@ -15224,4 +15228,6 @@ body {
   breakpoint-lg: 992px;
   breakpoint-xl: 1200px;
 }
-/*# sourceMappingURL=style.css.map */
+# sourceMappingURL=style.css.map
+
+
