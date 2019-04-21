@@ -8,19 +8,23 @@
                   <div class="card-body">
                		 
                		 <div class='searchbox'>
-    <form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
+    		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
         <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
         <select name="where" class="form-control input-sm">
-            <option value="userNM">이름</option>
-            <option value="userID">아이디</option>
+            <option value="userNM">강의명</option>
+            <option value="userID">강사명</option>
         </select>
         <div class="input-group input-group-sm">
-            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어">
+            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+                <span class="input-group-btn">
+               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+           		</span>
             </span>
         </div>
-    </form>
+  	  </form>
+  	  
+		<br/>
 </div>
 
                		 

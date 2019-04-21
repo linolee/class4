@@ -6,9 +6,26 @@
                   <div class="card-header">
                     <i class="fa fa-align-justify"></i> 블랙리스트</div>
                   <div class="card-body">
-                    블랙리스트 찾기
-                <input type="text"/>
-                <input type="button" value="검색" class="btnT"/><br/><br/>
+                  
+					<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
+				        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
+				        <select name="where" class="form-control input-sm">
+				            <option value="userNM">이름</option>
+				            <option value="userID">아이디</option>
+				        </select>
+				        <div class="input-group input-group-sm">
+				            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+				            <span class="input-group-btn">
+				                <span class="input-group-btn">
+				               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+				           		</span>
+				            </span>
+				        </div>
+			  	  </form>
+			  	  
+					<br/>
+
+
                     <table class="table table-responsive-sm">
                       <thead>
                         <tr>
@@ -102,6 +119,9 @@
                       </li>
                       <li class="page-item">
                         <a class="page-link" href="#">4</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">5</a>
                       </li>
                       <li class="page-item">
                         <a class="page-link" href="#">Next</a>
