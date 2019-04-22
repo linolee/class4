@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>GGGGGGGGG</title>
+<title>112233</title>
 <style type="text/css">
 #file { display:none; } 
 </style>
@@ -55,18 +55,18 @@ $(function(){
           <ul class="nav">
             <li class="nav-title">고객센터</li>
             <li class="nav-item">
-              <a class="nav-link" href="#void">
+              <a class="nav-link" href="template.do?page=question">
                 <i class="nav-icon icon-drop"></i> 문의관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#void">
+              <a class="nav-link" href="template.do?page=charge">
                 <i class="nav-icon icon-pencil"></i> 신고관리</a>
             </li>
             <li class="nav-title">강의관리</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="#void">
+              <a class="nav-link nav-dropdown-toggle" href="template.do?page=lecturePermit">
                 <i class="nav-icon icon-puzzle"></i> 강의개설 승인</a>
-         
+
             </li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="template.do?page=lecture">

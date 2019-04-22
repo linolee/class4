@@ -14,6 +14,21 @@ public class AdminController {
 		return "admin/template";
 	}
 	
+	@RequestMapping(value="/admin/question.do",method=GET)
+	public String questionPage() {
+		
+		return "admin/template.do?page=question";
+	}
+	@RequestMapping(value="/admin/charge.do",method=GET)
+	public String chargePage() {
+		
+		return "admin/template.do?page=chage";
+	}
+	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
+	public String lecturePermitPage() {
+		
+		return "admin/template.do?page=lecture";
+	}
 	@RequestMapping(value="/admin/lecture.do",method=GET)
 	public String lecturePage() {
 		
