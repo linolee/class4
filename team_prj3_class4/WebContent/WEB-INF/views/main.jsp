@@ -48,15 +48,15 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<c:import url="header/header.jsp"></c:import>
+			<c:import url="user/header/header.jsp"></c:import>
 		</div>
 		<div id="container">
 			<div class="areaFix">
-				<a href="userPage.do">회원정보</a>
+				<a href="member/userPage.do">회원정보</a>
 			</div>
 		</div>
 		<div id="footer">
-			<c:import url="footer/footer.jsp" />
+			<c:import url="user/footer/footer.jsp" />
 		</div>
 
 
