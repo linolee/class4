@@ -2,10 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%!
-	String serverDomain = "http://211.63.89.152:8080";
+	/* String serverDomain = "http://211.63.89.152:8080"; */
+	String serverDomain = "http://localhost:8080";
 	/* 바꿀 때 푸터도 바꿀 것 */
 %>
-				<!-- 서버 컴퓨터 주소 하드코딩 중....... 서버컴퓨터 주소를 상수로 두고 그 값을 받아서 지정하면 될꺼같음 -->
 			<div class="areaFix">
 				<div id="personalMenu">
 					<ul>
