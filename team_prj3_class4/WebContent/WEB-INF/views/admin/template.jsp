@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>CCC</title>
+<title>GG</title>
 <style type="text/css">
 #file { display:none; } 
 </style>
@@ -15,7 +15,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
-<script src="<c:url value="/resources/admin/js/bootstrap.js" />"></script>
+<script src="<c:url value="/resources/admin/js/bootstrap.min.js" />"></script>
+
 	
 	
 	
