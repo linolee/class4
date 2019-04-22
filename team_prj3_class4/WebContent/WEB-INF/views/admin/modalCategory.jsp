@@ -19,7 +19,7 @@
                     
                     
                     
-				<div style="border: 1px solid gold; margin-bottom:30px;" >
+				<div style="border: 1px solid gold; margin-bottom:30px; width:465px;" >
 						카테고리명 
 						<div>
 						<input type="text" name="categoryTitle" class="form-control col-5" maxlength="30"  style="width:100px; margin-bottom:30px">
