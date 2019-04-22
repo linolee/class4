@@ -9,18 +9,18 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.admin.domain.MemberDomain;
+import kr.co.sist.admin.domain.MemberListDomain;
 
-public class AdminDAO {
+public class MemberListDAO {
 
-	private  static AdminDAO a_dao;
+	private  static MemberListDAO a_dao;
 	private SqlSessionFactory ssf;
 	
-	public static AdminDAO getInstance() {
+	public static MemberListDAO getInstance() {
 		
 		if(a_dao==null) {
 			/*org.apache.ibatis.logging.LogFactory.useLog4JLogging();*/
-			a_dao=new AdminDAO();
+			a_dao=new MemberListDAO();
 		}
 		return a_dao;
 	}
@@ -42,17 +42,17 @@ public class AdminDAO {
 		return ssf;
 	}
 	
-	public List<MemberDomain> selectMember() {
-		List<MemberDomain> list=null;
+	public List<MemberListDomain> selectAllMember() {
+		List<MemberListDomain> list=null;
 		
-		AdminDAO.a_dao=AdminDAO.getInstance();
+		MemberListDAO.a_dao=MemberListDAO.getInstance();
 		SqlSession ss=a_dao.getSessionFactory().openSession();
 		
 		list=ss.selectList("selectClient");
 		/*for(int i=0;i<list.size();i++) {
 			System.out.println(1);
 		}*/
-		MemberDomain md=null;
+		MemberListDomain md=null;
 		
 		for(int i=0;i<list.size();i++) {
 			md=list.get(i);
@@ -67,8 +67,8 @@ public class AdminDAO {
 
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
-		AdminDAO adao=new AdminDAO();
-		adao.selectMember();
+		MemberListDAO adao=new MemberListDAO();
+		adao.selectAllMember();
 	}
 
 	

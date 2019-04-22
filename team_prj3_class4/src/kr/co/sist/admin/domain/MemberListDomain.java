@@ -1,9 +1,9 @@
 package kr.co.sist.admin.domain;
 
-public class MemberDomain {
+public class MemberListDomain {
 	private String client_id, name, birth, gender, email;
 
-	public MemberDomain(String client_id, String name, String birth, String gender, String email) {
+	public MemberListDomain(String client_id, String name, String birth, String gender, String email) {
 		this.client_id = client_id;
 		this.name = name;
 		this.birth = birth;

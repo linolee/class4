@@ -28,7 +28,7 @@
 				<div style="border: 1px solid gold">
 						<input type="hidden" name="page" value="category">
 						<input type="file" id="file" name="file" class="file"/>
-						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">사진a 변경</button>
+						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">사진 변경</button>
 	                  	<img src="category.png" align="left" style="padding-bottom:30px; max-width: 70%; height: auto; margin-right:10px;" id="foo">
 				</div>
 

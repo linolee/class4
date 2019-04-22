@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.admin">
 
-<resultMap type="kr.co.sist.admin.domain.MemberDomain" id="MemberDomain">
+<resultMap type="kr.co.sist.admin.domain.MemberListDomain" id="MemberListDomain">
 	<result column="client_id" property="client_id"/>
 	<result column="name" property="name"/>
 	<result column="birth" property="birth"/>
@@ -15,7 +15,7 @@
 
 
 
-<select id="selectClient" resultMap="MemberDomain">
+<select id="selectClient" resultMap="MemberListDomain">
 select client_id, name, birth, gender, email
 from client
 </select>
