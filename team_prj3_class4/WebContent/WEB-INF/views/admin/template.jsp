@@ -88,6 +88,10 @@ $(function(){
                 <i class="nav-icon icon-star"></i> 카테고리</a>
               <a class="nav-link nav-dropdown-toggle" href="template.do?page=title">
                 <i class="nav-icon icon-star"></i> 타이틀</a>
+              <a class="nav-link nav-dropdown-toggle" href="template.do?page=test">
+                <i class="nav-icon icon-star"></i> TEST</a>
+              <a class="nav-link nav-dropdown-toggle" href="template.do?page=test2">
+                <i class="nav-icon icon-star"></i> TEST2</a>
           </ul>
         </nav>
       </div>

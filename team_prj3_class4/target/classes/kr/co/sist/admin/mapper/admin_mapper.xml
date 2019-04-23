@@ -12,6 +12,11 @@
 	<result column="email" property="email"/>
 </resultMap>
 
+<select id="clientTotalCnt" resultType="int">
+	select count(*) cnt 
+	from client
+</select>
+
 
 
 
