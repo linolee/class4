@@ -13,6 +13,20 @@
 	// }
 %>
 
+<script type="text/javascript">
+
+ $(function(){
+
+	 /* 모달 import??? */
+		$("a[href='#modalUserInfo']").click(function(){
+			
+		});
+	
+}); 
+
+
+</script>
+
 <!--  -->
 <div class="card">
 	<div class="card-header">
@@ -66,26 +80,13 @@
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
 					<td><c:out value="${ member.email }"/></td>
-
-<%-- 	<%
-		String client_id="";
-		String name="";
-		String birth="";
-		String gender="";
-		String email="";
-
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-	%> --%>
 					
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo" value="${member.client_id}"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList" value="${member.client_id}"><span class="badge badge-warning">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo" value="${member.client_id}"><span class="badge badge-primary">강사정보</span></a>
+							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">2상세정보</span></a> 
+							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
+							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
+							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>
@@ -111,7 +112,16 @@
 		</div>
 	</div>
 </div>
-<c:import url="modalUserInfo.jsp"/>
+
+<%-- <c:if test="${ not empty param.modal }">
+	<c:import url="${ param.modal }.jsp"/>
+</c:if> --%>
+
+<%-- <c:if test="${ not empty memberModal }">
+	<c:import url="${memberModal }.jsp"/>
+</c:if>  --%>
+
+<c:import url="modalUserInfo.jsp"/> 
 <c:import url="modalAddBlackList.jsp"/>
 <c:import url="modalTeacherInfo.jsp"/>
 <!--  -->
