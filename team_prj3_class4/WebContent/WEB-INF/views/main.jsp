@@ -52,7 +52,8 @@
 		</div>
 		<div id="container">
 			<div class="areaFix">
-				<a href="member/userPage.do">회원정보</a>
+				<a href="member/userPage.do">회원정보</a><br>
+				<a href="teacher/classStatus.do">강사마이페이지</a>
 			</div>
 		</div>
 		<div id="footer">
