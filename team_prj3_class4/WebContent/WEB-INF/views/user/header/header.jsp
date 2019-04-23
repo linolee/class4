@@ -9,9 +9,9 @@
 			<div class="areaFix">
 				<div id="personalMenu">
 					<ul>
-						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/report.do">관리자 문의</a></li>
+						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">관리자 문의</a></li>
 						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/join.do">회원가입</a></li>
-						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/login.do">로그인</a></li>
+						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/loginPage.do">로그인</a></li>
 					</ul>
 				</div>
 				<div id="headerContent">

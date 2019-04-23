@@ -32,29 +32,31 @@
 		<div id="container">
 			<div class="areaFix">
 				<div id="login">
-					<div id="loginInput">
-						<div id="loginNotice">가입하신 아이디와 비밀번호를 입력해주세요.</div>
-						<div id="loginID">
-							<input type="text" class="inputBox" name="id" placeholder="아이디">
+					<form action="login.do" method="post">
+						<div id="loginInput">
+							<div id="loginNotice">가입하신 아이디와 비밀번호를 입력해주세요.</div>
+							<div id="loginID">
+								<input type="text" class="inputBox" name="id" placeholder="아이디">
+							</div>
+							<div id="loginPass">
+								<input type="password" class="inputBox" name="pass" placeholder="*******">
+							</div>
 						</div>
-						<div id="loginPass">
-							<input type="password" class="inputBox" name="pass" placeholder="*******">
+						<div id="loginBtnDiv">
+							<input type="submit" value="로그인">
 						</div>
-					</div>
-					<div id="loginBtnDiv">
-						<input type="submit" value="로그인">
-					</div>
-					
-					<div id="loginOptionDiv">
-						<table>
-							<tr>
-								<td><a href="findID.do">아이디 찾기</a></td>
-								<td><a href="findPass.do">비밀번호 찾기</a></td>
-								<td><a href="join.do">회원가입</a></td>
-								
-							</tr>
-						</table>
-					</div>
+						
+						<div id="loginOptionDiv">
+							<table>
+								<tr>
+									<td><a href="findID.do">아이디 찾기</a></td>
+									<td><a href="findPass.do">비밀번호 찾기</a></td>
+									<td><a href="join.do">회원가입</a></td>
+									
+								</tr>
+							</table>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>

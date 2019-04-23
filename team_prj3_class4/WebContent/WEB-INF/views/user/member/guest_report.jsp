@@ -1,4 +1,4 @@
-%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>당신을 위한 수업★Class4★</title>
+<title>Class4-관리자 문의</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
+<link href="<c:url value="/resources/css/report.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
@@ -31,13 +32,6 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-	
-<!-- tab -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <!-- include summernote css/js -->
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css"
@@ -48,15 +42,28 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<c:import url="header/header.jsp"></c:import>
+			<c:import url="../header/header.jsp"></c:import>
 		</div>
 		<div id="container">
-			<c:if test="${empty param.page }"><c:set var="page" value="user/login.jsp" /></c:if>
-			<c:set var="page" value="user/userPage.jsp" />
-			<c:import url="${page }" />
+			<div class="areaFix">
+				<h3>관리자 문의</h3>
+				<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
+				<input type="text" id="reportEmail" placeholder="회신을 받을 이메일을 입력해주세요.">
+				<div id="summernote"></div>
+				<script>
+					$('#summernote').summernote({
+						placeholder : '신고 내용을 입력해주세요.',
+						tabsize : 2,
+						height : 300
+					});
+				</script>
+				<div id="reportBtnDiv">
+					<input type="submit" value="제출하기" id="reportSubmitBtn">
+				</div>
+			</div>
 		</div>
 		<div id="footer">
-			<c:import url="footer/footer.jsp" />
+			<c:import url="../footer/footer.jsp" />
 		</div>
 
 
