@@ -49,11 +49,16 @@
 		}
 	}
 </script>
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+
 
 </head>
 <body>
 <div id="wrap">
-
+	<div id="header">
+		<c:import url="../header/header.jsp"></c:import>
+	</div>
 	<div id="container">
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
@@ -87,6 +92,9 @@
 				<c:import url="update_profile.jsp"/>
 			</div>
 		</div>
+	</div>
+	<div id="footer">
+		<c:import url="../footer/footer.jsp" />
 	</div>
 </div>
 
