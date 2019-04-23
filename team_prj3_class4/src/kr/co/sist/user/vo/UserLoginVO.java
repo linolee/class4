@@ -25,4 +25,10 @@ public class UserLoginVO {
 		this.pass = pass;
 	}
 
+	@Override
+	public String toString() {
+		return "UserLoginVO [Id=" + Id + ", pass=" + pass + "]";
+	}
+
+	
 }
