@@ -17,7 +17,7 @@ public class UserController {
 		return "main";
 	}//mainPage
 	
-	@RequestMapping(value="user/member/login.do",method=GET)
+	@RequestMapping(value="user/member/loginPage.do",method=GET)
 	public String loginPage() {
 		
 		return "user/member/login";
@@ -49,6 +49,12 @@ public class UserController {
 	public String reportPage() {
 		
 		return "user/member/report";
+	}//reportPage
+	
+	@RequestMapping(value="user/member/guest_report.do",method=GET)
+	public String guestReportPage() {
+		
+		return "user/member/guest_report";
 	}//reportPage
 
 	@RequestMapping(value="user/terms.do",method=GET)

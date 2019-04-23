@@ -6,6 +6,11 @@
 	margin-bottom: 10px;
 }
 
+#reportEmail {
+	width: 40%;
+	margin-bottom: 10px;
+}
+
 #reportBtnDiv {
 	text-align: center;
 	font-size: 30px;
