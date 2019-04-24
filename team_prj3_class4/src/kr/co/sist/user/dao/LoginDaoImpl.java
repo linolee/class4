@@ -11,21 +11,13 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import kr.co.sist.user.domain.LoginDomain;
 import kr.co.sist.user.vo.UserLoginVO;
 
-public class UserLoginDAO {
+public class LoginDaoImpl implements LoginDAO{
 		
-		private static UserLoginDAO ul_dao;
 		private SqlSessionFactory ssf=null;
 		
-		private UserLoginDAO() {
+		public LoginDaoImpl() {
 			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
-		}//DAO
-		
-		public static UserLoginDAO getInstance() {
-			if( ul_dao == null ) {
-				ul_dao=new UserLoginDAO();
-			}//end if
-			return ul_dao;
-		}//getInstance
+		}
 		
 		public synchronized SqlSessionFactory getSessionFactory() {
 			if( ssf == null) {
@@ -59,7 +51,7 @@ public class UserLoginDAO {
 		
 		
 		public static void main(String[] args) {
-			UserLoginDAO user_dao = new UserLoginDAO();
+			LoginDaoImpl user_dao = new LoginDaoImpl();
 //			user_dao.selectAccount(new UserLoginVO("linolee", "1234"));
 			LoginDomain ld = user_dao.selectAccount(new UserLoginVO("linolee", "1234"));
 			ld = user_dao.selectAccount(new UserLoginVO("linolee", "1222"));
