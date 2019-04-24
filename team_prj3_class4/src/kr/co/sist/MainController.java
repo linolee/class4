@@ -80,4 +80,9 @@ public class MainController {
 	public String login(HttpServletRequest request, HttpServletResponse response) {
 		return uc.login(request, response);
 	}//loginPage
+	
+	@RequestMapping(value="user/mainContents/mainContents.do",method=GET)
+	public String mainContentPage() {
+		return "user/mainContents/mainContents";
+	}//termsPage
 }
