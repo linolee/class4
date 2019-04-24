@@ -1,6 +1,6 @@
 package kr.co.sist.user.domain;
 
-public class LoginDomain {
+public class Client {
 	private String client_id, name, status;
 
 	public String getClient_id() {

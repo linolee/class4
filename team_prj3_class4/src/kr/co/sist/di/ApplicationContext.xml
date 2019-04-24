@@ -3,9 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 	<!-- 의존성 주입할 객체 생성 -->
-	<bean class="kr.co.sist.user.controller.UserControllerImpl" id="UserController" scope="singleton">
-		<constructor-arg ref="UserLoginService"/>
-	</bean>	
 	<bean class="kr.co.sist.user.service.UserLoginServiceImpl" id="UserLoginService" scope="singleton">
 		<constructor-arg ref="LoginDAO"/>
 	</bean>	

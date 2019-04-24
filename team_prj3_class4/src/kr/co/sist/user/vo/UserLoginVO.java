@@ -4,7 +4,6 @@ public class UserLoginVO {
 	private String Id, pass;
 
 	public UserLoginVO(String id, String pass) {
-		super();
 		Id = id;
 		this.pass = pass;
 	}

@@ -9,6 +9,7 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,62 +28,5 @@ import kr.co.sist.user.vo.UserLoginVO;
  */
 @Controller
 public class MainController {
-	UserController uc;
-	public MainController() {
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
-		uc = ac.getBean("UserController", UserController.class);
-	}
 	
-	@RequestMapping(value="user/main.do",method=GET)
-	public String mainPage() {
-		return uc.mainPage();
-	}//mainPage
-	
-	@RequestMapping(value="user/member/loginPage.do",method=GET)
-	public String loginPage() {
-		return uc.loginPage();
-	}//loginPage
-	@RequestMapping(value="user/member/findID.do",method=GET)
-	public String findIDPage() {
-		return uc.findIDPage();
-	}//findIDPage
-	@RequestMapping(value="user/member/findPass.do",method=GET)
-	public String findPassPage() {
-		return uc.findPassPage();
-	}//findPassPage
-	
-	@RequestMapping(value="user/member/join.do",method=GET)
-	public String joinPage() {
-		return uc.joinPage();
-	}//joinPage
-
-	@RequestMapping(value="user/member/userPage.do",method=GET)
-	public String userPage() {
-		return uc.userPage();
-	}//userPage
-	
-	@RequestMapping(value="user/member/report.do",method=GET)
-	public String reportPage() {
-		return uc.reportPage();
-	}//reportPage
-	
-	@RequestMapping(value="user/member/guest_report.do",method=GET)
-	public String guestReportPage() {
-		return uc.guestReportPage();
-	}//reportPage
-
-	@RequestMapping(value="user/terms.do",method=GET)
-	public String termsPage() {
-		return uc.termsPage();
-	}//termsPage
-	
-	@RequestMapping(value="user/member/login.do",method=POST)
-	public String login(HttpServletRequest request, HttpServletResponse response) {
-		return uc.login(request, response);
-	}//loginPage
-	
-	@RequestMapping(value="user/mainContents/mainContents.do",method=GET)
-	public String mainContentPage() {
-		return "user/mainContents/mainContents";
-	}//termsPage
 }

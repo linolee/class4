@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.user.domain.LoginDomain;
+import kr.co.sist.user.domain.Blacklist;
+import kr.co.sist.user.domain.Client;
+import kr.co.sist.user.domain.DeletedUser;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public class LoginDaoImpl implements LoginDAO{
@@ -24,14 +26,10 @@ public class LoginDaoImpl implements LoginDAO{
 				
 				Reader reader=null;
 				try {
-					//1. 설정용 xml로딩
 					reader=Resources.getResourceAsReader("kr/co/sist/user/dao/mybatis_config.xml");
-					//2. MyBatis Framework 생성
 					SqlSessionFactoryBuilder ssfb=new SqlSessionFactoryBuilder();
-					//3. DB와 연동된 객체 받기
 					ssf=ssfb.build(reader);
 					if( reader != null ){ reader.close(); }//end if
-						
 				}catch(IOException ie) {
 					ie.printStackTrace();
 				}//end catch
@@ -39,35 +37,42 @@ public class LoginDaoImpl implements LoginDAO{
 			return ssf;
 		}//getSqlSessionFactory
 		
-		public LoginDomain selectAccount(UserLoginVO ulvo){
+		public Client selectClient(UserLoginVO ulvo){
 			SqlSession ss=getSessionFactory().openSession();
 			
-			LoginDomain ld=ss.selectOne("selectAccount", ulvo);
+			Client client=ss.selectOne("selectClient", ulvo);
 			
 			ss.close();
-			
-			return ld;
+			return client;
 		}//selectMainNotice
 		
 		
+
+		@Override
+		public Blacklist selectBlacklist(String userId) {
+			SqlSession ss=getSessionFactory().openSession();
+			
+			Blacklist blacklist=ss.selectOne("selectBlacklist", userId);
+			
+			ss.close();
+			return blacklist;
+		}
+
+		@Override
+		public DeletedUser selectDeletedUser(String userId) {
+			SqlSession ss=getSessionFactory().openSession();
+			
+			DeletedUser deletedUser=ss.selectOne("selectDeletedUser", userId);
+			
+			ss.close();
+			return deletedUser;
+		}
+		
 		public static void main(String[] args) {
-			LoginDaoImpl user_dao = new LoginDaoImpl();
-//			user_dao.selectAccount(new UserLoginVO("linolee", "1234"));
-			LoginDomain ld = user_dao.selectAccount(new UserLoginVO("linolee", "1234"));
-			ld = user_dao.selectAccount(new UserLoginVO("linolee", "1222"));
-			
-			System.out.println(ld);
-//			System.out.println(ld.getClient_id()+"/"+ld.getName()+"/"+ld.getStatus());
-			
+			LoginDaoImpl ldi = new LoginDaoImpl();
+			System.out.println(ldi.selectBlacklist("1"));
+			System.out.println(ldi.selectDeletedUser("2"));
 		}
 		
 	}//class
-
-
-
-
-
-
-
-
 
