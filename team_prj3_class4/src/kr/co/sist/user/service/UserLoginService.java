@@ -8,5 +8,5 @@ import kr.co.sist.user.domain.Client;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public interface UserLoginService {
-	public String login(UserLoginVO ulvo);
+	public String login(UserLoginVO ulvo, HttpSession session);
 }
