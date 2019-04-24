@@ -13,11 +13,16 @@
 	// }
 %>
 
+
+
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 회원 조회
+		<i class="fa fa-align-justify"></i> 신고관리
 
+		
+		
+		
 	</div>
 	<div class="card-body">
 		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
@@ -41,12 +46,12 @@
 		<table class="table table-responsive-sm">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
-					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
-					<th width="200px">비고</th>
+					<th width="200px">강의코드</th>
+					<th width="200px">강의명</th>
+					<th width="200px">강사명</th>
+					<th width="100px">누적횟수</th>
+					<th width="300px">승인횟수</th>
+					<th width="200px">현재상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -66,26 +71,11 @@
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
 					<td><c:out value="${ member.email }"/></td>
-
-<%-- 	<%
-		String client_id="";
-		String name="";
-		String birth="";
-		String gender="";
-		String email="";
-
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-	%> --%>
-					
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo" value="${member.client_id}"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList" value="${member.client_id}"><span class="badge badge-warning">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo" value="${member.client_id}"><span class="badge badge-primary">강사정보</span></a>
+							<a data-toggle="modal" href="#modalUserInfo"><span	class="badge badge-primary">상세정보</span></a> 
+							<a data-toggle="modal" href="#modalAddBlackList"><span class="badge badge-primary">블랙리스트 등록</span></a> 
+							<a data-toggle="modal" href="#modalTeacherInfo"><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>
@@ -104,8 +94,7 @@
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">4</a></li>
 					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a>
-					</li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
 				</ul>
 			</div>
 		</div>
