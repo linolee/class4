@@ -42,7 +42,7 @@
 			<ul id='slider4'>
 			    <li style='display:block'>
 			    <div id="TitleImg1">
-			    	1번 이미지
+			    	1번 이미지      
 				</div></li>
 			    <li><div id="TitleImg2">
 					2번 이미지
