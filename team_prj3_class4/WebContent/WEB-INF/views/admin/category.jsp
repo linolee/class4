@@ -113,20 +113,13 @@ $(function () {
                   <div class="card-body">
                 <div style="text-align: right">
 	                <div style="display: inline-block;">
-	                  	<button type="button" class="btn btn-pill btn-block btn-light active col-3" align="right" data-toggle="modal" data-target="#modalAddCategory">카테고리 추가</button>
+	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory">카테고리 추가</button>
 	                </div>
                  </div>
                   
 				<div class="card">
                   <div class="card-body">
                     <table class="table table-responsive-sm">
-                    <thead>
-						<tr>
-							<th width="200px">아이디</th>
-							<th width="200px">이름</th>
-							<th width="200px">생년월일</th>
-						</tr>
-					</thead>
              <tbody>
 					<tr>
                           <td>음악</td>

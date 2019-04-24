@@ -10,19 +10,20 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.MemberIdxVO;
 
 public class MemberListDAO {
 
-	private  static MemberListDAO a_dao;
+	private  static MemberListDAO m_dao;
 	private SqlSessionFactory ssf;
 	
 	public static MemberListDAO getInstance() {
 		
-		if(a_dao==null) {
+		if(m_dao==null) {
 			/*org.apache.ibatis.logging.LogFactory.useLog4JLogging();*/
-			a_dao=new MemberListDAO();
+			m_dao=new MemberListDAO();
 		}
-		return a_dao;
+		return m_dao;
 	}
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
@@ -44,31 +45,52 @@ public class MemberListDAO {
 	
 	public List<MemberListDomain> selectAllMember() {
 		List<MemberListDomain> list=null;
-		
-		MemberListDAO.a_dao=MemberListDAO.getInstance();
-		SqlSession ss=a_dao.getSessionFactory().openSession();
-		
+
+		MemberListDAO.m_dao=MemberListDAO.getInstance();
+		SqlSession ss=m_dao.getSessionFactory().openSession();
+
 		list=ss.selectList("selectClient");
 		/*for(int i=0;i<list.size();i++) {
 			System.out.println(1);
 		}*/
 		MemberListDomain md=null;
-		
+
 		for(int i=0;i<list.size();i++) {
 			md=list.get(i);
 			System.out.println(md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
-			
+
 		}
 		ss.close();
 		return list;
 	}
 
+	public int selectTotalCount() {
+
+		MemberListDAO.m_dao=MemberListDAO.getInstance();
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.selectOne("clientTotalCnt");
+		ss.close();
+
+		return cnt;
+	} // selectTotalCount
+	
+/*	public List<MemberListDomain> selectList(MemberIdxVO mIdxVO){
+		List<MemberListDomain> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("diaryList",dv);
+		ss.close();
+		return list;
+	}//selectList
+*/	
+	
+	
 
 
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
-		adao.selectAllMember();
+		/*adao.selectAllMember();*/
+		System.out.println(adao.selectTotalCount());
 	}
 
 	
