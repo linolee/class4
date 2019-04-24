@@ -9,9 +9,19 @@
 			<div class="areaFix">
 				<div id="personalMenu">
 					<ul>
-						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">관리자 문의</a></li>
-						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/join.do">회원가입</a></li>
-						<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/loginPage.do">로그인</a></li>
+						<c:choose>
+							<c:when test="${sessionScope.client_id ne null }"><!-- 로그인이 되어 있을 때 -->
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">수강생 페이지</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">강사 페이지</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/userPage.do">회원정보</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/loginPage.do">로그아웃</a></li>
+							</c:when>
+							<c:otherwise><!-- 로그인이 되어 있지 않을 때 -->
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">관리자 문의</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/join.do">회원가입</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/loginPage.do">로그인</a></li>
+							</c:otherwise>
+						</c:choose>
 					</ul>
 				</div>
 				<div id="headerContent">
