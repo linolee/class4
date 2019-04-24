@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Handles requests for the application home page.
  */
 @Controller
-public class UserController {
+public class UserController implements kr.co.sist.user.controller.Controller{
 	
 	@RequestMapping(value="user/main.do",method=GET)
 	public String mainPage() {
