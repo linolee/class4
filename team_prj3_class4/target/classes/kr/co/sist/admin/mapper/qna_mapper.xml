@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin.qna">
+
+<resultMap type="kr.co.sist.admin.domain.QnaQuestionList" id="qlResult">
+	<result column="q_subject" property="qSubject"/>
+	<result column="name" property="name"/>
+	<result column="q_date" property="qDate"/>
+	<result column="a_date" property="aDate"/>
+</resultMap>
+
+<select id="selectQnaQuestionList" resultMap="qlResult">
+select q.Q_SUBJECT, c.NAME, Q_DATE, A_DATE
+from QNA q, CLIENT c
+where (q.CLIENT_ID = c.CLIENT_ID)
+order by q.Q_DATE
+</select>
+
+
+</mapper>
