@@ -63,4 +63,10 @@ public class UserController {
 		return "user/terms/terms";
 	}//termsPage
 	
+	@RequestMapping(value="user/mainContents/mainContents.do",method=GET)
+	public String mainContentPage() {
+		
+		return "user/mainContents/mainContents";
+	}//termsPage
+	
 }

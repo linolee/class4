@@ -55,6 +55,11 @@
 				<a href="member/userPage.do">회원정보</a>
 			</div>
 		</div>
+		<div id="container2">
+			<div class="areaFix">
+				<a href="mainContents/mainContents.do">메인화면</a>
+			</div>
+		</div>
 		<div id="footer">
 			<c:import url="user/footer/footer.jsp" />
 		</div>
