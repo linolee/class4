@@ -7,6 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
+		<config>src/kr/co/sist/di/ApplicationContext.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>WebContent/WEB-INF/spring/appServlet/servlet-context.xml</config>
