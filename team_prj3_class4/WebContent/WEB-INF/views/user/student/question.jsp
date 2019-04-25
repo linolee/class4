@@ -99,12 +99,8 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 .agree input{margin:0 5px -2px 0;vertical-align:middle}
 .agree label{display:inline-block;vertical-align:middle}
 #wrap{ margin: 0px auto; width: 1100px; height: 1000px;}
-#headerTitle{font-family: HY견고딕, 고딕; font-size: 30px; font-weight: bold; text-align: center;
-					position: absolute; top: 40px; left: 290px;}
 #container{ margin: 0px auto; width: 1100px; min-height: 740px;}
 .questionContent{background-color: #F4F4F4; padding-left: 100px;}
-#footer{ margin: 0px auto; width: 1100px; height: 120px;}
-#footerTitle{ float: right; font-size: 15px; padding-top: 20px; padding-right: 20px}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">

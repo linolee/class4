@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/main_v190130.css">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
 body{font-family:Dotum, "돋움", verdana, sans-serif;font-size:12px;color:#666;background-color:#fff;min-width:960px}
 body, ul, ol, li, dt, dl, dd, div, h1, h2, h3, h4, h5, h6, p, form, fieldset, blockquote, iframe, input, object, table, tr, th, td, select, textarea{margin:0;padding:0;font-family:Dotum, "돋움", verdana, sans-serif;font-size:12px;color:#666}
@@ -99,12 +101,8 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 #wrap{ margin: 0px auto; width: 1100px; height: 1000px;}
 #header{ margin: 0px auto; width: 1100px; height: 140px; background: #FFFFFF url(http://localhost:8080/jsp_prj/common/images/header_bg.png);
 			position: relative}
-#headerTitle{font-family: HY견고딕, 고딕; font-size: 30px; font-weight: bold; text-align: center;
-					position: absolute; top: 40px; left: 290px;}
 #container{ margin: 0px auto; width: 1100px; min-height: 740px;}
 .questionContent{background-color: #F4F4F4; padding-left: 100px;}
-#footer{ margin: 0px auto; width: 1100px; height: 120px;}
-#footerTitle{ float: right; font-size: 15px; padding-top: 20px; padding-right: 20px}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -116,10 +114,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 <body>
 <div id="wrap">
 	<div id="header">
-		<div id="headerTitle">SIST Class4</div>
-		<div style="padding-top: 100px">
-			<c:import url="../common/jsp/main_menu.jsp"></c:import>
-		</div>
+		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
 		<div id="content" class="help">
@@ -229,7 +224,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 	
 	</div>
 	<div id="footer">
-		<div id="footerTitle">copyright&copy; all right reserved class 4</div>
+		<c:import url="../footer/footer.jsp" />
 	</div>
 </div>
 </body>

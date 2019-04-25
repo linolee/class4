@@ -12,8 +12,6 @@
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
 #wrap{ margin: 0px auto; width: 1100px; height: 860px;}
-#headerTitle{font-family: 'Nanum Myeongjo', serif; font-size: 30px; font-weight: bold; text-align: center;
-					position: absolute; top: 40px; left: 290px;}
 #mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
 			font-size: 50px; font-weight:300; color:#2B2B2B;  text-align: left; top: 40px; left: 290px;}
 #headerTitle2{font-size: 30px; font-weight: normal; color:#757575; text-align: left;
@@ -39,8 +37,6 @@
 #writeFrm{background-color: #FFFFFF; border: 1px solid #CCCCCC;
 			box-shadow: 5px 5px 5px #444444; width:500px;
 			padding: 10px}
-#footer{ margin: 0px auto; width: 1100px; height: 120px;}
-#footerTitle{ float: right; font-size: 15px; padding-top: 20px; padding-right: 20px}
 .status{margin:0px auto;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
