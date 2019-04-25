@@ -2,11 +2,15 @@ package kr.co.sist.admin.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import kr.co.sist.admin.domain.LectureListDomain;
+import kr.co.sist.admin.domain.MemberListDomain;
 
 public class LectureDAO {
 
@@ -35,6 +39,27 @@ public class LectureDAO {
 		return ssf;
 	}
 	
+	public List<LectureListDomain> selectLectureList(){
+		List<LectureListDomain> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectLectureList");
+		
+		LectureListDomain lld=null;
 
+		for(int i=0;i<list.size();i++) {
+			lld=list.get(i);
+			System.out.println(lld.getLcode()+" / "+lld.getCategory());
+
+		}
+		
+		ss.close();
+		return list;
+	}
+	
+	public static void main(String[] args) {
+		LectureDAO ldao=new LectureDAO();
+		ldao.selectLectureList();
+	}
 	
 }

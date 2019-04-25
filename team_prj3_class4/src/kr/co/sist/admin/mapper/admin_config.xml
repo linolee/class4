@@ -18,7 +18,9 @@
 		</environment>
 	</environments>
 <mappers>
-	<mapper resource="kr/co/sist/admin/mapper/admin_mapper.xml"/>	
-	<mapper resource="kr/co/sist/admin/mapper/qna_mapper.xml"/>	
+	<mapper resource="kr/co/sist/admin/mapper/member_mapper.xml"/>	
+	<mapper resource="kr/co/sist/admin/mapper/qna_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/lecture_mapper.xml"/>
+	<!-- <mapper resource="kr/co/sist/admin/mapper/teacherPermit_mapper.xml"/> -->
 </mappers>	
 </configuration>

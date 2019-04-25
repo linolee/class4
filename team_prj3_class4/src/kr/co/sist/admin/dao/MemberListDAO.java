@@ -92,8 +92,8 @@ public class MemberListDAO {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
 		adao.selectAllMember();
-		System.out.println(adao.selectTotalCount());
-		System.out.println(adao.teacherInfo("in11202"));
+		/*System.out.println(adao.selectTotalCount());
+		System.out.println(adao.teacherInfo("in11202"));*/
 		
 	}
 

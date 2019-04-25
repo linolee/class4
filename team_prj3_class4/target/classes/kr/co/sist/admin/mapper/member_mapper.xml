@@ -23,8 +23,6 @@
 	where status='Y' and client_id=#{id}
 </select>
 
-
-
 <select id="selectClient" resultMap="MemberListDomain">
 select client_id, name, birth, gender, email
 from client
