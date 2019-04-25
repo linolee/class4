@@ -67,23 +67,23 @@
 						<table>
 							<tr>
 								<th>이름</th>
-								<td colspan="${fn:length(client_favor) }">${client_name}</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.name}</td>
 							</tr>
 							<tr>
 								<th>아이디</th>
-								<td colspan="${fn:length(client_favor) }">${client_id }</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.client_id }</td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
-								<td colspan="${fn:length(client_favor) }">${client_birth }</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.birth }</td>
 							</tr>
 							<tr>
 								<th>휴대전화</th>
-								<td colspan="${fn:length(client_favor) }">${client_tel }</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.tel }</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td colspan="${fn:length(client_favor) }">${client_email }</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.email }</td>
 							</tr>
 							<tr>
 								<th>관심목록</th>
@@ -130,8 +130,8 @@
 			</div>
 
 			<script>
-	$("#tabs").tabs();
-</script>
+				$("#tabs").tabs();
+			</script>
 		</div>
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />

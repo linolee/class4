@@ -80,15 +80,7 @@ public class UserController {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			ClientInfo clientInfo = ups.clientInfo(client_id);
-			model.addAttribute("client_id", clientInfo.getClient_id());
-			model.addAttribute("client_name", clientInfo.getName());
-			model.addAttribute("client_birth", clientInfo.getBirth());
-			model.addAttribute("client_gender", clientInfo.getGender());
-			model.addAttribute("client_email", clientInfo.getEmail());
-			model.addAttribute("client_status", clientInfo.getStatus());
-			model.addAttribute("client_tel", clientInfo.getTel());
-			model.addAttribute("client_inputdate", clientInfo.getInputdate());
-			model.addAttribute("client_info", clientInfo);
+			model.addAttribute("clientInfo", clientInfo);
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
 			return "user/member/userPage";
