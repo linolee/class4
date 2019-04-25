@@ -3,15 +3,34 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mapper.login_mapper">
-<resultMap type="kr.co.sist.user.domain.LoginDomain" id="loginResult">
+<resultMap type="kr.co.sist.user.domain.Client" id="Client">
 	<result column="client_id" property="client_id"/>
 	<result column="name" property="name"/>
 	<result column="status" property="status"/>
 </resultMap>
-<select id="selectAccount" resultMap="loginResult" parameterType="kr.co.sist.user.vo.UserLoginVO">
+<select id="selectClient" resultMap="Client" parameterType="kr.co.sist.user.vo.UserLoginVO">
 	select client_id, name, status
 	from client
 	where client_id = #{id} and pass=#{pass} 
+</select>
+<resultMap type="kr.co.sist.user.domain.Blacklist" id="Blacklist">
+	<result column="client_id" property="client_id"/>
+	<result column="reason" property="reason"/>
+	<result column="b_date" property="b_date"/>
+</resultMap>
+<select id="selectBlacklist" resultMap="Blacklist" parameterType="String">
+	select client_id, reason, b_date
+	from blacklist
+	where client_id = #{id} 
+</select>
+<resultMap type="kr.co.sist.user.domain.DeletedUser" id="DeletedUser">
+	<result column="client_id" property="client_id"/>
+	<result column="d_date" property="d_date"/>
+</resultMap>
+<select id="selectDeletedUser" resultMap="DeletedUser" parameterType="String">
+	select client_id, d_date
+	from deleted_user
+	where client_id = #{id} 
 </select>
 
 </mapper>

@@ -25,7 +25,7 @@ public class QnaDAO {
 			Reader reader = null;
 			try {
 				//1. 설정용 xml 로딩
-				reader = Resources.getResourceAsReader("kr/co/sist/admin/dao/admin_config.xml");
+				reader = Resources.getResourceAsReader("kr/co/sist/admin/mapper/admin_config.xml");
 				//2. ByBatis Framwork 생성
 				SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
 				//3. MyBatis Framework와 DB 연동한 객체 얻기 ( 객체를 하나로 관리 )

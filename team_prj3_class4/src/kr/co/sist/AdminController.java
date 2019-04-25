@@ -2,23 +2,41 @@ package kr.co.sist;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.co.sist.admin.domain.QnaQuestionList;
+import kr.co.sist.admin.service.QnaService;
+
 
 @Controller
 public class AdminController {
 
 	@RequestMapping(value="/admin/template.do",method=GET)
 	public String mainPage() {
-		
 		return "admin/template";
 	}
 	
 	@RequestMapping(value="/admin/question.do",method=GET)
-	public String questionPage() {
+	public String questionPage( Model model ) {
+		List<QnaQuestionList> list = null;
 		
-		return "admin/template.do?page=question";
+		//autowired로 의존성 주입
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
+		QnaService qs = ac.getBean(QnaService.class);
+		list = qs.selectQnAQuestionList();
+		
+		model.addAttribute("page", "question");
+		model.addAttribute("list", list);
+		return "admin/template";
+		//return "admin/template?page=question";
 	}
+	
 	@RequestMapping(value="/admin/charge.do",method=GET)
 	public String chargePage() {
 		

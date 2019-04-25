@@ -1,3 +1,4 @@
+<%@page import="kr.co.sist.admin.vo.MemberIdxVO"%>
 <%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.admin.service.MemberListService"%>
@@ -7,11 +8,49 @@
 
 <%
 	MemberListService as=new MemberListService();
+ 	MemberIdxVO mIdxVO=new MemberIdxVO();
+
 	// if(MemberListDomain!=null){
 		List<MemberListDomain> list=as.selectAllMember();
 		pageContext.setAttribute("MemberListDomain", list);
 	// }
+
+ /* 	int totalCount=as.totalCount(); // 총 게시물 수
+	int pageScale=as.pageScale(); // 한 화면에 보여줄 게시물의 수
+	int totalPage=as.totalPage(totalCount); // 총 게시물을 보여주기 위한 총 페이지 수
+
+	 if(mIdxVO.getCurrentPage()==0){
+		mIdxVO.setCurrentPage(1);
+	}
+
+	int startNum=as.startNum(mIdxVO.getCurrentPage());
+	int endNum=as.endNum(startNum);
+	
+	mIdxVO.setStartNum(startNum);
+	mIdxVO.setEndNum(endNum); 
+	
+	pageContext.setAttribute("pageScale", pageScale);
+	pageContext.setAttribute("totalCount", totalCount);
+	pageContext.setAttribute("currentPage", mIdxVO.getCurrentPage()); */
+	
 %>
+
+
+
+
+<script type="text/javascript">
+
+ $(function(){
+
+	 /* 모달 import??? */
+		$("a[href='#modalUserInfo']").click(function(){
+			
+		});
+	
+}); 
+
+
+</script>
 
 <!--  -->
 <div class="card">
@@ -66,26 +105,13 @@
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
 					<td><c:out value="${ member.email }"/></td>
-
-<%-- 	<%
-		String client_id="";
-		String name="";
-		String birth="";
-		String gender="";
-		String email="";
-
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-		pageContext.setAttribute("client_id", client_id);
-	%> --%>
 					
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo" value="${member.client_id}"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList" value="${member.client_id}"><span class="badge badge-warning">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo" value="${member.client_id}"><span class="badge badge-primary">강사정보</span></a>
+							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
+							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
+							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
+							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>
@@ -98,8 +124,7 @@
 			<div style="display: inline-block;">
 				<ul class="pagination ">
 					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a>
-					</li>
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
 					<li class="page-item"><a class="page-link" href="#">2</a></li>
 					<li class="page-item"><a class="page-link" href="#">3</a></li>
 					<li class="page-item"><a class="page-link" href="#">4</a></li>
@@ -111,7 +136,16 @@
 		</div>
 	</div>
 </div>
-<c:import url="modalUserInfo.jsp"/>
+
+<%-- <c:if test="${ not empty param.modal }">
+	<c:import url="${ param.modal }.jsp"/>
+</c:if> --%>
+
+<%-- <c:if test="${ not empty memberModal }">
+	<c:import url="${memberModal }.jsp"/>
+</c:if>  --%>
+
+<c:import url="modalUserInfo.jsp"/> 
 <c:import url="modalAddBlackList.jsp"/>
 <c:import url="modalTeacherInfo.jsp"/>
 <!--  -->

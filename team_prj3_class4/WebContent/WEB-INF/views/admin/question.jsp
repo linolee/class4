@@ -5,13 +5,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
+<%-- <%
 	MemberListService as=new MemberListService();
 	// if(MemberListDomain!=null){
 		List<MemberListDomain> list=as.selectAllMember();
 		pageContext.setAttribute("MemberListDomain", list);
 	// }
-%>
+%> --%>
 
 
 
@@ -43,20 +43,27 @@
   	  
 		<br/>
 		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
 					<th width="400px">제목</th>
-					<th width="200px">작성자</th>
-					<th width="100px">등록일</th>
-					<th width="200px">답변상태</th>
-					<th width="200px">비고</th>
+					<th width="100px">작성자</th>
+					<th width="200px">등록일</th>
+					<th width="100px">답변상태</th>
+					<th width="100px">비고</th>
 				</tr>
 			</thead>
 			<tbody>
-				<!--  -->
-				<c:if test="${ empty MemberListDomain }">
+				<!-- 기존 백인재 코드 -->
+				<%-- <c:if test="${ empty MemberListDomain }">
+				<tr>
+					<td colspan="6" align="center">
+						<strong>등록된 회원이 없습니다</strong>
+					</td>
+				</tr>
+				</c:if> --%>
+				<c:if test="${ empty requestScope.list }">
 				<tr>
 					<td colspan="6" align="center">
 						<strong>등록된 회원이 없습니다</strong>
@@ -64,7 +71,20 @@
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ MemberListDomain }">
+				<c:forEach var="qlist" items="${ requestScope.list }">
+				<c:set var="i" value="${ i + 1 }"/>
+				<tr>
+           			<td><c:out value="${ i }"/></td>
+					<td><c:out value="${ qlist.qSubject }"/></td>
+					<td><c:out value="${ qlist.name }"/></td>
+					<td><c:out value="${ qlist.qDate }"/></td>
+					<td><c:out value="${ qlist.aDate }"/></td>
+					<td></td>
+				</tr>
+         		</c:forEach>
+				
+				<!-- 기존 백인재 코드 -->
+				<%-- <c:forEach var="member" items="${ MemberListDomain }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
@@ -79,7 +99,7 @@
 						</form>
 					</td>
 				</tr>
-				</c:forEach>
+				</c:forEach> --%>
 						
 				<!--  -->
 			</tbody>

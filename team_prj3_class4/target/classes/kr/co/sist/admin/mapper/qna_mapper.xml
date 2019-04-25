@@ -15,7 +15,7 @@
 select q.Q_SUBJECT, c.NAME, Q_DATE, A_DATE
 from QNA q, CLIENT c
 where (q.CLIENT_ID = c.CLIENT_ID)
-order by q.Q_DATE
+order by q.Q_DATE desc
 </select>
 
 
