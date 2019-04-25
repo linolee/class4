@@ -57,7 +57,8 @@ $(function(){
           <ul class="nav">
             <li class="nav-title">고객센터</li>
             <li class="nav-item">
-              <a class="nav-link" href="template.do?page=question">
+              <!-- <a class="nav-link" href="template.do?page=question"> -->
+              <a class="nav-link" href="question.do"> 
                 <i class="nav-icon icon-drop"></i> 문의관리</a>
             </li>
             <li class="nav-item">
@@ -118,6 +119,12 @@ $(function(){
 	<c:if test="${ not empty param.page }">
 		<c:import url="${ param.page }.jsp"/>
 	</c:if>
+	
+	<!-- 아래걸로 바꿀 것  -->
+	<c:if test="${ not empty page }">
+		<c:import url="${ page }.jsp"/>
+	</c:if>
+	
 		<br/><br/>
 	</div>
 	<!-- 메인 -->
