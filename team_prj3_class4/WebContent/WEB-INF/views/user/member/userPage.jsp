@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +46,8 @@
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	
+	
 </head>
 <body>
 	<div id="wrapper">
@@ -63,27 +67,32 @@
 						<table>
 							<tr>
 								<th>이름</th>
-								<td>아무개</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.name}</td>
 							</tr>
 							<tr>
 								<th>아이디</th>
-								<td>djklasdf</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.client_id }</td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
-								<td>1991.11.11</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.birth }</td>
 							</tr>
 							<tr>
 								<th>휴대전화</th>
-								<td>010-0000-0000</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.tel }</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td>asdf@dsfa.com</td>
+								<td colspan="${fn:length(client_favor) }">${clientInfo.email }</td>
 							</tr>
 							<tr>
 								<th>관심목록</th>
-								<td>꽃꽃이 레슬링</td>
+								<c:if test="${fn:length(client_favor) == 0}">
+									<td>관심 목록이 없습니다.</td>
+								</c:if>
+								<c:forEach var="favor" items="${client_favor }">
+									<td>${favor }</td>
+								</c:forEach>
 							</tr>
 						</table>
 						<input type="button" value="회원정보 수정"> <input type="button"
@@ -121,8 +130,8 @@
 			</div>
 
 			<script>
-	$("#tabs").tabs();
-</script>
+				$("#tabs").tabs();
+			</script>
 		</div>
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />

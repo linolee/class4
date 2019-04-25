@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.sist.user.domain.ClientInfo;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -73,10 +76,13 @@ public class UserController {
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
-	public String userPage(HttpSession session) {
+	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
-			System.out.println(ups.clientInfo(session.getAttribute("client_id").toString()));
-			
+			String client_id = session.getAttribute("client_id").toString();
+			ClientInfo clientInfo = ups.clientInfo(client_id);
+			model.addAttribute("clientInfo", clientInfo);
+			List<String> clientFavor = ups.clientFavor(client_id);
+			model.addAttribute("client_favor", clientFavor);
 			return "user/member/userPage";
 		}else {
 			return "user/member/login";
