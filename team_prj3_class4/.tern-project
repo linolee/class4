@@ -1,0 +1,18 @@
+{
+  "ecmaVersion": 5,
+  "plugins": {
+    "guess-types": {
+      
+    },
+    "outline": {
+      
+    },
+    "cordovajs": {
+      
+    }
+  },
+  "libs": [
+    "browser",
+    "jquery"
+  ]
+}

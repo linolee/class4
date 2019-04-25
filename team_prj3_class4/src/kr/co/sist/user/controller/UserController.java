@@ -58,9 +58,17 @@ public class UserController {
 		return "user/member/findPass";
 	}// findPassPage
 
-	@RequestMapping(value = "user/member/join.do", method = GET)
-	public String joinPage() {
+	@RequestMapping(value = "user/member/joinAgreement.do", method = GET)
+	public String joinAgreementPage() {
 
+		return "user/member/joinAgreement";
+	}// joinAgreementPage
+	
+	@RequestMapping(value = "user/member/join.do", method = GET)
+	public String joinPage(HttpServletRequest request) {
+		System.out.println(request.getAttribute("checkBox"));
+		
+		
 		return "user/member/join";
 	}// joinPage
 
@@ -103,7 +111,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// login
 	
 	@RequestMapping(value = "user/member/testSession.do", method = GET)
 	public void testSession(HttpSession session, HttpServletResponse response) {
@@ -114,7 +122,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// testSession
 	
 	@RequestMapping(value = "user/member/logout.do", method = GET)
 	public String logout(HttpServletRequest request, HttpSession session) {
@@ -122,7 +130,7 @@ public class UserController {
 		//다시 원래 페이지로 돌아옴
 		String referer = request.getHeader("Referer");
 		return "redirect:"+referer;
-	}// loginPage
+	}// logout
 	
 	@RequestMapping(value = "user/teacher/teacherPage.do", method = GET)
 	public void teacherPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -131,6 +139,6 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// teacherPage
 
 }
