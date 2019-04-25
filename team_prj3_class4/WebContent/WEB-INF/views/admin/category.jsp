@@ -57,22 +57,15 @@ $(function () {
 		   		return;
 		   	} else{
 		   		function readURL(input) {
-		   			//alert("1");
 			        if (input.files && input.files[0]) {
-			        	//alert("2");
 			            var reader = new FileReader();
 			            reader.onload = function(e) {
-			            	//alert("3");
-			                $('#foo').attr('src', e.target.result);
+			                $("#foo").attr("src", e.target.result);
 			            }
 			            reader.readAsDataURL(input.files[0]);
 			        }
 			    }
-
-			      //$("#file").change(function() { 
-			    	 //alert("4");
 			        readURL(this);
-			    //}); 
 		   	}
 		   	
 			/* $("#uploadImg").submit(); */
@@ -118,7 +111,7 @@ $(function () {
              <tbody>
 					<tr>
                           <td>음악</td>
-                          <td><img src="category.png" class="categoryImg"></td>
+                          <td><img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg"></td>
                           <td><a data-toggle="modal" href="#modalCategory">카테고리 수정</a></td> 
                   </tr>
 					<tr>
