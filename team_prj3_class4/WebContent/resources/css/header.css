@@ -8,7 +8,7 @@
 #logoImg{height: 70px; margin-left: 300px;}
 #searchWindow{display: inline-block; height: 70px; width: 350px; position: absolute;}
 #searchWindow input{width: 70%; margin-top: 25px; border: 3px solid #605CA0; padding: 6px;}
-#searchWindow button{width: 20%; margin-top: 25px; padding: 6px; background-color: #605CA0; color: white; border: 0px;}
+#searchWindow button{width: 20%; margin-top: 25px; padding: 10px; background-color: #605CA0; color: white; border: 0px;}
 #header input{
 	font-family: inherit;
 	font-size: inherit;
