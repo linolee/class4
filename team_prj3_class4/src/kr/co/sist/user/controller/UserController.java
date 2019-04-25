@@ -13,10 +13,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.sist.user.domain.ClientInfo;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -73,10 +75,19 @@ public class UserController {
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
-	public String userPage(HttpSession session) {
+	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			System.out.println(ups.clientInfo(session.getAttribute("client_id").toString()));
-			
+			ClientInfo clientInfo = ups.clientInfo(session.getAttribute("client_id").toString());
+			model.addAttribute("client_id", clientInfo.getClient_id());
+			model.addAttribute("client_name", clientInfo.getName());
+			model.addAttribute("client_birth", clientInfo.getBirth());
+			model.addAttribute("client_gender", clientInfo.getGender());
+			model.addAttribute("client_email", clientInfo.getEmail());
+			model.addAttribute("client_status", clientInfo.getStatus());
+			model.addAttribute("client_tel", clientInfo.getTel());
+			model.addAttribute("client_inputdate", clientInfo.getInputdate());
+			request.setAttribute("client_id", clientInfo.getClient_id());
 			return "user/member/userPage";
 		}else {
 			return "user/member/login";

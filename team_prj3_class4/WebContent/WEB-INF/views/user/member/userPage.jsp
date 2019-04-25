@@ -44,6 +44,8 @@
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+	
+	
 </head>
 <body>
 	<div id="wrapper">
@@ -63,23 +65,23 @@
 						<table>
 							<tr>
 								<th>이름</th>
-								<td>아무개</td>
+								<td>${client_name}</td>
 							</tr>
 							<tr>
 								<th>아이디</th>
-								<td>djklasdf</td>
+								<td>${client_id }</td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
-								<td>1991.11.11</td>
+								<td>${client_birth }</td>
 							</tr>
 							<tr>
 								<th>휴대전화</th>
-								<td>010-0000-0000</td>
+								<td>${client_tel }</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td>asdf@dsfa.com</td>
+								<td>${client_email }</td>
 							</tr>
 							<tr>
 								<th>관심목록</th>
