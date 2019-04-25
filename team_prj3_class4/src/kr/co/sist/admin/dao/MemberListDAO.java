@@ -66,13 +66,24 @@ public class MemberListDAO {
 		return list;
 	}
 
+	public String teacherInfo(String ID) {
+		
+		MemberListDAO.m_dao=MemberListDAO.getInstance();
+		SqlSession ss=m_dao.getSessionFactory().openSession();
+		String chkTeacher=ss.selectOne("teacherInfo", ID);
+
+		ss.close();
+		return chkTeacher;
+	}
+
+
 	public int selectTotalCount() {
 
 		MemberListDAO.m_dao=MemberListDAO.getInstance();
 		SqlSession ss=getSessionFactory().openSession();
 		int cnt=ss.selectOne("clientTotalCnt");
-		ss.close();
 
+		ss.close();
 		return cnt;
 	} // selectTotalCount
 	
@@ -80,8 +91,10 @@ public class MemberListDAO {
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
-		/*adao.selectAllMember();*/
+		adao.selectAllMember();
 		System.out.println(adao.selectTotalCount());
+		System.out.println(adao.teacherInfo("in11202"));
+		
 	}
 
 	
