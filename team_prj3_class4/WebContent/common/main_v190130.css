@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+body, div, ul, ol, li, form, fieldset, legend, select, button, th, td,
+	textarea, p, input {
+	margin: 0px;
+	padding: 0px
+}
+
+fieldset, img {
+	border: 0px
+}
+
+ul, ol, li {
+	list-style: none
+} /* 일반글자들이 왼쪽으로? */
+body, th, td, input, select, textarea, button {
+	font-size: 13px;
+	line-height: 1.5; /* 폰트사이즈의 1.5배? */
+	font-family: '맑은 고딕', dotum, '돋움', sans-serif;
+	color: #3F3F3F;
+}
+
+a {
+	color: #3F3F3F;
+	text-decoration: none
+}
+
+a:hover {
+	color: #128EFD;
+	text-decoration: underline
+}
+
+.inputBox {
+	border: 1px solid #EDEDED;
+	background-color: #FFFFFF;
+	height: 20px
+}
+
+.btn {
+	border: 1px solid #EDEDED;
+	background-color: #FFFFFF;
+	color: #1C1C1C;
+	height: 22px;
+	padding: 3px;
+	cursor: pointer;
+}

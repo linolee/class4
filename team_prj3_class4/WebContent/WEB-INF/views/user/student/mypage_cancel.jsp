@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/spring_mvc_prj/common/main_v190130.css">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
 #wrap{ margin: 0px auto; width: 1100px; height: 860px;}
-#header{ margin: 0px auto; width: 1100px; height: 140px; background: #FFFFFF url(http://localhost:8080/spring_mvc_prj/common/images/header_bg.png);
-			position: relative}
 #headerTitle{font-family: 'Nanum Myeongjo', serif; font-size: 30px; font-weight: bold; text-align: center;
 					position: absolute; top: 40px; left: 290px;}
 #mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
@@ -61,10 +61,7 @@
 <body>
 <div id="wrap">
 	<div id="header">
-		<div id="headerTitle">SIST Class4</div>
-		<div style="padding-top: 100px">
-		<c:import url="/common/jsp/main_menu.jsp"></c:import>
-		</div>
+		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
 		<div id="mypageTitle">마이페이지</div>
@@ -111,7 +108,7 @@
 	
 	</div>
 	<div id="footer">
-		<div id="footerTitle">copyright&copy; all right reserved class 4</div>
+		<c:import url="../footer/footer.jsp" />
 	</div>
 </div>
 </body>
