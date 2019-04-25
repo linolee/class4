@@ -17,19 +17,18 @@
 			<form action="template.jsp?page=category" method="get" name="uploadImg" id="uploadImg"  value="temp" enctype="multipart/form-data">
                     <div style="display: inline-block;">
                     
-                    
-                    
 				<div style="border: 1px solid gold; margin-bottom:30px; width:465px;" >
 						카테고리명 
 						<div>
-						<input type="text" name="categoryTitle" class="form-control col-5" maxlength="30"  style="width:100px; margin-bottom:30px">
+						<input type="text" name="categoryTitle" class="form-control col-5" maxlength="30"  style="width:300px; margin-bottom:30px">
 						</div>
 				</div>
 				<div style="border: 1px solid gold">
 						<input type="hidden" name="page" value="category">
 						<input type="file" id="file" name="file"/>
+	                  	<img src="category.png" class="upCategoryImg" id="foo">
 						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">사진 변경</button>
-	                  	<img src="category.png" align="left" style="padding-bottom:30px; max-width: 70%; height: auto; margin-right:10px;" id="foo">
+				<!-- <img src="category.png" align="left" style="padding-bottom:30px; max-width: 70%; height: auto; margin-right:10px;" id="foo"> -->
 				</div>
 
                 </div>
@@ -48,7 +47,7 @@
 						    <option value="야구">야구</option>
 						    <option value="농구">농구</option>
 						    <option value="배구">배구</option>
-						    <option value="미식축구">미식축구a</option>
+						    <option value="미식축구">미식축구</option>
 						</select>
 						<div>
 						<br/><br/>
