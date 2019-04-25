@@ -18,7 +18,7 @@
 							</c:when>
 							<c:otherwise><!-- 로그인이 되어 있지 않을 때 -->
 								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">관리자 문의</a></li>
-								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/join.do">회원가입</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/joinAgreement.do">회원가입</a></li>
 								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/loginPage.do">로그인</a></li>
 							</c:otherwise>
 						</c:choose>

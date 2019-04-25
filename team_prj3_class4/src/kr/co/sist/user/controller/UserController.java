@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.sist.user.service.UserLoginService;
+import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
 
 /**
@@ -27,11 +28,13 @@ import kr.co.sist.user.vo.UserLoginVO;
 public class UserController {
 
 	private UserLoginService uls;
+	private UserPageService ups;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
+		this.ups = ac.getBean("UserPageService", UserPageService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -58,16 +61,26 @@ public class UserController {
 		return "user/member/findPass";
 	}// findPassPage
 
-	@RequestMapping(value = "user/member/join.do", method = GET)
-	public String joinPage() {
+	@RequestMapping(value = "user/member/joinAgreement.do", method = GET)
+	public String joinAgreementPage() {
 
+		return "user/member/joinAgreement";
+	}// joinAgreementPage
+	
+	@RequestMapping(value = "user/member/join.do", method = GET)
+	public String joinPage(HttpServletRequest request) {
 		return "user/member/join";
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
-	public String userPage() {
-
-		return "user/member/userPage";
+	public String userPage(HttpSession session) {
+		if (session.getAttribute("client_id") != null) {
+			System.out.println(ups.clientInfo(session.getAttribute("client_id").toString()));
+			
+			return "user/member/userPage";
+		}else {
+			return "user/member/login";
+		}
 	}// userPage
 
 	@RequestMapping(value = "user/member/report.do", method = GET)
@@ -103,7 +116,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// login
 	
 	@RequestMapping(value = "user/member/testSession.do", method = GET)
 	public void testSession(HttpSession session, HttpServletResponse response) {
@@ -114,7 +127,7 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// testSession
 	
 	@RequestMapping(value = "user/member/logout.do", method = GET)
 	public String logout(HttpServletRequest request, HttpSession session) {
@@ -122,7 +135,7 @@ public class UserController {
 		//다시 원래 페이지로 돌아옴
 		String referer = request.getHeader("Referer");
 		return "redirect:"+referer;
-	}// loginPage
+	}// logout
 	
 	@RequestMapping(value = "user/teacher/teacherPage.do", method = GET)
 	public void teacherPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -131,6 +144,6 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}// loginPage
+	}// teacherPage
 
 }

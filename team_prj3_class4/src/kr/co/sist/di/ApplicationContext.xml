@@ -6,8 +6,11 @@
 	<bean class="kr.co.sist.user.service.UserLoginServiceImpl" id="UserLoginService" scope="singleton">
 		<constructor-arg ref="LoginDAO"/>
 	</bean>	
-	<bean class="kr.co.sist.user.dao.LoginDaoImpl" id="LoginDAO" scope="singleton">
+	<bean class="kr.co.sist.user.dao.LoginDaoImpl" id="LoginDAO" scope="singleton"/>
 		
+	<bean class="kr.co.sist.user.service.UserPageServiceImpl" id="UserPageService" scope="singleton">
+		<constructor-arg ref="UserPageDAO"/>
 	</bean>	
+	<bean class="kr.co.sist.user.dao.UserPageDAOImpl" id="UserPageDAO" scope="singleton"/>
 
 </beans>
