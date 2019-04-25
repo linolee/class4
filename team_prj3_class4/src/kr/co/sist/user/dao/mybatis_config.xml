@@ -22,6 +22,7 @@
   <!-- 쿼리문을 가진 XML을 연결   -->
   <mappers>
      <mapper resource="kr/co/sist/user/mapper/login_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/userpage_mapper.xml"/> 
   </mappers>
 </configuration>
 

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.sist.user.service.UserLoginService;
+import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
 
 /**
@@ -27,11 +28,13 @@ import kr.co.sist.user.vo.UserLoginVO;
 public class UserController {
 
 	private UserLoginService uls;
+	private UserPageService ups;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
+		this.ups = ac.getBean("UserPageService", UserPageService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -66,16 +69,18 @@ public class UserController {
 	
 	@RequestMapping(value = "user/member/join.do", method = GET)
 	public String joinPage(HttpServletRequest request) {
-		System.out.println(request.getAttribute("checkBox"));
-		
-		
 		return "user/member/join";
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
-	public String userPage() {
-
-		return "user/member/userPage";
+	public String userPage(HttpSession session) {
+		if (session.getAttribute("client_id") != null) {
+			System.out.println(ups.clientInfo(session.getAttribute("client_id").toString()));
+			
+			return "user/member/userPage";
+		}else {
+			return "user/member/login";
+		}
 	}// userPage
 
 	@RequestMapping(value = "user/member/report.do", method = GET)
