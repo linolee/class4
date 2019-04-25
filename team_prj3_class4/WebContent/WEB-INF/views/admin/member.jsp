@@ -6,37 +6,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	MemberListService as=new MemberListService();
- 	MemberIdxVO mIdxVO=new MemberIdxVO();
-
-	// if(MemberListDomain!=null){
-		List<MemberListDomain> list=as.selectAllMember();
-		pageContext.setAttribute("MemberListDomain", list);
-	// }
-
- /* 	int totalCount=as.totalCount(); // 총 게시물 수
-	int pageScale=as.pageScale(); // 한 화면에 보여줄 게시물의 수
-	int totalPage=as.totalPage(totalCount); // 총 게시물을 보여주기 위한 총 페이지 수
-
-	 if(mIdxVO.getCurrentPage()==0){
-		mIdxVO.setCurrentPage(1);
-	}
-
-	int startNum=as.startNum(mIdxVO.getCurrentPage());
-	int endNum=as.endNum(startNum);
-	
-	mIdxVO.setStartNum(startNum);
-	mIdxVO.setEndNum(endNum); 
-	
-	pageContext.setAttribute("pageScale", pageScale);
-	pageContext.setAttribute("totalCount", totalCount);
-	pageContext.setAttribute("currentPage", mIdxVO.getCurrentPage()); */
-	
-%>
-
-
-
 
 <script type="text/javascript">
 
@@ -90,7 +59,7 @@
 			</thead>
 			<tbody>
 				<!--  -->
-				<c:if test="${ empty MemberListDomain }">
+				<c:if test="${ empty memberList }">
 				<tr>
 					<td colspan="6" align="center">
 						<strong>등록된 회원이 없습니다</strong>
@@ -98,7 +67,7 @@
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ MemberListDomain }">
+				<c:forEach var="member" items="${ memberList }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
