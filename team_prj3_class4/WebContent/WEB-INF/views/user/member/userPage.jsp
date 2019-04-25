@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,27 +67,32 @@
 						<table>
 							<tr>
 								<th>이름</th>
-								<td>${client_name}</td>
+								<td colspan="${fn:length(client_favor) }">${client_name}</td>
 							</tr>
 							<tr>
 								<th>아이디</th>
-								<td>${client_id }</td>
+								<td colspan="${fn:length(client_favor) }">${client_id }</td>
 							</tr>
 							<tr>
 								<th>생년월일</th>
-								<td>${client_birth }</td>
+								<td colspan="${fn:length(client_favor) }">${client_birth }</td>
 							</tr>
 							<tr>
 								<th>휴대전화</th>
-								<td>${client_tel }</td>
+								<td colspan="${fn:length(client_favor) }">${client_tel }</td>
 							</tr>
 							<tr>
 								<th>이메일</th>
-								<td>${client_email }</td>
+								<td colspan="${fn:length(client_favor) }">${client_email }</td>
 							</tr>
 							<tr>
 								<th>관심목록</th>
-								<td>꽃꽃이 레슬링</td>
+								<c:if test="${fn:length(client_favor) == 0}">
+									<td>관심 목록이 없습니다.</td>
+								</c:if>
+								<c:forEach var="favor" items="${client_favor }">
+									<td>${favor }</td>
+								</c:forEach>
 							</tr>
 						</table>
 						<input type="button" value="회원정보 수정"> <input type="button"
