@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+#userPage th{text-align: left; padding-right : 30px; padding-bottom: 5px; padding-top: 5px;}
+#userPage td{text-align: left; padding-right : 10px;}
+#userPage .inputBtn{background-color: #605CA0; color: white; padding: 5px;padding-left: 15px; padding-right:15px; margin-right: 10px; border: 0px;}
+#reportBtnDiv{text-align: center; font-size: 20px;}
+#reportSubject{width: 500px; margin-bottom: 10px;}
+#userPage input[type="password"] {margin: 10px;}

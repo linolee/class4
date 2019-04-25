@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html>
@@ -13,8 +13,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/userPage.css" />"
+	rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />"
+	rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />"
+	rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
@@ -46,8 +50,8 @@
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-	
-	
+
+
 </head>
 <body>
 	<div id="wrapper">
@@ -56,82 +60,85 @@
 		</div>
 		<div id="container">
 			<div class="areaFix">
-				<label>회원 페이지</label>
-				<div id="tabs">
-					<ul>
-						<li><a href="#fragment-1"><span>회원정보</span></a></li>
-						<li><a href="#fragment-2"><span>비밀번호 변경</span></a></li>
-						<li><a href="#fragment-3"><span>관리자 문의</span></a></li>
-					</ul>
-					<div id="fragment-1">
-						<table>
-							<tr>
-								<th>이름</th>
-								<td colspan="${fn:length(client_favor) }">${clientInfo.name}</td>
-							</tr>
-							<tr>
-								<th>아이디</th>
-								<td colspan="${fn:length(client_favor) }">${clientInfo.client_id }</td>
-							</tr>
-							<tr>
-								<th>생년월일</th>
-								<td colspan="${fn:length(client_favor) }">${clientInfo.birth }</td>
-							</tr>
-							<tr>
-								<th>휴대전화</th>
-								<td colspan="${fn:length(client_favor) }">${clientInfo.tel }</td>
-							</tr>
-							<tr>
-								<th>이메일</th>
-								<td colspan="${fn:length(client_favor) }">${clientInfo.email }</td>
-							</tr>
-							<tr>
-								<th>관심목록</th>
-								<c:if test="${fn:length(client_favor) == 0}">
-									<td>관심 목록이 없습니다.</td>
-								</c:if>
-								<c:forEach var="favor" items="${client_favor }">
-									<td>${favor }</td>
-								</c:forEach>
-							</tr>
-						</table>
-						<input type="button" value="회원정보 수정"> <input type="button"
-							value="회원 탈퇴">
-					</div>
-					<div id="fragment-2">
-						<table>
-							<tr>
-								<td>비밀번호 입력</td>
-								<td><input type="password"></td>
-							</tr>
-							<tr>
-								<td>비밀번호 재입력</td>
-								<td><input type="password"></td>
-							</tr>
-						</table>
-						<br> <input type="button" value="비밀번호 변경">
-					</div>
-					<div id="fragment-3">
+				<div id="userPage">
 
-						<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
-						<div id="summernote"></div>
-						<script>
-							$('#summernote').summernote({
-								placeholder : '신고 내용을 입력해주세요.',
-								tabsize : 2,
-								height : 300
-							});
-						</script>
-						<div id="reportBtnDiv">
-							<input type="submit" value="제출하기" id="reportSubmitBtn">
+					<label>회원 페이지</label>
+					<div id="tabs">
+						<ul>
+							<li><a href="#fragment-1"><span>회원정보</span></a></li>
+							<li><a href="#fragment-2"><span>비밀번호 변경</span></a></li>
+							<li><a href="#fragment-3"><span>관리자 문의</span></a></li>
+						</ul>
+						<div id="fragment-1">
+							<table>
+								<tr>
+									<th>이름</th>
+									<td colspan="${fn:length(client_favor) }">${clientInfo.name}</td>
+								</tr>
+								<tr>
+									<th>아이디</th>
+									<td colspan="${fn:length(client_favor) }">${clientInfo.client_id }</td>
+								</tr>
+								<tr>
+									<th>생년월일</th>
+									<td colspan="${fn:length(client_favor) }">${clientInfo.birth }</td>
+								</tr>
+								<tr>
+									<th>휴대전화</th>
+									<td colspan="${fn:length(client_favor) }">${clientInfo.tel }</td>
+								</tr>
+								<tr>
+									<th>이메일</th>
+									<td colspan="${fn:length(client_favor) }">${clientInfo.email }</td>
+								</tr>
+								<tr>
+									<th>관심목록</th>
+									<c:if test="${fn:length(client_favor) == 0}">
+										<td>관심 목록이 없습니다.</td>
+									</c:if>
+									<c:forEach var="favor" items="${client_favor }">
+										<td>${favor }</td>
+									</c:forEach>
+								</tr>
+							</table>
+							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn">
+							<input type="button" value="회원 탈퇴" id="deleteClientInfoBtn" class="inputBtn">
+						</div>
+						<div id="fragment-2">
+							<table>
+								<tr>
+									<td>비밀번호 입력</td>
+									<td><input type="password"></td>
+								</tr>
+								<tr>
+									<td>비밀번호 재입력</td>
+									<td><input type="password"></td>
+								</tr>
+							</table>
+							<br> <input type="button" value="비밀번호 변경" id="changePasswordBtn" class="inputBtn">
+						</div>
+						<div id="fragment-3">
+
+							<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
+							<div id="summernote"></div>
+							<script>
+								$('#summernote').summernote({
+									placeholder : '신고 내용을 입력해주세요.',
+									tabsize : 2,
+									height : 300
+								});
+							</script>
+							<div id="reportBtnDiv">
+								<input type="submit" value="제출하기" id="reportSubmitBtn" class="inputBtn">
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<script>
-				$("#tabs").tabs();
-			</script>
+				<script>
+					$("#tabs").tabs();
+				</script>
+			</div>
 		</div>
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
