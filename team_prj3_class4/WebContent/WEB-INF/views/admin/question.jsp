@@ -83,25 +83,6 @@
 				</tr>
          		</c:forEach>
 				
-				<!-- 기존 백인재 코드 -->
-				<%-- <c:forEach var="member" items="${ MemberListDomain }">
-				<tr>		
-					<td><c:out value="${ member.client_id }"/></td>
-					<td><c:out value="${ member.name }"/></td>
-					<td><c:out value="${ member.birth }"/></td>
-					<td><c:out value="${ member.gender }"/></td>
-					<td><c:out value="${ member.email }"/></td>
-					<td>
-						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList"><span class="badge badge-primary">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo"><span class="badge badge-primary">강사정보</span></a>
-						</form>
-					</td>
-				</tr>
-				</c:forEach> --%>
-						
-				<!--  -->
 			</tbody>
 		</table>
 		<div style="text-align: center">

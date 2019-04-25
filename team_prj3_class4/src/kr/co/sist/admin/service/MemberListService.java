@@ -2,12 +2,17 @@ package kr.co.sist.admin.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import kr.co.sist.admin.dao.MemberListDAO;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.MemberIdxVO;
 
+@Component
 public class MemberListService {
 
+	@Autowired
 	private MemberListDAO a_dao; 
 	
 	public List<MemberListDomain> selectAllMember(){
