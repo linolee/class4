@@ -22,13 +22,13 @@
 				<div style="border: 1px solid gold; margin-bottom:30px; width:465px;" >
 						카테고리명 
 						<div>
-						<input type="text" name="categoryTitle" class="form-control col-5" maxlength="30"  style="width:100px; margin-bottom:30px">
+						<input type="text" name="categoryTitle" class="form-control col-5" maxlength="30"  style="width:300px; margin-bottom:30px">
 						</div>
 				</div>
 				<div style="border: 1px solid gold">
 						<input type="hidden" name="page" value="category">
-						<input type="file" id="file" name="file" class="file"/>
-						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">사진 변경</button>
+						<input type="file" id="file2" name="file" class="file"/>
+						<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px;">사진 변경</button>
 	                  	<img src="category.png" align="left" style="padding-bottom:30px; max-width: 70%; height: auto; margin-right:10px;" id="foo">
 				</div>
 

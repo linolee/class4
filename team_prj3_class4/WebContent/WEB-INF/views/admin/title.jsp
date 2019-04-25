@@ -41,7 +41,7 @@ $(function () {
 		   	} // for
 		   	
 		   	if(!flag){
-		   		alert("업로드 불가한 확장자입니다3");
+		   		alert("업로드 불가한 확장자입니다");
 		   		return;
 		   	} else{
 		   		function readURL(input) {
@@ -84,7 +84,8 @@ $(function () {
 					<button type="button" id="btn-upload" name="temp" value="temp" class="btn btn-pill btn-block btn-light active col-3" align="right">사진 변경</button><br/>
                   	<input class="btn btn-pill btn-block btn-light active col-2" type="button" value="적용하기"/><br/>
                   		<div>
-                  		<img src="category.png" align="left" style="max-width: 70%; height: auto; margin-bottom:20px;" id="foo"><br/>
+                  		<!-- <img src="category.png" align="left" style="max-width: 70%; height: auto; margin-bottom:20px;" id="foo"><br/> -->
+                  		<img src="category.png" id="foo" class="titleImg"><br/>
                   		</div><br/>
                 </form>
 				</div>

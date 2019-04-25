@@ -9,6 +9,9 @@
 <title>112233</title>
 <style type="text/css">
 #file { display:none; } 
+#file2 { display:none; } 
+.titleImg, .categoryImg{width:1200px; height:400px;}
+.upCategoryImg{width:300px;height:100px}
 </style>
 
 <link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">

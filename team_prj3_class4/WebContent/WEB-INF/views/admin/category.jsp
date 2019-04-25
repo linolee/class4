@@ -10,14 +10,16 @@
 
 $(function () {
 
-	
 	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
-	
 	
 	// input file 선택된이름 안나오게 설정
 	$('#btn-upload').click(function (e) {
 		e.preventDefault();
 	$('#file').click();
+			});
+	$('#btn-upload2').click(function (e) {
+		e.preventDefault();
+	$('#file2').click();
 			});
 
 ///////////////////////// 서브밋하면 파일네임에 시간정보를 추가하여 서버에 저장 /////////////////////////
@@ -26,16 +28,15 @@ $(function () {
 
    	var ext=["jpg","png"];
    	var flag=null;
-    /* $("#file").change(function(){ */
-    $("#file").change(function(){
+    $("#file,#file2").change(function(){
 		 flag=false;
 	   	 /* alert("파일바뀜"); */
 	   	 alert("클릭");
 	   	 if($("#file").val()!=""){
 	   		 alert("파일이 빈칸이 아닐때");
-			var fileValue = $("#file").val().split("\\");
-		   	var fileValue2 = $("#file").val(); // path
-		   	var fileValue3 = $("#file").val().split("."); // path
+			var fileValue = $("#file,#file2").val().split("\\");
+		   	var fileValue2 = $("#file,#file2").val(); // path
+		   	var fileValue3 = $("#file,#file2").val().split("."); // path
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
@@ -94,13 +95,7 @@ $(function () {
  		alert(varCate+"삭제");
  	});
  	
- 	
-		
-		
-	
- 	
- 	
-});
+    });
 
 </script>
 
@@ -123,7 +118,7 @@ $(function () {
              <tbody>
 					<tr>
                           <td>음악</td>
-                          <td><img src="category.png" style="max-width: 70%; height: auto;"></td>
+                          <td><img src="category.png" class="categoryImg"></td>
                           <td><a data-toggle="modal" href="#modalCategory">카테고리 수정</a></td> 
                   </tr>
 					<tr>
