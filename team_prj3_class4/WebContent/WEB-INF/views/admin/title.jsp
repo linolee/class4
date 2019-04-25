@@ -41,7 +41,7 @@ $(function () {
 		   	} // for
 		   	
 		   	if(!flag){
-		   		alert("업로드 불가한 확장자입니다3");
+		   		alert("업로드 불가한 확장자입니다");
 		   		return;
 		   	} else{
 		   		function readURL(input) {
@@ -73,7 +73,7 @@ $(function () {
                   <div class="card-header">
                     <i class="fa fa-align-justify"></i> 메인 헤더</div>
                   <div class="card-body">
-                    이미지 최적사이즈는 가로XXXpx, 세로 XXXpx입니다
+                    이미지 최적사이즈는 가로1200px, 세로 400px입니다
 				
 				<!--  -->				
 				
@@ -81,11 +81,12 @@ $(function () {
 				<form action="#void" method="post" name="uploadImg" id="uploadImg" enctype="multipart/form-data">
 					<input type="file" id="file" name="file"/>
 					<!-- <input type="file" id="file" name="file" onchange="changeValue(this)"/> -->
-					<button type="button" id="btn-upload" name="temp" value="temp" class="btn btn-pill btn-block btn-light active col-3" align="right">사진 변경</button><br/>
-                  	<input class="btn btn-pill btn-block btn-light active col-2" type="button" value="적용하기"/><br/>
+					<button type="button" id="btn-upload" name="temp" value="temp" class="btn btn-pill btn-block btn-light active col-2" align="right" style="margin-top:10px;">사진 변경</button><br/>
                   		<div>
-                  		<img src="category.png" align="left" style="max-width: 70%; height: auto; margin-bottom:20px;" id="foo"><br/>
+                  		<!-- <img src="category.png" align="left" style="max-width: 70%; height: auto; margin-bottom:20px;" id="foo"><br/> -->
+                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" id="foo" class="titleImg"><br/>
                   		</div><br/>
+                  	<input class="btn btn-pill btn-block btn-light active col-2" type="button" value="적용하기"/><br/>
                 </form>
 				</div>
 				

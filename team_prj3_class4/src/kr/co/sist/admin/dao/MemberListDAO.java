@@ -8,10 +8,12 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.MemberIdxVO;
 
+@Component
 public class MemberListDAO {
 
 	private  static MemberListDAO m_dao;
@@ -74,17 +76,6 @@ public class MemberListDAO {
 		return cnt;
 	} // selectTotalCount
 	
-/*	public List<MemberListDomain> selectList(MemberIdxVO mIdxVO){
-		List<MemberListDomain> list=null;
-		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("diaryList",dv);
-		ss.close();
-		return list;
-	}//selectList
-*/	
-	
-	
-
 
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/

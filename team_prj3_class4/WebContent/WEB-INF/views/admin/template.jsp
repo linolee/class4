@@ -8,7 +8,9 @@
 <meta charset="UTF-8">
 <title>112233</title>
 <style type="text/css">
-#file { display:none; } 
+#file, #file2 { display:none; } 	
+.titleImg, .categoryImg{width:1200px; height:400px;}
+.upCategoryImg{width:300px;height:100px}
 </style>
 
 <link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
@@ -55,38 +57,39 @@ $(function(){
           <ul class="nav">
             <li class="nav-title">고객센터</li>
             <li class="nav-item">
-              <a class="nav-link" href="template.do?page=question">
+              <!-- <a class="nav-link" href="template.do?page=question"> -->
+              <a class="nav-link" href="question.do"> 
                 <i class="nav-icon icon-drop"></i> 문의관리</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="template.do?page=charge">
+              <a class="nav-link" href="charge.do">
                 <i class="nav-icon icon-pencil"></i> 신고관리</a>
             </li>
             <li class="nav-title">강의관리</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=lecturePermit">
+              <a class="nav-link nav-dropdown-toggle" href="lecturePermit.do">
                 <i class="nav-icon icon-puzzle"></i> 강의개설 승인</a>
 
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=lecture">
+              <a class="nav-link nav-dropdown-toggle" href="lecture.do">
                 <i class="nav-icon icon-cursor"></i> 강의조회</a>
             </li>
            
             <li class="nav-title">회원관리</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=member" >
+              <a class="nav-link nav-dropdown-toggle" href="member.do" >
                 <i class="nav-icon icon-star" ></i> 회원조회</a>
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=teacherAuthority">
+              <a class="nav-link nav-dropdown-toggle" href="teacherAuthority.do">
                 <i class="nav-icon icon-star"></i> 강사 권한 승인 </a>
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=blacklist">
+              <a class="nav-link nav-dropdown-toggle" href="blacklist.do">
                 <i class="nav-icon icon-star"></i> 블랙리스트</a>
                 
             <li class="nav-title">기타</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=category">
+              <a class="nav-link nav-dropdown-toggle" href="category.do">
                 <i class="nav-icon icon-star"></i> 카테고리</a>
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=title">
+              <a class="nav-link nav-dropdown-toggle" href="title.do">
                 <i class="nav-icon icon-star"></i> 타이틀</a>
               <a class="nav-link nav-dropdown-toggle" href="template.do?page=test">
                 <i class="nav-icon icon-star"></i> TEST</a>
@@ -115,7 +118,13 @@ $(function(){
 	<div class="container-fluid">
 	<c:if test="${ not empty param.page }">
 		<c:import url="${ param.page }.jsp"/>
+	</c:if> 
+	
+	<!-- 아래걸로 바꿀 것  -->
+	<c:if test="${ not empty page }">
+		<c:import url="${ page }.jsp"/>
 	</c:if>
+	
 		<br/><br/>
 	</div>
 	<!-- 메인 -->

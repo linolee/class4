@@ -63,7 +63,8 @@
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px; padding-bottom: 20px;">
-			<c:import url="/resources/jsp/main_menu.jsp"/>
+			<%-- <c:import url="/resources/jsp/main_menu.jsp"/> --%>
+			<jsp:include page="/resources/jsp/main_menu.jsp"/>
 		</div>
 		<div id="title3">강사 프로필 관리</div>
 		<div id="title4">강사님께서 등록한 프로필을 관리합니다.</div>
