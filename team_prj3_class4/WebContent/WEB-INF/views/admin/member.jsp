@@ -7,6 +7,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+<% %>
+
+
+
 <script type="text/javascript">
 
  $(function(){
@@ -70,6 +74,18 @@
 				<c:forEach var="member" items="${ memberList }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
+					
+					<c:set var="client_id" value="${member.client_id }"/>
+
+<%
+		String teacherID=(String)pageContext.getAttribute("client_id");
+		MemberListService mls=new MemberListService();
+		String chk=mls.chkTeacher(teacherID);
+
+		pageContext.setAttribute("teacher", "Y");
+
+%>
+	<%-- <%=teacherID %>,<%=chk %> --%>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
@@ -80,7 +96,7 @@
 							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
 							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
 							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
-							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
+								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>

@@ -61,19 +61,7 @@ public class AdminController {
 		return "admin/template";
 	}
 	
-	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(Model model) {
-		
-		List<MemberListDomain> list=null;
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		MemberListService mls=ac.getBean(MemberListService.class);
-		list=mls.selectAllMember();
-		
-		model.addAttribute("page", "member");
-		model.addAttribute("memberList", list);
-		
-		return "admin/template";
-	}
+	
 
 	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
 	public String teacherAuthorityPage(Model model) {
