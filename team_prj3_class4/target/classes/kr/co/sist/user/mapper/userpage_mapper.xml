@@ -18,6 +18,11 @@
 	from client
 	where client_id = #{client_id}
 </select>
+<select id="selectClientFavor" resultType="String" parameterType="String">
+	select category
+	from favor
+	where client_id = #{client_id}
+</select>
 
 </mapper>
 
