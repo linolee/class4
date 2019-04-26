@@ -54,14 +54,6 @@ public class AdminController {
 		return "admin/template";
 	}
 
-	@RequestMapping(value="/admin/blacklist.do",method=GET)
-	public String blacklistPage(Model model) {
-		
-		
-		model.addAttribute("page", "blacklist");
-		return "admin/template";
-	}
-	
 	@RequestMapping(value="/admin/category.do",method=GET)
 	public String categoryPage(Model model) {
 		
