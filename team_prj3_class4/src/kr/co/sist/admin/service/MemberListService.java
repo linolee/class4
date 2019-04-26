@@ -178,7 +178,8 @@ public class MemberListService {
 	public static void main(String[] args) {
 		
 		MemberListService mls=new MemberListService();
-		System.out.println(mls.chkTeacher("in11202"));
+		mls.selectAllMember();
+		/*System.out.println(mls.chkTeacher("in11202"));*/
 	}
 
 }

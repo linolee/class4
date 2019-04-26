@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin">
+
+<resultMap type="kr.co.sist.admin.domain.TeacherPermitDomain" id="TeacherPermitDomain">
+	<result column="client_id" property="client_id"/>
+	<result column="name" property="name"/>
+	<result column="birth" property="birth"/>
+	<result column="gender" property="gender"/>
+	<result column="email" property="email"/>
+</resultMap>
+
+<select id="selectTeacherPermit" resultMap="TeacherPermitDomain">
+select t.client_id, t.teacher_name, c.birth, c.gender, c.email
+from  teacher t, client c
+where t.client_id=c.client_id
+</select>
+
+</mapper>
