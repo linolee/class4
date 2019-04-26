@@ -6,16 +6,16 @@
 
 <resultMap type="kr.co.sist.admin.domain.TeacherPermitDomain" id="TeacherPermitDomain">
 	<result column="client_id" property="client_id"/>
-	<result column="name" property="name"/>
+	<result column="teacher_name" property="teacher_name"/>
 	<result column="birth" property="birth"/>
 	<result column="gender" property="gender"/>
 	<result column="email" property="email"/>
 </resultMap>
 
 <select id="selectTeacherPermit" resultMap="TeacherPermitDomain">
-select t.client_id, t.teacher_name, c.birth, c.gender, c.email
-from  teacher t, client c
-where t.client_id=c.client_id
+SELECT T.CLIENT_ID, T.TEACHER_NAME, C.BIRTH, C.GENDER, C.EMAIL
+FROM  TEACHER T, CLIENT C
+WHERE T.CLIENT_ID=C.CLIENT_ID and t.status='N'
 </select>
 
 </mapper>

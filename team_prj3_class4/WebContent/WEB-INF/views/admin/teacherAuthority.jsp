@@ -38,6 +38,23 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${empty teacherPermitList }">
+				<tr>
+					<td colspan="6" align="center">
+						<strong>승인 대기중인 강사가 없습니다</strong>
+					</td>
+				</tr>
+				</c:if>
+				
+				<c:forEach var="teacherPermit" items="${teacherPermitList }">
+				<tr>
+					<td><c:out value="${teacherPermit.client_id }"/></td>
+					<td><c:out value="${teacherPermit.teacher_name }"/></td>
+					<td><c:out value="${teacherPermit.birth }"/></td>
+					<td><c:out value="${teacherPermit.gender }"/></td>
+					<td><c:out value="${teacherPermit.email }"/></td>
+				</tr>
+				</c:forEach>
 				<tr>
 					<td>Samppa Nori</td>
 					<td>2012/01/01</td>
@@ -50,38 +67,6 @@
 								class="badge badge-primary">상세정보</span></a>
 						</form>
 					</td>
-				</tr>
-				<tr>
-					<td>Estavan Lykos</td>
-					<td>Simons</td>
-					<td>19900230</td>
-					<td>Staff</td>
-					<td><span class="badge badge-danger">Banned</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Chetan Mohamed</td>
-					<td>2012/02/01</td>
-					<td>Admin</td>
-					<td>Staff</td>
-					<td><span class="badge badge-secondary">Inactive</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Derick Maximinus</td>
-					<td>2012/03/01</td>
-					<td>Member</td>
-					<td>Staff</td>
-					<td><span class="badge badge-warning">Pending</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Friderik Dávid</td>
-					<td>2012/01/21</td>
-					<td>Staff</td>
-					<td>Staff</td>
-					<td><span class="badge badge-success">Active</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
 				</tr>
 			</tbody>
 		</table>
