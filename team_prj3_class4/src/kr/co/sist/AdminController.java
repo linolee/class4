@@ -46,13 +46,6 @@ public class AdminController {
 		model.addAttribute("page", "charge");
 		return "admin/template";
 	}
-	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
-	public String lecturePermitPage(Model model) {
-		
-		
-		model.addAttribute("page", "lecturePermit");
-		return "admin/template";
-	}
 
 	@RequestMapping(value="/admin/category.do",method=GET)
 	public String categoryPage(Model model) {
