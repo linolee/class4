@@ -21,7 +21,7 @@ public class LoginDaoImpl implements LoginDAO{
 			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 		}
 		
-		public synchronized SqlSessionFactory getSessionFactory() {
+		public SqlSessionFactory getSessionFactory() {
 			if( ssf == null) {
 				
 				Reader reader=null;

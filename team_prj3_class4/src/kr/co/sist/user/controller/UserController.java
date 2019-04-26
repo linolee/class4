@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -32,12 +33,14 @@ public class UserController {
 
 	private UserLoginService uls;
 	private UserPageService ups;
+	private UserJoinService ujs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
+		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -71,7 +74,8 @@ public class UserController {
 	}// joinAgreementPage
 	
 	@RequestMapping(value = "user/member/join.do", method = GET)
-	public String joinPage(HttpServletRequest request) {
+	public String joinPage(HttpServletRequest request, Model model) {
+		model.addAttribute("categoryMapping", ujs.CategoryMapping());
 		return "user/member/join";
 	}// joinPage
 

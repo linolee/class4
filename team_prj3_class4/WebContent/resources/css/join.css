@@ -89,3 +89,6 @@
 }
 
 #joinDiv #emailSelect{width: 100px; height: 36px;}
+
+#joinDiv .checkBoxTd {width: 20px;}
+#joinDiv td {width: 125px; color: #555; height: 40px;}

@@ -81,13 +81,18 @@
 							</select>
 							</li>
 							<li><label>관심사</label><br>
-							<input type="checkbox" class="checkBox">스포츠 
-							<input type="checkbox"
-								class="checkBox">음악 <input type="checkbox"
-								class="checkBox">미술 <input type="checkbox"
-								class="checkBox">요리 <%-- <c:forEach var="" items=""></c:forEach> --%>
-							</li>
-
+							<table>
+								<c:forEach var="categorys" items="${categoryMapping }">
+									<tr>
+									<c:forEach var="category" items="${categorys}">
+										<c:if test="${category ne null}">
+										<td class="checkBoxTd"><input type="checkbox" class="checkBox" name="favor" value="${category }"></td>								
+										<td>${category }</td>
+										</c:if>
+									</c:forEach>
+									</tr>
+								</c:forEach>
+							</table>
 						</ul>
 					</div>
 					<div id="joinBtnDiv">
@@ -99,7 +104,7 @@
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
 		</div>
-
+	
 
 	</div>
 

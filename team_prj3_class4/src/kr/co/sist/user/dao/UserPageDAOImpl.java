@@ -19,7 +19,6 @@ public class UserPageDAOImpl implements UserPageDAO {
 		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 	}
 
-	@Override
 	public SqlSessionFactory getSessionFactory() {
 
 		if (ssf == null) {

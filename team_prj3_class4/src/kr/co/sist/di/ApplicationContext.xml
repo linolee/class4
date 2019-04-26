@@ -12,5 +12,12 @@
 		<constructor-arg ref="UserPageDAO"/>
 	</bean>	
 	<bean class="kr.co.sist.user.dao.UserPageDAOImpl" id="UserPageDAO" scope="singleton"/>
+	
+	<bean class="kr.co.sist.user.service.UserJoinServiceImpl" id="UserJoinService" scope="singleton">
+		<constructor-arg ref="UserJoinDAO"/>
+	</bean>	
+	<bean class="kr.co.sist.user.dao.UserJoinDAOImpl" id="UserJoinDAO" scope="singleton"/>
+	
+	
 
 </beans>
