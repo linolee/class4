@@ -16,8 +16,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
@@ -76,6 +74,8 @@ public class UserController {
 	@RequestMapping(value = "user/member/join.do", method = GET)
 	public String joinPage(HttpServletRequest request, Model model) {
 		model.addAttribute("categoryMapping", ujs.CategoryMapping());
+		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
+		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
 	}// joinPage
 
