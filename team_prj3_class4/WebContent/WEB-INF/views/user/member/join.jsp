@@ -10,12 +10,12 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
-<link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/header.css" />"
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />"
 	rel="stylesheet">
+<link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
@@ -61,17 +61,38 @@
 									<option>남자</option>
 									<option>여자</option>
 							</select></li>
-							<li><label>휴대전화</label><br> <input type="text"
-								id="input_phone" class="inputBox"></li>
-							<li><label>이메일</label><br>
-							<input type="text" id="input_email" class="inputBox"></li>
-							<li><label>관심사</label><br> <input type="checkbox"
-								class="checkBox">스포츠 <input type="checkbox"
-								class="checkBox">음악 <input type="checkbox"
-								class="checkBox">미술 <input type="checkbox"
-								class="checkBox">요리 <%-- <c:forEach var="" items=""></c:forEach> --%>
+							<li>
+							<label>휴대전화</label><br>
+							<input type="text" name="input_phone" class="inputBox">-
+							<input type="text" name="input_phone" class="inputBox">-
+							<input type="text" name="input_phone" class="inputBox">
 							</li>
-
+							<li><label>이메일</label><br>
+							<input type="text" id="input_email" class="inputBox">@
+							<input type="text" id="input_domain" class="inputBox">
+							<select id="emailSelect">
+								<option>naver.com</option>
+								<option>gmail.com</option>
+								<option>daum.net</option>
+								<option>hanmail.com</option>
+								<option>hotmail.com</option>
+								<option>nate.com</option>
+								<option>직접 입력</option>
+							</select>
+							</li>
+							<li><label>관심사</label><br>
+							<table>
+								<c:forEach var="categorys" items="${categoryMapping }">
+									<tr>
+									<c:forEach var="category" items="${categorys}">
+										<c:if test="${category ne null}">
+										<td class="checkBoxTd"><input type="checkbox" class="checkBox" name="favor" value="${category }"></td>								
+										<td>${category }</td>
+										</c:if>
+									</c:forEach>
+									</tr>
+								</c:forEach>
+							</table>
 						</ul>
 					</div>
 					<div id="joinBtnDiv">
@@ -83,7 +104,7 @@
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
 		</div>
-
+	
 
 	</div>
 

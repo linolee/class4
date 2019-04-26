@@ -5,6 +5,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +14,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -29,12 +33,14 @@ public class UserController {
 
 	private UserLoginService uls;
 	private UserPageService ups;
+	private UserJoinService ujs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
+		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -68,15 +74,19 @@ public class UserController {
 	}// joinAgreementPage
 	
 	@RequestMapping(value = "user/member/join.do", method = GET)
-	public String joinPage(HttpServletRequest request) {
+	public String joinPage(HttpServletRequest request, Model model) {
+		model.addAttribute("categoryMapping", ujs.CategoryMapping());
 		return "user/member/join";
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
-	public String userPage(HttpSession session) {
+	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
-			System.out.println(ups.clientInfo(session.getAttribute("client_id").toString()));
-			
+			String client_id = session.getAttribute("client_id").toString();
+			ClientInfo clientInfo = ups.clientInfo(client_id);
+			model.addAttribute("clientInfo", clientInfo);
+			List<String> clientFavor = ups.clientFavor(client_id);
+			model.addAttribute("client_favor", clientFavor);
 			return "user/member/userPage";
 		}else {
 			return "user/member/login";

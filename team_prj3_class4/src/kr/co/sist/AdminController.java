@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.domain.QnaQuestionList;
+import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.service.QnaService;
 
 
@@ -18,7 +20,8 @@ import kr.co.sist.admin.service.QnaService;
 public class AdminController {
 
 	@RequestMapping(value="/admin/template.do",method=GET)
-	public String mainPage() {
+	public String mainPage(Model model) {
+		
 		return "admin/template";
 	}
 	
@@ -34,53 +37,45 @@ public class AdminController {
 		model.addAttribute("page", "question");
 		model.addAttribute("list", list);
 		return "admin/template";
-		//return "admin/template?page=question";
 	}
 	
 	@RequestMapping(value="/admin/charge.do",method=GET)
-	public String chargePage() {
+	public String chargePage(Model model) {
 		
-		return "admin/template.do?page=chage";
+		
+		model.addAttribute("page", "charge");
+		return "admin/template";
 	}
 	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
-	public String lecturePermitPage() {
+	public String lecturePermitPage(Model model) {
 		
-		return "admin/template.do?page=lecture";
-	}
-	@RequestMapping(value="/admin/lecture.do",method=GET)
-	public String lecturePage() {
 		
-		return "admin/template.do?page=lecture";
-	}
-	
-	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage() {
-		
-		return "admin/template.do?page=member";
+		model.addAttribute("page", "lecturePermit");
+		return "admin/template";
 	}
 
-	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
-	public String teacherAuthorityPage() {
-		
-		return "admin/template.do?page=teacherAuthority";
-	}
-	
 	@RequestMapping(value="/admin/blacklist.do",method=GET)
-	public String blacklistPage() {
+	public String blacklistPage(Model model) {
 		
-		return "admin/template.do?page=blacklist";
+		
+		model.addAttribute("page", "blacklist");
+		return "admin/template";
 	}
 	
 	@RequestMapping(value="/admin/category.do",method=GET)
-	public String categoryPage() {
+	public String categoryPage(Model model) {
 		
-		return "admin/template.do?page=category";
+		
+		model.addAttribute("page", "category");
+		return "admin/template";
 	}
 	
 	@RequestMapping(value="/admin/title.do",method=GET)
-	public String titlePage() {
+	public String titlePage(Model model) {
 		
-		return "admin/template.do?page=title";
+		
+		model.addAttribute("page", "title");
+		return "admin/template";
 	}
 	
 	

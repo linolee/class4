@@ -54,6 +54,7 @@
 			<div class="areaFix">
 				<a href="member/userPage.do">회원정보</a><br>
 				<a href="teacher/classStatus.do">강사마이페이지</a><br/>
+				<a href="student/mypage_list.do">수강생마이페이지</a><br/>
 				<a href="mainContents/mainContents.do">메인</a><br>
 				<a href="member/testSession.do">세션 테스트</a>
 			</div>

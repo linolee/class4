@@ -17,8 +17,11 @@
 	from client
 </select>
 
-
-
+<select id="teacherInfo" resultType="java.lang.String">
+	select status 
+	from teacher 
+	where status='Y' and client_id=#{id}
+</select>
 
 <select id="selectClient" resultMap="MemberListDomain">
 select client_id, name, birth, gender, email

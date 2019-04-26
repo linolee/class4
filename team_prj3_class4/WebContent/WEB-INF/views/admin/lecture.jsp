@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--  -->
                 <div class="card">
@@ -40,7 +41,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                      	<c:if test="${empty lectureList }">
+                      	<tr>
+                      		<td colspan="6" align="center">
+                      			<strong>등록된 강의가 없습니다</strong>
+                      		</td>
+                      	</tr>
+                      	</c:if>
+                      	
+                      	<c:forEach var="lecture" items="${lectureList }">
+                      	<tr>
+                      		<td><c:out value="${lecture.lcode }"/></td>
+                      		<td><c:out value="${lecture.category }"/></td>
+                      		<td><c:out value="${lecture.lname }"/></td>
+                      		<td><c:out value="${lecture.teacher_name }"/></td>
+                      	</tr>
+                      	</c:forEach>
+                        <!-- <tr>
                           <td>A0001</td>
                           <td>기타</td>
                           <td>스윙스와 함께하는 돈까스 맛있게 먹는법</td>
@@ -53,35 +70,7 @@
                           <a data-toggle="modal" href="#reportModal"><span class="badge badge-primary">상세정보</span></a> 
                           </form>
                           </td> 
-                        </tr>
-                        <tr>
-                          <td>BC0001</td>
-                          <td>어학</td>
-                          <td>키미노 나마에와..?</td>
-                           <td>나카지마 쇼고</td>
-                          <td>
-                            <span class="badge badge-secondary">종료</span>
-                          </td>
-                           <td>
-                           <form method="get" action="./member.jsp" class="form-inline">
-                          <a data-toggle="modal" href="#reportModal"><span class="badge badge-primary">상세정보</span></a> 
-                          </form>
-                          </td> 
-                        </tr>
-                        <tr>
-                          <td>A0002</td>
-                          <td>스포츠</td>
-                          <td>그것이 알고싶다!! 호날두 vs 메시</td>
-                           <td>축잘알</td>
-                          <td>
-                            <span class="badge badge-warning">승인대기</span>
-                          </td>
-                           <td>
-                           <form method="get" action="./member.jsp" class="form-inline">
-                          <a data-toggle="modal" href="#reportModal"><span class="badge badge-primary">상세정보</span></a> 
-                          </form>
-                          </td> 
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                     <div style="text-align: center">
