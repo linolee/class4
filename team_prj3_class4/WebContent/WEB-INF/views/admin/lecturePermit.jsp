@@ -46,25 +46,23 @@
 		<table class="table table-responsive-sm">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
-					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
-					<th width="200px">비고</th>
+					<th width="100px">번호</th>
+					<th width="300px">강의명</th>
+					<th width="100px">강사명</th>
+					<th width="100px">카테고리</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!--  -->
-				<c:if test="${ empty MemberListDomain }">
+				<c:if test="${ empty LecturePermitList }">
 				<tr>
-					<td colspan="6" align="center">
-						<strong>등록된 회원이 없습니다</strong>
+					<td colspan="4" align="center">
+						<strong>승인 대기중인 강의가 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ MemberListDomain }">
+				<%-- <c:forEach var="member" items="${ MemberListDomain }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
@@ -79,7 +77,7 @@
 						</form>
 					</td>
 				</tr>
-				</c:forEach>
+				</c:forEach> --%>
 						
 				<!--  -->
 			</tbody>
