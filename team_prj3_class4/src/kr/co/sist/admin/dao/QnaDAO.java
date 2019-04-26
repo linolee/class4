@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.QnaQuestionList;
+import kr.co.sist.admin.vo.ListVO;
 
 
 @Component
@@ -40,12 +41,21 @@ public class QnaDAO {
 		return ssf;
 	}
 
-	public List<QnaQuestionList> selectQnAQuestionList(){
+	public List<QnaQuestionList> selectQnAQuestionList(ListVO lvo){
 		List<QnaQuestionList> list = null;
 		
 		SqlSession ss = getSessionFactory().openSession();
-		list = ss.selectList("selectQnaQuestionList");
+		list = ss.selectList("selectQnaQuestionList", lvo);
 		ss.close();
 		return list;
 	}
+	
+	public int selectTotalCount() {
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = ss.selectOne("qnaTotalCnt");
+		ss.close();
+		return cnt;
+	}
+	
+	
 }

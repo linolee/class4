@@ -2,11 +2,17 @@ package kr.co.sist.user.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.service.UserMypageService;
 import kr.co.sist.user.vo.ListVO;
 
@@ -16,10 +22,21 @@ public class MypageController {
 	private UserMypageService ums;
 	
 	@RequestMapping(value="user/student/mypage_list.do",method=GET)
-	public String indexPage( Model model ) {
+	public String indexPage( Model model ,  HttpSession session) {
 		
-		ListVO lvo=new ListVO("1", "test");
-		model.addAttribute("classList", ums.classList(lvo));
+		String clientId = session.getAttribute("client_id").toString();
+		
+		ListVO lvo=new ListVO("", clientId);
+		List<List<ClassList>> classList=new ArrayList<List<ClassList>>();
+		List<String> lcodeList=null;
+		lcodeList=ums.lcodeList(clientId);
+		
+		for(int i=0; i<lcodeList.size(); i++) {
+			lvo.setLcode(lcodeList.get(i));
+			classList.add(ums.classList(lvo));
+		}//end for
+		
+		model.addAttribute("classList", classList);
 		
 		return "user/student/mypage_list";
 	}//indexPage

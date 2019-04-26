@@ -11,11 +11,16 @@
 	<result column="a_date" property="aDate"/>
 </resultMap>
 
-<select id="selectQnaQuestionList" resultMap="qlResult">
-select q.Q_SUBJECT, c.NAME, Q_DATE, A_DATE
-from QNA q, CLIENT c
-where (q.CLIENT_ID = c.CLIENT_ID)
-order by q.Q_DATE desc
+<select id="selectQnaQuestionList" resultMap="qlResult" parameterType="kr.co.sist.admin.vo.ListVO">
+	select Q_SUBJECT, NAME, Q_DATE, A_DATE
+	from(select q.Q_SUBJECT, c.NAME, Q_DATE, A_DATE, row_number() over(order by q.Q_DATE desc) r_num
+		from QNA q, CLIENT c
+		where (q.CLIENT_ID = c.CLIENT_ID))
+	where r_num between #{ startNum } and #{ endNum }
+</select>
+
+<select id="qnaTotalCnt" resultType="int">
+	select count(*) cnt from QNA
 </select>
 
 
