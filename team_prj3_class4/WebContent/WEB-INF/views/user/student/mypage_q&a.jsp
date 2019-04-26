@@ -39,7 +39,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		$("#btnWriteClose").click(function(){
+			$("[name='pageFlag']").val("");
+			$("[name='mypageFrm']").submit();
+		})
 	});//ready
 	
 	function writeEvt(pageFlag, evtCnt){
@@ -68,7 +71,7 @@
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
-	<form action="mypage_q&a.jsp" name="mypageFrm" method="post">
+	<form action="mypage_q&a.do" name="mypageFrm" method="get">
 		<input type="hidden" name="num"/>
 		<input type="hidden" name="param_month"/>
 		<input type="hidden" name="param_year"/>

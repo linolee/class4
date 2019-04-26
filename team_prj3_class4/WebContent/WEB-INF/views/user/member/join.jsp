@@ -24,7 +24,17 @@
 	font-family: 'PT Sans', sans-serif;
 }
 </style>
-
+<script type="text/javascript">
+	function ChangeDomain() {
+		$('#input_domain').val($('#emailSelect').val());
+		$('#input_domain').attr('readonly', 'readonly');
+		if ($('#emailSelect').val() == "직접 입력") {
+			$('#input_domain').val('');
+			$('#input_domain').attr('placeholder', '직접 입력');
+			$('#input_domain').removeAttr('readonly');
+		}
+	}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -82,15 +92,12 @@
 							<li>
 								<label>이메일</label><br>
 								<input type="text" id="input_email" class="inputBox">@
-								<input type="text" id="input_domain" class="inputBox">
-								<select id="emailSelect">
-									<option>naver.com</option>
-									<option>gmail.com</option>
-									<option>daum.net</option>
-									<option>hanmail.com</option>
-									<option>hotmail.com</option>
-									<option>nate.com</option>
+								<input type="text" id="input_domain" class="inputBox" value="" placeholder="직접 입력">
+								<select id="emailSelect" onchange="ChangeDomain()">
 									<option>직접 입력</option>
+									<c:forEach var="emailDomain" items="${emailDomainList }">
+									<option value="${emailDomain }">${emailDomain }</option>
+									</c:forEach>
 								</select>
 							</li>
 							<li>

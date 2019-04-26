@@ -10,7 +10,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
-<link href="<c:url value="/resources/css/agreement.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/joinAgreement.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/header.css" />"
 	rel="stylesheet">
@@ -62,6 +62,7 @@
 						<ul id="agreementList">
 							<li class="agreementSubject">약관1<br> <textarea rows="20"
 									readonly="readonly">
+								약관내용 어쩌고저쩌고
 							</textarea></li>
 							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
 							<li class="agreementSubject">약관2<br> <textarea rows="20"
@@ -73,21 +74,6 @@
 							<li class="agreementSubject">약관3<br> <textarea rows="20"
 									cols="200" readonly="readonly">
 								약관내용 어쩌고저쩌고
-								블라블라
-								오오
-								1
-								2
-								3
-								4
-								5
-								6
-								7
-								8
-								9
-								10
-								11
-								12
-								13
 							</textarea>
 							</li>
 							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>

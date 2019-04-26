@@ -16,10 +16,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
@@ -76,6 +74,8 @@ public class UserController {
 	@RequestMapping(value = "user/member/join.do", method = GET)
 	public String joinPage(HttpServletRequest request, Model model) {
 		model.addAttribute("categoryMapping", ujs.CategoryMapping());
+		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
+		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
 	}// joinPage
 
@@ -83,7 +83,7 @@ public class UserController {
 	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
-			ClientInfo clientInfo = ups.clientInfo(client_id);
+			ClientPageInfo clientInfo = ups.clientInfo(client_id);
 			model.addAttribute("clientInfo", clientInfo);
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
