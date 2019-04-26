@@ -8,10 +8,12 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.LectureListDomain;
 import kr.co.sist.admin.domain.MemberListDomain;
 
+@Component
 public class LectureDAO {
 
 	private static LectureDAO l_dao;

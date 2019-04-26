@@ -1,10 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script type="text/javascript">
+$(function(){
+	
+/* 	$("[name='detailBlackList']").click(function(){
+		var blackDetailName=$("[name='detailBlackList']").attr("id");
+		alert(blackDetailName);
+	}); */
+	
+	$("[name='detailBlackList']").click(function(){
+		var blackDetailName=$(this).attr("id");
+		/* var hdnModal="<input type='hidden' value='"+blackDetailName+"'/>"; */
+		/* $("#hdnBlackList").html(hdnModal); */
+		$("#hdnBlackList").val(blackDetailName);
+	});
+	
+});
+
+</script>
 <!--  -->
                 <div class="card">
                   <div class="card-header">
-                    <i class="fa fa-align-justify"></i> 블랙리스트</div>
+                    <i class="fa fa-align-justify"></i>블랙리스트</div>
                   <div class="card-body">
                   
 					<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
@@ -25,7 +44,6 @@
 			  	  
 					<br/>
 
-
                     <table class="table table-responsive-sm">
                       <thead>
                         <tr>
@@ -38,68 +56,30 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Samppa Nori</td>
-                          <td>2012/01/01</td>
-                          <td>Member</td>
-                           <td>Member</td>
-                          <td>
-                            <span class="badge badge-success">Active</span>
-                          </td>
-                           <td>
-                           <form method="get" action="./member.jsp" class="form-inline">
-                          <a data-toggle="modal" href="#modalBlackList"><span class="badge badge-danger">상세정보</span></a> 
-                          </form>
+                      	<c:if test="${empty blackList }">
+                      	<tr>
+                      		<td colspan="6" align="center">
+                      			<strong>등록된 블랙리스트가 없습니다</strong>
+                      		</td>
+                      	</tr>
+                      	</c:if>
+                      	
+                      	<c:forEach var="black" items="${blackList }">
+                      	<tr>
+                      		<input type="hidden" value="" id="hdnBlackList"/>
+                      		<td><c:out value="${black.client_id }"/></td>
+                      		<td><c:out value="${black.name }"/></td>
+                      		<td><c:out value="${black.birth }"/></td>
+                      		<td><c:out value="${black.gender }"/></td>
+                      		<td><c:out value="${black.email }"/></td>
+                      		<td>
+	                           <form method="get" action="./member.jsp" class="form-inline">
+	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }"><span class="badge badge-danger">상세정보</span></a> 
+	                          <%-- <a data-toggle="modal" href="#modalBlackList" id="detailBlackList" name="${black.client_id }_detail"><span class="badge badge-danger">상세정보</span></a> --%> 
+                          	</form>
                           </td> 
-                        </tr>
-                        <tr>
-                          <td>Estavan Lykos</td>
-                          <td>Simons</td>
-                          <td>19900230</td>
-                          <td>Staff</td>
-                          <td>
-                            <span class="badge badge-danger">Banned</span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Banned</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Chetan Mohamed</td>
-                          <td>2012/02/01</td>
-                          <td>Admin</td>
-                          <td>Staff</td>
-                          <td>
-                            <span class="badge badge-secondary">Inactive</span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Banned</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Derick Maximinus</td>
-                          <td>2012/03/01</td>
-                          <td>Member</td>
-                          <td>Staff</td>
-                          <td>
-                            <span class="badge badge-warning">Pending</span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Banned</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Friderik Dávid</td>
-                          <td>2012/01/21</td>
-                          <td>Staff</td>
-                          <td>Staff</td>
-                          <td>
-                            <span class="badge badge-success">Active</span>
-                          </td>
-                          <td>
-                            <span class="badge badge-danger">Banned</span>
-                          </td>
-                        </tr>
+                      	</tr>
+                      	</c:forEach>
                       </tbody>
                     </table>
                     <div style="text-align: center">

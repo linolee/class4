@@ -10,15 +10,18 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.domain.TeacherPermitDomain;
+import kr.co.sist.admin.domain.LecturePermitDomain;
 
 @Component
-public class TeacherPermitDAO {
-	private SqlSessionFactory ssf=null;
+public class LecturePermitDAO {
+
+private SqlSessionFactory ssf=null;
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
-		if(ssf==null) {
-			Reader reader=null;
+		if(ssf == null) {
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+			
+			Reader reader = null;
 			try {
 				//1. 설정용 xml 로딩
 				reader = Resources.getResourceAsReader("kr/co/sist/admin/mapper/admin_config.xml");
@@ -36,20 +39,14 @@ public class TeacherPermitDAO {
 		return ssf;
 	}
 	
-	public List<TeacherPermitDomain> selectTeacherPermit(){
-		List<TeacherPermitDomain> list=null;
+	public List<LecturePermitDomain> selectLecturePermit(){
+		List<LecturePermitDomain> list=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectTeacherPermit");
+		list=ss.selectList("selectLecturePermit");
 		ss.close();
+		
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		TeacherPermitDAO tpdao=new TeacherPermitDAO();
-		tpdao.selectTeacherPermit();
-		System.out.println("hi");
-	}
-	
-	
-} // class
+}

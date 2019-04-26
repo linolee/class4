@@ -49,15 +49,15 @@
   	  </form>
   	  
 		<br/>
-		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
+					<th width="100px">번호</th>
+					<th width="100px">아이디</th>
+					<th width="100px">이름</th>
+					<th width="100px">생년월일</th>
 					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
+					<th width="200px">이메일</th>
 					<th width="200px">비고</th>
 				</tr>
 			</thead>
@@ -65,14 +65,16 @@
 				<!--  -->
 				<c:if test="${ empty memberList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>등록된 회원이 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
 				<c:forEach var="member" items="${ memberList }">
+				<c:set var="i" value="${i+1}"/>
 				<tr>		
+					<td><c:out value="${i }"/></td>
 					<td><c:out value="${ member.client_id }"/></td>
 					
 					<c:set var="client_id" value="${member.client_id }"/>

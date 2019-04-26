@@ -4,18 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.admin">
 
-<resultMap type="kr.co.sist.admin.domain.LectureListDomain" id="lectureResult">
-	<result column="lcode" property="lcode"/>
-	<result column="category" property="category"/>
+<resultMap type="kr.co.sist.admin.domain.LecturePermitDomain" id="lecturePermitResult">
 	<result column="lname" property="lname"/>
 	<result column="teacher_name" property="teacher_name"/>
+	<result column="category" property="category"/>
 </resultMap>
 
-<select id="selectLectureList" resultMap="lectureResult">
-select lcode, category, lname, teacher_name 
+<select id="selectLecturePermit" resultMap="lecturePermitResult">
+select lname, teacher_name, category
 from lesson
-where status='Y'
-
+where status='N'
 </select>
 
 </mapper>
