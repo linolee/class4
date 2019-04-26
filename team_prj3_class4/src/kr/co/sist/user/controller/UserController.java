@@ -115,14 +115,31 @@ public class UserController {
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
 		UserLoginVO ulvo = new UserLoginVO(request.getParameter("id"), request.getParameter("pass"));
-		System.out.println(ulvo);
 
 		// 생성된 vo로 login method를 실행
+		int loginResult = uls.login(ulvo, session);
+		String loginPath = "";
+		switch (loginResult) {
+		case UserLoginService.login_success:
+			loginPath = "/team_prj3_class4/user/main.do";
+			break;
+		case UserLoginService.login_blacklist:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
+			break;
+		case UserLoginService.login_deletedUser:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
+			break;
+		case UserLoginService.login_fail:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
+			break;
+
+		}
+		
 		System.out.println(uls.login(ulvo, session));
 		System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
-			response.sendRedirect("/team_prj3_class4/user/main.do");
+			response.sendRedirect(loginPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
