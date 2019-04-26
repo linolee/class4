@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.review_mapper">
+<resultMap type="kr.co.sist.user.domain.Review" id="ReviewInfo">
+	<result column="teacher_name" property="teacher_name"/>
+	<result column="startDate" property="startDate"/>
+	<result column="endDate" property="endDate"/>
+	<result column="status" property="status"/>
+	<result column="lname" property="lname"/>
+	<result column="status" property="status"/>
+	<result column="minPeople" property="minPeople"/>
+	<result column="maxPeople" property="maxPeople"/>
+</resultMap>
+<select id="selectClientInfo" resultMap="ReviewInfo" parameterType="String">
+select STATUS, LNAME, START_DATE, END_DATE, TEACHER_NAME, MAX_MEMBER,
+	nvl((select count(*)
+		from STUDENTS
+		where lcode='${num}'), 0) as now_member
+from LESSON
+where lcode='${num}';
+</select>
+
+</mapper>
+
+
+
+
+
+

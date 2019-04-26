@@ -25,6 +25,24 @@ public class TeacherController {
 		
 		return "user/teacher/teacherProfile";
 	}
+
+	@RequestMapping(value="user/teacher/classReview.do", method=GET)
+	public String classReviewForm() {
+		
+		return "user/teacher/classReview";
+	}
+	
+	@RequestMapping(value="user/teacher/qna.do", method=GET)
+	public String qnaForm() {
+		
+		return "user/teacher/qna";
+	}
+	
+	@RequestMapping(value="user/teacher/adminQuestion.do", method=GET)
+	public String adminQuestionForm() {
+		
+		return "user/teacher/adminQuestion";
+	}
 	
 	
 }
