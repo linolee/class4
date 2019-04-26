@@ -26,6 +26,7 @@
 <select id="selectClient" resultMap="MemberListDomain">
 select client_id, name, birth, gender, email
 from client
+order by inputdate
 </select>
 
 
