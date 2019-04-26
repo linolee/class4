@@ -27,7 +27,9 @@
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableHeader{ background-color: #F7F7F7}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:30px;}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -43,6 +45,7 @@
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
+		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px">
@@ -71,10 +74,10 @@
 	</table>
 	</div>
 	<div style="padding-top: 20px">
-	<a href="#void" >전체보기</a> | 
-	<a href="#void" >예약완료 클래스</a> | 
-	<a href="#void" >종료된 클래스</a> | 
-	<a href="#void" >취소된 클래스</a> | 
+	<a href="mypage_list.do" >전체보기</a> | 
+	<a href="?status=Y" >예약완료 클래스</a> | 
+	<a href="?status=E" >종료된 클래스</a> | 
+	<a href="?status=C" >취소된 클래스</a> | 
 	</div>
 
 	<div id="listContents">
@@ -88,9 +91,11 @@
 			<th id="marsterList" style="border: 1px solid #C3C3C3">마스터</th>
 		</tr>
 		</thead>
+		
+	<c:if test="${ param.status==null }">
 	<c:set var="i" value="${0 }"/>
 	<c:forEach var="classList" items="${ classList }">
-		<tr>
+		<tr class=searchDetail>
 			<td class=tableBody>
 				<c:out value="${ classList.get(i).status}"></c:out>
 			</td>
@@ -113,6 +118,7 @@
 		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
 	</tr>
 	</c:if>
+	</c:if>
 	</table>
 	
 	<div id="classList">
@@ -125,6 +131,8 @@
 	<div id="classSearch">
 	</div>
 	
+	</div>
+	<div id="IndexList" style="text-aling: center">
 	</div>
 	<div id="footer">
 		<c:import url="../footer/footer.jsp" />
