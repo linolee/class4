@@ -3,7 +3,7 @@ package kr.co.sist.user.service;
 import java.util.List;
 
 import kr.co.sist.user.dao.UserPageDAO;
-import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.domain.ClientPageInfo;
 
 public class UserPageServiceImpl implements UserPageService {
 	private UserPageDAO up_dao;
@@ -11,8 +11,8 @@ public class UserPageServiceImpl implements UserPageService {
 		this.up_dao = up_dao;
 	}
 	
-	public ClientInfo clientInfo(String client_id) {
-		ClientInfo clientInfo = up_dao.selectClientInfo(client_id);
+	public ClientPageInfo clientInfo(String client_id) {
+		ClientPageInfo clientInfo = up_dao.selectClientInfo(client_id);
 		return clientInfo;
 	}
 	

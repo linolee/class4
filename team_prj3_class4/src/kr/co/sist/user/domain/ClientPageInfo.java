@@ -1,6 +1,6 @@
 package kr.co.sist.user.domain;
 
-public class ClientInfo {
+public class ClientPageInfo {
 	private String client_id, name, birth, gender, email, status, tel, inputdate;
 
 	public String getClient_id() {
@@ -69,8 +69,9 @@ public class ClientInfo {
 
 	@Override
 	public String toString() {
-		return "ClientInfo [client_id=" + client_id + ", name=" + name + ", birth=" + birth + ", gender=" + gender
+		return "ClientPageInfo [client_id=" + client_id + ", name=" + name + ", birth=" + birth + ", gender=" + gender
 				+ ", email=" + email + ", status=" + status + ", tel=" + tel + ", inputdate=" + inputdate + "]";
 	}
+
 	
 }
