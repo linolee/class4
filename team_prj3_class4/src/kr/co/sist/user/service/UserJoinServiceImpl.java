@@ -25,7 +25,7 @@ public class UserJoinServiceImpl implements UserJoinService {
 		int rowNum = 0;
 		int columnNum = 0;
 		for (String category : categoryList) {
-			if (rowNum == maxRowNum) {//열수가 4가 되면
+			if (rowNum == maxRowNum) {//열수가 maxRowNum가 되면
 				rowNum = 0;//열수는 0으로 초기화
 				columnNum ++;//행수는 1 추가
 			}
