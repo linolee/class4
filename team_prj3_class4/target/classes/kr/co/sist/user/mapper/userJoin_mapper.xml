@@ -7,6 +7,19 @@
 	select category
 	from category
 </select>
+	
+<insert id="memberJoin" parameterType="kr.co.sist.user.vo.MemberJoinVO">
+	insert into client
+	(client_id, pass, name, birth, gender, email, status, tel, inputdate)
+	values
+	(#{client_id}, #{pass}, #{name}, #{birth}, #{gender}, #{email}, #{status}, #{tel}, sysdate)
+</insert>
+<insert id="memberFavor" parameterType="kr.co.sist.user.vo.MemberFavorVO">
+	insert into favor(client_id, category)
+	values
+	(#{client_id}, #{favor})
+</insert>
+
 
 </mapper>
 

@@ -2,6 +2,8 @@ package kr.co.sist.user.dao;
 
 import java.util.List;
 
+import kr.co.sist.user.vo.MemberJoinVO;
+
 public interface UserJoinDAO {
 	/**
 	 * DB에 존재하는 카테고리 리스트를 리턴
@@ -11,5 +13,5 @@ public interface UserJoinDAO {
 	/**
 	 * 입력된 정보를 DB에 입력해 회원가입
 	 */
-	public void join();
+	public void join(MemberJoinVO mjvo, String[] favors);
 }
