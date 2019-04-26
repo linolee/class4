@@ -1,5 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="kr.co.sist.admin.service.BlackListService"%>
+<%@page import="kr.co.sist.admin.domain.BlackListDetailDomain"%>
+
+<%
+	BlackListService bls=new BlackListService();
+	String id="히든태그밸류";
+	
+	if(!"".equals(id)){
+		List<BlackListDetailDomain> list=bls.selectDetailBlackList(id);
+		pageContext.setAttribute("detailBlack", list);
+	}
+%>	
+	
+	
+	
+	
 <div class="modal fade" id="modalBlackList" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">

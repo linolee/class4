@@ -12,8 +12,9 @@ $(function(){
 	
 	$("[name='detailBlackList']").click(function(){
 		var blackDetailName=$(this).attr("id");
-		var hdnModal="<input type='hidden' value='"+blackDetailName+"'/>";
-		hdnModal.html();
+		/* var hdnModal="<input type='hidden' value='"+blackDetailName+"'/>"; */
+		/* $("#hdnBlackList").html(hdnModal); */
+		$("#hdnBlackList").val(blackDetailName);
 	});
 	
 });
@@ -43,7 +44,6 @@ $(function(){
 			  	  
 					<br/>
 
-
                     <table class="table table-responsive-sm">
                       <thead>
                         <tr>
@@ -66,6 +66,7 @@ $(function(){
                       	
                       	<c:forEach var="black" items="${blackList }">
                       	<tr>
+                      		<input type="hidden" value="" id="hdnBlackList"/>
                       		<td><c:out value="${black.client_id }"/></td>
                       		<td><c:out value="${black.name }"/></td>
                       		<td><c:out value="${black.birth }"/></td>
