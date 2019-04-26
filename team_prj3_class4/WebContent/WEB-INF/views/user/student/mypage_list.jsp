@@ -56,7 +56,11 @@
 			<th width=220px height=50>예약취소</th>
 		</tr>
 		<tr>
-			<td height=100></td>
+			<td height=100>
+				<c:if test="${ empty classList }">
+					0
+				</c:if>
+			</td>
 			<td height=100></td>
 			<td height=100></td>
 			<td height=100></td>
@@ -84,8 +88,11 @@
 		</thead>
 	<c:forEach var="classList" items="${ classList }">
 		<tr>
-			<td>${ classList.lcode }</td>
-			<td></td>
+			<td align="center">${ classList.status }</td>
+			<td align="center">${ classList.lname }</td>
+			<td align="center">${ classList.startDate }~${ classList.endDate }</td>
+			<td align="center">${ classList.num }</td>
+			<td align="center">${ classList.teacherName }</td>
 		</tr>
 	</c:forEach>
 	<c:if test="${ empty classList }">

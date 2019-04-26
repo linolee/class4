@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.userMypage_mapper">
+<resultMap type="kr.co.sist.user.domain.ClassList" id="classListResult">
+	<result column="status" property="status"/>
+	<result column="lname" property="lname"/>
+	<result column="start_date" property="startDate"/>
+	<result column="end_date" property="endDate"/>
+	<result column="num" property="num"/>
+	<result column="teacher_name" property="teacherName"/>
+</resultMap>
+<select id="classList" parameterType="kr.co.sist.user.vo.ListVO" resultMap="classListResult">
+	select s.status, l.lname, to_char(l.start_date, 'yyyy-mm-dd') start_date, 
+			to_char(l.end_date, 'yyyy-mm-dd') end_date,num,  l.teacher_name
+	from students s, lesson l,
+			(select max(rownum) num
+			from students
+			where lcode=#{lcode}) n
+	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId}
+</select>
+
+<select id="lcodeList" resultType="String">
+	select lcode
+	from students
+</select>
+  
+</mapper>
