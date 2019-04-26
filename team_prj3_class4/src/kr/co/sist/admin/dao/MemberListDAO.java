@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.MemberIdxVO;
 
 @Component
@@ -45,23 +46,13 @@ public class MemberListDAO {
 		return ssf;
 	}
 	
-	public List<MemberListDomain> selectAllMember() {
+	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list=null;
 
-		MemberListDAO.m_dao=MemberListDAO.getInstance();
+		/*MemberListDAO.m_dao=MemberListDAO.getInstance();*/
 		SqlSession ss=m_dao.getSessionFactory().openSession();
 
-		list=ss.selectList("selectClient");
-		/*for(int i=0;i<list.size();i++) {
-			System.out.println(1);
-		}*/
-		MemberListDomain md=null;
-
-		for(int i=0;i<list.size();i++) {
-			md=list.get(i);
-			System.out.println(md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
-
-		}
+		list=ss.selectList("selectClient", lvo);
 		ss.close();
 		return list;
 	}
@@ -91,9 +82,10 @@ public class MemberListDAO {
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
-		adao.selectAllMember();
+		/*adao.selectAllMember();*/
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
+		System.out.println(adao.selectTotalCount());
 		
 	}
 
