@@ -78,14 +78,14 @@
     <label for="tab2" style="width: 300px;">Q&A문의</label>
 
 
-
-    <section id="content1">
+<%-- 
+<%--     <section id="content1">
         <c:import url="classReview.jsp"/>
-    </section>
+    </section> --%>
 
     <section id="content2">
         <p>tab menu2의 내용</p>
-    </section>
+    </section> --%>
 
 
 </div>

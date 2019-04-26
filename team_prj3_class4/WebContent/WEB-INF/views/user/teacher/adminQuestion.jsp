@@ -26,7 +26,7 @@
 .tableHeader{ background-color: #F7F7F7}
 #hugi{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif;
 			font-size: 40px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
-#addQuestion{ position: absolute; top: 220px; left: 500px; }
+#addQuestion{ position: absolute; top: 400px; left: 800px; }
 #addQuestionFrm{ border: 1px solid #333333; background-color: #FFFFFF; padding: 10px;}			
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -53,7 +53,7 @@ function view( url ) {
 	<div id="header">
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
-	<div id="container">
+	<div id="container" style="height: 800px">
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px">
