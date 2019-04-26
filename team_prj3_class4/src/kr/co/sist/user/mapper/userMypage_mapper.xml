@@ -21,9 +21,10 @@
 	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId}
 </select>
 
-<select id="lcodeList" resultType="String">
+<select id="lcodeList" parameterType="String" resultType="String">
 	select lcode
 	from students
+	where client_id=#{clientId}
 </select>
   
 </mapper>

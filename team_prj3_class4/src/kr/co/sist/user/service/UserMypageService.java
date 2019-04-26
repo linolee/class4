@@ -18,4 +18,13 @@ public class UserMypageService {
 		
 		return list;
 	}//classList
+	
+	public List<String> lcodeList(String clientId){
+		List<String> list=null;
+		
+		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
+		list=mb_dao.selectLcode(clientId);
+		
+		return list;
+	}//lcodeList
 }//class

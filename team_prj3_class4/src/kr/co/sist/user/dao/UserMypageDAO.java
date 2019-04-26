@@ -54,5 +54,13 @@ public class UserMypageDAO {
 		list=ss.selectList("classList", lvo);
 		ss.close();
 		return list;
-	}//selectMainNotice
+	}//selectClass
+	
+	public List<String> selectLcode(String clientId){
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("lcodeList", clientId);
+		ss.close();
+		return list;
+	}//selectLcode
 }

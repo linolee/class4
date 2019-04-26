@@ -26,11 +26,13 @@
 #toDate{ height: 30px;}
 #dateSearch{ width: 60px; height: 35px; color:#393939}
 #listContents{ height: 400px; padding-top: 6px;}
-#listTab{ border-top: 1px solid #333; border-spacing: 0px;}
-#hiredateList{ width: 380px; height: 45px; background-color: #F3F3F3  }
-#subjectList{ width: 490px; height: 45px; background-color: #F3F3F3 }
-#statusList{ width: 230px; height: 45px; background-color: #F3F3F3 }
-.status{margin:0px auto;}
+#listTab{border-top: 1px solid #3E588E; border-spacing: 0px;}
+#hiredateList{ width: 380px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3  }
+#subjectList{ width: 490px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3 }
+#statusList{ width: 230px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
+.status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
+.tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -92,7 +94,7 @@
 	</div>
 	<br/>
 	<div id="listContents">
-	<table id="listTab" border="1">
+	<table id="listTab">
 		<tr>
 			<th id="hiredateList">등록일</th>
 			<th id="subjectList">클래스명</th>

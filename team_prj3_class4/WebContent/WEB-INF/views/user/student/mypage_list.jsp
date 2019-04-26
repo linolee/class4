@@ -18,14 +18,16 @@
 			top: 40px; left: 290px;}
 #container{ margin: 0px auto; width: 1100px; min-height: 600px;}
 #listContents{ height: 400px; padding-top: 6px;}
-#listTab{ border-spacing: 0px;}
+#listTab{border-top: 1px solid #3E588E; border-spacing: 0px;}
 #statusList{ width: 100px; height: 45px; background-color: #F3F3F3  }
 #subjectList{ width: 350px; height: 45px; background-color: #F3F3F3  }
 #periodList{ width: 300px; height: 45px; background-color: #F3F3F3 }
 #peopleList{ width: 200px; height: 45px; background-color: #F3F3F3 }
 #marsterList{ width: 140px; height: 45px; background-color: #F3F3F3 }
-.status{margin:0px auto;}
+.status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableHeader{ background-color: #F7F7F7}
+.tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -47,24 +49,24 @@
 			<c:import url="/common/class_jsp/main_menu.jsp"></c:import>
 		</div>
 	<div style="padding-top:10px">
-	<table border="1" class=status>
-		<tr class=tableHeader>
-			<th width=220px height=50>전체 클래스 수</th>
-			<th width=220px height=50>예약완료</th>
-			<th width=220px height=50>진행중</th>
-			<th width=220px height=50>종료</th>
-			<th width=220px height=50>예약취소</th>
+	<table class=status>
+		<tr class="tableHeader">
+			<th width=220px height=50 style="border: 1px solid #C3C3C3; border-top:0px" >전체 클래스 수</th>
+			<th width=220px height=50 style="border-bottom: 1px solid #C3C3C3;">예약완료</th>
+			<th width=220px height=50 style="border: 1px solid #C3C3C3; border-top:0px">진행중</th>
+			<th width=220px height=50 style="border-bottom: 1px solid #C3C3C3;">종료</th>
+			<th width=220px height=50 style="border: 1px solid #C3C3C3; border-top:0px">예약취소</th>
 		</tr>
 		<tr>
-			<td height=100>
+			<td height=100 align="center" style="border: 1px solid #C3C3C3; border-top:0px">
 				<c:if test="${ empty classList }">
 					0
 				</c:if>
 			</td>
-			<td height=100></td>
-			<td height=100></td>
-			<td height=100></td>
-			<td height=100></td>
+			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3;" ></td>
+			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px"></td>
+			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3;"></td>
+			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px"></td>
 		</tr>
 	</table>
 	</div>
@@ -77,22 +79,33 @@
 
 	<div id="listContents">
 	<table id="listTab">
-		<thead style="border: 2px #C3C3C3;">
+		<thead>
 		<tr>
-			<th id="statusList" style="border: 2px solid #333">상태</th>
-			<th id="subjectList" style="border-bottom: 2px solid #333; border-top: 2px solid #333" >클래스명</th>
-			<th id="periodList" style="border: 2px solid #333">클래스 기간</th>
-			<th id="peopleList" style="border-bottom: 2px solid #333; border-top: 2px solid #333">예약인원</th>
-			<th id="marsterList" style="border: 2px solid #333">마스터</th>
+			<th id="statusList" style="border: 1px solid #C3C3C3">상태</th>
+			<th id="subjectList" style="border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3" >클래스명</th>
+			<th id="periodList" style="border: 1px solid #C3C3C3">클래스 기간</th>
+			<th id="peopleList" style="border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3">예약인원</th>
+			<th id="marsterList" style="border: 1px solid #C3C3C3">마스터</th>
 		</tr>
 		</thead>
+	<c:set var="i" value="${0 }"/>
 	<c:forEach var="classList" items="${ classList }">
 		<tr>
-			<td align="center">${ classList.status }</td>
-			<td align="center">${ classList.lname }</td>
-			<td align="center">${ classList.startDate }~${ classList.endDate }</td>
-			<td align="center">${ classList.num }</td>
-			<td align="center">${ classList.teacherName }</td>
+			<td class=tableBody>
+				<c:out value="${ classList.get(i).status}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classList.get(i).lname}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classList.get(i).startDate }~${ classList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classList.get(i).teacherName}"></c:out>
+			</td>
 		</tr>
 	</c:forEach>
 	<c:if test="${ empty classList }">
