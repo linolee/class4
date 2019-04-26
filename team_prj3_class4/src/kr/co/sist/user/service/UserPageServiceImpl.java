@@ -1,5 +1,7 @@
 package kr.co.sist.user.service;
 
+import java.util.List;
+
 import kr.co.sist.user.dao.UserPageDAO;
 import kr.co.sist.user.domain.ClientInfo;
 
@@ -12,6 +14,11 @@ public class UserPageServiceImpl implements UserPageService {
 	public ClientInfo clientInfo(String client_id) {
 		ClientInfo clientInfo = up_dao.selectClientInfo(client_id);
 		return clientInfo;
+	}
+	
+	public List<String> clientFavor(String client_id) {
+		List<String> clientFavor = up_dao.selectClientFavor(client_id);
+		return clientFavor;
 	}
 	
 }

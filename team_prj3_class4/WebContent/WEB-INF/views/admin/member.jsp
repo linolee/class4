@@ -6,35 +6,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	MemberListService as=new MemberListService();
- 	MemberIdxVO mIdxVO=new MemberIdxVO();
 
-	// if(MemberListDomain!=null){
-		List<MemberListDomain> list=as.selectAllMember();
-		pageContext.setAttribute("MemberListDomain", list);
-	// }
-
- /* 	int totalCount=as.totalCount(); // 총 게시물 수
-	int pageScale=as.pageScale(); // 한 화면에 보여줄 게시물의 수
-	int totalPage=as.totalPage(totalCount); // 총 게시물을 보여주기 위한 총 페이지 수
-
-	 if(mIdxVO.getCurrentPage()==0){
-		mIdxVO.setCurrentPage(1);
-	}
-
-	int startNum=as.startNum(mIdxVO.getCurrentPage());
-	int endNum=as.endNum(startNum);
-	
-	mIdxVO.setStartNum(startNum);
-	mIdxVO.setEndNum(endNum); 
-	
-	pageContext.setAttribute("pageScale", pageScale);
-	pageContext.setAttribute("totalCount", totalCount);
-	pageContext.setAttribute("currentPage", mIdxVO.getCurrentPage()); */
-	
-%>
-
+<% %>
 
 
 
@@ -90,7 +63,7 @@
 			</thead>
 			<tbody>
 				<!--  -->
-				<c:if test="${ empty MemberListDomain }">
+				<c:if test="${ empty memberList }">
 				<tr>
 					<td colspan="6" align="center">
 						<strong>등록된 회원이 없습니다</strong>
@@ -98,9 +71,21 @@
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ MemberListDomain }">
+				<c:forEach var="member" items="${ memberList }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
+					
+					<c:set var="client_id" value="${member.client_id }"/>
+
+<%
+		String teacherID=(String)pageContext.getAttribute("client_id");
+		MemberListService mls=new MemberListService();
+		String chk=mls.chkTeacher(teacherID);
+
+		pageContext.setAttribute("teacher", "Y");
+
+%>
+	<%-- <%=teacherID %>,<%=chk %> --%>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
@@ -111,7 +96,7 @@
 							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
 							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
 							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
-							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
+								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>

@@ -41,53 +41,39 @@ public class AdminController {
 	
 	@RequestMapping(value="/admin/charge.do",method=GET)
 	public String chargePage(Model model) {
+		
+		
 		model.addAttribute("page", "charge");
 		return "admin/template";
 	}
 	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
 	public String lecturePermitPage(Model model) {
+		
+		
 		model.addAttribute("page", "lecturePermit");
 		return "admin/template";
 	}
-	@RequestMapping(value="/admin/lecture.do",method=GET)
-	public String lecturePage(Model model) {
-		model.addAttribute("page", "lecture");
-		return "admin/template";
-	}
-	
-	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(Model model) {
-		List<MemberListDomain> list=null;
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		MemberListService mls=ac.getBean(MemberListService.class);
-		list=mls.selectAllMember();
-		
-		model.addAttribute("page", "member");
-		model.addAttribute("list", list);
-		
-		return "admin/template";
-	}
 
-	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
-	public String teacherAuthorityPage(Model model) {
-		model.addAttribute("page", "teacherAuthority");
-		return "admin/template";
-	}
-	
 	@RequestMapping(value="/admin/blacklist.do",method=GET)
 	public String blacklistPage(Model model) {
+		
+		
 		model.addAttribute("page", "blacklist");
 		return "admin/template";
 	}
 	
 	@RequestMapping(value="/admin/category.do",method=GET)
 	public String categoryPage(Model model) {
+		
+		
 		model.addAttribute("page", "category");
 		return "admin/template";
 	}
 	
 	@RequestMapping(value="/admin/title.do",method=GET)
 	public String titlePage(Model model) {
+		
+		
 		model.addAttribute("page", "title");
 		return "admin/template";
 	}

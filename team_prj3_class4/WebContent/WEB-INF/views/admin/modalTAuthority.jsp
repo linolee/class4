@@ -21,8 +21,14 @@
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
 								<td width="50px">itswings</td>
+								<td width="50px" style="background: #C8CED3">카테고리</td>
+								<td width="50px">돌겜</td>
+							</tr>
+							<tr>
 								<td width="50px" style="background: #C8CED3">이름</td>
 								<td width="50px">문지훈</td>
+								<td width="50px" style="background: #C8CED3">강사명</td>
+								<td width="50px">돈까스</td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>

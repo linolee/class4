@@ -22,15 +22,18 @@ public class MemberListService {
 		
 		list= a_dao.selectAllMember();
 		
-/*		MemberDomain md=null;
-		for(int i=0;i<list.size();i++) {
-			md=list.get(i);
-			
-			System.out.println(md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
-		}*/
-
 		return list;
 	}
+	
+	public String chkTeacher(String ID) {
+		String chkTeacher="";
+		a_dao=MemberListDAO.getInstance();
+		
+		chkTeacher=a_dao.teacherInfo(ID);
+		
+		return chkTeacher;
+	}
+	
 
 
 	/**
@@ -172,10 +175,11 @@ public class MemberListService {
 	
 	
 
-/*	public static void main(String[] args) {
-		System.out.println(AdminDAO.getInstance().getSessionFactory());
-		AdminService as=new AdminService();
-		as.selectAllMember();
-	}*/
+	public static void main(String[] args) {
+		
+		MemberListService mls=new MemberListService();
+		mls.selectAllMember();
+		/*System.out.println(mls.chkTeacher("in11202"));*/
+	}
 
 }
