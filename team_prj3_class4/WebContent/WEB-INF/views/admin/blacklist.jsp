@@ -1,10 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<script type="text/javascript">
+$(function(){
+	
+/* 	$("[name='detailBlackList']").click(function(){
+		var blackDetailName=$("[name='detailBlackList']").attr("id");
+		alert(blackDetailName);
+	}); */
+	
+	$("[name='detailBlackList']").click(function(){
+		var blackDetailName=$(this).attr("id");
+		alert(blackDetailName);
+	});
+	
+});
+
+</script>
 <!--  -->
                 <div class="card">
                   <div class="card-header">
-                    <i class="fa fa-align-justify"></i> 블랙리스트</div>
+                    <i class="fa fa-align-justify"></i>블랙리스트</div>
                   <div class="card-body">
                   
 					<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
@@ -53,22 +70,14 @@
                       		<td><c:out value="${black.birth }"/></td>
                       		<td><c:out value="${black.gender }"/></td>
                       		<td><c:out value="${black.email }"/></td>
+                      		<td>
+	                           <form method="get" action="./member.jsp" class="form-inline">
+	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }"><span class="badge badge-danger">상세정보</span></a> 
+	                          <%-- <a data-toggle="modal" href="#modalBlackList" id="detailBlackList" name="${black.client_id }_detail"><span class="badge badge-danger">상세정보</span></a> --%> 
+                          	</form>
+                          </td> 
                       	</tr>
                       	</c:forEach>
-                        <tr>
-                          <td>Samppa Nori</td>
-                          <td>2012/01/01</td>
-                          <td>Member</td>
-                           <td>Member</td>
-                          <td>
-                            <span class="badge badge-success">Active</span>
-                          </td>
-                           <td>
-                           <form method="get" action="./member.jsp" class="form-inline">
-                          <a data-toggle="modal" href="#modalBlackList"><span class="badge badge-danger">상세정보</span></a> 
-                          </form>
-                          </td> 
-                        </tr>
                       </tbody>
                     </table>
                     <div style="text-align: center">

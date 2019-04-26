@@ -24,9 +24,7 @@
   	  </form>
   	  
 		<br/>
-
-		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
 					<th width="200px">아이디</th>

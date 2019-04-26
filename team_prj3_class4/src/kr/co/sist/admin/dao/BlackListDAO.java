@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
 
 @Component
@@ -46,6 +47,21 @@ public class BlackListDAO {
 		ss.close();
 		
 		return list;
+	}
+	
+	public List<BlackListDetailDomain> selectDetailBlackList(String id){
+		List<BlackListDetailDomain> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectDetailBlackList", id);
+		ss.close();
+		
+		return list;
+	}
+	
+	public static void main(String[] args) {
+		BlackListDAO bldao=new BlackListDAO();
+		bldao.selectDetailBlackList("1");
 	}
 	
 	
