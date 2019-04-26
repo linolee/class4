@@ -8,11 +8,13 @@
 	BlackListService bls=new BlackListService();
 	String id="히든태그밸류";
 	
+	
 	if(!"".equals(id)){
 		List<BlackListDetailDomain> list=bls.selectDetailBlackList(id);
 		pageContext.setAttribute("detailBlack", list);
 	}
 %>	 --%>
+<!-- 	testtest -->
 
 <div class="modal fade" id="modalBlackList" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
