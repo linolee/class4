@@ -25,7 +25,7 @@
 								<td width="50px">문지훈</td>
 							</tr>
 							<tr>
-								<td style="background: #C8CED3">생년월일</td>
+								<td style="background: #C8CED3">생년월일</td>	
 								<td>2012/01/01</td>
 								<td style="background: #C8CED3">성별</td>
 								<td>남</td>
@@ -48,7 +48,7 @@
 					<div class="form-group">
 						<label>사유</label>
 						<textarea name="reportContent" class="form-control" maxlength="2048"
-								style="height:180px; resize: none;"></textarea>
+								style="height:180px; resize: none;" readonly="readonly"></textarea>
 					</div>
 					<div class="form-group">
 						<label>적용일시</label>

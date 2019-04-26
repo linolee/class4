@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
-import kr.co.sist.admin.service.TeacherPermitService;
 
 @Controller
 public class BlackListController {

@@ -12,7 +12,8 @@ $(function(){
 	
 	$("[name='detailBlackList']").click(function(){
 		var blackDetailName=$(this).attr("id");
-		alert(blackDetailName);
+		var hdnModal="<input type='hidden' value='"+blackDetailName+"'/>";
+		hdnModal.html();
 	});
 	
 });
