@@ -16,11 +16,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
+import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 /**
@@ -77,6 +79,18 @@ public class UserController {
 		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
 		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
+	}// joinPage
+
+	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
+	public String join(HttpServletRequest request, Model model) {
+		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
+				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
+				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],
+				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2],
+				request.getParameterValues("favor"));
+		System.out.println(mjvo);
+		
+		return "main";
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)
