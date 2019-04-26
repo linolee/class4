@@ -63,4 +63,12 @@ public class UserMypageDAO {
 		ss.close();
 		return list;
 	}//selectLcode
-}
+	
+	public int selectTotalCount(String clientId) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("listTotalCnt", clientId);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+}//class

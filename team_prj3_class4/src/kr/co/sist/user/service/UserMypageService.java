@@ -10,6 +10,13 @@ import kr.co.sist.user.vo.ListVO;
 
 @Component
 public class UserMypageService {
+	
+	private UserMypageDAO um_dao;
+	
+	public UserMypageService() {
+		um_dao=UserMypageDAO.getInstance();
+	}//UserMypageService
+	
 	public List<ClassList> classList(ListVO lvo){
 		List<ClassList> list=null;
 		
@@ -27,4 +34,7 @@ public class UserMypageService {
 		
 		return list;
 	}//lcodeList
+	
+	
+	
 }//class

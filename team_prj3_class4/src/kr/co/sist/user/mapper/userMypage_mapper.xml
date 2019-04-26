@@ -26,5 +26,9 @@
 	from students
 	where client_id=#{clientId}
 </select>
-  
+<select id="listTotalCnt" parameterType="String" resultType="int">
+ 	select count(lcode) cnt
+	from students
+	where client_id=#{clientId};
+</select>
 </mapper>
