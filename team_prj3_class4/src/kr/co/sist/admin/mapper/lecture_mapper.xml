@@ -14,7 +14,7 @@
 <select id="selectLectureList" resultMap="lectureResult">
 select lcode, category, lname, teacher_name 
 from lesson
-where status='Y'
+where authority='Y'
 
 </select>
 

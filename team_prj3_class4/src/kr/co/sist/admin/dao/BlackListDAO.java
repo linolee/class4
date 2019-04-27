@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
+import kr.co.sist.admin.vo.ListVO;
 
 @Component
 public class BlackListDAO {
@@ -39,11 +40,11 @@ public class BlackListDAO {
 		return ssf;
 	}
 	
-	public List<BlackListDomain> selectBlackList(){
+	public List<BlackListDomain> selectBlackList(ListVO lvo){
 		List<BlackListDomain> list=null;
 		
 		SqlSession ss = getSessionFactory().openSession();
-		list = ss.selectList("selectBlackList");
+		list = ss.selectList("selectBlackList", lvo);
 		ss.close();
 		
 		return list;
@@ -57,6 +58,13 @@ public class BlackListDAO {
 		ss.close();
 		
 		return list;
+	}
+	
+	public int selectTotalCount() {
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = ss.selectOne("blackTotalCnt");
+		ss.close();
+		return cnt;
 	}
 	
 	public static void main(String[] args) {

@@ -13,7 +13,7 @@
 <select id="selectLecturePermit" resultMap="lecturePermitResult">
 select lname, teacher_name, category
 from lesson
-where status='N'
+where authority='N'
 </select>
 
 </mapper>

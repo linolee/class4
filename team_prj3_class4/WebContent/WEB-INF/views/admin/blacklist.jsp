@@ -47,6 +47,7 @@ $(function(){
                     <table class="table table-responsive-sm">
                       <thead>
                         <tr>
+                          <th width="100px">번호</th>
                           <th width="200px">아이디</th>
                           <th width="200px">이름</th>
                           <th width="200px">생년월일</th>
@@ -65,8 +66,10 @@ $(function(){
                       	</c:if>
                       	
                       	<c:forEach var="black" items="${blackList }">
+                      	<c:set var="i" value="${i+1 }"/>
                       	<tr>
-                      		<input type="hidden" value="" id="hdnBlackList"/>
+                      		<!-- <input type="hidden" value="" id="hdnBlackList"/> -->
+                      		<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
                       		<td><c:out value="${black.client_id }"/></td>
                       		<td><c:out value="${black.name }"/></td>
                       		<td><c:out value="${black.birth }"/></td>
@@ -85,27 +88,7 @@ $(function(){
                     <div style="text-align: center">
                     <div style="display: inline-block;">
                     <ul class="pagination "  >
-                      <li class="page-item">
-                        <a class="page-link" href="#">Prev</a>
-                      </li>
-                      <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">4</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">5</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
+                    	<c:out value="${ indexList }" escapeXml="false"/>
                     </ul>
                     </div>
                     </div>

@@ -16,93 +16,64 @@ public class MemberListService {
 	@Autowired
 	private MemberListDAO a_dao;
 
-	public List<MemberListDomain> selectAllMember(ListVO lvo) {
-		List<MemberListDomain> list = null;
-
-		a_dao = MemberListDAO.getInstance();
-
-		list = a_dao.selectAllMember(lvo);
-
-		return list;
-	}
 
 	public String chkTeacher(String ID) {
 		String chkTeacher = "";
-		a_dao = MemberListDAO.getInstance();
+		/*a_dao = MemberListDAO.getInstance();*/
 
 		chkTeacher = a_dao.teacherInfo(ID);
 
 		return chkTeacher;
 	}
 
-	/**
-	 * 총게시물의 수 얻기
-	 * 
-	 * @return
-	 */
-	public int totalCount() {
-		int cnt = 0;
-		a_dao = MemberListDAO.getInstance();
-		cnt = a_dao.selectTotalCount();
-		return cnt;
-	}// totalCount
+	// 1. 전체 게시물 수 얻기
+		public int totalCount() {
+			int cnt = 0;
+			cnt = a_dao.selectTotalCount();
+			return cnt;
+		}
 
-	/**
-	 * 한페이지에 보여줄 게시물의 수
-	 * 
-	 * @return
-	 */
-	public int pageScale() {
-		int pageScale = 10;
-		return pageScale;
-	}// pageScale
+		// 2. 한 화면에 보여질 게시물의 수
+		public int pageScale() {
+			int pageScale = 10;
 
-	/**
-	 * 모든 게시물을 보여주기위한 페이지 수
-	 * 
-	 * @param totalCount
-	 * @return
-	 */
-	public int totalPage(int totalCount) {
-		int totalPage = totalCount / pageScale();
-		if (totalCount % pageScale() != 0) {
-			totalPage++;
-		} // end if
-		return totalPage;
-	}// totalPage
+			return pageScale;
+		}
 
-	/**
-	 * 선택한 인덱스 리스트에서 조회할 시작 번호
-	 * 
-	 * @param currentPage
-	 * @return
-	 */
-	public int startNum(int currentPage) {
-		int startNum = 1;
-		startNum = currentPage * pageScale() - pageScale() + 1;
-		return startNum;
-	}// startNum
+		// 3. 총 페이지 수 구하기
+		public int totalPage(int totalCount) {
+			int totalPage = totalCount / pageScale();
+			if (totalCount % pageScale() != 0) {
+				totalPage++;
+			}
 
-	/**
-	 * 선택한 인덱스 리스트에서 조회할 끝번호
-	 * 
-	 * @param startNum
-	 * @return
-	 */
-	public int endNum(int startNum) {
-		int endNum = startNum + pageScale() - 1;
-		return endNum;
-	}// endNum
+			return totalPage;
+		}
 
-	/**
-	 * 인덱스 리스트 [ << ] ... [1][2][3] ... [ >> ]
-	 * 
-	 * @param current_page
-	 * @param total_page
-	 * @param list_url
-	 * @return
-	 */
-	// 현재 게시판의 페이지 인덱스 설정
+		// 4. 시작 페이지 번호 구하기
+		// current_page에 따라 시작 번호는 달라진다. 1-> 1, 2->11, 3->21 ,,,
+		public int startNum(int currentPage) {
+			int startNum = 1;
+			startNum = currentPage * pageScale() - pageScale() + 1;
+			return startNum;
+		}
+
+		// 5. 끝번호 얻기
+		public int endNum(int startNum) {
+			int endNum = startNum + pageScale() - 1;
+
+			return endNum;
+		}
+		
+		/**
+		 * 인덱스 리스트 [ << ] ... [1][2][3] ... [ >> ]
+		 * 
+		 * @param current_page
+		 * @param total_page
+		 * @param list_url
+		 * @return
+		 */
+		// 현재 게시판의 페이지 인덱스 설정
 		public String indexList(int current_page, int total_page, String list_url) {
 			int pagenumber; // 화면에 보여질 페이지 인덱스 수
 			int startpage; // 화면에 보여질 시작페이지 번호
@@ -160,6 +131,19 @@ public class MemberListService {
 			return strList;
 		}// indexList
 
+	public List<MemberListDomain> selectAllMember(ListVO lvo) {
+		List<MemberListDomain> list = null;
+		list = a_dao.selectAllMember(lvo);
+		
+	/*	MemberListDomain md=null;
+		for(int i=0; i<list.size();i++) {
+			md=list.get(i);
+			System.out.println("------------"+md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
+		}*/
+		
+		return list;
+	}
+	
 	public static void main(String[] args) {
 
 		MemberListService mls = new MemberListService();

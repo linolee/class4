@@ -42,7 +42,6 @@ public class AdminController {
 		}
 		int startNum = qs.startNum(lvo.getCurrentPage());
 		int endNum = qs.endNum(startNum);
-
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
 

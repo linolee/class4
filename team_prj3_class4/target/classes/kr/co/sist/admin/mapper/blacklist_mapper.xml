@@ -24,10 +24,17 @@
 	<result column="b_date" property="b_date"/>
 </resultMap>
 
+<select id="blackTotalCnt" resultType="int">
+	select count(*) cnt from blacklist
+</select>
+
 <select id="selectBlackList" resultMap="blackListResult">
-select  b.client_id, c.name, c.birth, c.gender, c.email
+select client_id, name, birth, gender, email
+from(select b.client_id, c.name, c.birth, c.gender, c.email, row_number() over(order by b_date desc) r_num
 from blacklist b, client c
-where b.client_id=c.client_id
+where b.client_id=c.client_id)
+where r_num between #{ startNum } and #{ endNum }
+
 </select>
 
 <select id="selectDetailBlackList" resultMap="detailBlackListResult" parameterType="String">

@@ -34,17 +34,20 @@ public class MemberListController {
 		int startNum = mls.startNum(lvo.getCurrentPage());
 		int endNum = mls.endNum(startNum);
 
+		
+		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
+
 		
 		list=mls.selectAllMember(lvo);
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
+		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
 		
-		model.addAttribute("memberList", list);
 		model.addAttribute("page", "member");
 		return "admin/template";
 	}

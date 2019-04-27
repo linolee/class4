@@ -1,4 +1,3 @@
-<%@page import="kr.co.sist.admin.vo.MemberIdxVO"%>
 <%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.admin.service.MemberListService"%>
