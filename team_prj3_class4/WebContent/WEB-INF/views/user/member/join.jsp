@@ -6,24 +6,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Class4-회원가입</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<!-- css -->
-<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/header.css" />"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/footer.css" />"
-	rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>당신을 위한 수업 Class4</title>
+<!-- Bootstrap core CSS -->
+<link href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/modern-business.css" />" rel="stylesheet">
+<!-- CSS -->
 <link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
-<!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=PT+Sans"
-	rel="stylesheet">
-<style type="text/css">
-#wrapper {
-	font-family: 'PT Sans', sans-serif;
-}
-</style>
 <script type="text/javascript">
 
 	function ChangeDomain() {
@@ -196,7 +188,7 @@
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
 		</div>
-	
+
 
 	</div>
 
