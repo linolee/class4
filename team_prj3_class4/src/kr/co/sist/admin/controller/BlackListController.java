@@ -40,6 +40,7 @@ public class BlackListController {
 		model.addAttribute("blackList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
+		model.addAttribute("currentPage", lvo.getCurrentPage());
 		model.addAttribute("totalCount", totalCount);
 		return "admin/template";
 	}

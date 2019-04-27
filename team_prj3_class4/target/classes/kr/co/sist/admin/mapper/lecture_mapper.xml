@@ -11,11 +11,16 @@
 	<result column="teacher_name" property="teacher_name"/>
 </resultMap>
 
-<select id="selectLectureList" resultMap="lectureResult">
-select lcode, category, lname, teacher_name 
-from lesson
-where authority='Y'
+<select id="lectureTotalCnt" resultType="int">
+select count(*) cnt from lesson where authority='Y'
+</select>
 
+<select id="selectLectureList" resultMap="lectureResult">
+select lcode, category, lname, teacher_name
+from(select lcode, category, lname, teacher_name, row_number() over(order by lcode desc)r_num
+from lesson
+where authority='Y')
+where r_num between #{ startNum } and #{ endNum }
 </select>
 
 </mapper>

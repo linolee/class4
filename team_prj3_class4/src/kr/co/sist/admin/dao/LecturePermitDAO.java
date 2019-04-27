@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.LecturePermitDomain;
+import kr.co.sist.admin.vo.ListVO;
 
 @Component
 public class LecturePermitDAO {
@@ -39,14 +40,22 @@ private SqlSessionFactory ssf=null;
 		return ssf;
 	}
 	
-	public List<LecturePermitDomain> selectLecturePermit(){
+	public List<LecturePermitDomain> selectLecturePermit(ListVO lvo){
 		List<LecturePermitDomain> list=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectLecturePermit");
+		list=ss.selectList("selectLecturePermit", lvo);
 		ss.close();
 		
 		return list;
 	}
+	
+	public int selectTotalCount() {
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = ss.selectOne("lecturePermitTotalCnt");
+		ss.close();
+		return cnt;
+	}
+	
 	
 }
