@@ -51,7 +51,7 @@
 				<c:forEach var="permit" items="${lecturePermit }">
 				<c:set var="i" value="${i+1 }"/>
 				<tr>
-					<td><c:out value="${i }"/></td>
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${permit.lname }"/></td>
 					<td><c:out value="${permit.teacher_name }"/></td>
 					<td><c:out value="${permit.category }"/></td>
@@ -82,14 +82,7 @@
 		<div style="text-align: center">
 			<div style="display: inline-block;">
 				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<c:out value="${ indexList }" escapeXml="false"/>
 				</ul>
 			</div>
 		</div>
