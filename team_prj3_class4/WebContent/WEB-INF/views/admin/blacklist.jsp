@@ -17,6 +17,52 @@ $(function(){
 		$("#hdnBlackList").val(blackDetailName);
 	});
 	
+	/* ajax */
+
+	if(!"".equals(blackDetailName)){
+			
+			$.ajax({
+				url:"json_db.jsp", // 수정하기
+				type:"post",
+				data: "userID="+blackDetailName,
+				dataType:"json",
+				error:function( xhr ){
+					alert(xhr.status+" " + xhr.statusText);
+				},
+				success:function( json_obj ){
+					
+					var result= json_obj.result;
+					if(result){
+						
+						var output="<strong>"+blackDetailName+"<strong>번 부서사원 조회 결과<br/>"
+						
+						var json_arr=json_obj.resultData;
+						
+						$.each(json_arr, function(idx, jsonEmpData ){
+							output+="<div style='margin-bottom:10px'>"
+								+"<table border='1'><tr><td width='80'>사원번호</td><td width='100'>"
+									+ jsonEmpData.empno+"</td><td width='80'>사원명</td><td width='120'>"
+									+jsonEmpData.ename+"</td><td width='80'>입사일</td><td width='150'>"
+									+jsonEmpData.hiredate+"</td></tr>"+
+									"<tr><td width='80'>연봉</td><td width='150'>"+
+									"<input type='text' name='sal' value='"+
+								jsonEmpData.sal+"'/></td><td width='80'>직무</td><td colspan='3'>"
+									+"<input type='text' name='job' value='"+
+									jsonEmpData.job+"'/></td></tr></table></div>";
+						});
+						$("#empView").html(output);
+						 
+					}else{
+						var img="<img src='../common/images/sist_logo.jpg'><br/>부서에 사원정보가 존재하지 않습니다.";
+						$("#empView").html(img);
+					}//end else 
+				}//success
+			});//ajax
+			
+		});//click
+	
+	}
+	/* ajax */
 });
 
 </script>
