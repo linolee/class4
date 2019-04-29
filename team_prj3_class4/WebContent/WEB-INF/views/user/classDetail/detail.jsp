@@ -28,17 +28,27 @@ table{align : center; text-align: center;}
 .contentTitle{font-size: 24px;font-weight: bold;}
 .clear_fix{border-bottom: 1px solid #cdcdcd;height: 30px;}
 
-dt{float:left; font-weight: bold; font-size:15px; height: 30px;}
-dd{font-size: 15px; color: #adadad; float: right;} 
+dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adadad;}
+dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold}
-
+  
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
  $(function(){
-	 
+/*   	// 주메뉴 스크롤링
+	 $(window).on('scroll', function(){
+	 scrollTop = $(window).scrollTop();
+	 if(scrollTop >= 2000){
+		 $("#other").addClass('scroll');
+		 $("#other").stop(true).css({'position' : 'fixed'});
+	 }else{
+		 $("#other").removeClass('scroll');
+		 $("#other").stop(true).css({'position' : 'relative'});
+	 }//end else
+	 });  */
  });//ready
 </script>
 </head>
