@@ -35,7 +35,9 @@
 
 $(function(){
 	$("#logout").click(function() {
-		confirm("로그아웃 하시겠습니까?");
+		if(confirm("로그아웃 하시겠습니까?")){
+			location.href="AdminLogin.do";
+		};
 	});
  	$(document).on('click', 'a[href="#"]', function(e){
 		e.preventDefault();
