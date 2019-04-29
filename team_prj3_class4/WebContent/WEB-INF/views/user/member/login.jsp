@@ -16,11 +16,15 @@
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
-<style type="text/css">
-#wrapper {
-	font-family: 'PT Sans', sans-serif;
-}
-</style>
+<!-- Bootstrap core CSS -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
+	rel="stylesheet">
+<!-- CSS -->
 <!-- Bootstrap core CSS -->
 <link
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
@@ -30,6 +34,9 @@
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
 	rel="stylesheet">
 </head>
+<style type="text/css">
+body {padding-top: 0px;}
+</style>
 <body>
 	<div id="wrapper">
 		<div id="header">
