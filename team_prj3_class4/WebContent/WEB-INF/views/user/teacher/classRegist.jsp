@@ -38,7 +38,8 @@
 <!-- summernote 관련 library 시작 -->
 <!-- include libraries(jQuery, bootstrap) -->
 <!-- <link href="http://localhost:8080/javaee_termprj3/common/summernote/bootstrap.css" rel="stylesheet"> -->
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/summernote/bootstrap.css"/>" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://localhost:8080/team_prj3_class4/resources/summernote/bootstrap.js"></script>
 
@@ -47,6 +48,146 @@
 <script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
 <script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
+function addClass() {
+	
+	//value
+	var className = $("#className").val();
+	var classSimpleInfo = $("#classSimpleInfo").val();
+	var startDate = $("#startDate").val();
+	var endDate = $("#endDate").val();
+	var finDate = $("#finDate").val();
+	var minPerson = $("#minPerson").val();
+	var maxPerson = $("#maxPerson").val();
+	var classInfo = $("#classInfo").val();
+	var classCurriculum = $("#classCurriculum").val();
+	var classTogether = $("#classTogether").val();
+	var etc = $("#etc").val();
+	var classAddr1 = $("#classAddr1").val();
+	var classAddr2 = $("#classAddr2").val();
+	
+	//필수값 확인
+ 	if(className == null || className == ''){
+ 		alert("클래스 이름을 입력해주세요.");
+ 		$("#className").focus();
+ 		return false;
+ 	}
+	
+ 	if(classSimpleInfo == null || classSimpleInfo == ''){
+ 		alert("간단 소개를 입력해주세요.");
+ 		$("#classSimpleInfo").focus();
+ 		return false;
+ 	}
+ 	
+    if ($("input:checkbox[name='chkWeek']:checked").length == 0) {
+        alert("요일을 선택해주세요.");
+        return false;
+     }
+	
+ 	if(startDate == null || startDate == ''){
+ 		alert("시작 일자를 선택해주세요.");
+ 		$("#startDate").focus();
+ 		return false;
+ 	}
+	
+ 	if(endDate == null || endDate == ''){
+ 		alert("종료 일자를 선택해주세요.");
+ 		$("#endDate").focus();
+ 		return false;
+ 	}
+	
+ 	var sDate = new Date(startDate);	//시작일자
+ 	var eDate = new Date(endDate);		//종료일자
+ 	if (sDate > eDate) {
+ 		alert("시작일자는 종료일자보다 클 수 없습니다.");
+ 		return false;
+ 	}
+ 	
+ 	if(minPerson == null || minPerson == ''){
+ 		alert("최소인원을 입력해주세요.");
+ 		$("#minPerson").focus();
+ 		return false;
+ 	}
+	
+ 	if(maxPerson == null || maxPerson == ''){
+ 		alert("최대인원을 입력해주세요.");
+ 		$("#maxPerson").focus();
+ 		return false;
+ 	}
+
+ 	// 검사
+ 	if(maxPerson < minPerson){
+ 		alert("최소인원은 최대인원보다 많을 수 없습니다.");
+ 		$("#minPerson").focus();
+ 		return false;
+ 	}
+ 	
+ 	if(finDate == null || finDate == ''){
+ 		alert("신청마감일을 선택해주세요.");
+ 		$("#finDate").focus();
+ 		return false;
+ 	}
+
+ 	
+    if ($("input:checkbox[name='chkWeek']:checked").length == 0) {
+        alert("요일을 선택해주세요.");
+        return false;
+     }
+    
+/*  	var category = $("#mainCategory option:selected").val();
+ 	if(category.length==0){
+ 		alert("카테고리를 선택해주세요.");
+ 	} */
+	
+ 	var subCategory = $("#subCategory option:selected").val();
+ 	if(subCategory == null || subCategory == ''){
+ 		alert("서브카테고리를 선택해주세요.");
+ 	}
+
+	if(classInfo == null || classInfo == ''){
+ 		alert("클래스 소개를 입력해주세요.");
+ 		return false;
+ 	}
+	
+ 	if(classCurriculum == null || classCurriculum == ''){
+ 		alert("진행 방법을 입력해주세요.");
+ 		return false;
+ 	}
+	
+ 	if(classTogether == null || classTogether == ''){
+ 		alert("함께하고 싶어요 항목을 입력해주세요.");
+ 		return false;
+ 	}
+	
+ 	if ($("input:checkbox[name='include1']:checked").length == 0) {
+ 		alert("포함/불포함 사항을 선택해주세요.");
+ 		return false;
+ 	}
+ 	
+ 	if(etc == null || etc == ''){
+ 		alert("기타사항을 입력해주세요.");
+ 		$("#etc").focus();
+ 		return false;
+ 	}
+
+/*  	if(classAddr1 == null || classAddr1 == ''){
+ 		alert("주소를 입력해주세요.");
+ 		return false;
+ 	} */
+	
+ 	if(classAddr2 == null || classAddr2 == ''){
+ 		alert("나머지 주소를 입력해주세요.");
+ 		return false;
+ 	}
+	
+	var classState = $("input[name='classState']:checked").val();
+	if(classState == null || classState == ''){
+		alert("클래스상태를 선택해주세요.");
+	}
+	
+} // addClass
+
+
+
 	$(function() {
 		$('.summernote').summernote({
 			placeholder: '이벤트를 작성해 주세요', 
@@ -60,13 +201,6 @@
 </script>
 <!-- summernote 관련 library 끝 -->
 
-
-<script type="text/javascript">
-	$(function(){
-	
-	});//ready
-
-</script>
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 
@@ -99,7 +233,7 @@
 			<tr>
 				<td rowspan="2" class="baseTd3">클래스 날짜구성</td>
 				<td>
-					<input type="date" id="starDate" class="inputDate">부터
+					<input type="date" id="startDate" class="inputDate">부터
 					<input type="date" id="endDate" class="inputDate">까지
 				</td>
 			</tr>
@@ -146,45 +280,45 @@
 			<tr>
 				<td class="baseTd1">카테고리</td>
 				<td class="baseTd2">
-					<select name="mainCategory" class="category">
+					<select name="mainCategory" class="category" id="mainCategory">
 						<option>카테고리선택</option>
-						<option>어쩌구</option>
-						<option>저쩌구</option>
+						<option value="a">어쩌구</option>
+						<option value="b">저쩌구</option>
 					</select>
-					<select name="subCategory" class="category">
+					<select name="subCategory" class="category" id="subCategory">
 						<option>서브카테고리</option>
-						<option>어절씨구</option>
-						<option>저절씨구</option>
+						<option value="1">어절씨구</option>
+						<option value="2">저절씨구</option>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td class="baseTd4">클래스를 소개해요</td>
 				<td class="baseTd2">
-					<textarea name="classInfo" class="summernote"></textarea>
+					<textarea name="classInfo" class="summernote" id="classInfo"></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td class="baseTd4">이렇게 진행해요</td>
 				<td class="baseTd2">
-					<textarea name="classCurriculum" class="summernote"></textarea>
+					<textarea name="classCurriculum" class="summernote" id="classCurriculum"></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td class="baseTd4">함께하고 싶어요</td>
 				<td class="baseTd2">
-					<textarea name="classTogether" class="summernote"></textarea>
+					<textarea name="classTogether" class="summernote" id="classTogether"></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td class="baseTd1">포함/불포함 사항</td>
 				<td class="baseTd2">
-					<input type="checkbox" name="include" value="장비대여">장비대여
-					<input type="checkbox" name="include" value="주차장" style="margin-left: 10px;">주차장
-					<input type="checkbox" name="include" value="강좌" style="margin-left: 10px;">강좌
-					<input type="checkbox" name="include" value="식사" style="margin-left: 10px;">식사
-					<input type="checkbox" name="include" value="차량" style="margin-left: 10px;">차량
-					<input type="checkbox" name="include" value="숙소" style="margin-left: 10px;">숙소
+					<input type="checkbox" name="include1" value="장비대여">장비대여
+					<input type="checkbox" name="include1" value="주차장" style="margin-left: 10px;">주차장
+					<input type="checkbox" name="include1" value="강좌" style="margin-left: 10px;">강좌
+					<input type="checkbox" name="include1" value="식사" style="margin-left: 10px;">식사
+					<input type="checkbox" name="include1" value="차량" style="margin-left: 10px;">차량
+					<input type="checkbox" name="include1" value="숙소" style="margin-left: 10px;">숙소
 					<span class="remark"> * 포함되는 사항을 체크해주세요.</span>
 				</td>
 			</tr>
@@ -224,7 +358,7 @@
 						<span style="color: #999999">클래스 등록은 되지만 일반회원들에게 노출되지 않습니다.</span>
 					</span>
 					<span>
-						<input type="radio" name="classState" value="오픈" checked="checked"> 오픈 - 클래스 바로 개설<br>
+						<input type="radio" name="classState" value="오픈"> 오픈 - 클래스 바로 개설<br>
 						<span style="color: #999999">일반회원들에게 노출이 되어 클래스 신청이 가능합니다.</span>
 					</span>
 				</td>
@@ -232,11 +366,11 @@
 		</table>
 		<div style="margin-top: 20px; margin-bottom: 50px; text-align: right;">
 			<input type="button" value="취소하기" class="btn3" style="background-color: #747474">
-			<input type="button" value="등록하기" class="btn3" style="background-color: #FF6C6C">
+			<input type="button" value="등록하기" class="btn3" style="background-color: #FF6C6C" onclick="addClass()"/>
 		</div>
 	</div>
 	<div id="footer">
-		<c:import url="../footer/footer.jsp" />
+		<c:import url="../footer/footer.jsp"/>
 	</div>
 </div>
 
