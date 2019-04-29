@@ -102,7 +102,7 @@
 	}
 
 	function CheckJoin() {
-		if (checkId() && CheckPassword() && CheckName() && CheckBirth()
+		if (CheckId() && CheckPassword() && CheckName() && CheckBirth()
 				&& CheckTel() && CheckMail()) {
 			$('#joinFrm').submit();
 		} else {
