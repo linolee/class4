@@ -1,7 +1,15 @@
 package kr.co.sist.admin.domain;
 
 public class QnaQuestionList {
-	private String qSubject, name, qDate, aDate;
+	private String qCode, qSubject, name, qDate, aDate;
+
+	public String getqCode() {
+		return qCode;
+	}
+
+	public void setqCode(String qCode) {
+		this.qCode = qCode;
+	}
 
 	public String getqSubject() {
 		return qSubject;
@@ -34,5 +42,6 @@ public class QnaQuestionList {
 	public void setaDate(String aDate) {
 		this.aDate = aDate;
 	}
+
 	
 }

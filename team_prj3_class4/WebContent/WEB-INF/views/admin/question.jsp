@@ -30,7 +30,7 @@
   	  
 		<br/>
 		<br />
-		<table class="table table-responsive">
+		<table class="table table-responsive-sm">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
@@ -54,10 +54,19 @@
 				<c:set var="i" value="${ i + 1 }"/>
 				<tr>
            			<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
-					<td><c:out value="${ qlist.qSubject }"/></td>
+					<td><a href="qnaRead.do?qnum=${ qlist.qCode }"><c:out value="${ qlist.qSubject }"/></a></td>
 					<td><c:out value="${ qlist.name }"/></td>
 					<td><c:out value="${ qlist.qDate }"/></td>
-					<td><c:out value="${ qlist.aDate }"/></td>
+					<td>
+					<c:choose>
+						<c:when test="${ qlist.aDate eq null }">
+							<span style="font-weight: bold; color: #FF0000">미응답</span>
+						</c:when>
+						<c:otherwise>
+							<span style="font-weight: bold; color: #0000FF">답변완료</span><%-- <c:out value="${ qlist.aDate }"/> --%>
+						</c:otherwise>
+					</c:choose>
+					</td>
 					<td></td>
 				</tr>
          		</c:forEach>

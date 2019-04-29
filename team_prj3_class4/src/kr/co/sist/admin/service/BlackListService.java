@@ -1,13 +1,16 @@
 package kr.co.sist.admin.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.BlackListDAO;
-import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
+import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
@@ -127,12 +130,39 @@ public class BlackListService {
 		return list;
 	}
 	
-	public List<BlackListDetailDomain> selectDetailBlackList(String id){
-		List<BlackListDetailDomain> list=null;
+	///// blacklistdetail json
+	public JSONObject selectDetailBlackList(String id){
+		JSONObject json_obj=new JSONObject();
+		BlackListDAO bl_dao=BlackListDAO.getInstance();
+		
+		List<BlackListDetailVO> list=null;
 		
 		list=bl_dao.selectDetailBlackList(id);
+		json_obj.put("result", !list.isEmpty()); // 조회가 수행되면 true
 		
-		return list;
+		JSONArray json_arr=new JSONArray();
+		JSONObject temp_obj=null;
+		BlackListDetailVO bldvo=null;
+		
+		for(int i=0; i<list.size();i++) {
+			bldvo=list.get(i);
+			temp_obj=new JSONObject();
+			temp_obj.put("client_id", bldvo.getClient_id());
+			temp_obj.put("name", bldvo.getBirth());
+			temp_obj.put("birth", bldvo.getBirth());
+			temp_obj.put("gender", bldvo.getGender());
+			temp_obj.put("tel", bldvo.getTel());
+			temp_obj.put("inputdate", bldvo.getInputdate());
+			temp_obj.put("email", bldvo.getEmail());
+			temp_obj.put("reason", bldvo.getReason());
+			temp_obj.put("b_date", bldvo.getB_date());
+			//JSONArray에 생성되어 값을 가진 JSONObject 추가
+			json_arr.add(temp_obj);
+		}
+		//조회된 결과를 가진 JSONArray 를 JSONObject 추가
+		json_obj.put("resultData", json_arr);
+		
+		return json_obj;
 	}
 	
 	public static void main(String[] args) {

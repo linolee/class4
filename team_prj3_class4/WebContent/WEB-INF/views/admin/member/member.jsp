@@ -5,11 +5,30 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<% %>
+
+
+
+<script type="text/javascript">
+
+ $(function(){
+
+	 /* 모달 import??? */
+		$("a[href='#modalUserInfo']").click(function(){
+			
+		});
+	
+}); 
+
+
+</script>
+
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 강의개설 승인
-		
+		<i class="fa fa-align-justify"></i> 회원 조회
+
 	</div>
 	<div class="card-body">
 		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
@@ -29,52 +48,48 @@
   	  </form>
   	  
 		<br/>
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
-					<th width="300px">강의명</th>
-					<th width="100px">강사명</th>
-					<th width="100px">카테고리</th>
+					<th width="100px">아이디</th>
+					<th width="100px">이름</th>
+					<th width="100px">생년월일</th>
+					<th width="100px">성별</th>
+					<th width="200px">이메일</th>
+					<th width="200px">비고</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!--  -->
-				<c:if test="${ empty lecturePermit }">
+				<c:if test="${ empty memberList }">
 				<tr>
-					<td colspan="4" align="center">
-						<strong>승인 대기중인 강의가 없습니다</strong>
+					<td colspan="7" align="center">
+						<strong>등록된 회원이 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
-				<c:forEach var="permit" items="${lecturePermit }">
-				<c:set var="i" value="${i+1 }"/>
-				<tr>
-					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
-					<td><c:out value="${permit.lname }"/></td>
-					<td><c:out value="${permit.teacher_name }"/></td>
-					<td><c:out value="${permit.category }"/></td>
-				</tr>
-				</c:forEach>
-				
-				
-				<%-- <c:forEach var="member" items="${ MemberListDomain }">
+				<c:forEach var="member" items="${ requestScope.memberList }">
+				<c:set var="i" value="${i+1}"/>
 				<tr>		
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
 					<td><c:out value="${ member.email }"/></td>
+					
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList"><span class="badge badge-primary">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo"><span class="badge badge-primary">강사정보</span></a>
+							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
+							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
+							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
+								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>
-				</c:forEach> --%>
+				</c:forEach>
 						
 				<!--  -->
 			</tbody>
@@ -88,8 +103,17 @@
 		</div>
 	</div>
 </div>
-<c:import url="modalUserInfo.jsp"/>
-<c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/>
+
+<%-- <c:if test="${ not empty param.modal }">
+	<c:import url="${ param.modal }.jsp"/>
+</c:if> --%>
+
+<%-- <c:if test="${ not empty memberModal }">
+	<c:import url="${memberModal }.jsp"/>
+</c:if>  --%>
+
+<c:import url="member/modalUserInfo.jsp"/> 
+<c:import url="member/modalAddBlackList.jsp"/>
+<c:import url="member/modalTeacherInfo.jsp"/>
 <!--  -->
 

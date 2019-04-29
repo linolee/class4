@@ -1,6 +1,6 @@
-package kr.co.sist.admin.domain;
+package kr.co.sist.admin.vo;
 
-public class BlackListDetailDomain {
+public class BlackListDetailVO {
 	public String client_id, name, birth, gender, tel, inputdate, email, reason, b_date;
 
 	public String getClient_id() {
