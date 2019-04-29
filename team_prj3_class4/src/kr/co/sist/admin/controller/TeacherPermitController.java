@@ -45,7 +45,7 @@ public class TeacherPermitController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
-		model.addAttribute("page", "teacherAuthority");
+		model.addAttribute("page", "teacherAuthority/teacherAuthority");
 		model.addAttribute("teacherPermitList", list);
 		return "admin/template";
 	}

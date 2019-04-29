@@ -14,5 +14,5 @@ public class MainContentsController {
 		return "mainContents/";
 	}//showContentsForm
 	
-	
+	//XXXX
 }//class

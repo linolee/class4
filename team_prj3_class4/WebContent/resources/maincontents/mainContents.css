@@ -6,27 +6,28 @@
 #footerTitle{float: right; font-size:15px; padding-top:20px; padding-right:20px; }
 
 /* 컨테이너 */
-#category{height:300px; position: relative;}
+#category{clear:both; height:300px; position: relative;}
 #recomnend{height:300px; position: relative;}
 #review{height:300px; position: relative;}
 #cgTitle{float: left; position:absolute; top:8px; left:8px;font-size: 20px; font-weight: bold;}
 #cg01,#rc01,#rv01{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:150px;}
 #cg02,#rc02,#rv02{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:435px;}
 #cg03,#rc03,#rv03{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:720px;}
-#cg04,#rc04,#rv04{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2150px;}
-#cg05,#rc05,#rv05{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2430px;}
-#cg06,#rc06,#rv06{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2715px; }
-#cg07,#rc07,#rv07{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:4150px; }
-#cg08,#rc08,#rv08{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:4430px;}
-#cg09,#rc09,#rv09{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:4720px;}
+#cg04,#rc04,#rv04{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:1250px;}
+#cg05,#rc05,#rv05{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:1530px;}
+#cg06,#rc06,#rv06{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:1815px; }
+#cg07,#rc07,#rv07{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2350px; }
+#cg08,#rc08,#rv08{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2630px;}
+#cg09,#rc09,#rv09{float: left; width:240px;height:250px; border:1px solid #FF0088; position:absolute; top:10px; left:2920px;}
 #cglbtn,#rvlbtn,#rclbtn{float: left; position:absolute; top:140px; left:120px;}
 #cgrbtn,#rvrbtn,#rcrbtn{float: left; position:absolute; top:140px; left: 1028px;}
 #rcTitle{float: left; position:absolute; top:8px; left:8px; font-size: 20px; font-weight: bold;}
 #rvTitle{float: left; position:absolute; top:8px; left:8px;	font-size: 20px; font-weight: bold;}
 #showcg{float: left;width:780px;height:250px;position:absolute; }
 	
-#TitleImg1{border:1px solid #FF0088; top:10px; left:150px; width:1075px;height: 470px; float: left;}
-#TitleImg2{border:1px solid #FF0088; top:10px; left:1500px; width:1075px;height: 470px; float: left;}
-#TitleImg3{border:1px solid #FF0088; top:10px; left:3000px; width:1075px;height: 470px; float: left;}
-#tilbtn{float: left; position:absolute; top:420px; left:95px;}
-#tirbtn{float: left; position:absolute; top:420px; left: 1240px;}
+#TitleImg1{position:absolute; border: 1px solid #FF0088;  width:1048px; height: 460px;}
+#TitleImg2{position:absolute; border:1px solid #FF0088; left:1110px; width:1048px;height: 460px;}
+#TitleImg3{position:absolute; border:1px solid #FF0088; left:2210px; width:1048px;height: 460px;}
+#tilbtn{float: left; position:absolute; top:220px; left:-30px;}
+#tirbtn{float: left; position:absolute; top:220px; left: 1120px;}
+    

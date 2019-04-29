@@ -10,13 +10,23 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
+import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
 public class BlackListDAO {
+	
+	private static BlackListDAO bl_dao;
 	private SqlSessionFactory ssf=null;
+	
+	public static BlackListDAO getInstance() {
+		if(bl_dao == null) {
+			bl_dao=new BlackListDAO();
+		}//end if
+		return bl_dao;
+	}//getInstance
+	
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf == null) {
@@ -50,21 +60,22 @@ public class BlackListDAO {
 		return list;
 	}
 	
-	public List<BlackListDetailDomain> selectDetailBlackList(String id){
-		List<BlackListDetailDomain> list=null;
-		
-		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectDetailBlackList", id);
-		ss.close();
-		
-		return list;
-	}
 	
 	public int selectTotalCount() {
 		SqlSession ss = getSessionFactory().openSession();
 		int cnt = ss.selectOne("blackTotalCnt");
 		ss.close();
 		return cnt;
+	}
+	
+	public List<BlackListDetailVO> selectDetailBlackList(String id){
+		List<BlackListDetailVO> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectDetailBlackList", id);
+		ss.close();
+		
+		return list;
 	}
 	
 	public static void main(String[] args) {

@@ -12,16 +12,16 @@
 	<result column="email" property="email"/>
 </resultMap>
 
-<resultMap type="kr.co.sist.admin.domain.BlackListDetailDomain" id="detailBlackListResult">
-	<result column="client_id" property="client_id"/>
-	<result column="name" property="name"/>
-	<result column="birth" property="birth"/>
-	<result column="gender" property="gender"/>
-	<result column="tel" property="tel"/>
-	<result column="inputdate" property="inputdate"/>
-	<result column="email" property="email"/>
-	<result column="reason" property="reason"/>
-	<result column="b_date" property="b_date"/>
+<resultMap type="kr.co.sist.admin.vo.BlackListDetailVO" id="detailBlackListResult">
+	<result column="c.client_id" property="client_id"/>
+	<result column="c.name" property="name"/>
+	<result column="c.birth" property="birth"/>
+	<result column="c.gender" property="gender"/>
+	<result column="c.tel" property="tel"/>
+	<result column="c.inputdate" property="inputdate"/>
+	<result column="c.email" property="email"/>
+	<result column="b.reason" property="reason"/>
+	<result column="b.b_date" property="b_date"/>
 </resultMap>
 
 <select id="blackTotalCnt" resultType="int">
