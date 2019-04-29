@@ -43,7 +43,7 @@ public class LecturePermitController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
-		model.addAttribute("page", "lecturePermit");
+		model.addAttribute("page", "lecturePermit/lecturePermit");
 		model.addAttribute("lecturePermit", list);
 		return "admin/template";
 	}

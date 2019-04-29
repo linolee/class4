@@ -36,7 +36,7 @@ public class BlackListController {
 		
 		list=bls.selectBlackList(lvo);
 		String indexList = bls.indexList(lvo.getCurrentPage(), totalPage, "blacklist.do");
-		model.addAttribute("page", "blacklist");
+		model.addAttribute("page", "blacklist/blacklist");
 		model.addAttribute("blackList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);

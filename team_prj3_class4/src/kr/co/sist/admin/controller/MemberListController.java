@@ -48,7 +48,7 @@ public class MemberListController {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
 		
-		model.addAttribute("page", "member");
+		model.addAttribute("page", "member/member");
 		return "admin/template";
 	}
 }

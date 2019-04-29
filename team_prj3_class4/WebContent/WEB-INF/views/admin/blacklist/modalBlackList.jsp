@@ -18,8 +18,8 @@
 %>	 --%>
 
 
-<%
-	String blackDetailName=request.getParameter("blackDetailName");
+<%-- <%
+	String blackDetailName=request.getParameter("userID");
 	
 	JSONObject blackData=null;
 	
@@ -27,13 +27,13 @@
 		String blackDetail=blackDetailName;
 		BlackListService bls=new BlackListService();
 		/* blackData= bls.selectDetailBlackList(blackDetail); */
-		/* blackData=new JSONObject();
+		blackData=new JSONObject();
 		blackData.put("result",false);
-		blackData.put("resultData",null); */
+		blackData.put("resultData",null);
 		// out.println( blackData.toJSONString() );
 		}
 		
-%>
+%> --%>
 
 
 
