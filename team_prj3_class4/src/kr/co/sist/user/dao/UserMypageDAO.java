@@ -73,6 +73,48 @@ public class UserMypageDAO {
 		return list;
 	}//selectLcode
 	
+	public String reviewStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("reviewStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public String jjimStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("jjimStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public boolean insertJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("insertJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
+	public boolean deleteJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.delete("deleteJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
 	public int selectTotalCount(String clientId) {
 		SqlSession ss=getSessionFactory().openSession();
 		
