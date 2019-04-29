@@ -62,13 +62,9 @@ body {padding-top: 0px;}
 				<div class="container my-5">
 					<!-- Page Heading/Breadcrumbs -->
 					<h1 class="mt-4 mb-3">
-						회원 약관 동의 <small>Login</small>
+						회원 약관 동의
 					</h1>
 
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">메인</li>
-						<li class="breadcrumb-item active">회원 약관 동의</li>
-					</ol>
 					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
 						
 						<div id="agreementDiv" class="container my-5">

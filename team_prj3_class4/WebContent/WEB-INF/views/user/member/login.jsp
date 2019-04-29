@@ -48,11 +48,6 @@ body {padding-top: 0px;}
 				회원 로그인 <small>Login</small>
 			</h1>
 
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item active">메인</li>
-				<li class="breadcrumb-item active">로그인</li>
-			</ol>
-
 			<div class="card text-center">
 				<div class="card-header">
 					<c:choose>
