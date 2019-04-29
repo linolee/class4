@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/spring_mvc_prj/common/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/common/main_v190130.css">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
@@ -38,7 +38,9 @@
 			padding: 10px}
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:30px;}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -106,13 +108,15 @@
 	<div style="padding-top: 20px">
 		<div style="float: left">
 			<div style=" font-weight: normal; color:#757575;">
-				총 0개의 게시글이 있습니다.
+				<c:if test="${ param.status==null }">
+				총 <c:out value="${reviewList.size()}"/>개의 게시글이 있습니다.
+				</c:if>
 			</div>
 		</div>
 		<div style="float: right">
-		<a href="#void" >전체보기</a> | 
-		<a href="#void" >작성대기</a> | 
-		<a href="#void" >작성완료</a> 
+		<a href="mypage_assess.do" >전체보기</a> | 
+		<a href="?status=R" >작성대기</a> | 
+		<a href="?status=E" >작성완료</a> 
 		</div>
 	</div>
 	<br/>
@@ -125,14 +129,102 @@
 			<th id="peopleList" style="border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3">예약인원</th>
 			<th id="marsterList" style="border: 1px solid #C3C3C3">마스터</th>
 		</tr>
-		<tr>
-			<td>
-			<div>
-			<a href="#void" onclick="writeEvt('write_form',1)">dsds</a></div>
+		<c:if test="${ param.status==null }">
+	<c:set var="i" value="${0 }"/>
+	<c:forEach var="reviewList" items="${ reviewList }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				<c:if test="${ reviewStatus.get(i)==null }">
+				작성대기
+				</c:if>
+				<c:if test="${ reviewStatus.get(i)!=null }">
+				작성완료
+				</c:if>
 			</td>
-			<td>dsds</td>
-			<td>dsds</td>
+			<td class=tableBody>
+				<a href="#void" onclick="writeEvt('write_form',1)">
+					<c:out value="${ reviewList.get(i).lname}"></c:out>
+				</a>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).startDate }~${ reviewList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).teacherName}"></c:out>
+			</td>
 		</tr>
+	</c:forEach>
+	<c:if test="${ empty reviewList }">
+	<tr>
+		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
+	</c:if>
+	<c:if test="${ param.status eq 'R' }">
+	<c:set var="i" value="${0 }"/>
+	<c:forEach var="reviewList" items="${ reviewList }">
+		<c:if test="${ reviewStatus.get(i)==null }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				작성대기
+			</td>
+			<td class=tableBody>
+				<a href="#void" onclick="writeEvt('write_form',1)">
+					<c:out value="${ reviewList.get(i).lname}"></c:out>
+				</a>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).startDate }~${ reviewList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).teacherName}"></c:out>
+			</td>
+		</tr>
+	</c:if>
+	</c:forEach>
+	<c:if test="${ empty reviewList }">
+	<tr>
+		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
+	</c:if>
+	<c:if test="${ param.status eq 'E' }">
+	<c:set var="i" value="${0 }"/>
+	<c:forEach var="reviewList" items="${ reviewList }">
+		<c:if test="${ reviewStatus.get(i) ne null }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				작성완료
+			</td>
+			<td class=tableBody>
+				<a href="#void" onclick="writeEvt('write_form',1)">
+					<c:out value="${ reviewList.get(i).lname}"></c:out>
+				</a>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).startDate }~${ reviewList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).teacherName}"></c:out>
+			</td>
+		</tr>
+	</c:if>
+	</c:forEach>
+	<c:if test="${ empty reviewList }">
+	<tr>
+		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
+	</c:if>
 	</table>
 	<div id="assessJob">
 		<c:if test="${ not empty param.pageFlag }">
@@ -140,7 +232,7 @@
 		</c:if>
 	</div>
 	
-	<div id="classList">
+	<div id="reviewList">
 	
 	
 	</div>
