@@ -45,8 +45,12 @@ public class UserJoinServiceImpl implements UserJoinService {
 		return true;
 	}
 	
-	
-	
+
+	@Override
+	public boolean checkId(String client_id) {
+		return uj_dao.checkId(client_id);
+	}
+
 	public static void main(String[] args) {
 		UserJoinServiceImpl ujs = new UserJoinServiceImpl(new UserJoinDAOImpl());
 		String[][] categoryMapping = ujs.CategoryMapping(); 
@@ -57,6 +61,5 @@ public class UserJoinServiceImpl implements UserJoinService {
 			System.out.println();
 		}
 	}
-
 
 }

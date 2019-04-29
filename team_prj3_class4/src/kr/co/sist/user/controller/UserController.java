@@ -5,18 +5,21 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
@@ -81,6 +84,18 @@ public class UserController {
 		return "user/member/join";
 	}// joinPage
 
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkId.do", method = POST)
+	public String checkId(HttpServletRequest request, HttpServletResponse response) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkId(request.getParameter("client_id"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkId", true);
+		}else {
+			json.put("checkId", false);
+		}
+		return json.toJSONString();
+	}
+	
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
 		//넘겨진 parameter 값으로 VO를 생성

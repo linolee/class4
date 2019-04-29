@@ -14,4 +14,9 @@ public interface UserJoinDAO {
 	 * 입력된 정보를 DB에 입력해 회원가입
 	 */
 	public void join(MemberJoinVO mjvo, String[] favors);
+	
+	/**
+	 * 입력받은 아이디로 DB를 조회해서 아이디가 있으면 true를 반환
+	 */
+	public boolean checkId(String client_id);
 }

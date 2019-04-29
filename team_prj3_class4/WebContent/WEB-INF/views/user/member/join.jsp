@@ -32,9 +32,29 @@
 		}
 	}
 
-	function checkId() {//id가 중복되는지, 길이는 맞는지 체크
-		//DB로 중복되는지 체크해야함. ajax나 json필요.
-		return true;
+	function CheckId() {//id가 중복되는지, 길이는 맞는지 체크
+		var idFlag;
+		//DB로 중복되는지 체크
+		//json으로 id를 보낸다
+		$.ajax({
+			type:"POST",
+			url:"checkId.do",
+			data : {client_id : $('#client_id').val()},
+			dataType : "json",
+			success: function(json){
+				if (json.checkId) {//아이디가 이미 존재 하면
+					$('#idWarning').text("이미 사용 중인 아이디입니다.").css("color", "red");
+					idFlag = false;
+				}else{
+					$('#idWarning').text("사용 가능한 아이디입니다.").css("color", "green");
+					idFlag = true;
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+		return idFlag;
 	}
 
 	function CheckPassword() {
@@ -114,7 +134,7 @@
 						<ul>
 							<li>
 								<label>아이디</label><br>
-								<input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon1" name="client_id">
+								<input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon1" id="client_id" name="client_id" onchange="CheckId()">
 							</li>
 							<li>
 								<label class="warning" id="idWarning"></label>

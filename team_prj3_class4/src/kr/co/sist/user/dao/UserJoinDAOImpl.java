@@ -59,26 +59,26 @@ public class UserJoinDAOImpl implements UserJoinDAO{
 		for (String favor : favors) {
 			MemberFavorVO mfvo = new MemberFavorVO(mjvo.getClient_id(), favor);
 			ss.insert("memberFavor", mfvo);
-			ss.commit();
+			if(cnt == 1) {
+				ss.commit();
+			}//end if
 		}
 		
 		
 		ss.close();
 	}
 	
-	public void inputFavors(String[] favors) {
+	@Override
+	public boolean checkId(String client_id) {
 		SqlSession ss=getSessionFactory().openSession();
-		for (String favor : favors) {
-			MemberFavorVO mfvo = new MemberFavorVO("dddd", favor);
-			ss.insert("memberFavor", mfvo);
-			ss.commit();
-		}
+		
+		return (ss.selectOne("checkId", client_id) != null);
+		//id로 조회한 값이 null이면 false, 존재하면 true를 반환
 	}
 	
 	public static void main(String[] args) {
-		System.out.println("하이");
 		UserJoinDAOImpl ujd = new UserJoinDAOImpl();
-		ujd.inputFavors(new String[] {"음악", "아트", "핸드메이드"});
+		ujd.checkId("eeea");
 	}
-	
+
 }

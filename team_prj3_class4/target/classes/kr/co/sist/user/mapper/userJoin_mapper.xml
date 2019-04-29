@@ -7,6 +7,10 @@
 	select category
 	from category
 </select>
+<select id="checkId" parameterType="String" resultType="String">
+	select client_id from client
+	where client_id = #{client_id}
+</select>
 	
 <insert id="memberJoin" parameterType="kr.co.sist.user.vo.MemberJoinVO">
 	insert into client

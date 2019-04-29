@@ -7,7 +7,7 @@
 <div class="areaFix">
 	<!-- Navigation -->
 	<nav
-		class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+		class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark text-white fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="<%=serverDomain%>/team_prj3_class4/user/main.do">Class4</a>
 			<button class="navbar-toggler navbar-toggler-right" type="button"
