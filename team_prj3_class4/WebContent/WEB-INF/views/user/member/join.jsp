@@ -11,9 +11,13 @@
 <meta name="author" content="">
 <title>당신을 위한 수업 Class4</title>
 <!-- Bootstrap core CSS -->
-<link href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />" rel="stylesheet">
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
+	rel="stylesheet">
 <!-- Custom styles for this template -->
-<link href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/modern-business.css" />" rel="stylesheet">
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
+	rel="stylesheet">
 <!-- CSS -->
 <link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
 <script type="text/javascript">
@@ -90,68 +94,95 @@
 <body>
 	<div id="wrapper">
 		<div id="header">
-			<c:import url="../header/header.jsp"></c:import>
+			<c:import url="../header/header.jsp"/>
 		</div>
-		<div id="container">
+		<div class="container my-5">
+					<!-- Page Heading/Breadcrumbs -->
+					<h1 class="mt-4 mb-3">
+						회원 가입 <small>Join</small>
+					</h1>
+
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active">메인</li>
+						<li class="breadcrumb-item active">회원 가입</li>
+					</ol>
+
 			<div class="areaFix">
 				<div id="joinDiv">
 					<form action="memberJoin.do" id="joinFrm" method="post">
 					<div id="memberJoinInputDiv">
-						<h3>회원가입</h3>
 						<ul>
 							<li>
 								<label>아이디</label><br>
-								<input type="text" id="input_id" class="inputBox" name = "client_id">
+								<input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon1" name="client_id">
 							</li>
 							<li>
 								<label class="warning" id="idWarning"></label>
 							</li>
 							<li>
 								<label>비밀번호</label><br>
-								<input type="password" id="input_pass" class="inputBox" onchange="CheckPassword()" name="pass">
+								<input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" onchange="CheckPassword()" name="pass" id="input_pass">
 							</li>
 							<li>
 								<label>비밀번호 재확인</label><br>
-								<input type="password" id="input_pass2" class="inputBox" onchange="CheckPassword()">
+								<input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" onchange="CheckPassword()" id="input_pass2">
 							</li>
 							<li>
 								<label class="warning" id="passwordWarning"></label>
 							</li>
 							<li>
 								<label>이름</label><br> 
-								<input type="text" id="input_name" class="inputBox" name="name">
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onchange="CheckPassword()" name="name" id="input_name">
 							</li>
 							<li>
 								<label>생년월일</label><br>
-								<input type="text" id="input_year" class="inputBox" name="birth">년
-								<select id="input_month" class="selectBox" name="birth">
+								<div class="input-group">
+								  <input type="text" aria-label="Year" placeholder="Year" class="form-control" name="birth" id="input_year">
+								  <div class="input-group-append">
+								    <span class="input-group-text">년</span>
+								  </div>
+								<select id="input_month" class="form-control" name="birth">
 									<c:forEach var="i" begin="1" end="12">
 									<option value="${i}"><c:out value="${i}" /></option>
 									</c:forEach>
-								</select>월
-								<select id="input_day" class="selectBox" name="birth">
+								</select>
+								  <div class="input-group-append">
+								    <span class="input-group-text">월</span>
+								  </div>
+								<select id="input_day" class="form-control" name="birth">
 									<c:forEach var="i" begin="1" end="31">
 									<option value="${i}"><c:out value="${i}" /></option>
 									</c:forEach>
-								</select>일</li>
+								</select>
+								  <div class="input-group-append">
+								    <span class="input-group-text">일</span>
+								  </div>
+								</div>
 							<li>
 								<label>성별</label><br>
-								<select id="input_gender" class="selectBox" name="gender">
+								<select id="input_gender" class="form-control" name="gender">
 									<option value="M">남자</option>
 									<option value="F">여자</option>
 								</select>
 							</li>
 							<li>
 								<label>휴대전화</label><br>
-								<input type="text" name="tel" class="inputBox" id="input_tel1">-
-								<input type="text" name="tel" class="inputBox" id="input_tel2">-
-								<input type="text" name="tel" class="inputBox" id="input_tel3">
+								<select class="form-control d-inline" id="input_tel1" name="tel">
+									<option>010</option>
+									<option>011</option>
+									<option>016</option>
+									<option>017</option>
+									<option>018</option>
+									<option>019</option>
+								</select>-
+								<input type="text" name="tel" class="form-control d-inline" id="input_tel2">-
+								<input type="text" name="tel" class="form-control d-inline" id="input_tel3">
 							</li>
 							<li>
 								<label>이메일</label><br>
-								<input type="text" id="input_email" class="inputBox" name="email">@
-								<input type="text" id="input_domain" class="inputBox" value="" placeholder="직접 입력" name="email">
-								<select id="emailSelect" onchange="ChangeDomain()">
+								<input type="text" id="input_email" class="form-control d-inline" name="email">@
+								<input type="text" id="input_domain" class="form-control d-inline" value="" placeholder="직접 입력" name="email">
+								<select id="emailSelect" onchange="ChangeDomain()" class="form-control d-inline">
 									<option>직접 입력</option>
 									<c:forEach var="emailDomain" items="${emailDomainList }">
 									<option value="${emailDomain }">${emailDomain }</option>
@@ -163,12 +194,12 @@
 							</li>
 							<li>
 								<label>관심사</label><br>
-								<table>
+								<table class="table table-striped">
 									<c:forEach var="categorys" items="${categoryMapping }">
 									<tr>
 										<c:forEach var="category" items="${categorys}">
 										<c:if test="${category ne null}">
-										<td class="checkBoxTd"><input type="checkbox" class="checkBox" name="favor" value="${category }"></td>								
+										<td class="checkBoxTd"><input type="checkbox" class="checkBox mx-0" name="favors" value="${category }"></td>								
 										<td>${category }</td>
 										</c:if>
 									</c:forEach>
@@ -180,7 +211,7 @@
 					</div>
 					</form>
 					<div id="joinBtnDiv">
-						<input type="button" id="joinBtn" value="회원 가입" onclick="CheckJoin()">
+						<input type="button" class="btn btn-primary btn-lg" value="회원 가입" onclick="CheckJoin()">
 					</div>
 				</div>
 			</div>

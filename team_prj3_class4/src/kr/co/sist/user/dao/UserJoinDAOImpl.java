@@ -59,15 +59,26 @@ public class UserJoinDAOImpl implements UserJoinDAO{
 		for (String favor : favors) {
 			MemberFavorVO mfvo = new MemberFavorVO(mjvo.getClient_id(), favor);
 			ss.insert("memberFavor", mfvo);
+			ss.commit();
 		}
 		
 		
 		ss.close();
 	}
 	
+	public void inputFavors(String[] favors) {
+		SqlSession ss=getSessionFactory().openSession();
+		for (String favor : favors) {
+			MemberFavorVO mfvo = new MemberFavorVO("dddd", favor);
+			ss.insert("memberFavor", mfvo);
+			ss.commit();
+		}
+	}
+	
 	public static void main(String[] args) {
+		System.out.println("하이");
 		UserJoinDAOImpl ujd = new UserJoinDAOImpl();
-		System.out.println(ujd.categoryList());
+		ujd.inputFavors(new String[] {"음악", "아트", "핸드메이드"});
 	}
 	
 }

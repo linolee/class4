@@ -6,7 +6,7 @@
   		설정정보를 properties에 넣고 하는 것, 설정 정보를 직접 Hard Coding
     -->
 <configuration>
-<properties resource="properties/database2.properties"/>
+<properties resource="properties/database.properties"/>
 
   <environments default="development">
     <environment id="development">

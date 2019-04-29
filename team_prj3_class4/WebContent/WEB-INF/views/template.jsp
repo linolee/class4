@@ -15,8 +15,29 @@
 <!-- Custom styles for this template -->
 <link href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/modern-business.css" />" rel="stylesheet">
 <!-- CSS -->
-<link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/joinAgreement.css" />" rel="stylesheet">
+<script type="text/javascript">
+	function CheckForm() {
 
+		//체크박스 체크여부 확인 [동일 이름을 가진 체크박스 여러개일 경우]
+		var isAllChecked = true;
+		var arr_agreeCheckBox = $('input[name=agreeCheckBox]');
+		for (var i = 0; i < arr_agreeCheckBox.length; i++) {
+			if (arr_agreeCheckBox[i].checked == false) {
+				isAllChecked = false;
+				break;
+			}
+		}
+
+		if (!isAllChecked) {
+			alert("모든 약관에 동의해주세요.");
+			return false;
+		}else{
+			$('#JoinAgreementFrm').submit();
+		}
+
+	}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -25,51 +46,33 @@
 		</div>
 		<div id="container">
 			<div class="areaFix">
-				<div id="login">
-					<form action="login.do" method="post">
-						<div id="loginInput">
-							<div id="loginNotice">
-							<c:choose>
-							<c:when test="${param.result eq null }">
-							<label>가입하신 아이디와 비밀번호를 입력해주세요.</label>
-							</c:when>
-							<c:when test="${param.result eq 'black' }">
-							<label style="color: red;">차단 된 아이디입니다.</label>
-							
-							</c:when>
-							<c:when test="${param.result eq 'deleted' }">
-							<label style="color: red;">삭제 된 아이디입니다.</label>
-							
-							</c:when>
-							<c:when test="${param.result eq 'fail' }">
-							<label style="color: red;">아이디와 비밀번호를 다시 한 번 확인해주세요.</label>
-							
-							</c:when>
-							</c:choose>
-							</div>
-							<div id="loginID">
-								<input type="text" class="inputBox" name="id" placeholder="아이디">
-							</div>
-							<div id="loginPass">
-								<input type="password" class="inputBox" name="pass" placeholder="*******">
-							</div>
-						</div>
-						<div id="loginBtnDiv">
-							<input type="submit" value="로그인">
-						</div>
-						
-						<div id="loginOptionDiv">
-							<table>
-								<tr>
-									<td><a href="findID.do">아이디 찾기</a></td>
-									<td><a href="findPass.do">비밀번호 찾기</a></td>
-									<td><a href="join.do">회원가입</a></td>
-									
-								</tr>
-							</table>
-						</div>
-					</form>
-				</div>
+				<h3>약관동의</h3>
+				<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
+					<div id="agreementDiv">
+						<ul id="agreementList">
+							<li class="agreementSubject">약관1<br> <textarea rows="20"
+									readonly="readonly">
+								약관내용 어쩌고저쩌고
+							</textarea></li>
+							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
+							<li class="agreementSubject">약관2<br> <textarea rows="20"
+									cols="200" readonly="readonly">
+								약관내용 어쩌고저쩌고
+							</textarea>
+							</li>
+							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
+							<li class="agreementSubject">약관3<br> <textarea rows="20"
+									cols="200" readonly="readonly">
+								약관내용 어쩌고저쩌고
+							</textarea>
+							</li>
+							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
+	
+						</ul>
+						<input type="button" id="agreementBtn" value="다음단계" onclick="CheckForm()">
+	
+					</div>
+				</form>
 			</div>
 		</div>
 		<div id="footer">
