@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.QnaDAO;
+import kr.co.sist.admin.domain.QnaDetail;
 import kr.co.sist.admin.domain.QnaQuestionList;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.QnaAnswerVO;
 
 @Component
 public class QnaService {
@@ -121,9 +123,20 @@ public class QnaService {
 	}// indexList
 
 	
-	public List<QnaQuestionList> selectQnAQuestionList(ListVO lvo) {
+	public List<QnaQuestionList> searchQnAQuestionList(ListVO lvo) {
 		List<QnaQuestionList> list = null;
 		list = d_dao.selectQnAQuestionList(lvo);
 		return list;
 	}
+	
+	public QnaDetail searchQnaDetail(String qnum) {
+		QnaDetail qd = d_dao.selectQnaDetail(qnum);
+		return qd;
+	}
+	
+	public int addQnaAnswer(QnaAnswerVO qavo) {
+		int cnt = d_dao.updateQnaAnswer(qavo);
+		return cnt;
+	}
+	
 }
