@@ -13,6 +13,7 @@ body { font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; }
 .panel-tab li { width: 50%; text-align: center; font-size: 30px; align-content: center; border: 1px solid #4b4783; border-bottom: 1px solid #fff; }
 .panel-tab li.on { background-color: #4b4783; }
 .panel-tab li.on a { color: #fff; }
+
 .class-th { height: 45px; background-color: #4b4783; color: #fff; margin: auto; text-align: center; }
 
 .paging { padding-top: 20px; }

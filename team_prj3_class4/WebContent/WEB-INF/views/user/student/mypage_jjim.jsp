@@ -26,13 +26,15 @@
 #toDate{ height: 30px;}
 #dateSearch{ width: 60px; height: 35px; color:#393939}
 #listContents{ height: 400px; padding-top: 6px;}
-#listTab{ border-top: 1px solid #333; border-spacing: 0px;}
-#subjectList{ width: 350px; height: 45px; background-color: #F3F3F3  }
-#periodList{ width: 320px; height: 45px; background-color: #F3F3F3 }
-#peopleList{ width: 150px; height: 45px; background-color: #F3F3F3 }
-#marsterList{ width: 180px; height: 45px; background-color: #F3F3F3 }
-#jjimList{ width: 100px; height: 45px; background-color: #F3F3F3 }
-.status{margin:0px auto;}
+#listTab{border-top: 1px solid #3E588E; border-spacing: 0px;}
+#subjectList{ width: 350px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3  }
+#periodList{ width: 320px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3 }
+#peopleList{ width: 150px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
+#marsterList{ width: 180px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3 }
+#jjimList{ width: 100px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
+.status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
+.tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -61,6 +63,7 @@
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
+		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px; padding-bottom: 20px;">
@@ -84,7 +87,7 @@
 		총 0개의 게시글이 있습니다.
 	</div>
 	<div id="listContents">
-	<table id="listTab" border="1">
+	<table id="listTab">
 		<tr>
 			<th id="subjectList">클래스명</th>
 			<th id="periodList">클래스 기간</th>

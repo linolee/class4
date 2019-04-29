@@ -21,9 +21,30 @@
 	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId}
 </select>
 
-<select id="lcodeList" resultType="String">
+<select id="statusClassList" parameterType="kr.co.sist.user.vo.StatusListVO" resultMap="classListResult">
+	select s.status, l.lname, to_char(l.start_date, 'yyyy-mm-dd') start_date, 
+			to_char(l.end_date, 'yyyy-mm-dd') end_date,num,  l.teacher_name
+	from students s, lesson l,
+			(select max(rownum) num
+			from students
+			where lcode=#{lcode}) 
+	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId} and s.status=#{pageStatus}
+</select>
+
+<select id="lcodeList" parameterType="String" resultType="String">
 	select lcode
 	from students
+	where client_id=#{clientId}
 </select>
-  
+<select id="listTotalCnt" parameterType="String" resultType="int">
+ 	select count(lcode) cnt
+	from students
+	where client_id=#{clientId}
+</select>
+
+<select id="statusCnt" parameterType="kr.co.sist.user.vo.StatusCntVO" resultType="int">
+ 	select count(lcode) cnt
+	from students
+	where client_id=#{clientId} and status=#{status}
+</select>
 </mapper>

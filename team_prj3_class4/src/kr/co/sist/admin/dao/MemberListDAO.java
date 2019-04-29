@@ -11,65 +11,48 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.MemberIdxVO;
 
 @Component
 public class MemberListDAO {
 
-	private  static MemberListDAO m_dao;
 	private SqlSessionFactory ssf;
 	
-	public static MemberListDAO getInstance() {
-		
-		if(m_dao==null) {
-			/*org.apache.ibatis.logging.LogFactory.useLog4JLogging();*/
-			m_dao=new MemberListDAO();
-		}
-		return m_dao;
-	}
-	
 	public synchronized SqlSessionFactory getSessionFactory() {
-		Reader r=null;
-		
-		try {
+		if(ssf == null) {
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 			
-			r=Resources.getResourceAsReader("kr/co/sist/admin/mapper/admin_config.xml");
-			SqlSessionFactoryBuilder ssfb=new SqlSessionFactoryBuilder();
-			
-			ssf=ssfb.build(r);
-			if(r!=null) {r.close();}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			Reader reader = null;
+			try {
+				//1. 설정용 xml 로딩
+				reader = Resources.getResourceAsReader("kr/co/sist/admin/mapper/admin_config.xml");
+				//2. ByBatis Framwork 생성
+				SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
+				//3. MyBatis Framework와 DB 연동한 객체 얻기 ( 객체를 하나로 관리 )
+				ssf = ssfb.build(reader);
+				if(reader != null) {
+					reader.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}	
 		return ssf;
 	}
 	
-	public List<MemberListDomain> selectAllMember() {
+	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list=null;
 
-		MemberListDAO.m_dao=MemberListDAO.getInstance();
-		SqlSession ss=m_dao.getSessionFactory().openSession();
-
-		list=ss.selectList("selectClient");
-		/*for(int i=0;i<list.size();i++) {
-			System.out.println(1);
-		}*/
-		MemberListDomain md=null;
-
-		for(int i=0;i<list.size();i++) {
-			md=list.get(i);
-			System.out.println(md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
-
-		}
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectClient", lvo);
 		ss.close();
 		return list;
 	}
 
 	public String teacherInfo(String ID) {
 		
-		MemberListDAO.m_dao=MemberListDAO.getInstance();
-		SqlSession ss=m_dao.getSessionFactory().openSession();
+		SqlSession ss=getSessionFactory().openSession();
 		String chkTeacher=ss.selectOne("teacherInfo", ID);
 
 		ss.close();
@@ -78,11 +61,8 @@ public class MemberListDAO {
 
 
 	public int selectTotalCount() {
-
-		MemberListDAO.m_dao=MemberListDAO.getInstance();
 		SqlSession ss=getSessionFactory().openSession();
 		int cnt=ss.selectOne("clientTotalCnt");
-
 		ss.close();
 		return cnt;
 	} // selectTotalCount
@@ -91,9 +71,10 @@ public class MemberListDAO {
 	public static void main(String[] args) {
 		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
-		adao.selectAllMember();
+		/*adao.selectAllMember();*/
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
+		System.out.println(adao.selectTotalCount());
 		
 	}
 

@@ -15,13 +15,14 @@
 <link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
 <link href="/docs/4.0/assets/css/docs.min.css" rel="stylesheet">
 
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
 #wrap { margin: 0px auto; width: 1100px; height: 860px;}
-#header { margin: 0px auto; width: 1100px; height: 140px; background: #FFFFFF url(http://localhost:8080/javaee_termprj3/common/images/header_bg.png);
-			position: relative}
 #headerTitle{font-family: 'Nanum Myeongjo', serif; font-size: 30px; font-weight: bold; text-align: center;
 					position: absolute; top: 40px; left: 290px;}
 #mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif;
@@ -29,14 +30,12 @@
 #headerTitle2{font-size: 30px; font-weight: normal; color:#757575; text-align: left;
 			top: 40px; left: 290px;}
 #container{ margin: 0px auto; width: 1100px; min-height: 600px;}
-#footer { margin: 0px auto; width: 1100px; height: 120px;}
-#footerTitle { float: right; font-size: 15px; padding-top: 20px; padding-right: 20px}
 .status {margin:0px auto;}
 .tableHeader { background-color: #F7F7F7}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-webshim.polyfill('forms forms-ext');
+/* webshim.polyfill('forms forms-ext'); */
 
 jQuery(function($) {
     $('#fromDate').on('change', function() {
@@ -52,6 +51,9 @@ jQuery(function($) {
 <body>
 
 <div id="wrap">
+	<div id="header">
+		<c:import url="../header/header.jsp"></c:import>
+	</div>
 	<div id="container">
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
@@ -132,6 +134,9 @@ jQuery(function($) {
 			</div>
 			<!--//row -->
 		</div>
+	<div id="footer">
+		<c:import url="../footer/footer.jsp" />
 	</div>
+</div>
 </body>
 </html>

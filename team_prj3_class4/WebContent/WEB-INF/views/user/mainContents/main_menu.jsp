@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- smartmenu 시작 -->
    <!-- SmartMenus core CSS (required) -->
@@ -25,22 +26,6 @@
     </script>
 <!-- smartmenu 끝 -->
 
-	<nav id="main-nav">
-      <!-- Sample menu definition -->
-      <ul id="main-menu" class="sm sm-simple">
-        <li><a href="#void">음악</a></li>
-        <li><a href="#void">아트</a></li>
-        <li><a href="#void">핸드메이드</a></li>
-        <li><a href="#void">뷰티/헬스</a></li>
-        <li><a href="#void">쿠킹</a></li>
-        <li><a href="#void">가드닝</a></li>
-        <li><a href="#void">액티비티</a></li>
-        <li><a href="#void">여행</a></li>
-        <li><a href="#void">자기계발</a></li>
-        <li><a href="#void">취미</a></li>
-        <li><a href="#void">IT</a></li>
-        <li><a href="#void">모임</a></li>
-       </ul>
-	</nav>
+
         
         

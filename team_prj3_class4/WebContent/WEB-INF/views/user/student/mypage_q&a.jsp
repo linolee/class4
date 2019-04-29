@@ -26,15 +26,17 @@
 #toDate{ height: 30px;}
 #dateSearch{ width: 60px; height: 35px; color:#393939}
 #listContents{ height: 400px; padding-top: 6px;}
-#listTab{border-spacing: 0px;}
-#hiredateList{ width: 380px; height: 45px; background-color: #F3F3F3  }
-#subjectList{ width: 490px; height: 45px; background-color: #F3F3F3 }
-#statusList{ width: 230px; height: 45px; background-color: #F3F3F3 }
+#listTab{border-top: 1px solid #3E588E; border-spacing: 0px;}
+#hiredateList{ width: 380px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3  }
+#subjectList{ width: 490px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3 }
+#statusList{ width: 230px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 #qaJob{position: relative; bottom: 50px; left: 300px}
 #writeFrm{background-color: #FFFFFF; border: 1px solid #CCCCCC;
 			box-shadow: 5px 5px 5px #444444; width:500px;
 			padding: 10px}
-.status{margin:0px auto;}
+.status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
+.tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -78,6 +80,7 @@
 		<input type="hidden" name="param_day"/>
 		<input type="hidden" name="pageFlag"/>
 	</form>
+		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px; padding-bottom: 20px;">
@@ -113,9 +116,9 @@
 	<div id="listContents">
 	<table id=listTab>
 		<tr>
-			<th id="hiredateList" style="border: 2px solid #333">등록일</th>
-			<th id="subjectList" style="border-bottom: 2px solid #333; border-top: 2px solid #333">클래스명</th>
-			<th id="statusList" style="border: 2px solid #333">답변여부</th>
+			<th id="hiredateList">등록일</th>
+			<th id="subjectList">클래스명</th>
+			<th id="statusList">답변여부</th>
 		</tr>
 		
 		<tbody>
