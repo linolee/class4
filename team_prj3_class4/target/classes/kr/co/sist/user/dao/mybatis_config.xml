@@ -27,5 +27,6 @@
      <mapper resource="kr/co/sist/user/mapper/userJoin_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/userMypage_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/userLecture_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/mainContents_mapper.xml"/> 
   </mappers>
 </configuration>

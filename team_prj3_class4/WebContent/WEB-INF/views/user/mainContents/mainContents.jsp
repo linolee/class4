@@ -9,18 +9,17 @@
 <title>Class4-Main</title>
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/main_v190130.css"/>
 <link href="<c:url value="/resources/maincontents/mainContents.css"/>"rel="stylesheet">
+<link href="<c:url value="/resources/maincontents/style.css"/>"rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <!-- google font -->
-<link href="https://fonts.googleapis.com/css?family=PT+Sans"
-	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 <style type="text/css">
 #wrapper {
 	font-family: 'PT Sans', sans-serif;
 }
-
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="http://localhost:8080/team_prj3_class4/resources/maincontents/touchslider.js"></script>
@@ -37,17 +36,17 @@
 	</div>
 	<div id="container">
 	
-	<div id="headImg" style="width:1100px;height:500px;border:1px solid #333;margin-top: 15px;margin-bottom: 15px;">
-		<div class='swipe' style='margin:10px ;height:350px;width:2000px;'>
+	<div id="headImg" style="width:1100px;height:500px;border:1px solid #333;margin-top: 15px;margin-bottom: 15px;position: relative;">
+		<div class='swipe' style='margin:10px ;'>
 			<ul id='slider4'>
-			    <li style='display:block'>
+			    <li style='display:block; width: 1310px;height: 480px;'>
 			    <div id="TitleImg1">
 			    	1번 이미지      
 				</div></li>
-			    <li><div id="TitleImg2">
+			    <li style="width: 1310px;"><div id="TitleImg2">
 					2번 이미지
 				</div></li>
-			    <li><div id="TitleImg3">
+			    <li style="width: 1310px;"><div id="TitleImg3">
 					3번 이미지
 				</div></li>
 			  </ul>
@@ -57,12 +56,29 @@
 		<br/><div id="pagenavi"></div>
 	</div>
 	<c:import url="../mainContents/main_menu.jsp"></c:import>
+	<nav id="main-nav">
+      <!-- Sample menu definition -->
+      <ul id="main-menu" class="sm sm-simple">
+      <c:forEach var="clist" items="${ requestScope.clist }">
+      <li><a href="#void"><c:out value="${clist}"/></a></li>
+      </c:forEach>
+       </ul>
+	</nav>
 	<div id="content">
 		<div id="category">
 		<span id="cgTitle">카테고리</span>
-		<div class='swipe' style='margin:10px ;height:350px;width:2000px;'>
+		<div class='swipe' style='margin:10px ;height:350px;'>
 			<ul id='slider3'>
-			    <li style='display:block'><div>
+			<%-- <c:forEach var="clist" items="${ requestScope.clist }">
+      		<li><a href="#void"><c:out value="${clist}"/></a></li>
+      		<c:set var="i" value="${ i + 1 }"/>
+      		</c:forEach> --%>
+			    <li style='display:block'>
+			    <div>
+			    	<c:forEach var="clist" items="${ requestScope.clist }">
+			    	<c:set var="i" value="${ i + 1 }"/>
+			    	<div id="cg0+${i}"><c:out value="${clist}"/></div>
+			    	</c:forEach>
 					<div id="cg01">음악</div>
 					<div id="cg02">아트</div>
 					<div id="cg03">핸드메이드</div>
@@ -86,11 +102,11 @@
 		
 		<div id="recomnend">
 		<span id="rcTitle">추천 클래스</span>
-		<div class='swipe' style='margin:10px ;height:350px;width:2000px;'>
+		<div class='swipe' style='margin:10px ;height:350px;'>
 			<ul id='slider2'>
 				<li style='display:block'><div>
 					<div id="rc01">
-					
+					추천1
 					</div>
 					<div id="rc02"></div>
 					<div id="rc03"></div>
@@ -115,7 +131,7 @@
 	
 		<div id="review">
 			<span id="rvTitle">최신 리뷰</span>
-			<div class='swipe' style='margin:10px;width:2000px;'>
+			<div class='swipe' style='margin:10px;'>
 			  <ul id='slider1'>
 			    <li style='display:block'><div>
 					<div id="rv01">
@@ -141,34 +157,17 @@
 			<br/>
 			<div id="pagenavi"></div>
 		</div>
-<!-- 		<input type="button" value="letf" class="lbtn" id="rvlbtn"/>
-		<input type="button" value="right" class="rbtn" id="rvrbtn"/> -->
 
 	</div>
 	</div>
 
 <script type="text/javascript">
-console=window.console || {dir:new Function(),log:new Function()};
-var active=0,
-	as=document.getElementById('pagenavi').getElementsByTagName('a');
-for(var i=0;i<as.length;i++){
-	(function(){
-		var j=i;
-		as[i].onclick=function(){
-			t4.slide(j);
-			return false;
-		}
-	})();
-}
 
-var t00=new TouchSlider('slider4',{duration:1000, interval:1000, direction:0, autoplay:false, align:'center', mousewheel:false, mouse:false, fullsize:true});
-var t01=new TouchSlider('slider3',{duration:1000, interval:3000, direction:0, autoplay:true, align:'center', mousewheel:false, mouse:false, fullsize:true});
-var t02=new TouchSlider('slider2',{duration:1000, interval:3000, direction:0, autoplay:true, align:'middle', mousewheel:false, mouse:false, fullsize:true});
-var t03=new TouchSlider('slider1',{duration:1000, interval:3000, direction:0, autoplay:true, align:'center', mousewheel:false, mouse:false, fullsize:true});
-t4.on('before',function(m,n){
-    as[m].className='';
-	as[n].className='active';
-})
+var t00=new TouchSlider('slider4',{duration:1000, direction:0, interval:3000, autoplay:false, mousewheel:false, mouse:false, align:'center', fullsize:true});
+var t01=new TouchSlider('slider3',{duration:1000, interval:6000, direction:0, autoplay:true, align:'center', mousewheel:false, mouse:false, fullsize:true});
+var t02=new TouchSlider('slider2',{duration:1000, interval:8000, direction:0, autoplay:true, align:'center', mousewheel:false, mouse:false, fullsize:true});
+var t03=new TouchSlider('slider1',{duration:1000, interval:3000, direction:0, autoplay:false, align:'center', mousewheel:false, mouse:false, fullsize:true});
+
 </script>
 
 	<div id="footer">
