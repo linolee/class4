@@ -9,13 +9,13 @@
 	JSONObject blackData=null;
 	
 		//if(!"".equals(blackDetailName)){
-		String blackDetail=blackDetailName;
 		BlackListService bls=new BlackListService();
-		/* blackData= bls.selectDetailBlackList(blackDetail); */
-		blackData=new JSONObject();
-		blackData.put("result",false);
-		blackData.put("resultData",null);
-		out.println( blackData.toJSONString() );
-		out.println("ASd");
+		blackData= bls.detailBlack(blackDetailName);
+		//blackData=new JSONObject();
+		//blackData.put("result",false);
+		//blackData.put("resultData",null);
+		//out.println( blackData.toJSONString() );
+		//out.println("ASd");
 		//}
+		out.println(blackData.toJSONString()+"234234234");
 %>

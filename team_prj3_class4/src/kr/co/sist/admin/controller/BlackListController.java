@@ -1,14 +1,19 @@
 package kr.co.sist.admin.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
@@ -44,5 +49,16 @@ public class BlackListController {
 		model.addAttribute("totalCount", totalCount);
 		return "admin/template";
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value= "/admin/ajaxTest.do", method=GET)
+	public  String AjaxView(@RequestParam("userID") String id){
+		
+	    //SocialPerson person = dao.getPerson(id);
+	    return "admin/blacklist/ajaxTest";
+	}
+	
+	
 	
 }

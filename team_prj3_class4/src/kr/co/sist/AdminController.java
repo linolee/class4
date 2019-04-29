@@ -26,6 +26,11 @@ public class AdminController {
 		return "admin/template";
 	}
 	
+	@RequestMapping(value="/admin/AdminLogin.do", method=GET)
+	public String loginPage(Model model) {
+		return "admin/AdminLogin";
+	}
+	
 	@RequestMapping(value="/admin/question.do",method=GET)
 	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
