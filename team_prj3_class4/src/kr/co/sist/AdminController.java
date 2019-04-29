@@ -38,7 +38,7 @@ public class AdminController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
 		QnaService qs = ac.getBean(QnaService.class);
 		
-		int totalCount = qs.totalCount();//총 게시물의 수
+		int totalCount = qs.totalCount();//총 게시물의 수//
 		int pageScale = qs.pageScale();
 		int totalPage = qs.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
 		if(lvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
