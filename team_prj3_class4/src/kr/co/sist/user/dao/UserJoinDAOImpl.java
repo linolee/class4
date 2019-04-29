@@ -76,9 +76,23 @@ public class UserJoinDAOImpl implements UserJoinDAO{
 		//id로 조회한 값이 null이면 false, 존재하면 true를 반환
 	}
 	
-	public static void main(String[] args) {
-		UserJoinDAOImpl ujd = new UserJoinDAOImpl();
-		ujd.checkId("eeea");
+	@Override
+	public boolean checkTel(String tel) {
+		SqlSession ss=getSessionFactory().openSession();
+		System.out.println(ss.selectOne("checkTel", tel));
+		
+		return (ss.selectOne("checkTel", tel) != null);
 	}
 
+	@Override
+	public boolean checkEmail(String email) {
+		SqlSession ss=getSessionFactory().openSession();
+		System.out.println(email);
+		return (ss.selectOne("checkEmail", email) != null);
+	}
+
+	public static void main(String[] args) {
+		UserJoinDAOImpl ujd = new UserJoinDAOImpl();
+		System.out.println(ujd.checkEmail("linolee@naver.co"));
+	}
 }
