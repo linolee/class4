@@ -1,6 +1,6 @@
 package kr.co.sist.admin.domain;
 
-public class MemberListDomain {
+public class BlackListDomain {
 	private String client_id, name, birth, gender, email;
 
 	public String getClient_id() {
@@ -42,6 +42,5 @@ public class MemberListDomain {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 	
 }

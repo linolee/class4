@@ -9,7 +9,7 @@
 <title>112233</title>
 <style type="text/css">
 #file, #file2 { display:none; } 	
-.titleImg, .categoryImg{width:1200px; height:400px;}
+.titleImg, .categoryImg{width:1200px; height:400px; width:100%; height:100%;}
 .upCategoryImg{width:300px;height:100px}
 </style>
 

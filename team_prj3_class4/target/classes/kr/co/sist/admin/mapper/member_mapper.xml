@@ -17,15 +17,17 @@
 	from client
 </select>
 
-<select id="teacherInfo" resultType="java.lang.String">
+<!-- <select id="teacherInfo" resultType="java.lang.String">
 	select status 
 	from teacher 
 	where status='Y' and client_id=#{id}
-</select>
+</select> -->
 
-<select id="selectClient" resultMap="MemberListDomain">
+<select id="selectClient" resultMap="MemberListDomain" parameterType="kr.co.sist.admin.vo.ListVO">
 select client_id, name, birth, gender, email
-from client
+from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
+from client)
+where r_num between #{ startNum } and #{ endNum }
 </select>
 
 

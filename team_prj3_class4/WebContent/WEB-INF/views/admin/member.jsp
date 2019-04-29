@@ -1,4 +1,3 @@
-<%@page import="kr.co.sist.admin.vo.MemberIdxVO"%>
 <%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.admin.service.MemberListService"%>
@@ -49,15 +48,15 @@
   	  </form>
   	  
 		<br/>
-		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
+					<th width="100px">번호</th>
+					<th width="100px">아이디</th>
+					<th width="100px">이름</th>
+					<th width="100px">생년월일</th>
 					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
+					<th width="200px">이메일</th>
 					<th width="200px">비고</th>
 				</tr>
 			</thead>
@@ -65,27 +64,17 @@
 				<!--  -->
 				<c:if test="${ empty memberList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>등록된 회원이 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ memberList }">
+				<c:forEach var="member" items="${ requestScope.memberList }">
+				<c:set var="i" value="${i+1}"/>
 				<tr>		
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${ member.client_id }"/></td>
-					
-					<c:set var="client_id" value="${member.client_id }"/>
-
-<%
-		String teacherID=(String)pageContext.getAttribute("client_id");
-		MemberListService mls=new MemberListService();
-		String chk=mls.chkTeacher(teacherID);
-
-		pageContext.setAttribute("teacher", "Y");
-
-%>
-	<%-- <%=teacherID %>,<%=chk %> --%>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
 					<td><c:out value="${ member.gender }"/></td>
@@ -108,14 +97,7 @@
 		<div style="text-align: center">
 			<div style="display: inline-block;">
 				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a>
-					</li>
+					<c:out value="${ indexList }" escapeXml="false"/>
 				</ul>
 			</div>
 		</div>

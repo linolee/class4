@@ -5,20 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.dao.LectureDAO;
-import kr.co.sist.admin.domain.LectureListDomain;
+import kr.co.sist.admin.dao.BlackListDAO;
+import kr.co.sist.admin.domain.BlackListDetailDomain;
+import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
-public class LectureService {
-	
-	@Autowired(required=false)
-	private LectureDAO l_dao;
+public class BlackListService {
+
+	@Autowired
+	private BlackListDAO bl_dao;
 	
 	// 1. 전체 게시물 수 얻기
 		public int totalCount() {
 			int cnt = 0;
-			cnt = l_dao.selectTotalCount();
+			cnt = bl_dao.selectTotalCount();
 			return cnt;
 		}
 
@@ -118,19 +119,25 @@ public class LectureService {
 			} // end else
 
 			return strList;
-		}// indexList
+		}// indexList	
 	
-	
-	public List<LectureListDomain> selectLectureList(ListVO lvo){
-		List<LectureListDomain> list=null;
-		list=l_dao.selectLectureList(lvo);
+	public List<BlackListDomain> selectBlackList(ListVO lvo){
+		List<BlackListDomain> list=null;
+		list=bl_dao.selectBlackList(lvo);
 		return list;
 	}
 	
-	/*public static void main(String[] args) {
-		LectureService ls=new LectureService();
-		ls.selectLectureList();
-	}*/
+	public List<BlackListDetailDomain> selectDetailBlackList(String id){
+		List<BlackListDetailDomain> list=null;
+		
+		list=bl_dao.selectDetailBlackList(id);
+		
+		return list;
+	}
 	
-	
+	public static void main(String[] args) {
+		BlackListService bls=new BlackListService();
+		bls.selectDetailBlackList("1");
+	}
+		
 }

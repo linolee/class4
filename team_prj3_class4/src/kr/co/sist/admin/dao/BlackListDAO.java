@@ -10,16 +10,19 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.domain.TeacherPermitDomain;
+import kr.co.sist.admin.domain.BlackListDetailDomain;
+import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
-public class TeacherPermitDAO {
+public class BlackListDAO {
 	private SqlSessionFactory ssf=null;
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
-		if(ssf==null) {
-			Reader reader=null;
+		if(ssf == null) {
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+			
+			Reader reader = null;
 			try {
 				//1. 설정용 xml 로딩
 				reader = Resources.getResourceAsReader("kr/co/sist/admin/mapper/admin_config.xml");
@@ -37,20 +40,37 @@ public class TeacherPermitDAO {
 		return ssf;
 	}
 	
-	public List<TeacherPermitDomain> selectTeacherPermit(ListVO lvo){
-		List<TeacherPermitDomain> list=null;
+	public List<BlackListDomain> selectBlackList(ListVO lvo){
+		List<BlackListDomain> list=null;
+		
+		SqlSession ss = getSessionFactory().openSession();
+		list = ss.selectList("selectBlackList", lvo);
+		ss.close();
+		
+		return list;
+	}
+	
+	public List<BlackListDetailDomain> selectDetailBlackList(String id){
+		List<BlackListDetailDomain> list=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectTeacherPermit", lvo);
+		list=ss.selectList("selectDetailBlackList", id);
 		ss.close();
+		
 		return list;
 	}
 	
 	public int selectTotalCount() {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.selectOne("teacherPermitTotalCnt");
+		int cnt = ss.selectOne("blackTotalCnt");
 		ss.close();
 		return cnt;
 	}
+	
+	public static void main(String[] args) {
+		BlackListDAO bldao=new BlackListDAO();
+		bldao.selectDetailBlackList("1");
+	}
+	
 	
 } // class

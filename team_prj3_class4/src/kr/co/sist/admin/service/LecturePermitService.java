@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.dao.LectureDAO;
-import kr.co.sist.admin.domain.LectureListDomain;
+import kr.co.sist.admin.dao.LecturePermitDAO;
+import kr.co.sist.admin.domain.LecturePermitDomain;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
-public class LectureService {
-	
-	@Autowired(required=false)
-	private LectureDAO l_dao;
+public class LecturePermitService {
+
+	@Autowired
+	private LecturePermitDAO lp_dao;
 	
 	// 1. 전체 게시물 수 얻기
 		public int totalCount() {
 			int cnt = 0;
-			cnt = l_dao.selectTotalCount();
+			cnt = lp_dao.selectTotalCount();
 			return cnt;
 		}
 
@@ -120,17 +120,9 @@ public class LectureService {
 			return strList;
 		}// indexList
 	
-	
-	public List<LectureListDomain> selectLectureList(ListVO lvo){
-		List<LectureListDomain> list=null;
-		list=l_dao.selectLectureList(lvo);
+	public List<LecturePermitDomain> selectLecturePermit(ListVO lvo){
+		List<LecturePermitDomain> list=null;
+		list=lp_dao.selectLecturePermit(lvo);
 		return list;
 	}
-	
-	/*public static void main(String[] args) {
-		LectureService ls=new LectureService();
-		ls.selectLectureList();
-	}*/
-	
-	
 }

@@ -1,7 +1,7 @@
 package kr.co.sist.admin.domain;
 
-public class MemberListDomain {
-	private String client_id, name, birth, gender, email;
+public class BlackListDetailDomain {
+	public String client_id, name, birth, gender, tel, inputdate, email, reason, b_date;
 
 	public String getClient_id() {
 		return client_id;
@@ -35,6 +35,22 @@ public class MemberListDomain {
 		this.gender = gender;
 	}
 
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public String getInputdate() {
+		return inputdate;
+	}
+
+	public void setInputdate(String inputdate) {
+		this.inputdate = inputdate;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -42,6 +58,21 @@ public class MemberListDomain {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getB_date() {
+		return b_date;
+	}
+
+	public void setB_date(String b_date) {
+		this.b_date = b_date;
+	}
 	
 }
