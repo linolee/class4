@@ -86,12 +86,36 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkId.do", method = POST)
-	public String checkId(HttpServletRequest request, HttpServletResponse response) {
+	public String checkId(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
 		if (ujs.checkId(request.getParameter("client_id"))) {//입력한 아이디가 이미 존재한다면
 			json.put("checkId", true);
 		}else {
 			json.put("checkId", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkTel.do", method = POST)
+	public String checkTel(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkTel(request.getParameter("tel"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkTel", true);
+		}else {
+			json.put("checkTel", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkEmail.do", method = POST)
+	public String checkEmail(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkEmail(request.getParameter("email"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkEmail", true);
+		}else {
+			json.put("checkEmail", false);
 		}
 		return json.toJSONString();
 	}
