@@ -30,19 +30,20 @@ public class MainController {
 	}//showContentsForm
 	/*의존성 주입 AdminController.java*/
 	
-	@RequestMapping(value="/user/searchClass", method=GET)
+	@RequestMapping(value="/user/searchClass.do", method=GET)
 	public String mvCategoryPage(String category, Model model) {
 		return "";
 	}//mvCategoryPage
 	
-	@RequestMapping(value="/user/recommend", method=GET)
+	@RequestMapping(value="/user/recommend.do", method=GET)
 	public String mvRecommendCalss(Model model) {
 		return "";
 	}//mvRecommendCalss
 	
-	@RequestMapping(value="/user/detailClass", method=GET)
+	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
 	public String mvDetailClass(Model model) {
-		return "";
+		return "user/classDetail/detail";
 	}//mvRecommendCalss
+	
 }//class
 
