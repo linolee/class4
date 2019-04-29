@@ -41,7 +41,7 @@
 			<ul id='slider4'>
 			    <li style='display:block; width: 1310px;height: 480px;'>
 			    <div id="TitleImg1">
-			    	1번 이미지      
+			    	<img width="1310" height="480" src="<c:url value='/resources/img/headerImg1.jpg'/>"/>
 				</div></li>
 			    <li style="width: 1310px;"><div id="TitleImg2">
 					2번 이미지
