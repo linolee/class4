@@ -1,10 +1,13 @@
-<%@page import="kr.co.sist.admin.vo.MemberIdxVO"%>
 <%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.sist.admin.service.MemberListService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<% %>
+
 
 
 <script type="text/javascript">
@@ -45,15 +48,15 @@
   	  </form>
   	  
 		<br/>
-		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
+					<th width="100px">번호</th>
+					<th width="100px">아이디</th>
+					<th width="100px">이름</th>
+					<th width="100px">생년월일</th>
 					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
+					<th width="200px">이메일</th>
 					<th width="200px">비고</th>
 				</tr>
 			</thead>
@@ -61,14 +64,16 @@
 				<!--  -->
 				<c:if test="${ empty memberList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>등록된 회원이 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ memberList }">
+				<c:forEach var="member" items="${ requestScope.memberList }">
+				<c:set var="i" value="${i+1}"/>
 				<tr>		
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
@@ -80,7 +85,7 @@
 							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
 							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
 							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
-							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
+								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
 					</td>
 				</tr>
@@ -92,14 +97,7 @@
 		<div style="text-align: center">
 			<div style="display: inline-block;">
 				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a>
-					</li>
+					<c:out value="${ indexList }" escapeXml="false"/>
 				</ul>
 			</div>
 		</div>

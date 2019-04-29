@@ -4,10 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.domain.ClientPageInfo;
 
 public interface UserPageDAO {
-	public SqlSessionFactory getSessionFactory();
-	public ClientInfo selectClientInfo(String client_id); 
+	public ClientPageInfo selectClientInfo(String client_id); 
 	public List<String> selectClientFavor(String client_id);
 }

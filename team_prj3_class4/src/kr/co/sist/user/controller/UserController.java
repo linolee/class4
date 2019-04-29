@@ -16,10 +16,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -32,12 +31,14 @@ public class UserController {
 
 	private UserLoginService uls;
 	private UserPageService ups;
+	private UserJoinService ujs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
+		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -71,7 +72,10 @@ public class UserController {
 	}// joinAgreementPage
 	
 	@RequestMapping(value = "user/member/join.do", method = GET)
-	public String joinPage(HttpServletRequest request) {
+	public String joinPage(HttpServletRequest request, Model model) {
+		model.addAttribute("categoryMapping", ujs.CategoryMapping());
+		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
+		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
 	}// joinPage
 
@@ -79,7 +83,7 @@ public class UserController {
 	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
-			ClientInfo clientInfo = ups.clientInfo(client_id);
+			ClientPageInfo clientInfo = ups.clientInfo(client_id);
 			model.addAttribute("clientInfo", clientInfo);
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
@@ -111,14 +115,31 @@ public class UserController {
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
 		UserLoginVO ulvo = new UserLoginVO(request.getParameter("id"), request.getParameter("pass"));
-		System.out.println(ulvo);
 
 		// 생성된 vo로 login method를 실행
+		int loginResult = uls.login(ulvo, session);
+		String loginPath = "";
+		switch (loginResult) {
+		case UserLoginService.login_success:
+			loginPath = "/team_prj3_class4/user/main.do";
+			break;
+		case UserLoginService.login_blacklist:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
+			break;
+		case UserLoginService.login_deletedUser:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
+			break;
+		case UserLoginService.login_fail:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
+			break;
+
+		}
+		
 		System.out.println(uls.login(ulvo, session));
 		System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
-			response.sendRedirect("/team_prj3_class4/user/main.do");
+			response.sendRedirect(loginPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

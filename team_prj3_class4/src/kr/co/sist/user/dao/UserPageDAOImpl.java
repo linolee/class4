@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.user.domain.ClientInfo;
+import kr.co.sist.user.domain.ClientPageInfo;
 
 public class UserPageDAOImpl implements UserPageDAO {
 
@@ -19,7 +19,6 @@ public class UserPageDAOImpl implements UserPageDAO {
 		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 	}
 
-	@Override
 	public SqlSessionFactory getSessionFactory() {
 
 		if (ssf == null) {
@@ -40,10 +39,10 @@ public class UserPageDAOImpl implements UserPageDAO {
 	}
 
 	@Override
-	public ClientInfo selectClientInfo(String client_id) {
+	public ClientPageInfo selectClientInfo(String client_id) {
 		SqlSession ss=getSessionFactory().openSession();
 		
-		ClientInfo clientInfo=ss.selectOne("selectClientInfo", client_id);
+		ClientPageInfo clientInfo=ss.selectOne("selectClientPageInfo", client_id);
 		
 		ss.close();
 		return clientInfo;
@@ -62,7 +61,8 @@ public class UserPageDAOImpl implements UserPageDAO {
 	
 	public static void main(String[] args) {
 		UserPageDAOImpl upd = new UserPageDAOImpl();
-		System.out.println(upd.selectClientFavor("linolee"));
+		System.out.println(upd.selectClientInfo("linolee"));
+//		System.out.println(upd.selectClientFavor("linolee"));
 	}
 
 }

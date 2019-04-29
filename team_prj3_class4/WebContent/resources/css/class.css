@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+body { font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; }
+.menu-title { margin-bottom: 10px; font-size: 40px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
+#listContents { width:100%; padding-top: 6px; margin: auto; }
+#listTab { width: 100%; border-top: 1px solid #333; border-spacing: 0px; margin: auto; border: #ddd; border-left: #fff; border-right: #fff; text-align: center;}
+.panel-search { padding-top: 10px; padding-left: 30px; background-color: #F3F3F3; height: 55px; }
+.panel-search-in  { padding-left: 29%; }
+.searchDate { height: 35px; border: 1px solid #ddd; font-size: 14px; text-align: center; width: 200px;}
+.nav-tabs li a { color: #4b4783; }
+.total_cnt { padding-top: 25px; }
+
+.panel-tab li { width: 50%; text-align: center; font-size: 30px; align-content: center; border: 1px solid #4b4783; border-bottom: 1px solid #fff; }
+.panel-tab li.on { background-color: #4b4783; }
+.panel-tab li.on a { color: #fff; }
+
+.class-th { height: 45px; background-color: #4b4783; color: #fff; margin: auto; text-align: center; }
+
+.paging { padding-top: 20px; }
+
+/* Modal */
+.panel-modal { margin: 0px auto; width: 500px; border: 1px solid gray; }
+.modal-className { margin: auto; padding: 15px; font-size: 12px;}
+.modal-title { font-size: 22px;  text-align: center;  border-bottom: 1px solid gray; padding-bottom: 10px; padding-top: 10px;}
+#m-content { width: 90%; margin: 20px; display: block; margin-left: auto; margin-right: auto;}
+.modal-btn { width: 35%; padding-top: 15px; margin: auto; text-align: center; }
+.modal-btn btn { margin-right: 20px; }

@@ -2,23 +2,22 @@ package kr.co.sist.admin.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.stereotype.Component;
 
+import kr.co.sist.admin.domain.LectureListDomain;
+import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.ListVO;
+
+@Component
 public class LectureDAO {
 
-	private static LectureDAO l_dao;
 	private SqlSessionFactory ssf=null;
-	
-	public static LectureDAO getInstance() {
-		if(l_dao==null) {
-			l_dao=new LectureDAO();
-		}
-		return l_dao;
-	}
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf==null) {
@@ -35,6 +34,26 @@ public class LectureDAO {
 		return ssf;
 	}
 	
-
+	public List<LectureListDomain> selectLectureList(ListVO lvo){
+		List<LectureListDomain> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectLectureList", lvo);
+		
+		ss.close();
+		return list;
+	}
+	
+	public int selectTotalCount() {
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = ss.selectOne("lectureTotalCnt");
+		ss.close();
+		return cnt;
+	}
+	
+/*	public static void main(String[] args) {
+		LectureDAO ldao=new LectureDAO();
+		ldao.selectLectureList();
+	}*/
 	
 }

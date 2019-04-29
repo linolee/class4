@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin">
+
+<resultMap type="kr.co.sist.admin.domain.LectureListDomain" id="lectureResult">
+	<result column="lcode" property="lcode"/>
+	<result column="category" property="category"/>
+	<result column="lname" property="lname"/>
+	<result column="teacher_name" property="teacher_name"/>
+</resultMap>
+
+<select id="lectureTotalCnt" resultType="int">
+select count(*) cnt from lesson where authority='Y'
+</select>
+
+<select id="selectLectureList" resultMap="lectureResult">
+select lcode, category, lname, teacher_name
+from(select lcode, category, lname, teacher_name, row_number() over(order by lcode desc)r_num
+from lesson
+where authority='Y')
+where r_num between #{ startNum } and #{ endNum }
+</select>
+
+</mapper>

@@ -23,12 +23,8 @@
   <mappers>
      <mapper resource="kr/co/sist/user/mapper/login_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/userpage_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/review_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/userJoin_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/userMypage_mapper.xml"/> 
   </mappers>
 </configuration>
-
-
-
-
-
-
-

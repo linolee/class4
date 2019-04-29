@@ -34,7 +34,25 @@
 				<div id="login">
 					<form action="login.do" method="post">
 						<div id="loginInput">
-							<div id="loginNotice">가입하신 아이디와 비밀번호를 입력해주세요.</div>
+							<div id="loginNotice">
+							<c:choose>
+							<c:when test="${param.result eq null }">
+							<label>가입하신 아이디와 비밀번호를 입력해주세요.</label>
+							</c:when>
+							<c:when test="${param.result eq 'black' }">
+							<label style="color: red;">차단 된 아이디입니다.</label>
+							
+							</c:when>
+							<c:when test="${param.result eq 'deleted' }">
+							<label style="color: red;">삭제 된 아이디입니다.</label>
+							
+							</c:when>
+							<c:when test="${param.result eq 'fail' }">
+							<label style="color: red;">아이디와 비밀번호를 다시 한 번 확인해주세요.</label>
+							
+							</c:when>
+							</c:choose>
+							</div>
 							<div id="loginID">
 								<input type="text" class="inputBox" name="id" placeholder="아이디">
 							</div>

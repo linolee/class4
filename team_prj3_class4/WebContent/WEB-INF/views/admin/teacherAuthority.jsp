@@ -24,11 +24,10 @@
   	  </form>
   	  
 		<br/>
-
-		<br />
-		<table class="table table-responsive-sm">
+		<table class="table table-responsive-sm" style="text-align:center">
 			<thead>
 				<tr>
+					<th width="100px">번호</th>
 					<th width="200px">아이디</th>
 					<th width="200px">이름</th>
 					<th width="200px">생년월일</th>
@@ -38,12 +37,23 @@
 				</tr>
 			</thead>
 			<tbody>
+				<c:if test="${empty teacherPermitList }">
 				<tr>
-					<td>Samppa Nori</td>
-					<td>2012/01/01</td>
-					<td>Member</td>
-					<td>Member</td>
-					<td><span class="badge badge-success">Active</span></td>
+					<td colspan="6" align="center">
+						<strong>승인 대기중인 강사가 없습니다</strong>
+					</td>
+				</tr>
+				</c:if>
+				
+				<c:forEach var="teacherPermit" items="${teacherPermitList }">
+				<c:set var="i" value="${i+1}"/>
+				<tr>
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
+					<td><c:out value="${teacherPermit.client_id }"/></td>
+					<td><c:out value="${teacherPermit.teacher_name }"/></td>
+					<td><c:out value="${teacherPermit.birth }"/></td>
+					<td><c:out value="${teacherPermit.gender }"/></td>
+					<td><c:out value="${teacherPermit.email }"/></td>
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
 							<a data-toggle="modal" href="#modalTAuthority"><span
@@ -51,51 +61,13 @@
 						</form>
 					</td>
 				</tr>
-				<tr>
-					<td>Estavan Lykos</td>
-					<td>Simons</td>
-					<td>19900230</td>
-					<td>Staff</td>
-					<td><span class="badge badge-danger">Banned</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Chetan Mohamed</td>
-					<td>2012/02/01</td>
-					<td>Admin</td>
-					<td>Staff</td>
-					<td><span class="badge badge-secondary">Inactive</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Derick Maximinus</td>
-					<td>2012/03/01</td>
-					<td>Member</td>
-					<td>Staff</td>
-					<td><span class="badge badge-warning">Pending</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
-				<tr>
-					<td>Friderik Dávid</td>
-					<td>2012/01/21</td>
-					<td>Staff</td>
-					<td>Staff</td>
-					<td><span class="badge badge-success">Active</span></td>
-					<td><span class="badge badge-danger">Banned</span></td>
-				</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<div style="text-align: center">
 			<div style="display: inline-block;">
 				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<c:out value="${ indexList }" escapeXml="false"/>
 				</ul>
 			</div>
 		</div>
