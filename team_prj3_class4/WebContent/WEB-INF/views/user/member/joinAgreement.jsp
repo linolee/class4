@@ -6,23 +6,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Class4-약관동의</title>
+<title>당신을 위한 수업★Class4★</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
-<link href="<c:url value="/resources/css/joinAgreement.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/header.css" />"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/footer.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
+	rel="stylesheet">
+<!-- CSS -->
 <style type="text/css">
-#wrapper {
-	font-family: 'PT Sans', sans-serif;
-}
+body {padding-top: 0px;}
 </style>
 <script type="text/javascript">
 	function CheckForm() {
@@ -40,56 +44,94 @@
 		if (!isAllChecked) {
 			alert("모든 약관에 동의해주세요.");
 			return false;
-		}else{
+		} else {
 			$('#JoinAgreementFrm').submit();
 		}
 
 	}
 </script>
-
-
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
+
 		<div id="container">
 			<div class="areaFix">
-				<h3>약관동의</h3>
-				<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
-					<div id="agreementDiv">
-						<ul id="agreementList">
-							<li class="agreementSubject">약관1<br> <textarea rows="20"
-									readonly="readonly">
-								약관내용 어쩌고저쩌고
-							</textarea></li>
-							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
-							<li class="agreementSubject">약관2<br> <textarea rows="20"
-									cols="200" readonly="readonly">
-								약관내용 어쩌고저쩌고
-							</textarea>
-							</li>
-							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
-							<li class="agreementSubject">약관3<br> <textarea rows="20"
-									cols="200" readonly="readonly">
-								약관내용 어쩌고저쩌고
-							</textarea>
-							</li>
-							<li><input type="checkbox" class="checkBox" name="agreeCheckBox">약관에 동의합니다.</li>
-	
-						</ul>
-						<input type="button" id="agreementBtn" value="다음단계" onclick="CheckForm()">
-	
-					</div>
-				</form>
+				<div class="container my-5">
+					<!-- Page Heading/Breadcrumbs -->
+					<h1 class="mt-4 mb-3">
+						회원 약관 동의
+					</h1>
+
+					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
+						
+						<div id="agreementDiv" class="container my-5">
+							<div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text">약관 1</span>
+							  </div>
+							  <textarea class="form-control" aria-label="With textarea" readonly="readonly" rows="10">
+약관 내용 어쩌고 저쩌고
+이러쿵 저러쿵
+소ㅑㄹ라소ㅑㄹ라
+당신의 장기
+클래스4의 자산으로
+대체되었다.
+							  </textarea>
+							</div>
+							<div class="container my-5 text-center">
+								  약관 내용에 동의합니다.
+							  	<input type="checkbox" aria-label="Checkbox for following text input" name="agreeCheckBox">
+							</div>
+							<div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text">약관 2</span>
+							  </div>
+							  <textarea class="form-control" aria-label="With textarea" readonly="readonly" rows="10">
+약관 내용 어쩌고 저쩌고
+이러쿵 저러쿵
+소ㅑㄹ라소ㅑㄹ라
+당신의 장기
+클래스4의 자산으로
+대체되었다.
+							  </textarea>
+							</div>
+							<div class="container my-5 text-center">
+								  약관 내용에 동의합니다.
+							  	<input type="checkbox" aria-label="Checkbox for following text input" name="agreeCheckBox">
+							</div>
+							<div class="input-group">
+							  <div class="input-group-prepend">
+							    <span class="input-group-text">약관 3</span>
+							  </div>
+							  <textarea class="form-control" aria-label="With textarea" readonly="readonly" rows="10">
+약관 내용 어쩌고 저쩌고
+이러쿵 저러쿵
+소ㅑㄹ라소ㅑㄹ라
+당신의 장기
+클래스4의 자산으로
+대체되었다.
+							  </textarea>
+							</div>
+							<div class="container my-5 text-center">
+								  약관 내용에 동의합니다.
+							  	<input type="checkbox" aria-label="Checkbox for following text input" name="agreeCheckBox">
+							</div>
+							<div class="container my-5 text-center">
+								<input class="btn btn-primary btn-lg" type="button" id="agreementBtn" value="다음단계"
+									onclick="CheckForm()">
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+			<div id="footer">
+				<c:import url="../footer/footer.jsp" />
 			</div>
 		</div>
-		<div id="footer">
-			<c:import url="../footer/footer.jsp" />
-		</div>
-
-
 	</div>
 
 </body>

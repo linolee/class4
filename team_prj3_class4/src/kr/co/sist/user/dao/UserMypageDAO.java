@@ -9,9 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.user.dao.UserMypageDAO;
 import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.StatusCntVO;
+import kr.co.sist.user.vo.StatusListVO;
 
 public class UserMypageDAO {
 	private static UserMypageDAO um_dao;
@@ -56,6 +57,14 @@ public class UserMypageDAO {
 		return list;
 	}//selectClass
 	
+	public List<ClassList> selectStatusClass(StatusListVO slvo){
+		List<ClassList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("statusClassList", slvo);
+		ss.close();
+		return list;
+	}//selectClass
+	
 	public List<String> selectLcode(String clientId){
 		List<String> list=null;
 		SqlSession ss=getSessionFactory().openSession();
@@ -64,10 +73,60 @@ public class UserMypageDAO {
 		return list;
 	}//selectLcode
 	
+	public String reviewStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("reviewStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public String jjimStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("jjimStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public boolean insertJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("insertJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
+	public boolean deleteJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.delete("deleteJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
 	public int selectTotalCount(String clientId) {
 		SqlSession ss=getSessionFactory().openSession();
 		
 		int cnt=ss.selectOne("listTotalCnt", clientId);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+	
+	public int statusCnt(StatusCntVO ssvo) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("statusCnt", ssvo);
 		ss.close();
 		return cnt;
 	}//selectTotalCount

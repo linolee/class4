@@ -24,6 +24,7 @@
 #periodList{ width: 300px; height: 45px; background-color: #F3F3F3 }
 #peopleList{ width: 200px; height: 45px; background-color: #F3F3F3 }
 #marsterList{ width: 140px; height: 45px; background-color: #F3F3F3 }
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableHeader{ background-color: #F7F7F7}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
@@ -61,22 +62,20 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			<th width=220px height=50 style="border: 1px solid #C3C3C3; border-top:0px">예약취소</th>
 		</tr>
 		<tr>
-			<td height=100 align="center" style="border: 1px solid #C3C3C3; border-top:0px">
-				<c:if test="${ empty classList }">
-					0
-				</c:if>
+			<td height=100 align="center" style="border: 1px solid #C3C3C3; border-top:0px; color: #F46A72; font-size: 40px;">
+				${ statusCnt1+statusCnt2+statusCnt3+statusCnt4 }
 			</td>
-			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3;" ></td>
-			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px"></td>
-			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3;"></td>
-			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px"></td>
+			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3; color: #45B7BF; font-size: 40px;" >${ statusCnt1 }</td>
+			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px; color: #F46A72; font-size: 40px;">${ statusCnt2 }</td>
+			<td height=100 align="center" height=50 style="border-bottom: 1px solid #C3C3C3; color: #777777; font-size: 40px;">${ statusCnt3 }</td>
+			<td height=100 align="center" height=50 style="border: 1px solid #C3C3C3; border-top:0px; color: #777777; font-size: 40px;">${ statusCnt4 }</td>
 		</tr>
 	</table>
 	</div>
 	<div style="padding-top: 20px">
 	<a href="mypage_list.do" >전체보기</a> | 
 	<a href="?status=Y" >예약완료 클래스</a> | 
-	<a href="?status=E" >종료된 클래스</a> | 
+	<a href="?status=X" >종료된 클래스</a> | 
 	<a href="?status=C" >취소된 클래스</a> | 
 	</div>
 
@@ -119,20 +118,44 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</tr>
 	</c:if>
 	</c:if>
+	<c:if test="${ param.status ne null }">
+	<c:if test="${ not empty classStatusList.get(0) }">
+	<c:set var="i" value="${0 }"/>
+	<c:forEach var="classStatusList" items="${ classStatusList }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				<c:out value="${ classStatusList.get(i).status}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classStatusList.get(i).lname}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classStatusList.get(i).startDate }~${ classStatusList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classStatusList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ classStatusList.get(i).teacherName}"></c:out>
+			</td>
+		</tr>
+	</c:forEach>
+	</c:if>
+	<c:if test="${ empty classStatusList }">
+	<tr>
+		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
+	</c:if>
 	</table>
 	
-	<div id="classList">
-	
-	
-	</div>
-	
-	</div>
-	
-	<div id="classSearch">
 	</div>
 	
 	</div>
 	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
+	
 	</div>
 	<div id="footer">
 		<c:import url="../footer/footer.jsp" />

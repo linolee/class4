@@ -2,6 +2,8 @@ package kr.co.sist.user.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -72,6 +74,13 @@ public class LoginDaoImpl implements LoginDAO{
 			LoginDaoImpl ldi = new LoginDaoImpl();
 			System.out.println(ldi.selectBlacklist("1"));
 			System.out.println(ldi.selectDeletedUser("2"));
+			List<String> list = new ArrayList<String>();
+			list.add("1");
+			list.add("2");
+			list.add("3");
+			list.add("4");
+			list.add("5");
+			System.out.println(list.get(4));
 		}
 		
 	}//class

@@ -10,8 +10,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.admin.domain.QnaDetail;
 import kr.co.sist.admin.domain.QnaQuestionList;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.QnaAnswerVO;
 
 
 @Component
@@ -53,6 +55,22 @@ public class QnaDAO {
 	public int selectTotalCount() {
 		SqlSession ss = getSessionFactory().openSession();
 		int cnt = ss.selectOne("qnaTotalCnt");
+		ss.close();
+		return cnt;
+	}
+	
+	public QnaDetail selectQnaDetail(String qnum){
+		QnaDetail qd = null;
+		SqlSession ss = getSessionFactory().openSession();
+		qd = ss.selectOne("qnaDetail", qnum);
+		ss.close();
+		return qd;
+	}
+	
+	public int updateQnaAnswer(QnaAnswerVO qavo){
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = ss.update("updateQnaAcontent", qavo);
+		ss.commit();
 		ss.close();
 		return cnt;
 	}
