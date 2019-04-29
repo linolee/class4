@@ -5,23 +5,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%
-	MemberListService as=new MemberListService();
-	// if(MemberListDomain!=null){
-		List<MemberListDomain> list=as.selectAllMember();
-		pageContext.setAttribute("MemberListDomain", list);
-	// }
-%>
-
-
-
 <!--  -->
 <div class="card">
 	<div class="card-header">
 		<i class="fa fa-align-justify"></i> 강의개설 승인
-
-		
-		
 		
 	</div>
 	<div class="card-body">
@@ -42,29 +29,37 @@
   	  </form>
   	  
 		<br/>
-		<br />
 		<table class="table table-responsive-sm">
 			<thead>
 				<tr>
-					<th width="200px">아이디</th>
-					<th width="200px">이름</th>
-					<th width="200px">생년월일</th>
-					<th width="100px">성별</th>
-					<th width="300px">이메일</th>
-					<th width="200px">비고</th>
+					<th width="100px">번호</th>
+					<th width="300px">강의명</th>
+					<th width="100px">강사명</th>
+					<th width="100px">카테고리</th>
 				</tr>
 			</thead>
 			<tbody>
 				<!--  -->
-				<c:if test="${ empty MemberListDomain }">
+				<c:if test="${ empty lecturePermit }">
 				<tr>
-					<td colspan="6" align="center">
-						<strong>등록된 회원이 없습니다</strong>
+					<td colspan="4" align="center">
+						<strong>승인 대기중인 강의가 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
 				
-				<c:forEach var="member" items="${ MemberListDomain }">
+				<c:forEach var="permit" items="${lecturePermit }">
+				<c:set var="i" value="${i+1 }"/>
+				<tr>
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
+					<td><c:out value="${permit.lname }"/></td>
+					<td><c:out value="${permit.teacher_name }"/></td>
+					<td><c:out value="${permit.category }"/></td>
+				</tr>
+				</c:forEach>
+				
+				
+				<%-- <c:forEach var="member" items="${ MemberListDomain }">
 				<tr>		
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
@@ -79,7 +74,7 @@
 						</form>
 					</td>
 				</tr>
-				</c:forEach>
+				</c:forEach> --%>
 						
 				<!--  -->
 			</tbody>
@@ -87,14 +82,7 @@
 		<div style="text-align: center">
 			<div style="display: inline-block;">
 				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Prev</a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a>
-					</li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">4</a></li>
-					<li class="page-item"><a class="page-link" href="#">5</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					<c:out value="${ indexList }" escapeXml="false"/>
 				</ul>
 			</div>
 		</div>

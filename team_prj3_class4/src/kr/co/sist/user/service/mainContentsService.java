@@ -1,16 +1,29 @@
 package kr.co.sist.user.service;
 
-import kr.co.sist.user.dao.MainContentsDAO;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import kr.co.sist.user.dao.MainContentsDAO;
+import kr.co.sist.user.domain.MainContents;
+
+@Component
 public class mainContentsService {
 
-	private MainContentsDAO mc_dao;
-	public mainContentsService() {
-		//mc_dao=MainContentsDAO.getInstance();
-	}//mainContentsService
+	@Autowired
+	private MainContentsDAO mc_dao;//인터페이스
+		
+	public MainContents showContentsForm(String category) {
+		MainContents mc=null;
+		//mc=mc_dao.selectTotal();
+		return mc;
+	}//showContentsForm
 	
-//	public MainContents showContentsForm(String category) {
-//		
-//	}
+	public List<String> showMenuCategory(){
+		List<String> categoryList=null;
+		categoryList=mc_dao.selectCategory();
+		return categoryList;
+	}//showMenuCategory
 	
 }//class

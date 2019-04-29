@@ -22,5 +22,7 @@
 	<mapper resource="kr/co/sist/admin/mapper/qna_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/lecture_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/teacherPermit_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/blacklist_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/lecturePermit_mapper.xml"/>
 </mappers>
 </configuration>

@@ -34,7 +34,7 @@ public class AdminController {
 	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
 		
-		//autowired로 의존성 주입////
+		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
 		QnaService qs = ac.getBean(QnaService.class);
 		
@@ -46,18 +46,18 @@ public class AdminController {
 		}
 		int startNum = qs.startNum(lvo.getCurrentPage());
 		int endNum = qs.endNum(startNum);
-		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
 		
 		list = qs.searchQnAQuestionList(lvo);//리스트 목록 조회
+
 		String indexList = qs.indexList(lvo.getCurrentPage(), totalPage, "question.do");
 		model.addAttribute("list", list);//@@
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
-		
+
 		model.addAttribute("page", "question");//@@
 		return "admin/template";
 	}
@@ -98,7 +98,6 @@ public class AdminController {
 		return "redirect:/admin/question.do";
 	}
 	
-
 	@RequestMapping(value="/admin/charge.do",method=GET)
 	public String chargePage(Model model) {
 		
@@ -106,22 +105,7 @@ public class AdminController {
 		model.addAttribute("page", "charge");
 		return "admin/template";
 	}
-	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
-	public String lecturePermitPage(Model model) {
-		
-		
-		model.addAttribute("page", "lecturePermit");
-		return "admin/template";
-	}
 
-	@RequestMapping(value="/admin/blacklist.do",method=GET)
-	public String blacklistPage(Model model) {
-		
-		
-		model.addAttribute("page", "blacklist");
-		return "admin/template";
-	}
-	
 	@RequestMapping(value="/admin/category.do",method=GET)
 	public String categoryPage(Model model) {
 		

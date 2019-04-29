@@ -9,9 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.user.dao.UserMypageDAO;
 import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.StatusCntVO;
+import kr.co.sist.user.vo.StatusListVO;
 
 public class UserMypageDAO {
 	private static UserMypageDAO um_dao;
@@ -56,6 +57,14 @@ public class UserMypageDAO {
 		return list;
 	}//selectClass
 	
+	public List<ClassList> selectStatusClass(StatusListVO slvo){
+		List<ClassList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("statusClassList", slvo);
+		ss.close();
+		return list;
+	}//selectClass
+	
 	public List<String> selectLcode(String clientId){
 		List<String> list=null;
 		SqlSession ss=getSessionFactory().openSession();
@@ -63,4 +72,20 @@ public class UserMypageDAO {
 		ss.close();
 		return list;
 	}//selectLcode
-}
+	
+	public int selectTotalCount(String clientId) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("listTotalCnt", clientId);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+	
+	public int statusCnt(StatusCntVO ssvo) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("statusCnt", ssvo);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+}//class

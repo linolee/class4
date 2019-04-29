@@ -12,10 +12,19 @@
 	<result column="email" property="email"/>
 </resultMap>
 
-<select id="selectTeacherPermit" resultMap="TeacherPermitDomain">
-SELECT T.CLIENT_ID, T.TEACHER_NAME, C.BIRTH, C.GENDER, C.EMAIL
-FROM  TEACHER T, CLIENT C
-WHERE T.CLIENT_ID=C.CLIENT_ID and t.status='N'
+<select id="teacherPermitTotalCnt" resultType="int">
+SELECT COUNT(*)
+FROM TEACHER
+WHERE STATUS='N'
+</select>
+
+
+<select id="selectTeacherPermit" resultMap="TeacherPermitDomain" parameterType="kr.co.sist.admin.vo.ListVO">
+select client_id, teacher_name, birth, gender, email
+from(select t.client_id, t.teacher_name, c.birth, c.gender, c.email, row_number() over(order by c.inputdate desc) r_num
+from  teacher t, client c
+where t.client_id=c.client_id and t.status='N')
+where r_num between #{ startNum } AND #{ endNum }
 </select>
 
 </mapper>

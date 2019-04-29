@@ -61,6 +61,7 @@
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
+		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px; padding-bottom: 20px;">
