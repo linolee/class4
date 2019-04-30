@@ -75,7 +75,7 @@ public class BlackListDAO {
 		SqlSession ss=getSessionFactory().openSession();
 
 		mldvo=ss.selectOne("selectDetailBlackList", id);
-		System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
+		//System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
 		ss.close();
 
 		return mldvo;

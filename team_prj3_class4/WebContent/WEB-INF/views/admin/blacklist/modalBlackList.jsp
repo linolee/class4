@@ -65,9 +65,9 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-								<form action="blacklist.do" method="post">
+								<form action="blacklist.do" method="post" name="delFrm">
 									<input type="hidden" name="hdnBlack"  id="hdnBlack" value=""/>
-									<button type="submit" class="btn btn-danger" id="deleteBlack">블랙리스트 해제</button>
+									<button type="button" class="btn btn-danger" id="deleteBlack">블랙리스트 해제</button>
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">확인</button>
 								</form>

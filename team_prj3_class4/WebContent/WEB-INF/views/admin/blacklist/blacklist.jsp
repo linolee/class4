@@ -35,29 +35,21 @@ $(function(){
 						$("#bEmail").text(json.email);
 						$("#bReason").text(decodeURIComponent(json.reason));
 						$("#bBinputdate").val(json.b_date);
-						
-						/* $("#deleteBlack").click(function(){
-							if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
-								alert(json.idResult);
-								location.href="blacklist.do?id="+json.idResult;
-							};
-						}); */
-	
+
 					}//success
 				});//ajax
 
-			/* }//if */
 		/* ajax */
-	});
-/* 	$("#deleteBlack").click(function(){
-		if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
-			alert(json.idResult);
-			location.href="blacklist.do";
-		};
-	}); */
-
+	}); // click
+	
+ 	 	$("#deleteBlack").click(function(){
+			if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
+				$("[name='delFrm']").submit();	
+			};
+		}); 
 	
 });
+
 
 </script>
 <!--  -->

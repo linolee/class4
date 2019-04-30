@@ -24,7 +24,7 @@ import kr.co.sist.admin.vo.QnaAnswerVO;
 @Controller
 public class AdminController {
 
-	@RequestMapping(value="/admin/template.do",method=GET)
+	@RequestMapping(value="/admin/template.do",method= {GET,POST})
 	public String mainPage(Model model) {
 		
 		return "admin/template";
