@@ -134,7 +134,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			<td colspan="5" align="center" class=tableBodyEmpty>등록된 클래스 정보가 없습니다.</td>
 		</tr>
 		</c:if>
-		 
+		
 	</table>
 	
 	<div id="classList">
