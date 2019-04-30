@@ -25,6 +25,8 @@ import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
+import kr.co.sist.user.service.UserReportService;
+import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
@@ -37,6 +39,7 @@ public class UserController {
 	private UserLoginService uls;
 	private UserPageService ups;
 	private UserJoinService ujs;
+	private UserReportService urs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
@@ -44,6 +47,7 @@ public class UserController {
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
 		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
+		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -116,6 +120,20 @@ public class UserController {
 			json.put("checkEmail", true);
 		}else {
 			json.put("checkEmail", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
+	public String guestReportSubmint(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		System.out.println(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")));
+		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
 		}
 		return json.toJSONString();
 	}

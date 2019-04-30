@@ -19,5 +19,11 @@
 	<bean class="kr.co.sist.user.dao.UserJoinDAOImpl" id="UserJoinDAO" scope="singleton"/>
 	
 	
+	<bean class="kr.co.sist.user.service.UserReportServiceImpl" id="UserReportService" scope="singleton">
+		<constructor-arg ref="UserReportDAO"/>
+	</bean>	
+	<bean class="kr.co.sist.user.dao.UserReportDAOImpl" id="UserReportDAO" scope="singleton"/>
+	
+	
 
 </beans>
