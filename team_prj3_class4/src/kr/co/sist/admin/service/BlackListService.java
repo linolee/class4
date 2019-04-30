@@ -1,5 +1,7 @@
 package kr.co.sist.admin.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.swing.plaf.synth.SynthSpinnerUI;
@@ -145,16 +147,20 @@ public class BlackListService {
 		
 		BlackListDetailVO bldvo=mldao.selectDetailBlackList(id);
 		
+		try {
 		//DB조회 결과를 JSONObject 추가
-		json.put("idResult",  bldvo.client_id);
-		json.put("name", bldvo.name);
-		json.put("birth", bldvo.birth );
-		json.put("gender", bldvo.gender);
-		json.put("tel", bldvo.tel);
-		json.put("inputdate", bldvo.inputdate);
-		json.put("email", bldvo.email);
-		json.put("reason", bldvo.reason);
-		json.put("b_date", bldvo.b_date);
+		json.put("idResult",  bldvo.getClient_id());
+		json.put("name", URLEncoder.encode(bldvo.getName(),"UTF-8"));
+		json.put("birth", bldvo.getBirth());
+		json.put("gender", bldvo.getGender());
+		json.put("tel", bldvo.getTel());
+		json.put("inputdate", bldvo.getInputdate());
+		json.put("email", bldvo.getEmail());
+		json.put("reason", URLEncoder.encode(bldvo.getReason(), "UTF-8")); 
+		json.put("b_date", bldvo.getB_date());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
 		String jjj=json.toJSONString();
 		System.out.println(jjj);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
+import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.ListVO;
 
 @Controller
@@ -52,11 +54,17 @@ public class BlackListController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value= "/admin/ajaxTest.do", method=GET)
+	@RequestMapping(value= "/admin/blackDetail.do", method=GET)
 	public  String AjaxView(@RequestParam("userID") String id){
+		JSONObject json = null;
 		
-	    //SocialPerson person = dao.getPerson(id);
-	    return "admin/blacklist/ajaxTest";
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
+		BlackListService bls=ac.getBean(BlackListService.class);
+		
+		json = bls.detailBlack(id);
+		System.out.println(json.toJSONString());
+		
+	    return json.toJSONString();
 	}
 	
 	

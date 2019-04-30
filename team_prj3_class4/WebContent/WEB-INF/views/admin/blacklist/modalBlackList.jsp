@@ -2,40 +2,6 @@
 <%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.BlackListService"%>
-<%@page import="kr.co.sist.admin.domain.BlackListDetailDomain"%> --%>
-
-<%-- <%
-	BlackListService bls=new BlackListService();
-	String id="히든태그밸류";
-	
-	
-	if(!"".equals(id)){
-		List<BlackListDetailDomain> list=bls.selectDetailBlackList(id);
-		pageContext.setAttribute("detailBlack", list);
-	}
-%>	 --%>
-
-
-<%-- <%
-	String blackDetailName=request.getParameter("userID");
-	
-	JSONObject blackData=null;
-	
-		if(!"".equals(blackDetailName)){
-		String blackDetail=blackDetailName;
-		BlackListService bls=new BlackListService();
-		/* blackData= bls.selectDetailBlackList(blackDetail); */
-		blackData=new JSONObject();
-		blackData.put("result",false);
-		blackData.put("resultData",null);
-		// out.println( blackData.toJSONString() );
-		}
-		
-%> --%>
-
-
 
 <!-- 	testtest -->
 
@@ -59,25 +25,25 @@
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
-								<td width="50px">itswings</td>
+								<td width="50px" id="bId"></td>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px">문지훈</td>
+								<td width="50px" id="bName"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>	
-								<td>2012/01/01</td>
+								<td id="bBirth"></td>
 								<td style="background: #C8CED3">성별</td>
-								<td>남</td>
+								<td id="bGender"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">연락처</td>
-								<td>119</td>
+								<td id="bTel"></td>
 								<td style="background: #C8CED3">가입일자</td>
-								<td>2018-18-18</td>
+								<td id="bInputdate"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #C8CED3;">
 								<td style="background: #C8CED3">이메일</td>
-								<td colspan="3">itswings@gmail.com</td>
+								<td colspan="3" id="bEmail"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -87,11 +53,12 @@
 					<div class="form-group">
 						<label>사유</label>
 						<textarea name="reportContent" class="form-control" maxlength="2048"
-								style="height:180px; resize: none;" readonly="readonly"></textarea>
+								style="height:180px; resize: none;" readonly="readonly" id="bReason"></textarea>
 					</div>
 					<div class="form-group">
 						<label>적용일시</label>
-						<input type="date" readonly="readonly"/>
+						<!-- <td id="bBinputdate"></td> -->
+						 <input type="text" readonly="readonly" id="bBinputdate"/>
 					</div>
 
 					<div style="text-align: center">

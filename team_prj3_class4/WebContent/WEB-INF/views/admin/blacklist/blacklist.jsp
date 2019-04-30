@@ -24,21 +24,31 @@ $(function(){
 
 				$.ajax({
 					//url:"../WEB-INF/views/admin/blacklist/ajaxTest.jsp",
-					url:"ajaxTest.do",
+					url:"blackDetail.do",
 					type:"get",
 					data: "userID="+blackDetailName,
-					dataType:"text",
+					dataType:"json",
 					error:function( xhr ){
 						alert(xhr.status+" " + xhr.statusText);
 					},
-					success:function( blackData ){
-						alert("success");
+					success:function( json ){
+						//alert("success");
+						$("#bId").text(json.idResult);
+						$("#bName").text(decodeURIComponent(json.name));
+						$("#bBirth").text(json.birth);
+						$("#bGender").text(json.gender);
+						$("#bTel").text(json.tel);
+						$("#bInputDate").text(json.inputdate);
+						$("#bEmail").text(json.email);
+						$("#bReason").text(decodeURIComponent(json.reason));
+						$("#bBinputdate").val(json.b_date);
+						alert(json.b_date);
 						//var result= json_obj.result;
 						//if(result){
 
-							var output="";
-							output+=blackData.gender+"   222";
-							alert(output);
+							/* var output="";
+							output+=json.gender+"   222";
+							alert(output); */
 
 							//var json_arr=json_obj.resultData;
 
@@ -52,7 +62,7 @@ $(function(){
 								+itswings골뱅이gmail.com+"</td></tr>"; */
 								
 //							alert(output);
-							$("tbody").html(output);
+							//$("tbody").html(output);
 
 						//}else{
 							/* var img="<img src='../common/images/sist_logo.jpg'><br/>부서에 사원정보가 존재하지 않습니다.";
@@ -60,10 +70,10 @@ $(function(){
 						//}//end else 
 					}//success
 				});//ajax
-		alert(blackDetailName+"2");
+		//alert(blackDetailName+"2");
 
 			/* }//if */
-			return;
+			//return;
 		/* ajax */
 	});
 
