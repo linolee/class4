@@ -8,19 +8,18 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.domain.LectureView;
 
-public class LectureDAOImpl implements LectureDAO {
+@Component
+public class UserLectureDAO {
 
 	private SqlSessionFactory ssf = null;
 
-	public LectureDAOImpl() {
-		org.apache.ibatis.logging.LogFactory.useLog4JLogging();
-	}
-
 	public SqlSessionFactory getSessionFactory() {
 		if (ssf == null) {
+			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
 
 			Reader reader = null;
 			try {
@@ -38,20 +37,31 @@ public class LectureDAOImpl implements LectureDAO {
 	}// getSqlSessionFactory
 
 	
-	//클래스 현황 들고오기
-	@Override
-	public List<String> selectLecture(String teacher_name) {
+	//lcode로 클래스 현황 들고오기
+	public LectureView selectLecture(String lcode) {
 		SqlSession ss = getSessionFactory().openSession();
-		List<String> list = ss.selectList("selectLectureInfo", teacher_name);
-		System.out.println(ss.selectList("selectLectureInfo", teacher_name));
+		LectureView lv = ss.selectOne("selectLectureInfo", lcode);
+		ss.close();
+		
+		return lv;
+	}
+	
+	//teachername으로 lcode 조회
+	public List<String> selectLcode(String teacherName) {
+		SqlSession ss = getSessionFactory().openSession();
+		List<String> list = ss.selectList("selectLcode", teacherName);
 		ss.close();
 		
 		return list;
 	}
-
-	public static void main(String[] args) {
-		LectureDAOImpl l = new LectureDAOImpl();
-		System.out.println(l.selectLecture("곽쌍용"));
+	
+	//id로 teacherName 조회
+	public List<String> selectTeachername(String userId) {
+		SqlSession ss = getSessionFactory().openSession();
+		List<String> list = ss.selectList("selectTeachername", userId);
+		ss.close();
+		
+		return list;
 	}
-
+	
 } // class
