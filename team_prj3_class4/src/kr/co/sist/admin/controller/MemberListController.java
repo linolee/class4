@@ -68,7 +68,7 @@ public class MemberListController {
 		System.out.println(json.toJSONString());
 		
 		
-		return json.toJSONString();//
+		return json.toJSONString();
 	}
 	
 	

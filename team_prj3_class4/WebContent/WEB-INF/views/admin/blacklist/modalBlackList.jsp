@@ -17,7 +17,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="./reportAction.jsp" method="post">
+				<!-- <form action="/" method="get"> -->
 
 					<!-- temp table -->
 
@@ -27,7 +27,7 @@
 								<td width="50px" style="background: #C8CED3">아이디</td>
 								<td width="50px" id="bId"></td>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px" id="bName"></td>
+								<td width="50px" id="bName" name="bName"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>	
@@ -65,16 +65,16 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-								
-									<button type="button" class="btn btn-danger"
-										data-dismiss="modal">블랙리스트 해제</button>
+								<form action="blacklist.do" method="post">
+									<input type="hidden" name="hdnBlack"  id="hdnBlack" value=""/>
+									<button type="submit" class="btn btn-danger" id="deleteBlack">블랙리스트 해제</button>
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">확인</button>
+								</form>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 
 			</div>
 		</div>

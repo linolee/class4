@@ -143,9 +143,9 @@ public class BlackListService {
 	public JSONObject detailBlack(String id) {
 		JSONObject json=new JSONObject();
 		
-		BlackListDAO mldao=BlackListDAO.getInstance();
+		BlackListDAO bldao=BlackListDAO.getInstance();
 		
-		BlackListDetailVO bldvo=mldao.selectDetailBlackList(id);
+		BlackListDetailVO bldvo=bldao.selectDetailBlackList(id);
 		
 		try {
 		//DB조회 결과를 JSONObject 추가
@@ -167,6 +167,15 @@ public class BlackListService {
 		return json;
 	}//searchId
 	
+	public boolean deleteBlack(String id) {
+		BlackListDAO bldao=BlackListDAO.getInstance();
+		boolean flag= false;
+		if(bldao.deleteBlackList(id)) {
+			flag=true;
+		}
+		return flag;
+	}
+	
 	
 	
 	
@@ -174,7 +183,8 @@ public class BlackListService {
 		BlackListService bls=new BlackListService();
 //		bls.selectDetailBlackList("1");
 //		bls.bldvl("1");
-		bls.detailBlack("2");
+		//bls.detailBlack("2");
+		bls.deleteBlack("asdf");
 		
 	}
 		
