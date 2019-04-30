@@ -1,11 +1,21 @@
 package kr.co.sist.admin.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
+import javax.activation.URLDataSource;
+
+import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.MemberListDAO;
+import kr.co.sist.admin.domain.MemberDetail;
+import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.MemberIdxVO;
@@ -135,21 +145,43 @@ public class MemberListService {
 		List<MemberListDomain> list = null;
 		list = a_dao.selectAllMember(lvo);
 		
-	/*	MemberListDomain md=null;
-		for(int i=0; i<list.size();i++) {
-			md=list.get(i);
-			System.out.println("------------"+md.getClient_id()+" / "+ md.getName()+"/ "+md.getBirth()+" / "+md.getGender()+" / "+md.getEmail());
-		}*/
-		
 		return list;
 	}
 	
-	public static void main(String[] args) {
-
-		MemberListService mls = new MemberListService();
-		/*mls.selectAllMember();*/
-		/* System.out.println(mls.chkTeacher("in11202")); */
-		System.out.println(mls.totalCount());
+	//회원 상세보기
+	public JSONObject searchMemberDetail(String id) {
+		JSONObject json = new JSONObject();
+		JSONArray json_arr = new JSONArray();
+		
+		MemberDetail md=a_dao.selectDetailMember(id);
+		List<MemberLesson> list = null;
+		list=a_dao.selectMemberLesson(id);
+		
+		try {
+			json.put("jid", md.getClient_id());
+			json.put("jname", URLEncoder.encode(md.getName(),"UTF-8"));
+			json.put("jbirth", md.getBirth());
+			json.put("jgender", md.getGender());
+			json.put("jtel", md.getTel());
+			json.put("jinputdate", md.getInputdate());
+			json.put("jemail", md.getEmail());
+			
+			JSONObject json_temp = null;
+			if(!list.isEmpty()) {
+				for(int i=0; i<list.size(); i++) {
+					json_temp = new JSONObject();
+					json_temp.put("lessonName", URLEncoder.encode(list.get(i).getLname(),"UTF-8"));
+					json_temp.put("lessonStatus", list.get(i).getStatus());
+					json_arr.add(json_temp);
+				}
+			}
+			json.put("lessonList", json_arr);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
+	
+	
 
 }
