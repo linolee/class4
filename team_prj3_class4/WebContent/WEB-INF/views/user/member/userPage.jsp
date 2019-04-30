@@ -37,19 +37,21 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<!-- tab -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <!-- include summernote css/js -->
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css"
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+
+<!-- tab -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  var jb = jQuery.noConflict();
+</script>
 
 <script type="text/javascript">
 $(function(){
@@ -74,6 +76,15 @@ $(function(){
 		});
 	});
 	
+	jb("#tabs").tabs();
+	
+	$('#summernote').summernote({
+		placeholder : '신고 내용을 입력해주세요.',
+		tabsize : 2,
+		height : 300
+	});
+	
+
 });//ready
 
 </script>	
@@ -146,13 +157,6 @@ $(function(){
 
 							<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
 							<div id="summernote"></div>
-							<script>
-								$('#summernote').summernote({
-									placeholder : '신고 내용을 입력해주세요.',
-									tabsize : 2,
-									height : 300
-								});
-							</script>
 							<div id="reportBtnDiv">
 								<input type="button" value="제출하기" id="reportSubmitBtn" class="inputBtn">
 							</div>
@@ -160,9 +164,6 @@ $(function(){
 					</div>
 				</div>
 
-				<script>
-					$("#tabs").tabs();
-				</script>
 			</div>
 		</div>
 		<div id="footer">
