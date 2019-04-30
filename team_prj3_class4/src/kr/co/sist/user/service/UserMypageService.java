@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.dao.UserMypageDAO;
+import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
+import kr.co.sist.user.domain.QnaList;
+import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
@@ -77,6 +80,48 @@ public class UserMypageService {
 		flag=um_dao.deleteJjim(lvo);
 		return flag;
 	}//insertJjim
+	
+	public List<String> cancelLcodeList(String clientId){
+		List<String> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.cancelLcodeList(clientId);
+		return list;
+	}//cancelLcodeList
+	
+	public List<CancelList> cancelList(ListVO lvo){
+		List<CancelList> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.cancelList(lvo);
+		return list;
+	}//cancelList
+
+	public List<String> qnaLcodeList(String clientId){
+		List<String> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.qnaLcodeList(clientId);
+		return list;
+	}//qnaLcodeList
+	
+	public List<QnaList> qnaList(ListVO lvo){
+		List<QnaList> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.qnaList(lvo);
+		return list;
+	}//qnaList
+	
+	public List<String> reportLcodeList(String clientId){
+		List<String> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.reportLcodeList(clientId);
+		return list;
+	}//qnaLcodeList
+	
+	public List<ReportList> reportList(ListVO lvo){
+		List<ReportList> list=null;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		list=um_dao.reportList(lvo);
+		return list;
+	}//qnaList
 	
 	public int statusCnt(StatusCntVO ssvo) {
 		int cnt=0;

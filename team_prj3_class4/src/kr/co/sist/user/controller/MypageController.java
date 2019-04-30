@@ -14,8 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.domain.QnaList;
+import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.service.UserMypageService;
 import kr.co.sist.user.vo.ListPageVO;
 import kr.co.sist.user.vo.ListVO;
@@ -41,10 +44,12 @@ public class MypageController {
 			for(int i=0; i<lcodeList.size(); i++) {
 				lvo.setLcode(lcodeList.get(i));
 				classList.add(ums.classList(lvo));
-				if(!(request.getParameter("status") == null)) {
+				if( !(request.getParameter("status") == null) ) {
 					slvo.setLcode(lcodeList.get(i));
 					slvo.setpageStatus(request.getParameter("status"));
-					classStatusList.add(ums.selectStatusClass(slvo));
+					if( !(ums.selectStatusClass(slvo)==null) && !"[]".equals(ums.selectStatusClass(slvo).toString()) ) {
+							classStatusList.add(ums.selectStatusClass(slvo));
+					}//end if
 				}//end if
 			}//end for
 			model.addAttribute("classList", classList);
@@ -144,15 +149,49 @@ public class MypageController {
 		return "user/student/mypage_jjim";
 	}//useRequest
 	@RequestMapping(value="user/student/mypage_cancel.do", method=GET)
-	public String mypageCancel() {
+	public String mypageCancel(Model model, HttpSession session) {
+		String clientId = session.getAttribute("client_id").toString();
+		ListVO lvo=new ListVO("", clientId);
+		List<List<CancelList>> cancelList=new ArrayList<List<CancelList>>();
+		List<String> lcodeList=null;
+		lcodeList=ums.cancelLcodeList(clientId);
+		for(int i=0; i<lcodeList.size(); i++) {
+			lvo.setLcode(lcodeList.get(i));
+			cancelList.add(ums.cancelList(lvo));
+		}//end for
+		model.addAttribute("cancelList", cancelList);
+		
 		return "user/student/mypage_cancel";
 	}//useRequest
 	@RequestMapping(value="user/student/mypage_q&a.do", method=GET)
-	public String mypageQA() {
+	public String mypageQA(Model model, HttpSession session) {
+		String clientId = session.getAttribute("client_id").toString();
+		ListVO lvo=new ListVO("", clientId);
+		List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
+		List<String> lcodeList=null;
+		lcodeList=ums.qnaLcodeList(clientId);
+		for(int i=0; i<lcodeList.size(); i++) {
+			lvo.setLcode(lcodeList.get(i));
+			qnaList.add(ums.qnaList(lvo));
+		}//end for
+		model.addAttribute("qnaList", qnaList);
+		
 		return "user/student/mypage_q&a";
 	}//useRequest
+	
 	@RequestMapping(value="user/student/mypage_report.do", method=GET)
-	public String mypageReport() {
+	public String mypageReport(Model model, HttpSession session) {
+		String clientId = session.getAttribute("client_id").toString();
+		ListVO lvo=new ListVO("", clientId);
+		List<List<ReportList>> reportList=new ArrayList<List<ReportList>>();
+		List<String> lcodeList=null;
+		lcodeList=ums.reportLcodeList(clientId);
+		for(int i=0; i<lcodeList.size(); i++) {
+			lvo.setLcode(lcodeList.get(i));
+			reportList.add(ums.reportList(lvo));
+		}//end for
+		model.addAttribute("reportList", reportList);
+		
 		return "user/student/mypage_report";
 	}//useRequest
 }

@@ -32,7 +32,11 @@
 #statusList{ width: 230px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -84,7 +88,7 @@
 	<div style="padding-top: 20px">
 		<div style="float: left">
 			<div style=" font-weight: normal; color:#757575;">
-				총 0개의 신고가 있습니다.
+				총 <c:out value="${reportList.size()}"/>개의 신고가 있습니다.
 			</div>
 		</div>
 		<div style="float: right">
@@ -101,6 +105,36 @@
 			<th id="subjectList">클래스명</th>
 			<th id="statusList">신고처리상태</th>
 		</tr>
+		
+		<c:set var="i" value="${0 }"/>
+		<c:forEach var="reportList" items="${ reportList }">
+			<tr class=searchDetail>
+				<td class=tableBody>
+					<c:out value="${ reportList.get(i).rDate}"></c:out>
+				</td>
+				<td class=tableBody>
+					<a href="#void" onclick="writeEvt('write_form',1)">
+						<c:out value="${ reportList.get(i).lname }"></c:out>
+					</a>
+				</td>
+				<td class=tableBody>
+					<c:choose>
+						<c:when test="${ reportList.get(i).status == 'Y'}">
+							처리완료
+						</c:when>
+						<c:when test="${ reportList.get(i).status == 'N'}">
+							처리대기
+						</c:when>
+					</c:choose>
+				</td>
+			</tr>
+		</c:forEach>
+		<c:if test="${ empty reportList }">
+		<tr>
+			<td colspan="5" align="center" class=tableBodyEmpty>등록된 클래스 정보가 없습니다.</td>
+		</tr>
+		</c:if>
+		
 	</table>
 	
 	<div id="classList">
