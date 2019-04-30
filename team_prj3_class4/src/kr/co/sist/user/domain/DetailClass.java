@@ -1,14 +1,8 @@
 package kr.co.sist.user.domain;
 
-import java.util.List;
-
 public class DetailClass {
 	private String img, title, tName, loc, classTime, maxPersonal, tMemo, deadLine, tProfile, curriculum, tIntroduce;
 	private int star, starCnt, likeCnt;
-	private List<QnA> anqList;
-	private List<TClass> tclassList;
-	private List<ReviewDomain> reviewDomainList;
-	private List<ClassDate> classdateList;
 	
 	public String getImg() {
 		return img;
@@ -93,30 +87,6 @@ public class DetailClass {
 	}
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
-	}
-	public List<QnA> getAnqList() {
-		return anqList;
-	}
-	public void setAnqList(List<QnA> anqList) {
-		this.anqList = anqList;
-	}
-	public List<TClass> getTclassList() {
-		return tclassList;
-	}
-	public void setTclassList(List<TClass> tclassList) {
-		this.tclassList = tclassList;
-	}
-	public List<ReviewDomain> getReviewDomainList() {
-		return reviewDomainList;
-	}
-	public void setReviewDomainList(List<ReviewDomain> ReviewDomainList) {
-		this.reviewDomainList = ReviewDomainList;
-	}
-	public List<ClassDate> getClassdateList() {
-		return classdateList;
-	}
-	public void setClassdateList(List<ClassDate> classdateList) {
-		this.classdateList = classdateList;
 	}
 	
 }
