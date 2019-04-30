@@ -34,7 +34,9 @@
 #jjimList{ width: 100px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:30px;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
 td{ border-bottom: 1px solid #EEEEEE; }
 .searchDetail:hover { background-color: #F3F3F3 }
 </style>
@@ -129,7 +131,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		</c:forEach>
 		<c:if test="${ empty jjimList }">
 		<tr>
-			<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+			<td colspan="5" align="center" class="tableBodyEmpty">등록된 클래스 정보가 없습니다.</td>
 		</tr>
 		</c:if>
 	</table>

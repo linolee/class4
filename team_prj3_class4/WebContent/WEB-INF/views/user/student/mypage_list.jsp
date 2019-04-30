@@ -28,7 +28,9 @@
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableHeader{ background-color: #F7F7F7}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:30px;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
 td{ border-bottom: 1px solid #EEEEEE; }
 .searchDetail:hover { background-color: #F3F3F3 }
 </style>
@@ -96,7 +98,20 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	<c:forEach var="classList" items="${ classList }">
 		<tr class=searchDetail>
 			<td class=tableBody>
-				<c:out value="${ classList.get(i).status}"></c:out>
+				<c:choose>
+					<c:when test="${ classList.get(i).status == 'Y'}">
+						예약완료
+					</c:when>
+					<c:when test="${ classList.get(i).status == 'I'}">
+						진행중
+					</c:when>
+					<c:when test="${ classList.get(i).status == 'X'}">
+						종료
+					</c:when>
+					<c:when test="${ classList.get(i).status == 'C'}">
+						예약취소
+					</c:when>
+				</c:choose>
 			</td>
 			<td class=tableBody>
 				<c:out value="${ classList.get(i).lname}"></c:out>
@@ -114,17 +129,30 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</c:forEach>
 	<c:if test="${ empty classList }">
 	<tr>
-		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+		<td colspan="5" align="center" class=tableBodyEmpty>등록된 클래스 정보가 없습니다.</td>
 	</tr>
 	</c:if>
 	</c:if>
 	<c:if test="${ param.status ne null }">
-	<c:if test="${ not empty classStatusList.get(0) }">
+	<c:if test="${ !(classStatusList == '[]')}">
 	<c:set var="i" value="${0 }"/>
 	<c:forEach var="classStatusList" items="${ classStatusList }">
 		<tr class=searchDetail>
 			<td class=tableBody>
-				<c:out value="${ classStatusList.get(i).status}"></c:out>
+				<c:choose>
+					<c:when test="${ classStatusList.get(i).status == 'Y'}">
+						예약완료
+					</c:when>
+					<c:when test="${ classStatusList.get(i).status == 'I'}">
+						진행중
+					</c:when>
+					<c:when test="${ classStatusList.get(i).status == 'X'}">
+						종료
+					</c:when>
+					<c:when test="${ classStatusList.get(i).status == 'C'}">
+						예약취소
+					</c:when>
+				</c:choose>
 			</td>
 			<td class=tableBody>
 				<c:out value="${ classStatusList.get(i).lname}"></c:out>
@@ -143,7 +171,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</c:if>
 	<c:if test="${ empty classStatusList }">
 	<tr>
-		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+		<td colspan="5" align="center" class=tableBodyEmpty>등록된 클래스 정보가 없습니다.</td>
 	</tr>
 	</c:if>
 	</c:if>
