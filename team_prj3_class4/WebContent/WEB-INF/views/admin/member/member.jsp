@@ -88,10 +88,11 @@ $(function(){
 							type: "get",
 							dataType: "json",
 							error: function(xhr) {
-								alert("회원정보 조회 실패");
+								alert("실패");
 								console.log(xhr.status + "/" + xhr.statusText);
 							},
 							success:function( json ){
+								alert("성공!!");
 								/* $("#addBid").text(json.jid);
 								$("#addBname").text(decodeURIComponent(json.jname));
 								$("#addBbirth").text(json.jbirth);

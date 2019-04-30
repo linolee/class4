@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -88,15 +90,29 @@ public class MemberListDAO {
 		return list;
 	}
 	
-	public List<AddBlackVO> insertBlack(String id, String reason, String date){
-		List<AddBlackVO> list=null;
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+	public int insertBlack(AddBlackVO abvo){
+		//List<AddBlackVO> list=null;
+		//AddBlackVO abvo=null;
+		int cnt=0;
+		
+		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();
-		String time1 = format1.format(time);
+		String time1 = format1.format(time);*/
+		
+		/*Map<String, Object> map=new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("reason", reason);
+		map.put("time", time1);
+		System.out.println(map);*/
 		SqlSession ss=getSessionFactory().openSession();
-		// map이용해야됨
-		list=ss.selectList("addBlackList", id, reason, time1);
-		return list;
+		//list=ss.selectList("addBlackList", map);
+		//list=ss.selectOne("addBlackList", map);
+		//ss.insert("addBlackList", map);
+		cnt=ss.insert("addBlackList", abvo);
+		if(cnt==1) {
+			ss.commit();
+		}
+		return cnt;
 	}
 	
 	
@@ -108,7 +124,10 @@ public class MemberListDAO {
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
 		//System.out.println(adao.selectTotalCount());
+		AddBlackVO abvo=null;
+		abvo=new AddBlackVO("test", "그냥", "20120303");
 		
+		System.out.println(adao.insertBlack(abvo));
 	}
 
 	

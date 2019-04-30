@@ -13,6 +13,7 @@ import kr.co.sist.admin.dao.MemberListDAO;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
@@ -176,6 +177,18 @@ public class MemberListService {
 		}
 		return json;
 	}
+	
+	public JSONObject addBlack(AddBlackVO abvo) {
+		
+		JSONObject json=new JSONObject();
+		int cnt=0;
+		
+		cnt=a_dao.insertBlack(abvo);
+		json.put("result", cnt==1);
+		
+		return json;
+	}
+	
 	
 	
 

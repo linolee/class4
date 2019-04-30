@@ -2,23 +2,21 @@ package kr.co.sist.admin.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import kr.co.sist.admin.domain.MemberDetail;
-import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.service.MemberListService;
+import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Controller
@@ -70,8 +68,17 @@ public class MemberListController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/addBlack.do",method=GET)
-	public String addBlack(String id, String reason) {
+	public String addBlack(@RequestParam(value="id", required=false)String id, @RequestParam(value="reason", required=false)String reason) {
 		JSONObject json = null;
+		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");*/
+		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
+		Date date = new Date();
+		String time = format1.format(date);
+		System.out.println("------------------"+"id="+id+"  reason="+reason);
+		System.out.println("-------------------"+time);
+		AddBlackVO abvo=new AddBlackVO(id, reason, time);
+		
+		json=mls.addBlack(abvo);
 		
 		// 쿼리스트링으로 값을 받아서 딜리트 쿼리 실행해야함
 		//json = mls.searchMemberDetail(id);

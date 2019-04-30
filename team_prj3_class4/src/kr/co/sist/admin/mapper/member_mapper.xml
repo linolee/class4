@@ -43,10 +43,11 @@ from STUDENTS s, LESSON l
 where (s.lcode = l.lcode) and s.client_id = #{ client_id }
 </select>
 
-<select id="addBlackList" parameterType="String">
+<insert id="addBlackList" parameterType="kr.co.sist.admin.vo.AddBlackVO" >
 insert into blacklist
 values(#{client_id}, #{reason}, #{sysdate})
-</select>
+<!-- TO_DATE('2015-06-10','YYYY-MM-DD') -->
+</insert>
 
 
 

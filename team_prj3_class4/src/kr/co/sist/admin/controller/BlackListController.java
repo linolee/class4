@@ -34,12 +34,12 @@ public class BlackListController {
 		
 		List<BlackListDomain> list=null;
 		
+		System.out.println(id);
 		String url="/admin/template";	
 		if((id!=null)) {
 			if (bls.deleteBlack(id)) {
 				url="forward:/admin/template.do";
 				//request.setAttribute(name, o);
-				
 			}
 		}
 		
