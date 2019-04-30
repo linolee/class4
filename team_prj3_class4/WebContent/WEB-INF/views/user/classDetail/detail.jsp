@@ -28,17 +28,27 @@ table{align : center; text-align: center;}
 .contentTitle{font-size: 24px;font-weight: bold;}
 .clear_fix{border-bottom: 1px solid #cdcdcd;height: 30px;}
 
-dt{float:left; font-weight: bold; font-size:15px; height: 30px;}
-dd{font-size: 15px; color: #adadad; float: right;} 
+dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adadad;}
+dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold}
-
+  
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
  $(function(){
-	 
+/*   	// 주메뉴 스크롤링
+	 $(window).on('scroll', function(){
+	 scrollTop = $(window).scrollTop();
+	 if(scrollTop >= 2000){
+		 $("#other").addClass('scroll');
+		 $("#other").stop(true).css({'position' : 'fixed'});
+	 }else{
+		 $("#other").removeClass('scroll');
+		 $("#other").stop(true).css({'position' : 'relative'});
+	 }//end else
+	 });  */
  });//ready
 </script>
 </head>
@@ -126,8 +136,21 @@ dd{font-size: 15px; color: #adadad; float: right;}
                               <p><span style="font-size: 12pt;"><strong>* 소요 시간은 보통 1시간 내외로&nbsp;</strong><strong>소요됩니다.</strong></span></p><p><br></p><p><br></p>                            
                           </span>
                       </div>
+                      <div class="group" style="border-top: 1px solid #cfcfcf;">
+                          <div class="detail_info_title"><span class="contentTitle">포함/불포함 사항</span></div>
+                          <table style="margin: 20px;">
+                          	<tr>
+                          		<th style="width: 150px;font-size: 17px;border-right: 1px solid #cdcdcd; ">포함 사항</th>
+                          		<th style="width: 150px;font-size: 17px;">불 포함 사항</th>
+                          	</tr>
+                          	<tr>
+                          		<td style="font-size: 15px;border-right: 1px solid #cdcdcd; ">강의,장비</td>
+                          		<td style="font-size: 15px;">주차장,식사,숙소</td>
+                          	</tr>
+                          </table>
+                      </div>
 
-                       <div class="group" style="border-top: 1px solid #cfcfcf;">
+                       <!-- <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">기타 사항-환불규정</span></div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
 						<p>클래스볼의 결제 취소 및 환불 규정은 관련 법령인 &lt;학원의 설립ㆍ운영 및 과외교습에 관한 법률 시행령 [별표4] [시행 2017.3.21.]&gt;의 &lt;교습비 등 반환기준(제18조 제3항 관련)&gt;을 준수합니다.</p>
@@ -150,7 +173,7 @@ dd{font-size: 15px; color: #adadad; float: right;}
 						<p>단 클래스의 특성상 사전 준비(수업재료 준비, 장소 및 식사 사전예약 등)과정에서 불가피하게 손해비용 및 위약금 발생이 예상되는 경우, 
 						마스터는 법령에서 제시한 내용 외에 별도의 환불규정을 수강생에게 고지할 수 있고, 수강생은 마스터가 고지한 환불수수료를 제외한 금액을 환불받을 수 있습니다.</p>
 						<br></span>
-					  </div>
+					  </div> -->
 
                        <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스 위치</span></div>
@@ -280,8 +303,11 @@ dd{font-size: 15px; color: #adadad; float: right;}
 	                      </div>
 	                      <div class="select_day group" >
 	                          <div class="c_selectbox">
+	                          <select onChange="setPeople(this.value)" style="width: 100%; height: 30px; margin-top: 10px;">
+                                  <option value="0">2019.05 첫째주-월,수,금 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 </option>
+	                              </select>
 	                             <!--  <label for="">클릭해서 클래스날짜 선택하기</label> -->
-	                              <select onChange="setPeople(this.value)" style="width: 100%; height: 30px; margin-top: 10px;">
+	                             <!--  <select onChange="setPeople(this.value)" style="width: 100%; height: 30px; margin-top: 10px;">
                                   <option value="0">클릭해서 클래스날짜 선택하기</option>
                                   <option value="1_1000">2019.04.15(월) 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 마감 </option>
                                   <option value="2_1000">2019.04.16(화) 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 마감 </option>
@@ -294,7 +320,7 @@ dd{font-size: 15px; color: #adadad; float: right;}
                                   <option value="9_1">2019.04.27(토) 16:00 ~ 17:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 </option>
                                   <option value="10_1">2019.04.29(월) 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 </option>
                                   <option value="11_1">2019.04.30(화) 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 </option>
-	                              </select>
+	                              </select> -->
 	                          </div>
 	                      </div>
 	                      <dl class="clear_fix" style="border-top: 1px solid #cdcdcd;">
@@ -308,7 +334,7 @@ dd{font-size: 15px; color: #adadad; float: right;}
 	                      <dl class="clear_fix">
 	                          <dt>신청마감일</dt>
 	                          <dd>
-									2019. 04. 29(월) 18:00
+									2019. 05. 29(월)
 							  </dd>
 	                      </dl>
 	                      <dl class="clear_fix">

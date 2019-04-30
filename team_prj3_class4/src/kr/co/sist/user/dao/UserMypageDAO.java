@@ -9,7 +9,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
+import kr.co.sist.user.domain.QnaList;
+import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
@@ -72,6 +75,96 @@ public class UserMypageDAO {
 		ss.close();
 		return list;
 	}//selectLcode
+	
+	public String reviewStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("reviewStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public String jjimStatus(ListVO lvo) {
+		String lcode="";
+		SqlSession ss=getSessionFactory().openSession();
+		lcode=ss.selectOne("jjimStatus", lvo);
+		ss.close();
+		return lcode;
+	}//reviewList
+	
+	public boolean insertJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("insertJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
+	public boolean deleteJjim(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.delete("deleteJjim", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJjim
+	
+	public List<String> cancelLcodeList(String clientId) {
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("cancelLcodeList", clientId);
+		ss.close();
+		return list;
+	}//cancelLcodeList
+	
+	public List<CancelList> cancelList(ListVO lvo) {
+		List<CancelList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("cancelList", lvo);
+		ss.close();
+		return list;
+	}//cancelList
+	
+	public List<String> qnaLcodeList(String clientId) {
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("qnaLcodeList", clientId);
+		ss.close();
+		return list;
+	}//qnaLcodeList
+	
+	public List<QnaList> qnaList(ListVO lvo) {
+		List<QnaList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("qnaList", lvo);
+		ss.close();
+		return list;
+	}//qnaList
+	
+	public List<String> reportLcodeList(String clientId) {
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("reportLcodeList", clientId);
+		ss.close();
+		return list;
+	}//qnaLcodeList
+	
+	public List<ReportList> reportList(ListVO lvo) {
+		List<ReportList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("reportList", lvo);
+		ss.close();
+		return list;
+	}//qnaList
 	
 	public int selectTotalCount(String clientId) {
 		SqlSession ss=getSessionFactory().openSession();

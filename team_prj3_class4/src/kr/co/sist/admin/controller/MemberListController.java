@@ -4,12 +4,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+
+import kr.co.sist.admin.domain.MemberDetail;
+import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.ListVO;
@@ -33,13 +39,10 @@ public class MemberListController {
 		}
 		int startNum = mls.startNum(lvo.getCurrentPage());
 		int endNum = mls.endNum(startNum);
-
-		
 		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
 
-		
 		list=mls.selectAllMember(lvo);
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		model.addAttribute("memberList", list);
@@ -51,4 +54,22 @@ public class MemberListController {
 		model.addAttribute("page", "member/member");
 		return "admin/template";
 	}
+	
+	//ajax로 회원상세보기
+	@ResponseBody
+	@RequestMapping(value="/admin/memberDetail.do",method=GET)
+	public String memberDetailPage(String id) {
+		JSONObject json = null;
+		
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
+		MemberListService mls=ac.getBean(MemberListService.class);
+		
+		json = mls.searchMemberDetail(id);
+		System.out.println(json.toJSONString());
+		
+		
+		return json.toJSONString();
+	}
+	
+	
 }

@@ -25,8 +25,11 @@ import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
+import kr.co.sist.user.service.UserReportService;
+import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
+import kr.co.sist.user.vo.memberReportVO;
 
 /**
  * Handles requests for the application home page.
@@ -37,6 +40,7 @@ public class UserController {
 	private UserLoginService uls;
 	private UserPageService ups;
 	private UserJoinService ujs;
+	private UserReportService urs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
@@ -44,6 +48,7 @@ public class UserController {
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
 		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
+		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -86,7 +91,7 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkId.do", method = POST)
-	public String checkId(HttpServletRequest request, HttpServletResponse response) {
+	public String checkId(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
 		if (ujs.checkId(request.getParameter("client_id"))) {//입력한 아이디가 이미 존재한다면
 			json.put("checkId", true);
@@ -96,10 +101,57 @@ public class UserController {
 		return json.toJSONString();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkTel.do", method = POST)
+	public String checkTel(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkTel(request.getParameter("tel"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkTel", true);
+		}else {
+			json.put("checkTel", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkEmail.do", method = POST)
+	public String checkEmail(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkEmail(request.getParameter("email"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkEmail", true);
+		}else {
+			json.put("checkEmail", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
+	public String guestReportSubmint(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
+	public String memberReportSubmint(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
 		//넘겨진 parameter 값으로 VO를 생성
-		System.out.println(request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
 		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
 				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],

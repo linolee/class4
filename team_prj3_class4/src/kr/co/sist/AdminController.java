@@ -30,6 +30,11 @@ public class AdminController {
 		return "admin/template";
 	}
 	
+	@RequestMapping(value="/admin/AdminLogin.do", method=GET)
+	public String loginPage(Model model) {
+		return "admin/AdminLogin";
+	}
+	
 	@RequestMapping(value="/admin/question.do",method=GET)
 	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
@@ -70,11 +75,7 @@ public class AdminController {
 		QnaService qs = ac.getBean(QnaService.class);
 		
 		QnaDetail qd = qs.searchQnaDetail(qnum);//원글의 내용을 조회
-//		List<DiaryReplay> replyList = qs.searchReplyList(num);//원글의 댓글들을 조회
-//		
 		model.addAttribute("searchData", qd);
-//		model.addAttribute("replyList", replyList);
-		
 		model.addAttribute("page", "qnaRead");
 		return "admin/template";
 	}
@@ -85,11 +86,7 @@ public class AdminController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
 		QnaService qs = ac.getBean(QnaService.class);
 		
-//		String page = "question";
 		int cnt = qs.addQnaAnswer(qavo);
-//		if(cnt != 1) {
-//			page = "err";
-//		}
 		
 		//model.addAttribute("page", page);
 		//return "forward:question.do";

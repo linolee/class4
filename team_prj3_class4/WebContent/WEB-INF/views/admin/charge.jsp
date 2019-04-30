@@ -5,24 +5,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- <%
-	MemberListService as=new MemberListService();
-	// if(MemberListDomain!=null){
-		List<MemberListDomain> list=as.selectAllMember();
-		pageContext.setAttribute("MemberListDomain", list);
-	// }
-%> --%>
-
-
-
 <!--  -->
 <div class="card">
 	<div class="card-header">
 		<i class="fa fa-align-justify"></i> 신고관리
-
-		
-		
-		
 	</div>
 	<div class="card-body">
 		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
@@ -59,7 +45,7 @@
 				<c:if test="${ empty MemberListDomain }">
 				<tr>
 					<td colspan="6" align="center">
-						<strong>등록된 회원이 없습니다</strong>
+						<strong>등록된 신고사항이 없습니다</strong>
 					</td>
 				</tr>
 				</c:if>
@@ -100,8 +86,8 @@
 		</div>
 	</div>
 </div>
-<c:import url="modalUserInfo.jsp"/>
+<%-- <c:import url="modalUserInfo.jsp"/>
 <c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/>
+<c:import url="modalTeacherInfo.jsp"/> --%>
 <!--  -->
 

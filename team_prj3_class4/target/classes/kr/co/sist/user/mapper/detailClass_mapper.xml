@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mainC">
+<resultMap type="kr.co.sist.user.domain.ReviewDoamin" id="reviewD">
+	<result column="client_id" property="client_id"/>
+	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
+	<result column="score" property="score"/>
+</resultMap>
+<select id="selectReviewList" resultMap="reviewD" parameterType="String">
+select   CLIENT_ID, SUBJECT, CONTENTS, SCORE
+from review
+where lcode=#{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.QnA" id="qna">
+	<result column="memberId" property="memberId"/>
+	<result column="title" property="title"/>
+</resultMap>
+<select id="selectQnaList" resultMap="qna" parameterType="String">
+select CLIENT_ID, SUBJECT, Qcode
+from lesson_qna
+where lcode=#{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.TClass" id="tclass">
+	<result column="img" property="img"/>
+	<result column="tName" property="tName"/>
+	<result column="title" property="title"/>
+</resultMap>
+<select id="selectTclassList" resultMap="tclass" parameterType="String">
+select MAIN_IMG,TEACHER_NAME, LNAME
+from LESSON
+where TEACHER_NAME=#{TEACHER_NAME}
+</select>
+
+<resultMap type="kr.co.sist.user.doamin.DetailClass" id="detailclass">
+	<result column="img" property="img"/>
+	<result column="tName" property="tName"/>
+	<result column="title" property="title"/>
+	<result column="loc" property="loc"/>
+	<result column="title" property="title"/>
+	<result column="classTime" property="classTime"/>
+	<result column="maxPersonal" property="maxPersonal"/>
+	<result column="tMemo" property="tMemo"/>
+	<result column="deadLine" property="deadLine"/>
+	<result column="tProfile" property="tProfile"/>
+	<result column="curriculum" property="curriculum"/>
+	<result column="tIntroduce" property="tIntroduce"/>
+	<result column="star" property="star"/>
+	<result column="starCnt" property="starCnt"/>
+	<result column="likeCnt" property="likeCnt"/>
+</resultMap>
+<!-- List<QnA> anqList;
+ List<TClass> tclassList;
+ List<ReviewDomain> reviewDomainList;
+ List<ClassDate> classdateList;
+ -->
+</mapper>

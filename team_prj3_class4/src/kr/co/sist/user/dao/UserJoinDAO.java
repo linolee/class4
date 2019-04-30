@@ -19,4 +19,8 @@ public interface UserJoinDAO {
 	 * 입력받은 아이디로 DB를 조회해서 아이디가 있으면 true를 반환
 	 */
 	public boolean checkId(String client_id);
+	
+	public boolean checkTel(String tel);
+	
+	public boolean checkEmail(String email);
 }

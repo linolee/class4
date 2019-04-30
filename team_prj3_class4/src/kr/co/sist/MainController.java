@@ -41,7 +41,7 @@ public class MainController {
 	}//mvRecommendCalss
 	
 	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
-	public String mvDetailClass(Model model) {
+	public String mvDetailClass(String lcode,Model model) {
 		return "user/classDetail/detail";
 	}//mvRecommendCalss
 	

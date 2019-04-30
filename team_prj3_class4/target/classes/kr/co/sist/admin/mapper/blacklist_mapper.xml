@@ -13,15 +13,15 @@
 </resultMap>
 
 <resultMap type="kr.co.sist.admin.vo.BlackListDetailVO" id="detailBlackListResult">
-	<result column="c.client_id" property="client_id"/>
-	<result column="c.name" property="name"/>
-	<result column="c.birth" property="birth"/>
-	<result column="c.gender" property="gender"/>
-	<result column="c.tel" property="tel"/>
-	<result column="c.inputdate" property="inputdate"/>
-	<result column="c.email" property="email"/>
-	<result column="b.reason" property="reason"/>
-	<result column="b.b_date" property="b_date"/>
+	<result column="client_id" property="client_id"/>
+	<result column="name" property="name"/>
+	<result column="birth" property="birth"/>
+	<result column="gender" property="gender"/>
+	<result column="tel" property="tel"/>
+	<result column="inputdate" property="inputdate"/>
+	<result column="email" property="email"/>
+	<result column="reason" property="reason"/>
+	<result column="b_date" property="b_date"/>
 </resultMap>
 
 <select id="blackTotalCnt" resultType="int">
@@ -38,9 +38,14 @@ where r_num between #{ startNum } and #{ endNum }
 </select>
 
 <select id="selectDetailBlackList" resultMap="detailBlackListResult" parameterType="String">
-select c.client_id, c.name, c.birth, c.gender, c.tel, c.inputdate, c.email, b.reason, b.b_date
+select c.client_id client_id, c.name name, c.birth birth, c.gender gender, c.tel tel, c.inputdate inputdate, c.email email, b.reason reason, b.b_date b_date
 from client c, blacklist b
 where c.client_id=b.client_id and c.client_id=#{ id } 
+</select>
+
+<select id="deleteBlackList" parameterType="String">
+delete blacklist
+where client_id=#{id}
 </select>
 
 </mapper>

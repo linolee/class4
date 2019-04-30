@@ -31,4 +31,17 @@ where r_num between #{ startNum } and #{ endNum }
 </select>
 
 
+<select id="selectClientDetail" resultType="kr.co.sist.admin.domain.MemberDetail" parameterType="String">
+select client_id, name, birth, gender, tel, inputdate, email
+from client
+where client_id = #{ client_id }
+</select>
+
+<select id="selectClientLesson" resultType="kr.co.sist.admin.domain.MemberLesson" parameterType="String">
+select l.lname, l.status
+from STUDENTS s, LESSON l
+where (s.lcode = l.lcode) and s.client_id = #{ client_id }
+</select>
+
+
 </mapper>

@@ -34,7 +34,11 @@
 #jjimList{ width: 100px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -84,9 +88,10 @@
 		
 	</div>
 	<div style="padding-top: 20px; font-weight: normal; color:#757575;">
-		총 0개의 게시글이 있습니다.
+		총 <c:out value="${jjimList.size()}"/>개의 게시글이 있습니다.
 	</div>
 	<div id="listContents">
+	<form action="mypage_jjim_process.do" method="get" enctype="multipart/form-data">
 	<table id="listTab">
 		<tr>
 			<th id="subjectList">클래스명</th>
@@ -95,7 +100,42 @@
 			<th id="marsterList">마스터</th>
 			<th id="jjimList">찜♡</th>
 		</tr>
+		<c:set var="i" value="${0 }"/>
+		<c:set var="j" value="${0 }"/>
+		<c:forEach var="jjimList" items="${ jjimList }">
+			<tr class=searchDetail>
+				<td class=tableBody>
+					<a href="#void" onclick="writeEvt('write_form',1)">
+						<c:out value="${ jjimList.get(i).lname}"></c:out>
+					</a>
+				</td>
+				<td class=tableBody>
+					<c:out value="${ jjimList.get(i).startDate }~${ jjimList.get(i).endDate }"></c:out>
+				</td>
+				<td class=tableBody>
+					<c:out value="${ jjimList.get(i).num}"></c:out>
+				</td>
+				<td class=tableBody>
+					<c:out value="${ jjimList.get(i).teacherName}"></c:out>
+				</td>
+				<td class=tableBody>
+					<c:if test="${ jjimStatus.get(j)==null }">
+					<a href="?addJjim=${jjimList.get(i).lcode }">♡</a>
+					</c:if>
+					<c:if test="${ jjimStatus.get(j) ne null }">
+					<a href="?cancelJjim=${jjimList.get(i).lcode }">♥</a>
+					</c:if>
+				</td>
+			</tr>
+		<c:set var="j" value="${j+1 }"/>
+		</c:forEach>
+		<c:if test="${ empty jjimList }">
+		<tr>
+			<td colspan="5" align="center" class="tableBodyEmpty">등록된 클래스 정보가 없습니다.</td>
+		</tr>
+		</c:if>
 	</table>
+	</form>
 	
 	<div id="classList">
 	

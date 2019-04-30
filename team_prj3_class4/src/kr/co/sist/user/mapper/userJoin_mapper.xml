@@ -11,6 +11,14 @@
 	select client_id from client
 	where client_id = #{client_id}
 </select>
+<select id="checkTel" parameterType="String" resultType="String">
+	select client_id from client
+	where tel = #{tel}
+</select>
+<select id="checkEmail" parameterType="String" resultType="String">
+	select client_id from client
+	where email = #{email}
+</select>
 	
 <insert id="memberJoin" parameterType="kr.co.sist.user.vo.MemberJoinVO">
 	insert into client

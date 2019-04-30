@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.admin.domain.MemberDetail;
+import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.MemberIdxVO;
@@ -66,6 +68,24 @@ public class MemberListDAO {
 		ss.close();
 		return cnt;
 	} // selectTotalCount
+	
+	//회원 상세조회 DB작업
+	public MemberDetail selectDetailMember(String id) {
+		SqlSession ss=getSessionFactory().openSession();
+		MemberDetail md=ss.selectOne("selectClientDetail", id);
+		ss.close();
+		return md;
+	}
+	
+	//회원 수강 강의 상세조회 DB작업
+	public List<MemberLesson> selectMemberLesson(String id) {
+		List<MemberLesson> list = null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectClientLesson", id);
+		ss.close();
+		return list;
+	}
+	
 	
 
 	public static void main(String[] args) {
