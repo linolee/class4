@@ -128,8 +128,6 @@ public class UserController {
 	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
 	public String guestReportSubmint(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		System.out.println(new GuestReportVO(request.getParameter("guest_email"),
-				request.getParameter("q_subject"), request.getParameter("q_contents")));
 		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
 				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
 			json.put("resultFlag", true);
