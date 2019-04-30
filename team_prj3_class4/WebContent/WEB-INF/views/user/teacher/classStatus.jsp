@@ -120,7 +120,7 @@
 					<td><c:out value="${ List.lname }"/></td>
 					<td><c:out value="${ List.startDate }"/>-<c:out value="${ List.endDate }"/></td>
 					<td><a href="#void" onclick="viewImport('applyPeoples')">-</a></td>
-					<td><c:out value="${ List.teacherName }"/></td>
+					<td><c:out value="${ List.teacherName }"/></td><!-- ㅇㄹㅇㄹ -->
 					<td>-</td>
 				</tr>
 				</c:forEach>
