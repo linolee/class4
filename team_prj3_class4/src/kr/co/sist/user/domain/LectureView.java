@@ -3,21 +3,14 @@ package kr.co.sist.user.domain;
 public class LectureView {
 
 	private String lname, status, startDate, endDate, lcode, teacherName;
-	private int maxMember;
+	private int maxMember, nowMember;
 	
-	public LectureView() {
-		super();
+	
+	public int getNowMember() {
+		return nowMember;
 	}
-	public LectureView(String lname, String status, String startDate, String endDate, String lcode, String teacherName,
-			int maxMember) {
-		super();
-		this.lname = lname;
-		this.status = status;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.lcode = lcode;
-		this.teacherName = teacherName;
-		this.maxMember = maxMember;
+	public void setNowMember(int nowMember) {
+		this.nowMember = nowMember;
 	}
 	public String getLname() {
 		return lname;
