@@ -12,7 +12,7 @@
 	<result column="email" property="email"/>
 </resultMap>
 
-<resultMap type="kr.co.sist.admin.domain.BlackListDetailDomain" id="detailBlackListResult">
+<resultMap type="kr.co.sist.admin.vo.BlackListDetailVO" id="detailBlackListResult">
 	<result column="client_id" property="client_id"/>
 	<result column="name" property="name"/>
 	<result column="birth" property="birth"/>
@@ -38,9 +38,14 @@ where r_num between #{ startNum } and #{ endNum }
 </select>
 
 <select id="selectDetailBlackList" resultMap="detailBlackListResult" parameterType="String">
-select c.client_id, c.name, c.birth, c.gender, c.tel, c.inputdate, c.email, b.reason, b.b_date
+select c.client_id client_id, c.name name, c.birth birth, c.gender gender, c.tel tel, c.inputdate inputdate, c.email email, b.reason reason, b.b_date b_date
 from client c, blacklist b
 where c.client_id=b.client_id and c.client_id=#{ id } 
+</select>
+
+<select id="deleteBlackList" parameterType="String">
+delete blacklist
+where client_id=#{id}
 </select>
 
 </mapper>

@@ -2,14 +2,34 @@ package kr.co.sist.user.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.co.sist.user.service.UserLectureService;
 
 @Controller
 public class TeacherController {
+	@Autowired(required=false)
+	private UserLectureService ulS;	
+	
+	public TeacherController() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
+	}
 	
 	@RequestMapping(value="user/teacher/classStatus.do", method=GET)
-	public String classStatusForm() {
+	public String classStatusForm(HttpSession session, Model model) {
+		
+		String id = "";	//나중에 세션값으로 조회하기
+		id = "1";	//우선 값 넣음
+		
+		// 서비스 호출하기
+		
 		
 		return "user/teacher/classStatus";
 	}

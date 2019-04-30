@@ -10,13 +10,23 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
+import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
 public class BlackListDAO {
+	
+	private static BlackListDAO bl_dao;
 	private SqlSessionFactory ssf=null;
+	
+	public static BlackListDAO getInstance() {
+		if(bl_dao == null) {
+			bl_dao=new BlackListDAO();
+		}//end if
+		return bl_dao;
+	}//getInstance
+	
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf == null) {
@@ -50,15 +60,6 @@ public class BlackListDAO {
 		return list;
 	}
 	
-	public List<BlackListDetailDomain> selectDetailBlackList(String id){
-		List<BlackListDetailDomain> list=null;
-		
-		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectDetailBlackList", id);
-		ss.close();
-		
-		return list;
-	}
 	
 	public int selectTotalCount() {
 		SqlSession ss = getSessionFactory().openSession();
@@ -67,9 +68,37 @@ public class BlackListDAO {
 		return cnt;
 	}
 	
+	public BlackListDetailVO selectDetailBlackList(String id){
+		BlackListDetailVO mldvo=null;
+		mldvo=new BlackListDetailVO();
+		
+		SqlSession ss=getSessionFactory().openSession();
+
+		mldvo=ss.selectOne("selectDetailBlackList", id);
+		System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
+		ss.close();
+
+		return mldvo;
+	}
+	
+	public boolean deleteBlackList(String id) {
+		boolean flag=false;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		int del=ss.delete("deleteBlackList", id);
+		if(del==1) {
+			flag=true;
+			ss.commit();
+		}
+		System.out.println(flag);
+		return flag;
+	}
+	
+	
 	public static void main(String[] args) {
 		BlackListDAO bldao=new BlackListDAO();
-		bldao.selectDetailBlackList("1");
+		//bldao.selectDetailBlackList("1");
+		bldao.deleteBlackList("dddd");
 	}
 	
 	

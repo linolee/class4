@@ -5,23 +5,48 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
-<% %>
-
-
-
 <script type="text/javascript">
 
- $(function(){
 
-	 /* 모달 import??? */
-		$("a[href='#modalUserInfo']").click(function(){
-			
-		});
-	
-}); 
+function userInfo(userId) {
+ 	var queryString = "id="+userId;
+ 	$.ajax({
+		url: "memberDetail.do",
+		data: queryString,
+		type: "get",
+		dataType: "json",
+		error: function(xhr) {
+			alert("회원정보 조회 실패");
+			console.log(xhr.status + "/" + xhr.statusText);
+		},
+		success:function( json ){
+			$("#mId").text(json.jid);
+			$("#mName").text(decodeURIComponent(json.jname));
+			$("#mBirth").text(json.jbirth);
+			$("#mGender").text(json.jgender);
+			$("#mTel").text(json.jtel);
+			$("#mInputdate").text(json.jinputdate);
+			$("#mEmail").text(json.jemail);
 
+			var output;
+	 		$("#lessons *").remove();
+			if( json.lessonList.length != 0){
+ 				for(var i=0; i<json.lessonList.length; i++){
+					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName)+"</td>";
+					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
+					$("#lessons").append(output);
+					output = "";
+				} 
+			}
+			if( json.lessonList.length == 0){
+				output += "<tr><td width='50px' class='col-10'>수강중인 강의가 없습니다.</td></tr>";
+				$("#lessons").append(output);
+				output = "";
+			}
+		}
+	});//ajax 
 
+}
 </script>
 
 <!--  -->
@@ -82,7 +107,8 @@
 					
 					<td>
 						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo" ><span class="badge badge-primary">상세정보</span></a> 
+							<!-- <a data-toggle="modal" href="#modalUserInfo" onclick="userInfo()"><span class="badge badge-primary">상세정보</span></a>  -->
+							<a data-toggle="modal" href="#modalUserInfo2" onclick="userInfo('${ member.client_id }')"><span class="badge badge-primary">상세정보</span></a>
 							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
 							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
 								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
@@ -112,8 +138,8 @@
 	<c:import url="${memberModal }.jsp"/>
 </c:if>  --%>
 
-<c:import url="modalUserInfo.jsp"/> 
-<c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/>
+<c:import url="member/modalUserInfo2.jsp"/> 
+<c:import url="member/modalAddBlackList.jsp"/>
+<c:import url="member/modalTeacherInfo.jsp"/>
 <!--  -->
 

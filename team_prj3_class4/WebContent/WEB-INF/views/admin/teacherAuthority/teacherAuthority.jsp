@@ -118,4 +118,4 @@
 
 
 <!-- modal -->
-<c:import url="modalTAuthority.jsp"/>
+<c:import url="teacherAuthority/modalTAuthority.jsp"/>

@@ -39,7 +39,7 @@ public class LectureController {
 		
 		String indexList = ls.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");
 		
-		model.addAttribute("page", "lecture");
+		model.addAttribute("page", "lecture/lecture");
 		model.addAttribute("lectureList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);

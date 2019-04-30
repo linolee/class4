@@ -5,23 +5,31 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
+import kr.co.sist.user.service.UserReportService;
+import kr.co.sist.user.vo.GuestReportVO;
+import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
+import kr.co.sist.user.vo.memberReportVO;
 
 /**
  * Handles requests for the application home page.
@@ -32,6 +40,7 @@ public class UserController {
 	private UserLoginService uls;
 	private UserPageService ups;
 	private UserJoinService ujs;
+	private UserReportService urs;
 
 	public UserController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
@@ -39,6 +48,7 @@ public class UserController {
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
 		this.ups = ac.getBean("UserPageService", UserPageService.class);
 		this.ujs = ac.getBean("UserJoinService", UserJoinService.class);
+		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
 	@RequestMapping(value = "user/main.do", method = GET)
@@ -77,6 +87,79 @@ public class UserController {
 		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
 		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
+	}// joinPage
+
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkId.do", method = POST)
+	public String checkId(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkId(request.getParameter("client_id"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkId", true);
+		}else {
+			json.put("checkId", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkTel.do", method = POST)
+	public String checkTel(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkTel(request.getParameter("tel"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkTel", true);
+		}else {
+			json.put("checkTel", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkEmail.do", method = POST)
+	public String checkEmail(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (ujs.checkEmail(request.getParameter("email"))) {//입력한 아이디가 이미 존재한다면
+			json.put("checkEmail", true);
+		}else {
+			json.put("checkEmail", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
+	public String guestReportSubmint(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		System.out.println(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")));
+		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
+	public String memberReportSubmint(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
+	public String join(HttpServletRequest request, Model model) {
+		//넘겨진 parameter 값으로 VO를 생성
+		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
+				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
+				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],
+				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
+		ujs.memberJoin(mjvo, request.getParameterValues("favors"));
+		return "main";
 	}// joinPage
 
 	@RequestMapping(value = "user/member/userPage.do", method = GET)

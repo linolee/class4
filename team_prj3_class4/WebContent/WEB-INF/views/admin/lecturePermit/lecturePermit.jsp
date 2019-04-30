@@ -88,8 +88,8 @@
 		</div>
 	</div>
 </div>
-<c:import url="modalUserInfo.jsp"/>
+<%-- <c:import url="modalUserInfo.jsp"/>
 <c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/>
+<c:import url="modalTeacherInfo.jsp"/> --%>
 <!--  -->
 

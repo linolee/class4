@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.sist.user.dao.UserJoinDAO;
 import kr.co.sist.user.dao.UserJoinDAOImpl;
+import kr.co.sist.user.vo.MemberJoinVO;
 
 public class UserJoinServiceImpl implements UserJoinService {
 
@@ -36,6 +37,32 @@ public class UserJoinServiceImpl implements UserJoinService {
 		return categoryMaping;
 	}
 	
+	@Override
+	public boolean memberJoin(MemberJoinVO mjvo, String[] favors) {
+		uj_dao.join(mjvo, favors); 
+		
+		
+		return true;
+	}
+	
+
+	@Override
+	public boolean checkId(String client_id) {
+		return uj_dao.checkId(client_id);
+	}
+
+	@Override
+	public boolean checkTel(String tel) {
+		return uj_dao.checkTel(tel);
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		System.out.println(email);
+		return uj_dao.checkEmail(email);
+	}
+
+	
 	public static void main(String[] args) {
 		UserJoinServiceImpl ujs = new UserJoinServiceImpl(new UserJoinDAOImpl());
 		String[][] categoryMapping = ujs.CategoryMapping(); 
@@ -46,5 +73,4 @@ public class UserJoinServiceImpl implements UserJoinService {
 			System.out.println();
 		}
 	}
-
 }

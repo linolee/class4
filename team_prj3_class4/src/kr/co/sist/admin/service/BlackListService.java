@@ -1,13 +1,18 @@
 package kr.co.sist.admin.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSpinnerUI;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.BlackListDAO;
-import kr.co.sist.admin.domain.BlackListDetailDomain;
 import kr.co.sist.admin.domain.BlackListDomain;
+import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
@@ -127,17 +132,60 @@ public class BlackListService {
 		return list;
 	}
 	
-	public List<BlackListDetailDomain> selectDetailBlackList(String id){
-		List<BlackListDetailDomain> list=null;
+	
+	/*public BlackListDetailVO bldvl(String id) {
+		BlackListDAO mldao=BlackListDAO.getInstance();
+		BlackListDetailVO bldvo=mldao.selectDetailBlackList(id);
+		return bldvo;
+	}*/
+	
+	///////////////////////
+	public JSONObject detailBlack(String id) {
+		JSONObject json=new JSONObject();
 		
-		list=bl_dao.selectDetailBlackList(id);
+		BlackListDAO bldao=BlackListDAO.getInstance();
 		
-		return list;
+		BlackListDetailVO bldvo=bldao.selectDetailBlackList(id);
+		
+		try {
+		//DB조회 결과를 JSONObject 추가
+		json.put("idResult",  bldvo.getClient_id());
+		json.put("name", URLEncoder.encode(bldvo.getName(),"UTF-8"));
+		json.put("birth", bldvo.getBirth());
+		json.put("gender", bldvo.getGender());
+		json.put("tel", bldvo.getTel());
+		json.put("inputdate", bldvo.getInputdate());
+		json.put("email", bldvo.getEmail());
+		json.put("reason", URLEncoder.encode(bldvo.getReason(), "UTF-8")); 
+		json.put("b_date", bldvo.getB_date());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		String jjj=json.toJSONString();
+		System.out.println(jjj);
+		return json;
+	}//searchId
+	
+	public boolean deleteBlack(String id) {
+		BlackListDAO bldao=BlackListDAO.getInstance();
+		boolean flag= false;
+		if(bldao.deleteBlackList(id)) {
+			flag=true;
+		}
+		return flag;
 	}
+	
+	
+	
 	
 	public static void main(String[] args) {
 		BlackListService bls=new BlackListService();
-		bls.selectDetailBlackList("1");
+//		bls.selectDetailBlackList("1");
+//		bls.bldvl("1");
+		//bls.detailBlack("2");
+		bls.deleteBlack("asdf");
+		
 	}
 		
 }

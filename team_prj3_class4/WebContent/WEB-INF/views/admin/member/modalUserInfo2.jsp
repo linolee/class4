@@ -1,27 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%-- <%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.BlackListService"%>
-<%@page import="kr.co.sist.admin.domain.BlackListDetailDomain"%> --%>
-
-<%-- <%
-	BlackListService bls=new BlackListService();
-	String id="히든태그밸류";
-	
-	
-	if(!"".equals(id)){
-		List<BlackListDetailDomain> list=bls.selectDetailBlackList(id);
-		pageContext.setAttribute("detailBlack", list);
-	}
-%>	 --%>
-<!-- 	testtest -->
-
-<div class="modal fade" id="modalBlackList" tabindex="-1" role="dialog"
+<div class="modal fade" id="modalUserInfo2" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">블랙리스트</h5>
+				<h5 class="modal-title" id="modal">회원정보</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -36,25 +20,25 @@
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
-								<td width="50px">itswings</td>
+								<td width="50px" id="mId"></td>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px">문지훈</td>
+								<td width="50px" id="mName"></td>
 							</tr>
 							<tr>
-								<td style="background: #C8CED3">생년월일</td>	
-								<td>2012/01/01</td>
+								<td style="background: #C8CED3">생년월일</td>
+								<td id="mBirth"></td>
 								<td style="background: #C8CED3">성별</td>
-								<td>남</td>
+								<td id="mGender"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">연락처</td>
-								<td>119</td>
+								<td id="mTel"></td>
 								<td style="background: #C8CED3">가입일자</td>
-								<td>2018-18-18</td>
+								<td id="mInputdate"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #C8CED3;">
 								<td style="background: #C8CED3">이메일</td>
-								<td colspan="3">itswings@gmail.com</td>
+								<td colspan="3" id="mEmail"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -62,22 +46,20 @@
 					<!-- temp table -->
 
 					<div class="form-group">
-						<label>사유</label>
-						<textarea name="reportContent" class="form-control" maxlength="2048"
-								style="height:180px; resize: none;" readonly="readonly"></textarea>
-					</div>
-					<div class="form-group">
-						<label>적용일시</label>
-						<input type="date" readonly="readonly"/>
-					</div>
+						<label>수강 강의 목록</label>
 
+						<table class="table table-responsive-sm"
+							style="text-align: center">
+							<tbody id="lessons">
+
+							</tbody>
+						</table>
+
+					</div>
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-								
-									<button type="button" class="btn btn-danger"
-										data-dismiss="modal">블랙리스트 해제</button>
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">확인</button>
 								</div>
