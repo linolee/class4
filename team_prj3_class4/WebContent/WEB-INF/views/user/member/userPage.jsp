@@ -51,7 +51,32 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
+<script type="text/javascript">
+$(function(){
+	$("#reportSubmitBtn").click(function (){
+		$.ajax({
+			type:"POST",
+			url:"memberReportSubmit.do",
+			data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
+			dataType : "json",
+			success: function(json){
+				if (json.resultFlag) {
+					$('#reportSubject').val("");
+					$('#summernote').summernote('code', "");
+					alert('문의가 정상적으로 제출되었습니다.');
+				}else{
+					alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+	});
+	
+});//ready
 
+</script>	
 </head>
 <body>
 	<div id="wrapper">
@@ -129,7 +154,7 @@
 								});
 							</script>
 							<div id="reportBtnDiv">
-								<input type="submit" value="제출하기" id="reportSubmitBtn" class="inputBtn">
+								<input type="button" value="제출하기" id="reportSubmitBtn" class="inputBtn">
 							</div>
 						</div>
 					</div>

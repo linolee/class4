@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.user.vo.GuestReportVO;
+import kr.co.sist.user.vo.memberReportVO;
 
 public class UserReportDAOImpl implements UserReportDAO{
 	private SqlSessionFactory ssf = null;
@@ -36,10 +37,22 @@ public class UserReportDAOImpl implements UserReportDAO{
 		return ssf;
 	}
 
+	@Override
 	public int guestReportSubmit(GuestReportVO grvo) {
 		int cnt = 0;
 		SqlSession ss=getSessionFactory().openSession();
 		cnt = ss.insert("guestReportSubmit", grvo);
+		if(cnt == 1) {
+			ss.commit();
+		}//end if
+		return cnt;
+	}
+	
+	@Override
+	public int memberReportSubmit(memberReportVO mrvo) {
+		int cnt = 0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("memberReportSubmit", mrvo);
 		if(cnt == 1) {
 			ss.commit();
 		}//end if
