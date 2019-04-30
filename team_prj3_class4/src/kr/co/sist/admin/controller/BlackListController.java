@@ -34,12 +34,12 @@ public class BlackListController {
 		
 		List<BlackListDomain> list=null;
 		
+		System.out.println(id);
 		String url="/admin/template";	
 		if((id!=null)) {
 			if (bls.deleteBlack(id)) {
 				url="forward:/admin/template.do";
 				//request.setAttribute(name, o);
-				
 			}
 		}
 		
@@ -78,40 +78,5 @@ public class BlackListController {
 
 		return json.toJSONString();
 	}
-	
-	@ResponseBody
-	@RequestMapping(value="/admin/delBlack.do", method= {GET})
-	public String delBlack(@RequestParam("userID") String id) {
-		JSONObject json = null;
-		
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		BlackListService bls=ac.getBean(BlackListService.class);
-
-		return "";
-	}
-	/*@RequestMapping(value="/admin/blacklistD.do", method=POST)
-	public String deleteBlack(Model model, @RequestParam("hdnBlack") String id) {
-		
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		BlackListService bls=ac.getBean(BlackListService.class);
-		
-		//id=request.getParameter("hdnBlack");
-		String url="testtesttest";
-		
-		//if(!"".equals(id)) {
-			//bls.deleteBlack(id);
-			System.out.println("----------------------redirect됨");
-			url="forward:/admin/template";
-		//}
-		
-		System.out.println("---------------------------------------------결과:"+id);
-		System.out.println("---------------------------------------------결과:"+id);
-		System.out.println("---------------------------------------------결과:"+id);
-		
-		model.addAttribute("page", "blacklist/blacklist");
-		return url;
-	}*/
-	
-	
 	
 }

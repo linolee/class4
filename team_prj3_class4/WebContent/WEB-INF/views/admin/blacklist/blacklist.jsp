@@ -26,8 +26,9 @@ $(function(){
 					success:function( json ){
 						//alert("success");
 						$("#bId").text(json.idResult);
+						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
-						$("[name='hdnBlack']").val(decodeURIComponent(json.name));
+						//$("[name='hdnBlack']").val(decodeURIComponent(json.Id));
 						$("#bBirth").text(json.birth);
 						$("#bGender").text(json.gender);
 						$("#bTel").text(json.tel);

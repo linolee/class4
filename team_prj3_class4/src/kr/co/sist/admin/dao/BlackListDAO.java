@@ -98,7 +98,7 @@ public class BlackListDAO {
 	public static void main(String[] args) {
 		BlackListDAO bldao=new BlackListDAO();
 		//bldao.selectDetailBlackList("1");
-		bldao.deleteBlackList("dddd");
+		bldao.deleteBlackList("blacklist10");
 	}
 	
 	
