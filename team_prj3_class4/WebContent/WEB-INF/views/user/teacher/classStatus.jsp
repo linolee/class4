@@ -113,14 +113,19 @@
 					<th id="dateList">강사명</th>
 					<th id="marsterList">상세보기</th>
 				</tr>
+				
+				<c:forEach var="List" items="${ requestScope.l_list }">
 				<tr style="text-align: center; height: 35px;">
-					<td>-</td>
-					<td>-</td>
-					<td>-</td>
+					<td><c:out value="${ List.status }"/></td>
+					<td><c:out value="${ List.lname }"/></td>
+					<td><c:out value="${ List.startDate }"/>-<c:out value="${ List.endDate }"/></td>
 					<td><a href="#void" onclick="viewImport('applyPeoples')">-</a></td>
-					<td>-</td>
+					<td><c:out value="${ List.teacherName }"/></td><!-- ㅇㄹㅇㄹ -->
 					<td>-</td>
 				</tr>
+				</c:forEach>
+				
+				
 			</table>
 			
 			<div id="applyPeoples">

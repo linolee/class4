@@ -84,8 +84,25 @@ $(function(){
 		height : 300
 	});
 	
-
 });//ready
+
+function CheckPassword() {
+	var passwordFlag = false;
+	if ($('#pass1').val() != $('#pass2').val()) {//비밀번호가 서로 같은지 체크
+		$('#passwordWarning').text('비밀번호가 서로 다릅니다.').css("color", "red");
+		passwordFlag = false;
+	} else {
+		if ($('#pass1').val().length < 4
+				|| $('#pass1').val().length > 13) {//비밀번호 길이를 체크
+			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.');
+			passwordFlag = false;
+		} else {
+			$('#passwordWarning').text('');
+			passwordFlag = true;
+		}
+	}
+	return passwordFlag;
+}
 
 </script>	
 </head>
@@ -144,11 +161,14 @@ $(function(){
 							<table>
 								<tr>
 									<td>비밀번호 입력</td>
-									<td><input type="password"></td>
+									<td><input type="password" id="pass1" onchange="CheckPassword()"></td>
 								</tr>
 								<tr>
 									<td>비밀번호 재입력</td>
-									<td><input type="password"></td>
+									<td><input type="password" id="pass2" onchange="CheckPassword()"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><label id="passwordWarning"></label></td>
 								</tr>
 							</table>
 							<br> <input type="button" value="비밀번호 변경" id="changePasswordBtn" class="inputBtn">
