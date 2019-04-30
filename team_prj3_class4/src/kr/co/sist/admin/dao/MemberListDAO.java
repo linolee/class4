@@ -2,6 +2,8 @@ package kr.co.sist.admin.dao;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
-import kr.co.sist.admin.vo.MemberIdxVO;
 
 @Component
 public class MemberListDAO {
@@ -86,6 +88,17 @@ public class MemberListDAO {
 		return list;
 	}
 	
+	public List<AddBlackVO> insertBlack(String id, String reason, String date){
+		List<AddBlackVO> list=null;
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		String time1 = format1.format(time);
+		SqlSession ss=getSessionFactory().openSession();
+		// mapÀÌ¿ëÇØ¾ßµÊ
+		list=ss.selectList("addBlackList", id, reason, time1);
+		return list;
+	}
+	
 	
 
 	public static void main(String[] args) {
@@ -94,7 +107,7 @@ public class MemberListDAO {
 		/*adao.selectAllMember();*/
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
-		System.out.println(adao.selectTotalCount());
+		//System.out.println(adao.selectTotalCount());
 		
 	}
 

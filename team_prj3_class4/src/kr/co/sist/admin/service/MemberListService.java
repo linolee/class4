@@ -1,13 +1,9 @@
 package kr.co.sist.admin.service;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-import javax.activation.URLDataSource;
-
-import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,6 @@ import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.ListVO;
-import kr.co.sist.admin.vo.MemberIdxVO;
 
 @Component
 public class MemberListService {

@@ -45,8 +45,69 @@ function userInfo(userId) {
 			}
 		}
 	});//ajax 
-
 }
+	
+	function addBlack(userId) {
+	 	var queryString = "id="+userId;
+	 	$.ajax({
+			url: "memberDetail.do",
+			data: queryString,
+			type: "get",
+			dataType: "json",
+			error: function(xhr) {
+				alert("회원정보 조회 실패");
+				console.log(xhr.status + "/" + xhr.statusText);
+			},
+			success:function( json ){
+				$("#addBid").text(json.jid);
+				$("#addBname").text(decodeURIComponent(json.jname));
+				$("#addBbirth").text(json.jbirth);
+				$("#addBgender").text(json.jgender);
+				$("#addBtel").text(json.jtel);
+				$("#addBinputdate").text(json.jinputdate);
+				$("#addBemail").text(json.jemail);
+			}
+		});//ajax 
+} // addBlack
+
+$(function(){		
+	 	$("#addBlack").click(function(){
+	 		if($("#reportReason").val()==""){
+	 			alert("사유를 입력해주세요");
+	 			return;
+	 		}
+			if(confirm("정말 블랙리스트에 등록하시겠습니까?")){
+				//$("#reportReason").val("");
+				//$("[name='addFrm']").submit();
+				
+					//function addBlack(userId) {
+					 	 var queryString = "id="+$("#addBid").text()+"&reason="+$("#reportReason").val();
+					 	$.ajax({
+							url: "addBlack.do",
+							data: queryString,
+							type: "get",
+							dataType: "json",
+							error: function(xhr) {
+								alert("회원정보 조회 실패");
+								console.log(xhr.status + "/" + xhr.statusText);
+							},
+							success:function( json ){
+								/* $("#addBid").text(json.jid);
+								$("#addBname").text(decodeURIComponent(json.jname));
+								$("#addBbirth").text(json.jbirth);
+								$("#addBgender").text(json.jgender);
+								$("#addBtel").text(json.jtel);
+								$("#addBinputdate").text(json.jinputdate);
+								$("#addBemail").text(json.jemail); */
+							}
+						});//ajax
+				//} // addBlack
+					 	$("#addBlackCancle").trigger("click"); // 강제로 실행
+			};
+		});
+		
+});		
+		
 </script>
 
 <!--  -->
@@ -109,7 +170,7 @@ function userInfo(userId) {
 						<form method="get" action="./member.jsp" class="form-inline">
 							<!-- <a data-toggle="modal" href="#modalUserInfo" onclick="userInfo()"><span class="badge badge-primary">상세정보</span></a>  -->
 							<a data-toggle="modal" href="#modalUserInfo2" onclick="userInfo('${ member.client_id }')"><span class="badge badge-primary">상세정보</span></a>
-							<a data-toggle="modal" href="#modalAddBlackList" ><span class="badge badge-warning">블랙리스트 등록</span></a>
+							<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
 							<!-- 강사인지 아닌지 받아와서 삼항연산자로 태그 출력 --> 
 								<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
 						</form>
