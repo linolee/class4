@@ -8,6 +8,11 @@
 	insert into guestqna(qcode, guest_email, q_subject, q_contents, q_date, status)
 	values ('q'||lpad(seq_guest_qcode.nextval,14,'0'), #{guest_email}, #{q_subject}, #{q_contents}, sysdate, 'N')
 </insert>
+	
+<insert id="memberReportSubmit" parameterType="kr.co.sist.user.vo.memberReportVO">
+	insert into qna(qcode, client_id, q_subject, q_contents, q_date)
+	values ('q'||lpad(seq_member_qcode.nextval,14,'0'), #{client_id}, #{q_subject}, #{q_contents}, sysdate)
+</insert>
 
 </mapper>
 

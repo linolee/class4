@@ -29,6 +29,7 @@ import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
+import kr.co.sist.user.vo.memberReportVO;
 
 /**
  * Handles requests for the application home page.
@@ -127,9 +128,19 @@ public class UserController {
 	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
 	public String guestReportSubmint(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		System.out.println(new GuestReportVO(request.getParameter("guest_email"),
-				request.getParameter("q_subject"), request.getParameter("q_contents")));
 		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
+	public String memberReportSubmint(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
 				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
 			json.put("resultFlag", true);
 		}else {
@@ -141,7 +152,6 @@ public class UserController {
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
 		//넘겨진 parameter 값으로 VO를 생성
-		System.out.println(request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
 		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
 				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],
