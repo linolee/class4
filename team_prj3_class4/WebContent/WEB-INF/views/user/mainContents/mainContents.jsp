@@ -41,7 +41,7 @@
 			<ul id='slider4'>
 			    <li style='display:block; width: 1310px;height: 480px;'>
 			    <div id="TitleImg1">
-			    	1번 이미지      
+			    	<img src="http://localhost:8080/team_prj3_class4/resources/img/headerImg1.jpg" width="1048" height="460" />
 				</div></li>
 			    <li style="width: 1310px;"><div id="TitleImg2">
 					2번 이미지

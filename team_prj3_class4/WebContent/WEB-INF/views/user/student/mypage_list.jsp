@@ -118,7 +118,8 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</tr>
 	</c:if>
 	</c:if>
-	<c:if test="${ !(param.status==null) }">
+	<c:if test="${ param.status ne null }">
+	<c:if test="${ not empty classStatusList.get(0) }">
 	<c:set var="i" value="${0 }"/>
 	<c:forEach var="classStatusList" items="${ classStatusList }">
 		<tr class=searchDetail>
@@ -139,6 +140,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			</td>
 		</tr>
 	</c:forEach>
+	</c:if>
 	<c:if test="${ empty classStatusList }">
 	<tr>
 		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>

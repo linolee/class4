@@ -46,6 +46,38 @@ public class UserMypageService {
 		return list;
 	}//lcodeList
 	
+	public String reviewStatus(ListVO lvo) {
+		String lcode="";
+		
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		lcode=um_dao.reviewStatus(lvo);
+		
+		return lcode;
+	}//reviewList
+	
+	public String jjimStatus(ListVO lvo) {
+		String lcode="";
+		
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		lcode=um_dao.jjimStatus(lvo);
+		
+		return lcode;
+	}//reviewList
+	
+	public boolean insertJjim(ListVO lvo) {
+		boolean flag=false;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		flag=um_dao.insertJjim(lvo);
+		return flag;
+	}//insertJjim
+	
+	public boolean deleteJjim(ListVO lvo) {
+		boolean flag=false;
+		UserMypageDAO um_dao=UserMypageDAO.getInstance();
+		flag=um_dao.deleteJjim(lvo);
+		return flag;
+	}//insertJjim
+	
 	public int statusCnt(StatusCntVO ssvo) {
 		int cnt=0;
 		UserMypageDAO um_dao=UserMypageDAO.getInstance();

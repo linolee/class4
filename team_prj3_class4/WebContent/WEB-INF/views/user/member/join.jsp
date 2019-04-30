@@ -6,10 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>당신을 위한 수업 Class4</title>
+<title>당신을 위한 수업★Class4★</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- css -->
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=PT+Sans"
+	rel="stylesheet">
 <!-- Bootstrap core CSS -->
 <link
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
@@ -19,7 +26,9 @@
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
 	rel="stylesheet">
 <!-- CSS -->
-<link href="<c:url value="/resources/css/join.css" />" rel="stylesheet">
+<style type="text/css">
+body {padding-top: 0px;}
+</style>
 <script type="text/javascript">
 
 	function ChangeDomain() {
@@ -31,9 +40,8 @@
 			$('#input_domain').removeAttr('readonly');
 		}
 	}
-
+	idFlag = true;
 	function CheckId() {//id가 중복되는지, 길이는 맞는지 체크
-		var idFlag;
 		//DB로 중복되는지 체크
 		//json으로 id를 보낸다
 		$.ajax({
@@ -84,26 +92,65 @@
 		return ($('#input_year').val().trim() != '' && $('#input_year').val()
 				.trim() != null)
 	}
-
+	telFlag = true;
 	function CheckTel() {//하나라도 공백이거나 null이면 false
+		$.ajax({
+			type:"POST",
+			url:"checkTel.do",
+			data : {tel : $('#input_tel1').val()+"-"+$('#input_tel2').val()+"-"+$('#input_tel3').val()},
+			dataType : "json",
+			success: function(json){
+				if (json.checkTel) {
+					$('#telWarning').text("이미 사용 중인 전화번호입니다.").css("color", "red");
+					telFlag = false;
+				}else{
+					$('#telWarning').text("사용 가능한 전화번호입니다.").css("color", "green");
+					telFlag = true;
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+		
+		
 		return ($('#input_tel1').val().trim() != ''
 				&& $('#input_tel1').val().trim() != null
 				&& $('#input_tel2').val().trim() != ''
 				&& $('#input_tel2').val().trim() != null
 				&& $('#input_tel3').val().trim() != '' && $('#input_tel3')
-				.val().trim() != null)
+				.val().trim() != null && telFlag)
 	}
-
-	function CheckMail() {
+	
+	emailFlag = true;
+	function CheckEmail() {
+		$.ajax({
+			type:"POST",
+			url:"checkEmail.do",
+			data : {email : $('#input_email').val().trim()+"@"+$('#input_domain').val().trim()},
+			dataType : "json",
+			success: function(json){
+				if (json.checkEmail) {//아이디가 이미 존재 하면
+					$('#emailWarning').text("이미 사용 중인 이메일입니다.").css("color", "red");
+					emailFlag = false;
+				}else{
+					$('#emailWarning').text("사용 가능한 이메일입니다.").css("color", "green");
+					emailFlag = true;
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
 		return ($('#input_email').val().trim() != ''
 				&& $('#input_email').val().trim() != null
 				&& $('#input_domain').val().trim() != '' && $('#input_domain')
-				.val().trim() != null)
+				.val().trim() != null && emailFlag)
 	}
 
 	function CheckJoin() {
 		if (CheckId() && CheckPassword() && CheckName() && CheckBirth()
-				&& CheckTel() && CheckMail()) {
+				&& CheckTel() && CheckEmail()) {
 			$('#joinFrm').submit();
 		} else {
 			alert("양식을 다시 확인해주세요.");
@@ -116,16 +163,6 @@
 		<div id="header">
 			<c:import url="../header/header.jsp"/>
 		</div>
-		<div class="container my-5">
-					<!-- Page Heading/Breadcrumbs -->
-					<h1 class="mt-4 mb-3">
-						회원 가입 <small>Join</small>
-					</h1>
-
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">메인</li>
-						<li class="breadcrumb-item active">회원 가입</li>
-					</ol>
 
 			<div class="areaFix">
 				<div id="joinDiv">
@@ -134,7 +171,7 @@
 						<ul>
 							<li>
 								<label>아이디</label><br>
-								<input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon1" id="client_id" name="client_id" onchange="CheckId()">
+								<input type="text" class="form-control" placeholder="UserID" aria-label="UserID" aria-describedby="basic-addon1" id="client_id" name="client_id" onchange="CheckId()" maxlength="20">
 							</li>
 							<li>
 								<label class="warning" id="idWarning"></label>
@@ -152,7 +189,7 @@
 							</li>
 							<li>
 								<label>이름</label><br> 
-								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onchange="CheckPassword()" name="name" id="input_name">
+								<input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" onchange="CheckPassword()" name="name" id="input_name" maxlength="30">
 							</li>
 							<li>
 								<label>생년월일</label><br>
@@ -187,7 +224,7 @@
 							</li>
 							<li>
 								<label>휴대전화</label><br>
-								<select class="form-control d-inline" id="input_tel1" name="tel">
+								<select class="form-control d-inline" id="input_tel1" name="tel" onchange="CheckTel()">
 									<option>010</option>
 									<option>011</option>
 									<option>016</option>
@@ -195,14 +232,17 @@
 									<option>018</option>
 									<option>019</option>
 								</select>-
-								<input type="text" name="tel" class="form-control d-inline" id="input_tel2">-
-								<input type="text" name="tel" class="form-control d-inline" id="input_tel3">
+								<input type="text" name="tel" class="form-control d-inline" id="input_tel2" maxlength="4" onchange="CheckTel()">-
+								<input type="text" name="tel" class="form-control d-inline" id="input_tel3" maxlength="4" onchange="CheckTel()">
+							</li>
+							<li>
+								<label class="warning" id="telWarning"></label>
 							</li>
 							<li>
 								<label>이메일</label><br>
-								<input type="text" id="input_email" class="form-control d-inline" name="email">@
-								<input type="text" id="input_domain" class="form-control d-inline" value="" placeholder="직접 입력" name="email">
-								<select id="emailSelect" onchange="ChangeDomain()" class="form-control d-inline">
+								<input type="text" id="input_email" class="form-control d-inline" name="email" maxlength="15" onchange="CheckEmail()">@
+								<input type="text" id="input_domain" class="form-control d-inline" value="" placeholder="직접 입력" name="email" maxlength="15" onchange="CheckEmail()">
+								<select id="emailSelect" onchange="ChangeDomain();CheckEmail()" class="form-control d-inline">
 									<option>직접 입력</option>
 									<c:forEach var="emailDomain" items="${emailDomainList }">
 									<option value="${emailDomain }">${emailDomain }</option>
@@ -240,8 +280,6 @@
 			<c:import url="../footer/footer.jsp" />
 		</div>
 
-
-	</div>
 
 </body>
 </html>
