@@ -26,8 +26,9 @@ $(function(){
 					success:function( json ){
 						//alert("success");
 						$("#bId").text(json.idResult);
+						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
-						$("[name='hdnBlack']").val(decodeURIComponent(json.name));
+						//$("[name='hdnBlack']").val(decodeURIComponent(json.Id));
 						$("#bBirth").text(json.birth);
 						$("#bGender").text(json.gender);
 						$("#bTel").text(json.tel);
@@ -35,29 +36,21 @@ $(function(){
 						$("#bEmail").text(json.email);
 						$("#bReason").text(decodeURIComponent(json.reason));
 						$("#bBinputdate").val(json.b_date);
-						
-						/* $("#deleteBlack").click(function(){
-							if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
-								alert(json.idResult);
-								location.href="blacklist.do?id="+json.idResult;
-							};
-						}); */
-	
+
 					}//success
 				});//ajax
 
-			/* }//if */
 		/* ajax */
-	});
-/* 	$("#deleteBlack").click(function(){
-		if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
-			alert(json.idResult);
-			location.href="blacklist.do";
-		};
-	}); */
-
+	}); // click
+	
+ 	 	$("#deleteBlack").click(function(){
+			if(confirm("정말 블랙리스트에서 해제하시겠습니까?")){
+				$("[name='delFrm']").submit();	
+			};
+		}); 
 	
 });
+
 
 </script>
 <!--  -->
