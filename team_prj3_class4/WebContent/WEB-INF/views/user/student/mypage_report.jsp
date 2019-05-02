@@ -124,7 +124,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 						</c:when>
 						<c:when test="${ reportList.get(i).status == 'N'}">
 							처리대기
-						</c:when>
+						</c:when> 
 					</c:choose>
 				</td>
 			</tr>

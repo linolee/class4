@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.domain.QnaList;
 import kr.co.sist.user.domain.ReportList;
+import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserMypageService;
 import kr.co.sist.user.vo.ListPageVO;
 import kr.co.sist.user.vo.ListVO;
@@ -27,12 +30,12 @@ import kr.co.sist.user.vo.StatusListVO;
 
 @Controller
 public class MypageController {
-	@Autowired(required=false)
-	private UserMypageService ums;
 	
 	@RequestMapping(value="user/student/mypage_list.do",method=GET)
 	public String indexPage( Model model ,  HttpSession session, HttpServletRequest request, ListPageVO lpvo) {
-		
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
 			String clientId = session.getAttribute("client_id").toString();
 			ListVO lvo=new ListVO("", clientId);
@@ -104,6 +107,9 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_assess.do", method=GET)
 	public String mypageAssess(Model model ,  HttpSession session) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
 		ListVO lvo=new ListVO("", clientId);
 		List<List<ClassList>> reviewList=new ArrayList<List<ClassList>>();
@@ -123,6 +129,9 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_jjim.do", method=GET)
 	public String mypageJjim(Model model ,  HttpSession session, HttpServletRequest request) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		boolean updateJjim=false;
 		String clientId = session.getAttribute("client_id").toString();
 		ListVO lvo=new ListVO("", clientId);
@@ -150,6 +159,9 @@ public class MypageController {
 	}//useRequest
 	@RequestMapping(value="user/student/mypage_cancel.do", method=GET)
 	public String mypageCancel(Model model, HttpSession session) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
 		ListVO lvo=new ListVO("", clientId);
 		List<List<CancelList>> cancelList=new ArrayList<List<CancelList>>();
@@ -165,6 +177,9 @@ public class MypageController {
 	}//useRequest
 	@RequestMapping(value="user/student/mypage_q&a.do", method=GET)
 	public String mypageQA(Model model, HttpSession session) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
 		ListVO lvo=new ListVO("", clientId);
 		List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
@@ -181,6 +196,9 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_report.do", method=GET)
 	public String mypageReport(Model model, HttpSession session) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
 		ListVO lvo=new ListVO("", clientId);
 		List<List<ReportList>> reportList=new ArrayList<List<ReportList>>();
