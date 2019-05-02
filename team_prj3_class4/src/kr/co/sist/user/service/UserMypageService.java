@@ -2,6 +2,7 @@ package kr.co.sist.user.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.dao.UserMypageDAO;
@@ -15,18 +16,13 @@ import kr.co.sist.user.vo.StatusListVO;
 
 @Component
 public class UserMypageService {
-	
+	@Autowired
 	private UserMypageDAO um_dao;
-	
-	public UserMypageService() {
-		um_dao=UserMypageDAO.getInstance();
-	}//UserMypageService
 	
 	public List<ClassList> classList(ListVO lvo){
 		List<ClassList> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectClass(lvo);
+		list=um_dao.selectClass(lvo);
 		
 		return list;
 	}//classList
@@ -34,8 +30,7 @@ public class UserMypageService {
 	public List<ClassList> selectStatusClass(StatusListVO slvo){
 		List<ClassList> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectStatusClass(slvo);
+		list=um_dao.selectStatusClass(slvo);
 		
 		return list;
 	}//classList
@@ -43,8 +38,7 @@ public class UserMypageService {
 	public List<String> lcodeList(String clientId){
 		List<String> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectLcode(clientId);
+		list=um_dao.selectLcode(clientId);
 		
 		return list;
 	}//lcodeList
@@ -52,7 +46,6 @@ public class UserMypageService {
 	public String reviewStatus(ListVO lvo) {
 		String lcode="";
 		
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		lcode=um_dao.reviewStatus(lvo);
 		
 		return lcode;
@@ -61,7 +54,6 @@ public class UserMypageService {
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
 		
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		lcode=um_dao.jjimStatus(lvo);
 		
 		return lcode;
@@ -69,63 +61,54 @@ public class UserMypageService {
 	
 	public boolean insertJjim(ListVO lvo) {
 		boolean flag=false;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		flag=um_dao.insertJjim(lvo);
 		return flag;
 	}//insertJjim
 	
 	public boolean deleteJjim(ListVO lvo) {
 		boolean flag=false;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		flag=um_dao.deleteJjim(lvo);
 		return flag;
 	}//insertJjim
 	
 	public List<String> cancelLcodeList(String clientId){
 		List<String> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.cancelLcodeList(clientId);
 		return list;
 	}//cancelLcodeList
 	
 	public List<CancelList> cancelList(ListVO lvo){
 		List<CancelList> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.cancelList(lvo);
 		return list;
 	}//cancelList
 
 	public List<String> qnaLcodeList(String clientId){
 		List<String> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.qnaLcodeList(clientId);
 		return list;
 	}//qnaLcodeList
 	
 	public List<QnaList> qnaList(ListVO lvo){
 		List<QnaList> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.qnaList(lvo);
 		return list;
 	}//qnaList
 	
 	public List<String> reportLcodeList(String clientId){
 		List<String> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.reportLcodeList(clientId);
 		return list;
 	}//qnaLcodeList
 	
 	public List<ReportList> reportList(ListVO lvo){
 		List<ReportList> list=null;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		list=um_dao.reportList(lvo);
 		return list;
 	}//qnaList
 	
 	public int statusCnt(StatusCntVO ssvo) {
 		int cnt=0;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		cnt=um_dao.statusCnt(ssvo);
 		return cnt;
 	}//totalCount
@@ -136,8 +119,7 @@ public class UserMypageService {
 	 */
 	public int totalCount(String clientId) {
 		int cnt=0;
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		cnt=mb_dao.selectTotalCount(clientId);
+		cnt=um_dao.selectTotalCount(clientId);
 		return cnt;
 	}//totalCount
 	
