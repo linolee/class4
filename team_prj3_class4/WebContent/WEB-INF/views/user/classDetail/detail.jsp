@@ -61,25 +61,37 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
 			<div id="classTitleImg" style="height: 400px; border: 1px solid #333; top:20px; ">
-				대표이미지
+				<!-- 대표이미지 -->
+				<c:out value="${summary.banner_img}"/>
 			</div>
             <div id="summary">
-             <h1 class="c_title" style="line-height: 1.2;">손 끝에서 피어나는 행복, 하바리움 </h1>
-             <p class="c_summary">변하지 않는 아름다움을 더욱 오랫동안 간직할 하바리움 클래스로 당신을 초대합니다.</p>
+            <%-- <c:forEach var="summary" items="${ requestScope.summary }">
+      		<li><a href="#void"><c:out value="${summary.}"/></a></li>
+      		<c:set var="i" value="${ i + 1 }"/>
+      		</c:forEach> --%>
+             <h1 class="c_title" style="line-height: 1.2;"><c:out value="${summary.lname}"/></h1>
+             <p class="c_summary">
+				<c:out value="${summary.lintro}"/>
+			 </p>
             	<table style="margin: 20px;">
             	<tr>
-            		<td rowspan="4" style="width: 180px; height: 180px;">강사명/이미지</td>
+            		<td rowspan="4" style="width: 180px; height: 180px;">
+						<c:out value="${summary.img}"/><br/>
+						<c:out value="${summary.teacher_name}"/>
+					</td>
             		<td width="150px">위치</td>
             		<td width="150px">시간</td>
             		<td width="150px">인원수</td>
             	</tr>
             	<tr>
-            		<td>역삼</td>
-            		<td>pm 6시</td>
-            		<td>5명</td>
+            		<td><c:out value="${summary.address}"/><br/></td>
+            		<td><c:out value="${summary.class_time}"/><br/></td>
+            		<td><c:out value="${summary.max_member}"/><br/>명</td>
            		</tr>
            		<tr style="align-content: center">
-           			<td>★★★★★(6)</td>
+           			<td>
+           				<c:out value="${star.starAvg}"/>(<c:out value="${star.starCount}"/>)
+           			</td>
            			<td colspan="2">
            				<input type="button" class="btn" value="♡찜하기"/>
            				&nbsp;&nbsp;
@@ -276,14 +288,14 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
  		<div id="moveBar" style="position:relative; float:right; width:350px; height: 600px; top:20px; margin: 5px; max-height: 1500px; ">
 			<aside class="other" style="clear:both; position:fixed; border: 1px solid #afafaf; width: 320px; height: 600px; float: right; padding: 10px;">
 				<div id="barTitle">
-				<span id="Title" style="font-size: 20px; font-weight: bold">손 끝에서 피어나는 행복, 하바리움</span>
+				<span id="Title" style="font-size: 20px; font-weight: bold"><c:out value="${summary.lname}"/></span>
 				</div>
 	              <div class="sticky">
 				  <div class="box m_info">
 	                  <div class="clear_fix" style="height: 50px;">
-	                      <div class="pic" style="float: left;">(이미지)</div>
+	                      <div class="pic" style="float: left;"><c:out value="${summary.img}"/></div>
 	                      <div class="info" style=:float:right;>
-	                          <p class="name">숲속산책(이재은)</p>
+	                          <p class="name"><c:out value="${summary.teacher_name}"/></p>
 	                      </div>
 	                  </div>
                  	<div class="infos group">

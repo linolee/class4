@@ -2,7 +2,7 @@ package kr.co.sist.user.dao;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.util.List;
+import java.sql.SQLException;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -10,8 +10,11 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.user.domain.Star;
+import kr.co.sist.user.domain.Summary;
+
 @Component
-public class MainContentsDAO {
+public class DetailDAO {
 	
 	private SqlSessionFactory ssf=null;
 	
@@ -36,20 +39,29 @@ public class MainContentsDAO {
 		return ssf;
 	}//getSessionFactory
 	
-	public List<String> selectCategory() {
-		List<String> category=null;
+	public Summary selectSummary(String lcode) {
+		Summary summary=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		category=ss.selectList("selectCategoryList");
+		summary=ss.selectOne("kr.co.sist.user.detailC.selectSummary",lcode);
 		ss.close();
-		return category;
-	}//selectCategory
-
-	public static void main(String[] args) {
-		MainContentsDAO m_dao=new MainContentsDAO();
-		List<String> category=m_dao.selectCategory();
-		System.out.println(category);
+		return summary;
+	}//selectSummary
+	
+	public Star selectStar(String lcode) {
+		Star star=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		star=ss.selectOne("selectStar", lcode);
+		ss.close();
+		return star;
+	}//selectSummary
+	
+/*	public static void main(String[] args) {
+		DetailDAO d_dao=new DetailDAO();
+			System.out.println(d_dao.selectSummary("2"));
+		System.out.println(d_dao.selectStar("2"));
 		
 	}//main
-	
-}
+*/
+}//class
