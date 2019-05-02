@@ -1,8 +1,11 @@
 package kr.co.sist.user.domain;
 
+import java.sql.Date;
+
 public class ReviewDomain {
-	private String memberId, title, Content;
+	private String memberId, title, Contents;
 	private int star;
+	private Date inputDate;
 	
 	public String getMemberId() {
 		return memberId;
@@ -16,11 +19,11 @@ public class ReviewDomain {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getContent() {
-		return Content;
+	public String getContents() {
+		return Contents;
 	}
-	public void setContent(String content) {
-		Content = content;
+	public void setContents(String contents) {
+		Contents = contents;
 	}
 	public int getStar() {
 		return star;
@@ -28,4 +31,11 @@ public class ReviewDomain {
 	public void setStar(int star) {
 		this.star = star;
 	}
+	public Date getInputDate() {
+		return inputDate;
+	}
+	public void setInputDate(Date inputDate) {
+		this.inputDate = inputDate;
+	}
+	
 }
