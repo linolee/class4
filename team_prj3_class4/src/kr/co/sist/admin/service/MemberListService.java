@@ -136,6 +136,26 @@ public class MemberListService {
 
 			return strList;
 		}// indexList
+		
+	public String ifBlackTeacher(String id) {
+		int chkBlack=a_dao.ifBlack(id);
+		int chkTeacher=a_dao.ifTeacher(id);
+		StringBuilder chkBlackTeacher=new StringBuilder();
+		
+		if(chkBlack==1) {
+			chkBlackTeacher
+			.append("<a data-toggle=\"modal\" href=\"#modalAddBlackList\" onclick=\"addBlack(")
+			.append(id)
+			.append(")\"><span class=\"badge badge-warning\">블랙리스트 등록</span></a>");
+		}
+		
+		if(chkTeacher==1) {
+			chkBlackTeacher.append("");
+		}
+		
+		
+		return chkBlackTeacher.toString();
+	}
 
 	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list = null;

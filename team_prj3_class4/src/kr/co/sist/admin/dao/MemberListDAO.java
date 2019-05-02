@@ -91,23 +91,8 @@ public class MemberListDAO {
 	}
 	
 	public int insertBlack(AddBlackVO abvo){
-		//List<AddBlackVO> list=null;
-		//AddBlackVO abvo=null;
 		int cnt=0;
-		
-		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();
-		String time1 = format1.format(time);*/
-		
-		/*Map<String, Object> map=new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("reason", reason);
-		map.put("time", time1);
-		System.out.println(map);*/
 		SqlSession ss=getSessionFactory().openSession();
-		//list=ss.selectList("addBlackList", map);
-		//list=ss.selectOne("addBlackList", map);
-		//ss.insert("addBlackList", map);
 		cnt=ss.insert("addBlackList", abvo);
 		if(cnt==1) {
 			ss.commit();
@@ -115,19 +100,33 @@ public class MemberListDAO {
 		return cnt;
 	}
 	
+	public int ifBlack(String id) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("ifBlack", id);
+		return cnt;
+	}
+	
+	public int ifTeacher(String id) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("ifTeacher", id);
+		return cnt;
+	}
+	
 	
 
 	public static void main(String[] args) {
-		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
 		/*adao.selectAllMember();*/
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
 		//System.out.println(adao.selectTotalCount());
-		AddBlackVO abvo=null;
-		abvo=new AddBlackVO("test", "그냥", "20120303");
+		/*AddBlackVO abvo=null;
+		abvo=new AddBlackVO("test", "그냥", "20120303");*/
+		//System.out.println(adao.ifBlack("dateTT"));
+		System.out.println(adao.ifTeacher("test"));
 		
-		System.out.println(adao.insertBlack(abvo));
 	}
 
 	
