@@ -64,27 +64,6 @@ from blacklist
 where client_id=#{ client_id })
 </select>
 
-<!-- <select id="ifTeacher" resultType="int" parameterType="String">
-select client_id
-from teacher
-where status='Y' and client_id=#{ client_id }
-select count(*) cnt from(select client_id
-from teacher
-where status='Y' and client_id=#{ client_id })
-</select> -->
-
-<select id="selectCareer" resultType="String" parameterType="String">
-select career
-from career
-where teacher_name=#{teacher_name}
-</select>
-
-<select id="selectIntro" resultType="kr.co.sist.admin.domain.TeacherIntro" parameterType="String">
-select career
-from career
-where teacher_name=#{teacher_name}
-</select>
-
 <!-- 블랙리스트 추가버튼 표시여부 확인을 위한 쿼리 -->
 <select id="memberBlack" resultType="String" parameterType="kr.co.sist.admin.vo.ListVO">
 select client_id

@@ -58,7 +58,7 @@ public class MemberListController {
 		
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		
-		
+		System.out.println(list);
 		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
@@ -97,23 +97,6 @@ public class MemberListController {
 		json=mls.addBlack(abvo);
 		
 		// 쿼리스트링으로 값을 받아서 딜리트 쿼리 실행해야함
-		//json = mls.searchMemberDetail(id);
-		//System.out.println(json.toJSONString());
-		
-		return json.toJSONString();
-	}
-	
-	
-	/**
-	 * 강사정보
-	 * @param id
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/admin/teacherDetail.do",method=GET)
-	public String teacherDetailPage(String id, String teacherName) {
-		JSONObject json = null;
-		
 		//json = mls.searchMemberDetail(id);
 		//System.out.println(json.toJSONString());
 		

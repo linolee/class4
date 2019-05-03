@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.co.sist.admin.domain.TeacherPermitDomain;
-import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.service.TeacherPermitService;
 import kr.co.sist.admin.vo.ListVO;
 
