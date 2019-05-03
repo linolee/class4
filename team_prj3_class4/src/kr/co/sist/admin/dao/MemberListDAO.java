@@ -119,22 +119,6 @@ public class MemberListDAO {
 		return cnt;
 	}
 	
-	/*public int ifTeacher(String id) {
-		int cnt=0;
-		SqlSession ss=getSessionFactory().openSession();
-		cnt=ss.selectOne("ifTeacher", id);
-		ss.close();
-		return cnt;
-	}*/
-	
-	public List<TeacherCareer> teacherCareer(String teacherName) {
-		List<TeacherCareer> list=null;
-		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectCareer", teacherName);
-		ss.close();
-		return list;
-	}
-	
 	public List<TeacherIntro> teacherIntro(String teacherName){
 		List<TeacherIntro> list=null;
 		SqlSession ss=getSessionFactory().openSession();
@@ -145,16 +129,6 @@ public class MemberListDAO {
 	
 	public static void main(String[] args) {
 		MemberListDAO adao=new MemberListDAO();
-		/*adao.selectAllMember();*/
-		/*System.out.println(adao.selectTotalCount());
-		System.out.println(adao.teacherInfo("in11202"));*/
-		//System.out.println(adao.selectTotalCount());
-		/*AddBlackVO abvo=null;
-		abvo=new AddBlackVO("test", "±×³É", "20120303");*/
-		//System.out.println(adao.ifBlack("dateTT"));
-		//System.out.println(adao.ifTeacher("test"));
-		//System.out.println(adao.teacherCareer("ºÀ"));
-		//System.out.println(adao.teacherIntro("ºÀ"));
 		System.out.println(adao.teacherIntro("ºÀ"));
 	}
 
