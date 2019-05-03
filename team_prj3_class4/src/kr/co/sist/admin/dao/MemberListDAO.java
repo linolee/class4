@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.domain.TeacherCareer;
+import kr.co.sist.admin.domain.TeacherIntro;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
 
@@ -55,15 +57,23 @@ public class MemberListDAO {
 		ss.close();
 		return list;
 	}
+	public List<String> memberBlack(ListVO lvo) {
+		List<String> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("memberBlack", lvo);
+		ss.close();
+		return list;
+	}
 
-	public String teacherInfo(String ID) {
+/*	public String teacherInfo(String ID) {
 		
 		SqlSession ss=getSessionFactory().openSession();
 		String chkTeacher=ss.selectOne("teacherInfo", ID);
 
 		ss.close();
 		return chkTeacher;
-	}
+	}*/
 
 
 	public int selectTotalCount() {
@@ -91,43 +101,61 @@ public class MemberListDAO {
 	}
 	
 	public int insertBlack(AddBlackVO abvo){
-		//List<AddBlackVO> list=null;
-		//AddBlackVO abvo=null;
 		int cnt=0;
-		
-		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();
-		String time1 = format1.format(time);*/
-		
-		/*Map<String, Object> map=new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("reason", reason);
-		map.put("time", time1);
-		System.out.println(map);*/
 		SqlSession ss=getSessionFactory().openSession();
-		//list=ss.selectList("addBlackList", map);
-		//list=ss.selectOne("addBlackList", map);
-		//ss.insert("addBlackList", map);
 		cnt=ss.insert("addBlackList", abvo);
 		if(cnt==1) {
 			ss.commit();
 		}
+		ss.close();
 		return cnt;
 	}
 	
+	public int ifBlack(String id) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("ifBlack", id);
+		ss.close();
+		return cnt;
+	}
 	
-
+	/*public int ifTeacher(String id) {
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("ifTeacher", id);
+		ss.close();
+		return cnt;
+	}*/
+	
+	public List<TeacherCareer> teacherCareer(String teacherName) {
+		List<TeacherCareer> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectCareer", teacherName);
+		ss.close();
+		return list;
+	}
+	
+	public List<TeacherIntro> teacherIntro(String teacherName){
+		List<TeacherIntro> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("selectIntro", teacherName);
+		ss.close();
+		return list;
+	}
+	
 	public static void main(String[] args) {
-		/*System.out.println(AdminDAO.getInstance().getSessionFactory());*/
 		MemberListDAO adao=new MemberListDAO();
 		/*adao.selectAllMember();*/
 		/*System.out.println(adao.selectTotalCount());
 		System.out.println(adao.teacherInfo("in11202"));*/
 		//System.out.println(adao.selectTotalCount());
-		AddBlackVO abvo=null;
-		abvo=new AddBlackVO("test", "±×³É", "20120303");
-		
-		System.out.println(adao.insertBlack(abvo));
+		/*AddBlackVO abvo=null;
+		abvo=new AddBlackVO("test", "±×³É", "20120303");*/
+		//System.out.println(adao.ifBlack("dateTT"));
+		//System.out.println(adao.ifTeacher("test"));
+		//System.out.println(adao.teacherCareer("ºÀ"));
+		//System.out.println(adao.teacherIntro("ºÀ"));
+		System.out.println(adao.teacherIntro("ºÀ"));
 	}
 
 	

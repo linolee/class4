@@ -2,6 +2,7 @@ package kr.co.sist.admin.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -13,6 +14,8 @@ import kr.co.sist.admin.dao.MemberListDAO;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.domain.TeacherCareer;
+import kr.co.sist.admin.domain.TeacherIntro;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
 
@@ -23,14 +26,14 @@ public class MemberListService {
 	private MemberListDAO a_dao;
 
 
-	public String chkTeacher(String ID) {
+/*	public String chkTeacher(String ID) {
 		String chkTeacher = "";
-		/*a_dao = MemberListDAO.getInstance();*/
+		a_dao = MemberListDAO.getInstance();
 
 		chkTeacher = a_dao.teacherInfo(ID);
 
 		return chkTeacher;
-	}
+	}*/
 
 	// 1. 전체 게시물 수 얻기
 		public int totalCount() {
@@ -136,12 +139,57 @@ public class MemberListService {
 
 			return strList;
 		}// indexList
+		
+	public int ifBlack(String id) {
+		int chkBlack=a_dao.ifBlack(id);
+		//int chkTeacher=a_dao.ifTeacher(id);
+		//StringBuilder chkBlackT=new StringBuilder();
+		
+/*		if(chkBlack==1) {
+			chkBlackT
+			.append("<a data-toggle='modal' href='#modalAddBlackList' onclick='addBlack(")
+			.append(id)
+			.append(")'><span class='badge badge-warning'>블랙리스트 등록</span></a>");
+		}*/
+		
+		/*if(chkTeacher==1) {
+			chkBlackTeacher
+			.append("<a data-toggle='modal' href='#teacherInfo' onclick='addBlack(")
+			.append(id)
+			.append(")'><span class='badge badge-primary'>강사정보</span></a>");
+		}*/
+		
+		
+		//return chkBlackT.toString();
+		return chkBlack;
+	}
 
 	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list = null;
 		list = a_dao.selectAllMember(lvo);
 		
 		return list;
+	}
+	public List<String> memberBlack(ListVO lvo) {
+		StringBuilder dx= new StringBuilder();
+		
+		List<String> list = null;
+		List<String> list2=new ArrayList<String>();
+		list = a_dao.memberBlack(lvo);
+		
+		
+		/*for(int i=0;i<list.size();i++) {
+			String temp=list.get(i);
+			list2.add(temp);
+		}*/		
+		
+		for(int i=0;i<list.size();i++) {
+			list2.add(dx
+			.append("<a data-toggle='modal' href='#modalAddBlackList' onclick='addBlack(")
+			.append(list.get(i))
+			.append(")'><span class='badge badge-warning'>블랙리스트 등록</span></a>").toString());
+		}
+		return list2;
 	}
 	
 	//회원 상세보기
@@ -177,6 +225,7 @@ public class MemberListService {
 		}
 		return json;
 	}
+	
 	
 	public JSONObject addBlack(AddBlackVO abvo) {
 		

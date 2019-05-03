@@ -303,9 +303,6 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 											<td>등록된 Q&A정보가 없습니다.</td>
 										</tr>
 									</c:if>
-									<!-- <tr>
-										<td>등록된 Q&A정보가 없습니다.</td>
-									</tr> -->
 								</table>
 
  							</div>					

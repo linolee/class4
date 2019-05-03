@@ -81,7 +81,7 @@ public class UserController {
 		return "user/member/joinAgreement";
 	}// joinAgreementPage
 	
-	@RequestMapping(value = "user/member/join.do", method = GET)
+	@RequestMapping(value = "user/member/join.do", method = POST)
 	public String joinPage(HttpServletRequest request, Model model) {
 		model.addAttribute("categoryMapping", ujs.CategoryMapping());
 		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
