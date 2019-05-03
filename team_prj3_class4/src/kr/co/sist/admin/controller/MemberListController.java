@@ -29,7 +29,6 @@ public class MemberListController {
 	public String memberPage(ListVO lvo, Model model) {
 		
 		List<MemberListDomain> list=null;
-		
 		int totalCount = mls.totalCount();//총 게시물의 수
 		int pageScale = mls.pageScale();
 		int totalPage = mls.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
@@ -41,9 +40,26 @@ public class MemberListController {
 		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
-
+		
 		list=mls.selectAllMember(lvo);
+
+		//String dx="";
+		
+		//List<String> tempList=null;
+		//tempList=mls.memberBlack(lvo);
+		
+		/*for(int i=0;i<tempList.size();i++) {
+			//String temp=mls.ifBlack(list2.get(i));
+			//String temp=""; 
+			//temp=tempList.get(i);
+			//list.get
+			System.out.println("---------------temp-----------"+mls.ifBlack(tempList.get(i)));
+		}*/
+		
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
+		
+		
+		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
@@ -81,6 +97,23 @@ public class MemberListController {
 		json=mls.addBlack(abvo);
 		
 		// 쿼리스트링으로 값을 받아서 딜리트 쿼리 실행해야함
+		//json = mls.searchMemberDetail(id);
+		//System.out.println(json.toJSONString());
+		
+		return json.toJSONString();
+	}
+	
+	
+	/**
+	 * 강사정보
+	 * @param id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/admin/teacherDetail.do",method=GET)
+	public String teacherDetailPage(String id, String teacherName) {
+		JSONObject json = null;
+		
 		//json = mls.searchMemberDetail(id);
 		//System.out.println(json.toJSONString());
 		

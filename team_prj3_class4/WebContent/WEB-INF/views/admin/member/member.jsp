@@ -1,12 +1,8 @@
-<%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.MemberListService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
-
 
 function userInfo(userId) {
  	var queryString = "id="+userId;
@@ -100,10 +96,12 @@ $(function(){
 								$("#addBtel").text(json.jtel);
 								$("#addBinputdate").text(json.jinputdate);
 								$("#addBemail").text(json.jemail); */
+							 	$("#addBlackCancle").trigger("click"); // 강제로 실행
+							 	//location.href("/admin/member.do");
+							 	window.location.href="<c:url value='/admin/member.do' />";
 							}
 						});//ajax
 				//} // addBlack
-					 	$("#addBlackCancle").trigger("click"); // 강제로 실행
 			};
 		});
 		
@@ -171,8 +169,13 @@ $(function(){
 						<form method="get" action="./member.jsp" class="form-inline">
 							<!-- <a data-toggle="modal" href="#modalUserInfo" onclick="userInfo()"><span class="badge badge-primary">상세정보</span></a>  -->
 							<a data-toggle="modal" href="#modalUserInfo2" onclick="userInfo('${ member.client_id }')"><span class="badge badge-primary">상세정보</span></a>
-							<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
-							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
+							<c:if test="${empty member.reason }">
+								<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
+							</c:if>
+							<%-- <c:out value="${member.reason }"==null?"":"<a data-toggle='modal' href='#modalAddBlackList'  onclick='addBlack('${ member.client_id }')'><span class='badge badge-warning'>블랙리스트 등록</span></a>"/> --%>
+							<%-- ${ifBlack?<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>:""} --%>
+							<%-- <a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a> --%>
+							<%-- <a data-toggle="modal" href="#modalTeacherInfo" onclick="teacherInfo('${ member.client_id }')"><span class="badge badge-primary">강사정보</span></a> --%>
 						</form>
 					</td>
 				</tr>
