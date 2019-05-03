@@ -21,6 +21,16 @@ public class TeacherDAO {
 
 private SqlSessionFactory ssf;
 	
+	private static TeacherDAO t_dao;
+	
+	public static TeacherDAO getInstance() {
+		if(t_dao==null) {
+			t_dao=new TeacherDAO();
+		}
+		return t_dao;
+	}
+
+
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf == null) {
 			org.apache.ibatis.logging.LogFactory.useLog4JLogging();
@@ -60,7 +70,7 @@ private SqlSessionFactory ssf;
 	}
 	
 	public TeacherDetailDomain selectTeacherDetail(String teacherName) {
-		SqlSession ss=getSessionFactory().openSession();
+		SqlSession ss=getInstance().getSessionFactory().openSession();
 		TeacherDetailDomain tdd=ss.selectOne("selectDetailTeacher", teacherName);
 		ss.close();
 		return tdd;
@@ -85,6 +95,7 @@ private SqlSessionFactory ssf;
 	
 	public static void main(String[] args) {
 		TeacherDAO tdao=new TeacherDAO();
-		//System.out.println(tdao.selectTeacherDetail("백인재").getBirth());
+		
+		System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
 	}
 }

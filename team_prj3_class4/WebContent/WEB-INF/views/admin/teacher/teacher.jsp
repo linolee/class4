@@ -5,7 +5,7 @@
 <script type="text/javascript">
 
 function teacherInfo(teacherName) {
- 	var queryString = "teacherName="+teacherName;
+ 	var queryString="teacherName="+teacherName;
  	$.ajax({
 		url: "teacherDetail.do",
 		data: queryString,
@@ -16,8 +16,9 @@ function teacherInfo(teacherName) {
 			console.log(xhr.status + "/" + xhr.statusText);
 		},
 		success:function( json ){
+			var space = /\+/g;
 			$("#tId").text(json.tId);
-			$("#tCategory").text(json.tCate);
+			$("#tCategory").text(decodeURIComponent(json.tCate));
 			$("#tName").text(decodeURIComponent(json.tName));
 			$("#tnName").text(decodeURIComponent(json.tTName));
 			$("#tBirth").text(json.tBirth);
@@ -25,7 +26,9 @@ function teacherInfo(teacherName) {
 			$("#tTel").text(json.tTel);
 			$("#tInputdate").text(json.tInputdate);
 			$("#tEmail").text(json.tEmail);
-			$("#tIntro").text(json.tIntroduce);
+			$("#tIntro").text(decodeURIComponent(json.tIntroduce));
+			// 공백 변환처리
+			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
 
 			var output;
 	 		$("#lessons *").remove();
@@ -103,9 +106,9 @@ function teacherInfo(teacherName) {
 					<td><c:out value="${teacher.birth }"/></td>
 					<td><c:out value="${teacher.email }"/></td>
 					<td>
-						<form method="get" action="./member.jsp" class="form-inline">
+						<!-- <form method="get" action="./member.jsp" class="form-inline"> -->
 							<a data-toggle="modal" href="#modalTeacher" onclick="teacherInfo('${ teacher.teacherName }')"><span class="badge badge-primary">상세정보</span></a>
-						</form>
+						<!-- </form> -->
 					</td>
 				</tr>
 				</c:forEach>

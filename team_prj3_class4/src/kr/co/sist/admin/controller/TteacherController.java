@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.TeacherDomain;
@@ -59,9 +60,10 @@ public class TteacherController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/teacherDetail.do", method=GET)
-	public String teacherDetailPage(String teacherName) {
+	public String teacherDetailPage(@RequestParam("teacherName") String teacherName) {
 		JSONObject json=null;
 		json=ts.selectDeatailTeacher(teacherName);
+		System.out.println("-------------++++++++"+json.toJSONString());
 		return json.toJSONString();
 	}
 	

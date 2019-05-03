@@ -37,9 +37,9 @@ where c.client_id=t.client_id and t.status='Y'
 </select>
 
 <select id="selectDetailTeacher" resultMap="teacherDetailResult" parameterType="String">
-select client_id, category, name, teacher_name, gender, birth, tel, inputdate, email, introduce
-from client natural join teacher
-where teacher_name=  #{teacher_name}
+select c.client_id, t.category, c.name, t.teacher_name, c.gender, c.birth, c.tel, c.inputdate, c.email, t.introduce
+from client c left outer join teacher t on c.client_id=t.client_id
+where t.teacher_name=#{teacher_name}
 </select>
 
 <select id="selectTeacherLesson" resultType="kr.co.sist.admin.domain.TeacherLesson" parameterType="String">
