@@ -40,7 +40,7 @@
 	where lcode= #{lcode})
 </select>
 
-<resultMap type="kr.co.sist.domain.DetailContents" id="detailC">
+<!-- <resultMap type="kr.co.sist.domain.DetailContents" id="detailC">
 	<result column="dcontents" property="dcontents"/>
 	<result column="curriculum" property="curriculum"/>
 	<result column="others" property="others"/>
@@ -50,7 +50,7 @@
 	select contents dcontents,curriculum,others,address
 	from lesson
 	where lcode=#{lcode}
-</select>
+</select> -->
 
 <select id="selectOpt" resultType="String" parameterType="String">
 	select opt
@@ -60,7 +60,7 @@
 
 <select id="selectNoOpt" resultType="String">
 	select opt
-	from opt;
+	from opt
 </select>
 
 <resultMap type="kr.co.sist.user.domain.ReviewDomain" id="Review">
@@ -78,13 +78,13 @@
 
 <resultMap type="kr.co.sist.user.domain.QnA" id="qna">
 	<result column="qcode" property="qcode"/>
-	<result column="client_id" property="client_id"/>
+	<result column="id" property="id"/>
 	<result column="subject" property="subject"/>
-	<result column="q_date" property="q_date"/>
+	<result column="inputdate" property="inputdate"/>
 	<result column="status" property="status"/>
 </resultMap>
 <select id="selectQnaList" resultMap="qna" parameterType="String">
-	select qcode,client_id, subject,q_date,status
+	select qcode,client_id id, subject,q_date inputdate,status
 	from lesson_qna
 	where lcode=#{lcode}
 </select>

@@ -123,7 +123,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                       <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스를 소개해요</span></div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
-                          	<c:out value="${dcontents.dcontents}"/>
+                          	<%-- <c:out value="${dcontents.dcontents}"/> --%>
                           	<%-- <c:if test="${empty contents.contents}">
                           		등록된 클래스 소개가 없습니다.
                           	</c:if> --%>
@@ -164,8 +164,16 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                           		<th style="width: 150px;font-size: 17px;">불 포함 사항</th>
                           	</tr>
                           	<tr>
-                          		<td style="font-size: 15px;border-right: 1px solid #cdcdcd; ">강의,장비</td>
-                          		<td style="font-size: 15px;">주차장,식사,숙소</td>
+                          		<td style="font-size: 15px;border-right: 1px solid #cdcdcd; ">
+									<c:forEach var="optlist" items="${ requestScope.optlist }">
+			                  			<c:out value="${optlist}"/><br/>
+			                  		</c:forEach>
+								</td>
+                          		<td style="font-size: 15px;">
+                          			<c:forEach var="noptlist" items="${ requestScope.noptlist }">
+			                  			<c:out value="${noptlist}"/><br/>
+			                  		</c:forEach>
+                          		</td>
                           	</tr>
                           </table>
                       </div>
@@ -252,7 +260,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									<input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/>
 								</div>
 								<table width="640" style="margin-left: 10px;">
-										<c:forEach var="rvlist" items="${ requestScope.rvlist }">
+									<c:forEach var="rvlist" items="${ requestScope.rvlist }">
 										<tr>
 											<td rowspan="2">
 												<c:out value="${rvlist.client_id}"/><br/>
@@ -266,12 +274,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 												<c:out value="${rvlist.r_date}"/>
 											</td>
 										</tr>
-										</c:forEach> 
-										<c:if test="${empty rvlist}">
+									</c:forEach> 
+									<c:if test="${empty rvlist}">
 										<tr>
 											<td>등록된 후기정보가 없습니다.</td>
 										</tr>
-										</c:if>
+									</c:if>
 										<!-- style="border-bottom: 1px solid #cdcdcd;" -->
 									</tr>
 								</table>
@@ -281,10 +289,23 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									<span class="contentTitle"  style="float: letf">Q&A</span>
 									<input style="float: right;" type="button" name="qnaWBtn" id="qnaWBtn" class="btn" value="Q&A 작성"/>
 								</div>
-								<table width="100%">
-									<tr>
+								<table width="640" style="margin-left: 10px;">
+									<c:forEach var="qnalist" items="${ requestScope.qnalist }">
+										<tr>
+											<td><c:out value="${qnalist.id}"/></td>
+											<td><c:out value="${qnalist.subject}"/></td>
+											<td><c:out value="${qnalist.inputdate}"/>
+											</td>
+										</tr>
+									</c:forEach> 
+									<c:if test="${empty qnalist}">
+										<tr>
+											<td>등록된 Q&A정보가 없습니다.</td>
+										</tr>
+									</c:if>
+									<!-- <tr>
 										<td>등록된 Q&A정보가 없습니다.</td>
-									</tr>
+									</tr> -->
 								</table>
 
  							</div>					

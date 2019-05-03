@@ -69,7 +69,7 @@ public class DetailDAO {
 		return list;
 	}//selectCareer
 	
-	public DetailContents selectContents(String lcode) {
+/*	public DetailContents selectContents(String lcode) {
 		DetailContents dc=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
@@ -77,7 +77,7 @@ public class DetailDAO {
 		ss.close();
 		return dc;
 	}//selectContents
-	
+*/	
 	public List<String> selectOpt(String lcode) {
 		List<String> optList=null;
 		

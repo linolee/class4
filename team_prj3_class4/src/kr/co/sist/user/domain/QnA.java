@@ -3,7 +3,7 @@ package kr.co.sist.user.domain;
 import java.sql.Date;
 
 public class QnA {
-	private String qcode,id,title,status;
+	private String qcode,id,subject,status;
 	private Date inputdate;
 	
 	public String getQcode() {
@@ -18,11 +18,11 @@ public class QnA {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getTitle() {
-		return title;
+	public String getSubject() {
+		return subject;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	public String getStatus() {
 		return status;

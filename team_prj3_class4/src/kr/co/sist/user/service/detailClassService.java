@@ -17,6 +17,8 @@ public class detailClassService {
 
 	@Autowired
 	private DetailDAO d_dao;
+	
+	public List<String> olist;
 		
 	public DetailDAO showContents(String lcode) {
 		DetailDAO d_dao=null;
@@ -42,21 +44,29 @@ public class detailClassService {
 		return careerlist;
 	}//showMenuCategory
 	
-	public DetailContents searchContents(String lcode) {
+/*	public DetailContents searchContents(String lcode) {
 		DetailContents dc=null;
 		dc=d_dao.selectContents(lcode);
 		return dc;
 	}//searchContents
-	
+*/	
 	public List<String> searchOpt(String lcode) {
 		List<String> optlist=null;
 		optlist=d_dao.selectOpt(lcode);
+		olist=d_dao.selectOpt(lcode);
 		return optlist;
 	}//searchOpt
 	
 	public List<String> searchNoOpt() {
 		List<String> noptlist=null;
 		noptlist=d_dao.selectNoOpt();
+		for(String o:olist) {
+			for(String x:noptlist) {
+				if(olist==noptlist) {
+					noptlist.remove("o");
+				}//end if
+			}//end for
+		}//end for
 		return noptlist;
 	}//searchNoOpt
 	

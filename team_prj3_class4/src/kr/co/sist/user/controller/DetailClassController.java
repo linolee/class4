@@ -26,7 +26,7 @@ public class DetailClassController {
 		Summary summary=null;
 		Star star=null;
 		List<String> career,optlist,noptlist=null;
-		DetailContents dcontents=null;
+		//DetailContents dcontents=null;
 		List<ReviewDomain> rvlist=null;
 		List<QnA> qnalist=null;
 		
@@ -39,7 +39,7 @@ public class DetailClassController {
 		career=dcs.searchCareer(lcodetest);
 		optlist=dcs.searchOpt(lcodetest);
 		noptlist=dcs.searchNoOpt();
-		dcontents=dcs.searchContents(lcodetest);
+		//dcontents=dcs.searchContents(lcodetest);
 		rvlist=dcs.searchRvList(lcodetest);
 		qnalist=dcs.searchQnaList(lcodetest);
 		
@@ -48,7 +48,7 @@ public class DetailClassController {
 		model.addAttribute("career",career);
 		model.addAttribute("optlist",optlist);
 		model.addAttribute("noptlist",noptlist);
-		model.addAttribute("dcontents",dcontents);
+		//model.addAttribute("dcontents",dcontents);
 		model.addAttribute("rvlist",rvlist);
 		model.addAttribute("qnalist",qnalist);
 		
