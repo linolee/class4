@@ -31,19 +31,34 @@ function teacherInfo(teacherName) {
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
 
 			var output;
-	 		$("#lessons *").remove();
+	 		$("#lesson *").remove();
 			if( json.lessonList.length != 0){
  				for(var i=0; i<json.lessonList.length; i++){
-					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName)+"</td>";
+					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
 					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
-					$("#lessons").append(output);
+					$("#lesson").append(output);
 					output = "";
 				} 
 			}
 			if( json.lessonList.length == 0){
-				output += "<tr><td width='50px' class='col-10'>수강중인 강의가 없습니다.</td></tr>";
-				$("#lessons").append(output);
+				output += "<tr><td width='50px' class='col-10'>강의가 없습니다.</td></tr>";
+				$("#lesson").append(output);
 				output = "";
+			}
+			
+			var output2;
+	 		$("#career *").remove();
+			if( json.careerList.length != 0){
+ 				for(var i=0; i<json.careerList.length; i++){
+					output2 += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.careerList[i].career.replace(space," "))+"</td>";
+					$("#career").append(output2);
+					output2 = "";
+				} 
+			}
+			if( json.careerList.length == 0){
+				output2 += "<tr><td width='50px' class='col-10'>경력이 없습니다.</td></tr>";
+				$("#career").append(output2);
+				output2 = "";
 			}
 		}
 	});//ajax 

@@ -89,6 +89,10 @@ private SqlSessionFactory ssf;
 		SqlSession ss=getSessionFactory().openSession();
 		list=ss.selectList("selectTeacherLesson", teacherName);
 		ss.close();
+		
+		//System.out.println("+++++++++++++++++++"+list.get(0).getLname());
+		
+		
 		return list;
 	}
 	
@@ -96,6 +100,9 @@ private SqlSessionFactory ssf;
 	public static void main(String[] args) {
 		TeacherDAO tdao=new TeacherDAO();
 		
-		System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
+		//System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
+		//System.out.println(tdao.selectCareer("백인재"));
+		System.out.println(tdao.selectLesson("백인재"));
+		
 	}
 }

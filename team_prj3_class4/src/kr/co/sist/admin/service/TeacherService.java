@@ -136,12 +136,13 @@ public class TeacherService {
 			JSONObject json=new JSONObject();
 			JSONArray json_arr=new JSONArray();
 			JSONArray json_arr2=new JSONArray();
-			//t_dao=t_dao.getInstance();
 			TeacherDAO tdao=new TeacherDAO();
 			TeacherDetailDomain tdd=tdao.selectTeacherDetail(teacherName);
 			List<TeacherLesson> listLesson=null;
 			List<TeacherCareer> listCareer=null;
-			//System.out.println("---------------------"+tdd.getClientId());
+			listLesson=tdao.selectLesson(teacherName);
+			listCareer=tdao.selectCareer(teacherName);
+			
 		try {
 			json.put("tId", tdd.getClientId());
 			json.put("tCate", URLEncoder.encode(tdd.getCategory(),"UTF-8"));
@@ -155,16 +156,17 @@ public class TeacherService {
 			json.put("tIntroduce", URLEncoder.encode(tdd.getIntroduce(),"UTF-8"));		
 
 			
-			/*JSONObject json_temp=null;
-			JSONObject json_temp2=null;*/
+			JSONObject json_temp=null;
+			JSONObject json_temp2=null;
 			
-			/*if(!listLesson.isEmpty()) {
+			if(!listLesson.isEmpty()) {
 				for(int i=0; i<listLesson.size();i++) {
 					json_temp=new JSONObject();
-					json_temp.put("lessonName", URLEncoder.encode(listLesson.get(i).getLesson(),"UTF-8"));
+					json_temp.put("lessonName", URLEncoder.encode(listLesson.get(i).getLname(), "UTF-8"));
+					//json_temp.put("lessonName", listLesson.get(i).getLname());
 					json_temp.put("lessonStatus", listLesson.get(i).getStatus());
 					json_arr.add(json_temp);
-
+					System.out.println("----------------------------------------- lesson : "+listLesson.get(i).getLname());
 				}
 			}
 			
@@ -173,18 +175,22 @@ public class TeacherService {
 			if(!listCareer.isEmpty()) {
 				for(int i=0; i<listCareer.size();i++) {
 					json_temp2=new JSONObject();
+					/*json_temp2.put("career", URLEncoder.encode(listCareer.get(i).getCareer(), "UTF-8"));*/
 					json_temp2.put("career", URLEncoder.encode(listCareer.get(i).getCareer(), "UTF-8"));
+					
+					System.out.println("--------------------------------- career : "+listCareer.get(i));
+					
 					json_arr2.add(json_temp2);
 				}
 			}
 			
-			json.put("carrerList", json_arr2);*/
+			json.put("careerList", json_arr2);
 			
 			////////////////////////// JSONArray 1개로 합칠 수 있으면 합치자 !!
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
-			
+			//System.out.println("-------------------------"+json.toJSONString());
 			return json;
 		}
 			

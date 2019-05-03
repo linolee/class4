@@ -56,13 +56,13 @@
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">
-							<tbody>
-								<tr>
+							<tbody id="lesson">
+								<!-- <tr>
 									<td width="50px" class="col-10">강의1</td>
 								</tr>
 								<tr>
 									<td width="50px" class="col-10">강의2</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -71,13 +71,13 @@
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">
-							<tbody>
-								<tr>
+							<tbody id="career">
+								<!-- <tr>
 									<td width="50px" class="col-10">경력경력경력경력경력경력경력</td>
 								</tr>
 								<tr style="border-bottom: 1px solid #C8CED3;">
 									<td width="50px" class="col-10">경력2경력2경력2경력2경력2경력2경력2</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
