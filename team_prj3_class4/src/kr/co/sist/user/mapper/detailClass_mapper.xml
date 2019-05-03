@@ -33,25 +33,67 @@
 <select id="selectCareerList" resultType="String" parameterType="String"> 
 	select c.career
 	from career c
-	where c.teacher_name=(select t.TEACHER_NAME
+	where c.teacher_name=
+	(select t.TEACHER_NAME
 	from lesson l inner join teacher t
 	on t.teacher_name=l.TEACHER_NAME
 	where lcode= #{lcode})
 </select>
 
+<!-- <resultMap type="kr.co.sist.domain.DetailContents" id="detailC">
+	<result column="dcontents" property="dcontents"/>
+	<result column="curriculum" property="curriculum"/>
+	<result column="others" property="others"/>
+	<result column="address" property="address"/>
+</resultMap>
+<select id="selectContents" resultMap="detailC" parameterType="String">
+	select contents dcontents,curriculum,others,address
+	from lesson
+	where lcode=#{lcode}
+</select> -->
+
+<select id="selectOpt" resultType="String" parameterType="String">
+	select opt
+	from l_OPT
+	where lcode=#{lcode}
+</select>
+
+<select id="selectNoOpt" resultType="String">
+	select opt
+	from opt
+</select>
+
 <resultMap type="kr.co.sist.user.domain.ReviewDomain" id="Review">
-	<result column="CLIENT_ID" property="memberId"/>
-	<result column="SUBJECT" property="title"/>
-	<result column="CONTENTS" property="Content"/>
-	<result column="SCORE" property="star"/>
-	<result column="r_date" property="inputDate"/>
+	<result column="client_id" property="client_id"/>
+	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
+	<result column="score" property="score"/>
+	<result column="r_date" property="r_date"/>
 </resultMap>
 <select id="selectReviewList" resultMap="Review" parameterType="String">
-	select   CLIENT_ID, SUBJECT, CONTENTS, SCORE, r_date
+	select   client_id, subject, contents, score, r_date
 	from review
 	where lcode = #{lcode}
 </select>
 
+<resultMap type="kr.co.sist.user.domain.QnA" id="qna">
+	<result column="qcode" property="qcode"/>
+	<result column="id" property="id"/>
+	<result column="subject" property="subject"/>
+	<result column="inputdate" property="inputdate"/>
+	<result column="status" property="status"/>
+</resultMap>
+<select id="selectQnaList" resultMap="qna" parameterType="String">
+	select qcode,client_id id, subject,q_date inputdate,status
+	from lesson_qna
+	where lcode=#{lcode}
+</select>
 
+<!--
+select Main_img, Lname,lcode, teacher_name
+from lesson
+where teacher_name=(select teacher_name from lesson where lcode='2')
+and lcode!='2';
+  -->
 
 </mapper>
