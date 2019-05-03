@@ -9,12 +9,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
@@ -157,6 +160,32 @@ public class MypageController {
 		model.addAttribute("updateJjim", updateJjim);
 		return "user/student/mypage_jjim";
 	}//useRequest
+	
+	@ResponseBody
+	@RequestMapping(value="user/student/jjimHeart.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
+	public String jjimHeart(Model model, HttpSession session, String lcode) {
+		//autowired로 의존성 주입//
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserMypageService ums = ac.getBean(UserMypageService.class);
+		String clientId = session.getAttribute("client_id").toString();
+		boolean updateJjim = false;
+		ListVO lvo=new ListVO(lcode, clientId);
+		String jjim="";
+		String status=ums.jjimStatus(lvo);
+		if( !(status==null) ) {
+			updateJjim=ums.deleteJjim(lvo);
+			if(updateJjim) {
+				jjim="♡";
+			}//end if
+		}//end if
+		if( status==null ) {
+			updateJjim=ums.insertJjim(lvo);
+			if(updateJjim) {
+				jjim="♥";
+			}//end if
+		}//end if
+		return jjim;
+	}//searchDetail
 	@RequestMapping(value="user/student/mypage_cancel.do", method=GET)
 	public String mypageCancel(Model model, HttpSession session) {
 		//autowired로 의존성 주입//
@@ -175,6 +204,8 @@ public class MypageController {
 		
 		return "user/student/mypage_cancel";
 	}//useRequest
+	
+	
 	@RequestMapping(value="user/student/mypage_q&a.do", method=GET)
 	public String mypageQA(Model model, HttpSession session) {
 		//autowired로 의존성 주입//
