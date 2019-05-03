@@ -5,7 +5,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
@@ -253,5 +251,11 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}// teacherPage
+	
+	@RequestMapping(value = "user/search.do", method = GET)
+	public String searchResult() {
+		return "user/member/searchResult";
+	}
+	
 
 }
