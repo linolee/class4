@@ -1,19 +1,22 @@
 package kr.co.sist.user.domain;
 
-public class QnA {
-	private String memberId,title,Qcode;
+import java.sql.Date;
 
+public class QnA {
+	private String qcode,id,title,status;
+	private Date inputdate;
+	
 	public String getQcode() {
-		return Qcode;
+		return qcode;
 	}
 	public void setQcode(String qcode) {
-		Qcode = qcode;
+		this.qcode = qcode;
 	}
-	public String getMemberId() {
-		return memberId;
+	public String getId() {
+		return id;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;
@@ -21,4 +24,17 @@ public class QnA {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Date getInputdate() {
+		return inputdate;
+	}
+	public void setInputdate(Date inputdate) {
+		this.inputdate = inputdate;
+	}
+	
 }
