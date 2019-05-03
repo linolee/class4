@@ -35,14 +35,14 @@ import kr.co.sist.user.vo.memberReportVO;
  * Handles requests for the application home page.
  */
 @Controller
-public class UserController {
+public class MemberController {
 
 	private UserLoginService uls;
 	private UserPageService ups;
 	private UserJoinService ujs;
 	private UserReportService urs;
 
-	public UserController() {
+	public MemberController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
