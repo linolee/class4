@@ -34,7 +34,7 @@ public class BlackListController {
 		
 		List<BlackListDomain> list=null;
 		
-		System.out.println(id);
+		//System.out.println(id);
 		String url="/admin/template";	
 		if((id!=null)) {
 			if (bls.deleteBlack(id)) {
