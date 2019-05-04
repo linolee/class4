@@ -98,27 +98,8 @@ public class AdminController {
 	@RequestMapping(value="/admin/charge.do",method=GET)
 	public String chargePage(Model model) {
 		
-		
 		model.addAttribute("page", "charge");
 		return "admin/template";
 	}
 
-	@RequestMapping(value="/admin/category.do",method=GET)
-	public String categoryPage(Model model) {
-		
-		
-		model.addAttribute("page", "category");
-		return "admin/template";
-	}
-	
-	@RequestMapping(value="/admin/title.do",method=GET)
-	public String titlePage(Model model) {
-		
-		
-		model.addAttribute("page", "title");
-		return "admin/template";
-	}
-	
-	
-	
 }

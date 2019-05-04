@@ -24,7 +24,7 @@ import kr.co.sist.admin.vo.ListVO;
 public class TteacherController {
 
 	@Autowired
-	TeacherService ts;
+	private TeacherService ts;
 	
 	@RequestMapping(value="/admin/teacher.do",method=GET)
 	public String teacherPage(Model model, ListVO lvo) {

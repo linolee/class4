@@ -23,9 +23,9 @@ import kr.co.sist.admin.vo.ListVO;
 public class TeacherPermitController {
 
 	@Autowired
-	TeacherService ts;
+	private TeacherService ts;
 	@Autowired
-	TeacherPermitService tps;
+	private TeacherPermitService tps;
 	
 	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
 	public String teacherAuthorityPage(ListVO lvo, Model model) {

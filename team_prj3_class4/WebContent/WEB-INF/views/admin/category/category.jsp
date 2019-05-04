@@ -12,14 +12,10 @@ $(function () {
 
 	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
-	// input file 선택된이름 안나오게 설정
+	// 버튼 대체
 	$('#btn-upload').click(function (e) {
 		e.preventDefault();
 	$('#file').click();
-			});
-	$('#btn-upload2').click(function (e) {
-		e.preventDefault();
-	$('#file2').click();
 			});
 
 ///////////////////////// 서브밋하면 파일네임에 시간정보를 추가하여 서버에 저장 /////////////////////////
@@ -28,15 +24,14 @@ $(function () {
 
    	var ext=["jpg","png"];
    	var flag=null;
-    $("#file,#file2").change(function(){
+    $("#file").change(function(){
 		 flag=false;
-	   	 /* alert("파일바뀜"); */
 	   	 alert("클릭");
 	   	 if($("#file").val()!=""){
 	   		 alert("파일이 빈칸이 아닐때");
-			var fileValue = $("#file,#file2").val().split("\\");
-		   	var fileValue2 = $("#file,#file2").val(); // path
-		   	var fileValue3 = $("#file,#file2").val().split("."); // path
+			var fileValue = $("#file").val().split("\\");
+		   	var fileValue2 = $("#file").val(); // path
+		   	var fileValue3 = $("#file").val().split("."); // path
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
@@ -88,7 +83,80 @@ $(function () {
  		alert(varCate+"삭제");
  	});
  	
-    });
+});
+
+$(function () {
+
+	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
+	
+	// 버튼 대체
+	$('#btn-upload2').click(function (e) {
+		e.preventDefault();
+	$('#file2').click();
+			});
+
+   	var ext=["jpg","png"];
+   	var flag=null;
+    $("#file2").change(function(){
+		 flag=false;
+	   	 alert("클릭");
+	   	 if($("#file2").val()!=""){
+	   		 alert("파일이 빈칸이 아닐때");
+			var fileValue = $("#file2").val().split("\\");
+		   	var fileValue2 = $("#file2").val(); // path
+		   	var fileValue3 = $("#file2").val().split("."); // path
+		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
+		   	var fileName = fileValue[fileValue.length-1]; // 파일명
+	
+		   	/* alert("path : "+fileValue2);
+		   	alert("ext : "+inputExt);*/
+		   	alert("filename : "+fileName); 
+	   	 	
+		   	for(var i=0; i<ext.length; i++){
+		   		if(ext[i] ==inputExt){
+		   			flag=true;
+		   			break;
+		   		} // if
+		   	} // for
+		   	
+		   	if(!flag){
+		   		alert("업로드 불가한 확장자입니다");
+		   		$("#file2").val("");
+		   		return;
+		   	} else{
+		   		function readURL(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            reader.onload = function(e) {
+			                $("#foo2").attr("src", e.target.result);
+			            }
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+			        readURL(this);
+		   	}
+		   	
+			/* $("#uploadImg").submit(); */
+   		 } // if
+ 	});//change
+	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
+	
+	$("#small2").click(function(){
+		$("#textCate2").val($("#small2").val());
+		return;
+	});
+ 	
+ 	$("#addCate2").click(function(){
+ 		var varCate=$("#textCate2").val();
+ 		alert(varCate+"추가");
+ 		
+ 	});
+ 	$("#delCate2").click(function(){
+ 		var varCate=$("#textCate2").val();
+ 		alert(varCate+"삭제");
+ 	});
+ 	
+});
 
 </script>
 
@@ -99,30 +167,36 @@ $(function () {
                   <div class="card-header">
                     <i class="fa fa-align-justify"></i> 카테고리 관리</div>
                   <div class="card-body">
-                <div style="text-align: right">
+               <!--  <div style="text-align: right">
 	                <div style="display: inline-block;">
-	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory">카테고리 추가</button>
+	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px">카테고리 추가</button>
 	                </div>
-                 </div>
+                 </div> -->
                   
 				<div class="card">
                   <div class="card-body">
                     <table class="table table-responsive-sm">
+                    
+              <thead>
+                        <tr>
+                        <td style="width:1350px; height:100px">
+                          	<h3>음악</h3>
+                          	<button class="btn btn-brand btn-twitter" type="button" style="margin-bottom: 4px">
+	                       		 <span>힙합</span>
+	                      		</button>
+                     		 <input type="button" value="소분류 추가"/>
+                          </td>
+                          <td>
+                          	<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalCategory"">카테고리 수정</a>
+                          	<!-- <button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px;">카테고리 추가</button> -->
+                          </td> 
+                        </tr>
+                      </thead>
+            </table>
+            <table class="table table-responsive-sm">
              <tbody>
-					<tr>
-                          <td>음악</td>
+       	           <tr>
                           <td><img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg"></td>
-                          <td><a data-toggle="modal" href="#modalCategory">카테고리 수정</a></td> 
-                  </tr>
-					<tr>
-                          <td>음악</td>
-                          <td><img src="category.png" style="max-width: 70%; height: auto;"></td>
-                          <td><a data-toggle="modal" href="#modalCategory">카테고리 수정</a></td> 
-                  </tr>
-					<tr>
-                          <td>음악</td>
-                          <td><img src="category.png" style="max-width: 70%; height: auto;"></td>
-                          <td><a data-toggle="modal" href="#modalCategory">카테고리 수정</a></td> 
                   </tr>
 			</tbody>
                     </table>
@@ -153,6 +227,11 @@ $(function () {
                     </ul>
                     </div>
                     </div>
+                     <!-- <div style="text-align: right">
+	                <div style="display: inline-block;">
+	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px">카테고리 추가</button>
+	                </div>
+                 </div> -->
                   </div>
                 </div>	            
                   </div>
@@ -160,7 +239,6 @@ $(function () {
                 
 
 <!--  -->
-
 <!--  -->
 
 <%-- <%
@@ -240,6 +318,6 @@ $(function () {
 
 
 <!--  -->
-<c:import url="modalCategory.jsp"/>
-<c:import url="modalAddCategory.jsp"/>
+<c:import url="category/modalCategory.jsp"/>
+<c:import url="category/modalAddCategory.jsp"/>
 

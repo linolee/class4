@@ -23,7 +23,7 @@ import kr.co.sist.admin.vo.ListVO;
 public class MemberListController {
 	
 	@Autowired
-	MemberListService mls;
+	private MemberListService mls;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
 	public String memberPage(ListVO lvo, Model model) {

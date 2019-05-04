@@ -4,6 +4,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,12 @@ import kr.co.sist.admin.vo.ListVO;
 @Controller
 public class LecturePermitController {
 
+	@Autowired
+	private LecturePermitService lps;
+	
 	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
 	public String lecturePermitPage(ListVO lvo, Model model) {
 		List<LecturePermitDomain> list=null;
-		
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		LecturePermitService lps = ac.getBean(LecturePermitService.class);
 		
 		int totalCount = lps.totalCount();//총 게시물의 수
 		int pageScale = lps.pageScale();

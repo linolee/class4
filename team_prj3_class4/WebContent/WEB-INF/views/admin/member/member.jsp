@@ -133,7 +133,7 @@ $(function(){
   	  </form>
   	  
 		<br/>
-		<table class="table table-responsive-sm" style="text-align:center">
+		<table class="table table-responsive-sm table-striped" style="text-align:center">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
