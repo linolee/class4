@@ -88,7 +88,7 @@ $(function(){
 								console.log(xhr.status + "/" + xhr.statusText);
 							},
 							success:function( json ){
-								alert("성공!!");
+								alert("블랙리스트에 등록되었습니다.");
 								/* $("#addBid").text(json.jid);
 								$("#addBname").text(decodeURIComponent(json.jname));
 								$("#addBbirth").text(json.jbirth);

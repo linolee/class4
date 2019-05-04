@@ -125,4 +125,23 @@ public class TeacherPermitService {
 		list=tp_dao.selectTeacherPermit(lvo);
 		return list;
 	}
+	
+	public boolean delTeacherPermit(String id){
+		boolean flag=false;
+		TeacherPermitDAO tpdao=TeacherPermitDAO.getInstance();
+		if(tpdao.delTeacherPermit(id)) {
+			flag=true;
+		}
+		return flag;
+	}
+	
+	public boolean updateTeacherPermitStat(String id) {
+		boolean flag=false;
+		TeacherPermitDAO tpdao=TeacherPermitDAO.getInstance();
+		if(tpdao.updateTeacherPermitStat(id)) {
+			flag=true;
+		}
+		return flag;
+	}
+	
 }

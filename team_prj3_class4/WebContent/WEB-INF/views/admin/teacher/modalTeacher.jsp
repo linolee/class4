@@ -92,10 +92,10 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary"
+									<!-- <button type="button" class="btn btn-primary"
 										data-dismiss="modal">승인</button>
 									<button type="button" class="btn btn-danger"
-										data-dismiss="modal">거절</button>
+										data-dismiss="modal">거절</button> -->
 								</div>
 							</div>
 						</div>

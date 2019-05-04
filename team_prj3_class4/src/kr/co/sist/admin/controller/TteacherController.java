@@ -63,7 +63,6 @@ public class TteacherController {
 	public String teacherDetailPage(@RequestParam("teacherName") String teacherName) {
 		JSONObject json=null;
 		json=ts.selectDeatailTeacher(teacherName);
-		System.out.println("-------------++++++++"+json.toJSONString());
 		return json.toJSONString();
 	}
 	

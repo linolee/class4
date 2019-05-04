@@ -10,12 +10,25 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.admin.domain.TeacherDetailDomain;
 import kr.co.sist.admin.domain.TeacherPermitDomain;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
 public class TeacherPermitDAO {
 	private SqlSessionFactory ssf=null;
+	
+	private static TeacherPermitDAO tp_dao;
+	
+	public static TeacherPermitDAO getInstance() {
+		if(tp_dao == null) {
+			tp_dao=new TeacherPermitDAO();
+		}//end if
+		return tp_dao;
+	}//getInstance
+	
+	
+	
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf==null) {
@@ -52,5 +65,42 @@ public class TeacherPermitDAO {
 		ss.close();
 		return cnt;
 	}
+	
+	/**
+	 * 강사신청테이블의 데이터를 삭제한다
+	 * @param id
+	 * @return
+	 */
+	public boolean delTeacherPermit(String id) {
+		boolean flag=false;
+		
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt=ss.delete("delTeacherPermit", id);
+		if(cnt==1) {
+			flag=true;
+			ss.commit();
+		}
+		
+		return flag;
+	}
+	
+	/**
+	 * 승인 거절시에 client테이블의 status를 Y로 변경한다
+	 * @param id
+	 * @return
+	 */
+	public boolean updateTeacherPermitStat(String id) {
+		boolean flag=false;
+		
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt=ss.update("updateTeacherPermitStat", id);
+		if(cnt==1) {
+			flag=true;
+			ss.commit();
+		}
+		return flag;
+	}
+	
+	
 	
 } // class

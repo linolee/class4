@@ -89,10 +89,6 @@ private SqlSessionFactory ssf;
 		SqlSession ss=getSessionFactory().openSession();
 		list=ss.selectList("selectTeacherLesson", teacherName);
 		ss.close();
-		
-		//System.out.println("+++++++++++++++++++"+list.get(0).getLname());
-		
-		
 		return list;
 	}
 	
