@@ -90,8 +90,8 @@ public class MemberListController {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		Date date = new Date();
 		String time = format1.format(date);
-		System.out.println("------------------"+"id="+id+"  reason="+reason);
-		System.out.println("-------------------"+time);
+		//System.out.println("------------------"+"id="+id+"  reason="+reason);
+		//System.out.println("-------------------"+time);
 		AddBlackVO abvo=new AddBlackVO(id, reason, time);
 		
 		json=mls.addBlack(abvo);

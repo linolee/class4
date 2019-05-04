@@ -67,4 +67,16 @@ public class TeacherPermitController {
 		return json.toJSONString();
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/admin/teacherPermission", method=GET)
+	public void teacherPermission(String id) {
+		tps.teacherPermission(id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/admin/teacherRefuse", method=GET)
+	public void teacherRefuse(String id) {
+		tps.teacherRefuse(id);
+	}
+	
 }

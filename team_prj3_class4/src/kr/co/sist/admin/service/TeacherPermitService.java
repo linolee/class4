@@ -126,22 +126,14 @@ public class TeacherPermitService {
 		return list;
 	}
 	
-	public boolean delTeacherPermit(String id){
-		boolean flag=false;
+	public void teacherRefuse(String id){
 		TeacherPermitDAO tpdao=TeacherPermitDAO.getInstance();
-		if(tpdao.delTeacherPermit(id)) {
-			flag=true;
-		}
-		return flag;
+		tpdao.teacherRefuse(id); 
 	}
 	
-	public boolean updateTeacherPermitStat(String id) {
-		boolean flag=false;
+	public void teacherPermission(String id) {
 		TeacherPermitDAO tpdao=TeacherPermitDAO.getInstance();
-		if(tpdao.updateTeacherPermitStat(id)) {
-			flag=true;
-		}
-		return flag;
+		tpdao.teacherPermission(id);
 	}
 	
 }

@@ -53,21 +53,48 @@ $(function(){
 			//$("[name='addFrm']").submit();
 			
 				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#addBid").text()+"&reason="+$("#reportReason").val();
+				 	 var queryString = "id="+$("#tId").text();
 				 	$.ajax({
-						url: "addBlack.do",
+						url: "teacherPermission.do",
 						data: queryString,
 						type: "get",
-						dataType: "json",
+						//dataType: "text",
 						error: function(xhr) {
 							alert("실패");
 							console.log(xhr.status + "/" + xhr.statusText);
 						},
 						success:function( json ){
-							alert("블랙리스트에 등록되었습니다.");
-						 	$("#addBlackCancle").trigger("click"); // 강제로 실행
+							alert("승인되었습니다.");
+						 	window.location.href="<c:url value='/admin/teacherAuthority.do' />";
+						}
+					});//ajax
+			//} // addBlack
+		};
+	});
+	
+});		
+$(function(){		
+ 	$("#refuse").click(function(){
+		if(confirm("정말 강사 권한을 거절하시겠습니까?")){
+			//$("#reportReason").val("");
+			//$("[name='addFrm']").submit();
+			
+				//function addBlack(userId) {
+				 	 var queryString = "id="+$("#tId").text();
+				 	$.ajax({
+						url: "teacherRefuse.do",
+						data: queryString,
+						type: "get",
+						//dataType: "json",
+						error: function(xhr) {
+							alert("실패");
+							console.log(xhr.status + "/" + xhr.statusText);
+						},
+						success:function( json ){
+							alert("거절되었습니다.");
+						 	//$("#addBlackCancle").trigger("click"); // 강제로 실행
 						 	//location.href("/admin/member.do");
-						 	window.location.href="<c:url value='/admin/member.do' />";
+						 	window.location.href="<c:url value='/admin/teacherAuthority.do' />";
 						}
 					});//ajax
 			//} // addBlack

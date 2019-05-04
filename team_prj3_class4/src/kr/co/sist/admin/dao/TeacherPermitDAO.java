@@ -66,41 +66,21 @@ public class TeacherPermitDAO {
 		return cnt;
 	}
 	
-	/**
-	 * 강사신청테이블의 데이터를 삭제한다
-	 * @param id
-	 * @return
-	 */
-	public boolean delTeacherPermit(String id) {
-		boolean flag=false;
-		
+	public void teacherRefuse(String id) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt=ss.delete("delTeacherPermit", id);
-		if(cnt==1) {
-			flag=true;
-			ss.commit();
-		}
-		
-		return flag;
+		// 승인 거절시에 강사신청테이블의 데이터를 삭제한다
+		ss.delete("delTeacherPermit", id);
+		// 승인 거절시에 client테이블의 status를 Y로 변경한다
+		ss.update("updateTeacherPermitStat", id);
+		ss.commit();
 	}
 	
-	/**
-	 * 승인 거절시에 client테이블의 status를 Y로 변경한다
-	 * @param id
-	 * @return
-	 */
-	public boolean updateTeacherPermitStat(String id) {
-		boolean flag=false;
-		
+	public void teacherPermission(String id) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt=ss.update("updateTeacherPermitStat", id);
-		if(cnt==1) {
-			flag=true;
-			ss.commit();
-		}
-		return flag;
+		// 승인시에 teacher테이블의 status를 Y로 변경한다
+		ss.update("teacherPermission", id);
+		ss.commit();
+		
 	}
-	
-	
 	
 } // class

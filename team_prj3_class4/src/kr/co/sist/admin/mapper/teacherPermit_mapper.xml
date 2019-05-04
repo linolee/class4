@@ -37,4 +37,10 @@ set status='Y'
 where client_id=#{client_id}
 </update>
 
+<update id="teacherPermission" parameterType="String">
+update teacher
+set status='Y'
+where client_id=#{client_id}
+</update>
+
 </mapper>
