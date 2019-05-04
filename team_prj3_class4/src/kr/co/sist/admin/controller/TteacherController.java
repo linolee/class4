@@ -24,7 +24,7 @@ import kr.co.sist.admin.vo.ListVO;
 public class TteacherController {
 
 	@Autowired
-	TeacherService ts;
+	private TeacherService ts;
 	
 	@RequestMapping(value="/admin/teacher.do",method=GET)
 	public String teacherPage(Model model, ListVO lvo) {
@@ -63,7 +63,6 @@ public class TteacherController {
 	public String teacherDetailPage(@RequestParam("teacherName") String teacherName) {
 		JSONObject json=null;
 		json=ts.selectDeatailTeacher(teacherName);
-		System.out.println("-------------++++++++"+json.toJSONString());
 		return json.toJSONString();
 	}
 	

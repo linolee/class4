@@ -88,7 +88,7 @@ $(function(){
 								console.log(xhr.status + "/" + xhr.statusText);
 							},
 							success:function( json ){
-								alert("성공!!");
+								alert("블랙리스트에 등록되었습니다.");
 								/* $("#addBid").text(json.jid);
 								$("#addBname").text(decodeURIComponent(json.jname));
 								$("#addBbirth").text(json.jbirth);
@@ -133,7 +133,7 @@ $(function(){
   	  </form>
   	  
 		<br/>
-		<table class="table table-responsive-sm" style="text-align:center">
+		<table class="table table-responsive-sm table-striped" style="text-align:center">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>

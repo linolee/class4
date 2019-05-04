@@ -3,20 +3,18 @@ package kr.co.sist.admin.controller;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
 import kr.co.sist.admin.vo.ListVO;
@@ -34,12 +32,10 @@ public class BlackListController {
 		
 		List<BlackListDomain> list=null;
 		
-		//System.out.println(id);
 		String url="/admin/template";	
 		if((id!=null)) {
 			if (bls.deleteBlack(id)) {
 				url="forward:/admin/template.do";
-				//request.setAttribute(name, o);
 			}
 		}
 		
@@ -70,9 +66,6 @@ public class BlackListController {
 	@RequestMapping(value= "/admin/blackDetail.do", method= {GET,POST})
 	public String AjaxView(@RequestParam("userID") String id){
 		JSONObject json = null;
-		
-		/*ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		BlackListService bls=ac.getBean(BlackListService.class);*/
 		
 		json = bls.detailBlack(id);
 

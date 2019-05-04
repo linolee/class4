@@ -96,6 +96,9 @@ private SqlSessionFactory ssf;
 	public static void main(String[] args) {
 		TeacherDAO tdao=new TeacherDAO();
 		
-		System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
+		//System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
+		//System.out.println(tdao.selectCareer("백인재"));
+		System.out.println(tdao.selectLesson("백인재"));
+		
 	}
 }

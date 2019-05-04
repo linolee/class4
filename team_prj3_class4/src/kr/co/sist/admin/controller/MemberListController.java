@@ -23,7 +23,7 @@ import kr.co.sist.admin.vo.ListVO;
 public class MemberListController {
 	
 	@Autowired
-	MemberListService mls;
+	private MemberListService mls;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
 	public String memberPage(ListVO lvo, Model model) {
@@ -90,8 +90,8 @@ public class MemberListController {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		Date date = new Date();
 		String time = format1.format(date);
-		System.out.println("------------------"+"id="+id+"  reason="+reason);
-		System.out.println("-------------------"+time);
+		//System.out.println("------------------"+"id="+id+"  reason="+reason);
+		//System.out.println("-------------------"+time);
 		AddBlackVO abvo=new AddBlackVO(id, reason, time);
 		
 		json=mls.addBlack(abvo);

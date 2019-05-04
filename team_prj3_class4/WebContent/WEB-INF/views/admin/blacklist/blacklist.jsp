@@ -77,7 +77,7 @@ $(function(){
 
 					<br/>
 
-                    <table class="table table-responsive-sm">
+                    <table class="table table-responsive-sm table-striped">
                       <thead>
                         <tr>
                           <th width="100px">번호</th>
@@ -110,7 +110,7 @@ $(function(){
                       		<td><c:out value="${black.email }"/></td>
                       		<td>
 	                           <form method="get" action="./member.jsp" class="form-inline">
-	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }" value=""><span class="badge badge-danger">상세정보</span></a> 
+	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }" ><span class="badge badge-danger">상세정보</span></a> 
 	                          <%-- <a data-toggle="modal" href="#modalBlackList" id="detailBlackList" name="${black.client_id }_detail"><span class="badge badge-danger">상세정보</span></a> --%> 
                           	</form>
                           </td> 

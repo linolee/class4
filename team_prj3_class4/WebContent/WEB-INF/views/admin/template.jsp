@@ -9,7 +9,7 @@
 <title>Hi</title>
 <style type="text/css">
 #file, #file2 { display:none; } 	
-.titleImg, .categoryImg{width:1200px; height:400px; width:100%; height:100%;}
+.titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}
 .upCategoryImg{width:300px;height:100px}
 </style>
 
@@ -125,7 +125,7 @@ $(function(){
 		<c:import url="${ page }.jsp"/>
 	</c:if>
 	<c:if test="${ empty page }">
-		abcgkdfl;gdfk;gkdflgkfd;lkg;ldfkgl;fd
+		메인
 	</c:if>
 	
 	
