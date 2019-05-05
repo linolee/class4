@@ -156,168 +156,107 @@ $(function () {
  		alert(varCate+"삭제");
  	});
  	
+ 	
+ 	$("#addSCate").click(function(){
+ 		var input = prompt("추가할 카테고리명을 입력해주세요");
+ 		if(input!=null){
+ 			// 카테고리 추가 프로세스 실행
+ 				var hdn=$("#hdnCate").val();
+			 	var queryString = "category="+hdn+"&innerCategory="+input;
+			 	$.ajax({
+					url: "addInnerCate.do",
+					data: queryString,
+					type: "get",
+					dataType: "json",
+					error: function(xhr) {
+						alert("실패");
+						
+						console.log(xhr.status + "/" + xhr.statusText);
+					},
+					success:function( json ){
+					 	alert("카테고리가 추가되었습니다");
+						window.location.href="<c:url value='/admin/category.do' />";
+					}
+				});//ajax 
+ 			// 카테고리 추가 프로세스 실행
+ 			
+ 		}
+ 			
+ 	});
+ 	
 });
 
 </script>
 
-<!-- 주석주석주석주석주석주석주석주석주석주석주석주석주석 -->
-
 <!--  -->
-                <div class="card">
-                  <div class="card-header">
-                    <i class="fa fa-align-justify"></i> 카테고리 관리</div>
-                  <div class="card-body">
-               <!--  <div style="text-align: right">
-	                <div style="display: inline-block;">
-	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px">카테고리 추가</button>
-	                </div>
-                 </div> -->
-                  
-				<div class="card">
-                  <div class="card-body">
-                    <table class="table table-responsive-sm">
-                    
-              <thead>
-                        <tr>
-                        <td style="width:1350px; height:100px">
-                          	<h3>음악</h3>
-                          	<button class="btn btn-brand btn-twitter" type="button" style="margin-bottom: 4px">
-	                       		 <span>힙합</span>
-	                      		</button>
-                     		 <input type="button" value="소분류 추가"/>
-                          </td>
-                          <td>
-                          	<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalCategory"">카테고리 수정</a>
-                          	<!-- <button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px;">카테고리 추가</button> -->
-                          </td> 
-                        </tr>
-                      </thead>
-            </table>
-            <table class="table table-responsive-sm">
-             <tbody>
-       	           <tr>
-                          <td><img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg"></td>
-                  </tr>
-			</tbody>
-                    </table>
-                    <div style="text-align: center">
-                    <div style="display: inline-block;">
-                    <ul class="pagination "  >
-                      <li class="page-item">
-                        <a class="page-link" href="#">Prev</a>
-                      </li>
-                      <li class="page-item active">
-                        <a class="page-link" href="#">1</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">2</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">4</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">5</a>
-                      </li>
-                      <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                      </li>
-                    </ul>
-                    </div>
-                    </div>
-                     <!-- <div style="text-align: right">
-	                <div style="display: inline-block;">
-	                  	<button type="button" class="btn btn-pill btn-block btn-light active" align="right" data-toggle="modal" data-target="#modalAddCategory" style="margin-bottom:10px">카테고리 추가</button>
-	                </div>
-                 </div> -->
-                  </div>
-                </div>	            
-                  </div>
-                </div>
+<div class="card">
+	<div class="card-header">
+		<ol class="breadcrumb" style="background-color:#f0f3f5; border-bottom:none; margin-bottom:0px; padding-bottom:0px; padding-top:0px;">
+			<li class="breadcrumb-item">
+				<font size="5" face="휴먼편지체">카테고리 관리</font>
+			</li>
+			<li class="breadcrumb-menu d-md-down-none">
+				<div>
+					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top:5px; padding-bottom:5px;width:150px;">카테고리 추가하기</a>
+				</div> 
+			</li>
+		</ol>
+	</div>
+	<div class="card-body">
+		<div class="card">
+			<div class="card-body">
+				<table class="table table-responsive-sm">
+					<tbody style="border-bottom: 1px solid #c8ced3;">
+						<c:if test="${empty categoryList }">
+							<tr>
+					             	
+							</tr>
+						</c:if>
+						<c:forEach var="cate" items="${categoryList }">
+							<tr>
+								<td style="width:1350px; height:100px">
+									<h3>${cate.category }</h3>
+									<input type="hidden" id="hdnCate" value="${cate.category }"/>
+									<%-- <c:forEach var="inner" items="${innerCate }"> --%>
+									<%-- <c:forEach var="inner" items="${inCateList }"> --%>
+									<%-- <c:if test="${not empty 운동 }"> --%>
+									<c:forEach var="inner" items="${inner}">
+										 <%-- <c:forEach var="btn" items="${btn }"> --%>
+										
+											<%-- <button class="btn btn-brand ${btn }" type="button" style="margin-bottom: 4px"> --%>
+											<button class="btn btn-brand btn-twitter" type="button" style="margin-bottom: 4px">
+												<span>${inner }</span>
+											</button>
+										<%-- </c:forEach> --%>
+									</c:forEach>
+									<%-- </c:if> --%>
+									
+									<input type="button" value="소분류 추가" id="addSCate"/>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a data-toggle="modal" href="#modalCategory" style="width:150px;">
+										<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg">
+									</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div style="text-align: center">
+					<div style="display: inline-block;">
+                    	<ul class="pagination">
+                      		<c:out value="${ indexList }" escapeXml="false"/>
+                   		</ul>
+					</div>
+				</div>
+			</div>
+		</div>	            
+	</div>
+</div>
                 
 
-<!--  -->
-<!--  -->
-
-<%-- <%
-	request.setCharacterEncoding("utf-8");
-
-	Enumeration params = request.getParameterNames();
-	System.out.println("----------------------------");
-	while (params.hasMoreElements()){
-	    String name = (String)params.nextElement();
-	    System.out.println(name + " : " +request.getParameter(name));
-	}
-	System.out.println("----------------------------");
-
-
-	String flag = request.getParameter("uploadFlag");
-	
-	if(flag=="true"){
-
-	request.setCharacterEncoding("UTF-8");
-	// 파일업로드에 적합한 요청인지를 얻는다. 
-	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-	if( isMultipart ){//파일업로드에 적합한 요청
-		File repository=new File("C:/dev/workspace/practice/WebContent/practice/upload");
-		
-		// Create a factory for disk-based file items
-		DiskFileItemFactory factory = new DiskFileItemFactory();
-	
-		// 업로드파일이 메모리에 저장되는 최대 크기
-		factory.setSizeThreshold(1024*1024*1);
-		factory.setRepository(repository);
-
-		// Create a new file upload handler
-		ServletFileUpload upload = new ServletFileUpload(factory);
-
-		// 업로드파일의 최대 크기 설정
-		upload.setSizeMax(1024*1024*5);
-		
-		try{
-		// Parse the request
-		List<FileItem> items = upload.parseRequest(request);
-		
-		// Process the uploaded items
-		Iterator<FileItem> iter = items.iterator();
-		String fieldName="" , fileName="", contentType="";
-        long sizeInBytes=0;
-		
-		while (iter.hasNext()) {
-		    FileItem item = iter.next();
-
-		    if (item.isFormField()) {// 일반 HTML Form Control 인지? <input type="file"이 아닌 것
-		    	 String controlName = item.getFieldName();
-		    	 String controlValue = item.getString();
-		    
-		    	 
-		    } else { //File Upload Control인지 <input type="file">
-		    	fieldName = item.getFieldName();//File Control명
-		        fileName = item.getName();//  FileControl 값
-		        contentType = item.getContentType();//업로드 파일 종류
-		        sizeInBytes = item.getSize();//크기
-		        
-		        File selectFile=new File(fileName);
-		        File uploadedFile = new File(repository.getAbsolutePath()+"/"
-		        	+selectFile.getName());//업로드파일의 저장경로와 파일명을 설정
-		        item.write(uploadedFile);//설정된 파일을 업로드 
-		        
-		    }//end else 
-		}//end while
-		}catch(SizeLimitExceededException slee){
-			//브라우저로 출력이 되지 않는다.
-			out.println("예외!!!!");
-		}//end catch
-	}else{//파일업로드에 부적합 요청
-		response.sendRedirect("upload_form.jsp");
-	}//end else 
-	}
-		%> --%>
-
-
-<!--  -->
 <c:import url="category/modalCategory.jsp"/>
 <c:import url="category/modalAddCategory.jsp"/>
 

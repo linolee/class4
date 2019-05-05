@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin">
+
+<resultMap type="kr.co.sist.admin.domain.CategoryDomain" id="CategoryDomain">
+	<result column="category" property="category"/>
+	<result column="innerCategory" property="inner_category"/>
+	<result column="img" property="img"/>
+</resultMap>
+
+
+<select id="selectTotalCnt" resultType="int">
+select count(*) cnt from category
+</select>
+
+<select id="selectCategory" resultMap="CategoryDomain" parameterType="kr.co.sist.admin.vo.ListVO">
+select category, img
+from(select category, img, row_number() over(order by category) r_num
+from category)
+where r_num between #{ startNum } and #{ endNum }
+</select>
+
+<insert id="addInnerCategory" parameterType="kr.co.sist.admin.vo.AddInnerCategory">
+insert into innercategory
+values(#{category}, #{innerCategory})
+</insert>
+
+<select id="selectInnerCategory" resultType="String" parameterType="String">
+select inner_category
+from innercategory
+where category=#{category}
+</select>
+
+</mapper>

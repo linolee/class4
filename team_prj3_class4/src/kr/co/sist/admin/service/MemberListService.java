@@ -25,16 +25,6 @@ public class MemberListService {
 	@Autowired
 	private MemberListDAO a_dao;
 
-
-/*	public String chkTeacher(String ID) {
-		String chkTeacher = "";
-		a_dao = MemberListDAO.getInstance();
-
-		chkTeacher = a_dao.teacherInfo(ID);
-
-		return chkTeacher;
-	}*/
-
 	// 1. 전체 게시물 수 얻기
 		public int totalCount() {
 			int cnt = 0;
@@ -167,7 +157,6 @@ public class MemberListService {
 	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list = null;
 		list = a_dao.selectAllMember(lvo);
-		
 		return list;
 	}
 	public List<String> memberBlack(ListVO lvo) {
@@ -176,12 +165,6 @@ public class MemberListService {
 		List<String> list = null;
 		List<String> list2=new ArrayList<String>();
 		list = a_dao.memberBlack(lvo);
-		
-		
-		/*for(int i=0;i<list.size();i++) {
-			String temp=list.get(i);
-			list2.add(temp);
-		}*/		
 		
 		for(int i=0;i<list.size();i++) {
 			list2.add(dx
