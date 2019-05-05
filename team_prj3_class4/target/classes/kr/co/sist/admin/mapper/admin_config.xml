@@ -25,5 +25,6 @@
 	<mapper resource="kr/co/sist/admin/mapper/blacklist_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/lecturePermit_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/teacher_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/category_mapper.xml"/>
 </mappers>
 </configuration>

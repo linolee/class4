@@ -58,7 +58,7 @@ public class MemberListController {
 		
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
