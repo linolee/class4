@@ -7,6 +7,19 @@
 <script src="<c:url value="/resources/admin/js/bootstrap.min.js" />"></script>
 
 <html lang="en">
+
+
+<script type="text/javascript">
+$(function(){
+	$("#loginBtn").click(function(){
+		$("[name=lognFrm]").submit();
+	});
+	
+});
+
+
+
+</script>
   <head>
     <base href="./">
     <meta charset="utf-8">
@@ -26,19 +39,6 @@
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
-      
-    </script>
   </head>
   <body class="app flex-row align-items-center">
     <div class="container">
@@ -49,13 +49,14 @@
               <div class="card-body">
                 <h1>관리자 계정 로그인</h1>
                 <p class="text-muted">관리자계정의 ID와 비밀번호를 넣어주세요.</p>
+             <form action="AdminLoginProcess.do" method="post" name="lognFrm">
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <i class="icon-user"></i>
                     </span>
                   </div>
-                  <input class="form-control" type="text" placeholder="Username">
+                  <input class="form-control" type="text" placeholder="Username" id="loginId" name="loginId">
                 </div>
                 <div class="input-group mb-4">
                   <div class="input-group-prepend">
@@ -63,22 +64,22 @@
                       <i class="icon-lock"></i>
                     </span>
                   </div>
-                  <input class="form-control" type="password" placeholder="Password">
+                  <input class="form-control" type="password" placeholder="Password" id="loginPass" name="loginPass">
                 </div>
                 <div class="row">
                   <div class="col-6">
-                    <button class="btn btn-primary px-4" type="button">Login</button>
+                    <button class="btn btn-primary px-4" type="button" id="loginBtn">Login</button>
                   </div>
                 </div>
+           </form>
               </div>
             </div>
             <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
               <div class="card-body text-center">
                 <div>
-                  <h2>아이디 / 비밀번호 분실</h2>
-                  <p>아이디/비밀번호를 분실하신 경우<br/>
-                  더블드래곤사로 연락 주세요 <br/>
-                  </p>
+                
+                
+                  <h2>SIST Class4 Group1 <br/>:::::<br/> 2019 Web Project</h2>
                   <label class="btn btn-primary active mt-3">010-8888-5555</label>
                 </div>
               </div>
@@ -87,12 +88,5 @@
         </div>
       </div>
     </div>
-    <!-- CoreUI and necessary plugins-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/pace-progress/pace.min.js"></script>
-    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
   </body>
 </html>
