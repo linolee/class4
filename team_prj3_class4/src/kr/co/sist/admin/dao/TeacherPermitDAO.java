@@ -73,6 +73,7 @@ public class TeacherPermitDAO {
 		// 승인 거절시에 client테이블의 status를 Y로 변경한다
 		ss.update("updateTeacherPermitStat", id);
 		ss.commit();
+		ss.close();
 	}
 	
 	public void teacherPermission(String id) {
@@ -80,7 +81,7 @@ public class TeacherPermitDAO {
 		// 승인시에 teacher테이블의 status를 Y로 변경한다
 		ss.update("teacherPermission", id);
 		ss.commit();
-		
+		ss.close();
 	}
 	
 } // class

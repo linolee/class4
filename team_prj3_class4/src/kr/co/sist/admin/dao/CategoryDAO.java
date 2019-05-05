@@ -50,6 +50,7 @@ public class CategoryDAO {
 		int cnt=0;
 		SqlSession ss = getSessionFactory().openSession();
 		cnt=ss.selectOne("selectTotalCnt");
+		ss.close();
 		return cnt;
 	}
 	
@@ -57,6 +58,7 @@ public class CategoryDAO {
 		List<CategoryDomain> list=null;
 		SqlSession ss = getSessionFactory().openSession();
 		list=ss.selectList("selectCategory", lvo);
+		ss.close();
 		return list;
 	}
 	
@@ -67,6 +69,7 @@ public class CategoryDAO {
 		if(cnt==1) {
 			ss.commit();
 		}
+		ss.close();
 		return cnt;
 	}
 	
@@ -74,6 +77,7 @@ public class CategoryDAO {
 		List<String> list=null;
 		SqlSession ss=getSessionFactory().openSession();
 		list=ss.selectList("selectInnerCategory", category);
+		ss.close();
 		return list;
 	}
 	
