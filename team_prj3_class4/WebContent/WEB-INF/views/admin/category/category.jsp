@@ -160,9 +160,9 @@ $(function () {
  	$("#addSCate").click(function(){
  		var input = prompt("추가할 카테고리명을 입력해주세요");
  		if(input!=null){
- 			// 카테고리 추가 프로세스 실행
  				var hdn=$("#hdnCate").val();
-			 	var queryString = "category="+hdn+"&innerCategory="+input;
+ 				var page=Number($("#currentPage").val())+1-1;
+			 	var queryString = "category="+hdn+"&innerCategory="+input+"&currentPage="+page;
 			 	$.ajax({
 					url: "addInnerCate.do",
 					data: queryString,
@@ -175,14 +175,16 @@ $(function () {
 					},
 					success:function( json ){
 					 	alert("카테고리가 추가되었습니다");
-						window.location.href="<c:url value='/admin/category.do' />";
+						window.location.href="<c:url value='/admin/category.do"+"?currentPage="+page+"' />";
 					}
 				});//ajax 
- 			// 카테고리 추가 프로세스 실행
- 			
  		}
  			
  	});
+ 	
+ 	$("#uploadCateImg").click(function(){
+		$("[name='uploadImgFrm']").submit();	
+	}); 
  	
 });
 
@@ -206,6 +208,7 @@ $(function () {
 		<div class="card">
 			<div class="card-body">
 				<table class="table table-responsive-sm">
+						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
 						<c:if test="${empty categoryList }">
 							<tr>
@@ -244,6 +247,8 @@ $(function () {
 						</c:forEach>
 					</tbody>
 				</table>
+				<!-- 소분류 추가시 페이지 이동을 막기 위한 히든태그 -->
+				<input type="hidden" id="currentPage" value="${currentPage }"/>
 				<div style="text-align: center">
 					<div style="display: inline-block;">
                     	<ul class="pagination">

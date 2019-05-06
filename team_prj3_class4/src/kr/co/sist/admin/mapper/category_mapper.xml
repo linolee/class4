@@ -33,4 +33,11 @@ from innercategory
 where category=#{category}
 </select>
 
+<update id="updateCategoryImg" parameterType="kr.co.sist.admin.vo.CategoryImgVO">
+update category
+set img=#{img}
+where category=#{category}
+</update>
+
+
 </mapper>
