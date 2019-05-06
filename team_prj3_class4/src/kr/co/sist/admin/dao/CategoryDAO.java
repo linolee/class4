@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.AddInnerCate;
 import kr.co.sist.admin.domain.CategoryDomain;
 import kr.co.sist.admin.vo.AddInnerCategory;
+import kr.co.sist.admin.vo.CategoryImgVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
@@ -50,6 +51,7 @@ public class CategoryDAO {
 		int cnt=0;
 		SqlSession ss = getSessionFactory().openSession();
 		cnt=ss.selectOne("selectTotalCnt");
+		ss.close();
 		return cnt;
 	}
 	
@@ -57,6 +59,7 @@ public class CategoryDAO {
 		List<CategoryDomain> list=null;
 		SqlSession ss = getSessionFactory().openSession();
 		list=ss.selectList("selectCategory", lvo);
+		ss.close();
 		return list;
 	}
 	
@@ -67,6 +70,7 @@ public class CategoryDAO {
 		if(cnt==1) {
 			ss.commit();
 		}
+		ss.close();
 		return cnt;
 	}
 	
@@ -74,14 +78,30 @@ public class CategoryDAO {
 		List<String> list=null;
 		SqlSession ss=getSessionFactory().openSession();
 		list=ss.selectList("selectInnerCategory", category);
+		ss.close();
 		return list;
+	}
+	
+	public boolean updateCategoryImg(CategoryImgVO civo) {
+		boolean flag=false;
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.update("updateCategoryImg", civo);
+		if(cnt==1) {
+			ss.commit();
+			flag=true;
+		}
+		ss.close();
+		return flag;
 	}
 	
 	public static void main(String[] args) {
 		CategoryDAO cdao=new CategoryDAO();
 		//cdao.selectInnerCategory("음악");
-		AddInnerCategory aic=new AddInnerCategory("게임", "메이플스토리");
-		cdao.addInnerCategory(aic);
+		/*AddInnerCategory aic=new AddInnerCategory("게임", "메이플스토리");
+		cdao.addInnerCategory(aic);*/
+		/*CategoryImgVO civo=new CategoryImgVO("패션", "null");
+		cdao.updateCategoryImg(civo);*/
+		
 	}
 	
 }

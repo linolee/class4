@@ -1,18 +1,29 @@
 package kr.co.sist.admin.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.DependencyDescriptor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import kr.co.sist.admin.dao.CategoryDAO;
 import kr.co.sist.admin.domain.CategoryDomain;
 import kr.co.sist.admin.vo.AddInnerCategory;
+import kr.co.sist.admin.vo.CategoryImgVO;
 import kr.co.sist.admin.vo.ListVO;
+
 
 @Component
 public class CategoryService {
+	
 	@Autowired
 	private CategoryDAO c_dao;
 	
@@ -142,6 +153,32 @@ public class CategoryService {
 		
 		return json;
 	}
+	
+	
+	public boolean fileUploadProcess(HttpServletRequest request) throws IOException{
+		boolean flag=false;
+		MultipartRequest mr=new MultipartRequest(request, 
+				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category/",
+						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			CategoryImgVO civo=new CategoryImgVO(mr.getParameter("hdnCateName"), mr.getFilesystemName("file"));
+			/*CategoryImgVO civo=new CategoryImgVO();
+			civo.setCategory(request.getParameter("hdnCateName"));
+			civo.setImg(request.getParameter("foo"));*/
+		
+			try {
+				if(c_dao.updateCategoryImg(civo)) {
+					request.setAttribute("inputData", civo);
+					flag=true;
+				}
+			}catch(DataAccessException das) {
+				das.printStackTrace();
+			}//end if
+		return flag;
+	}//fileUploadProcess
+	
 	
 	/*public static void main(String[] args) {
 		CategoryService cs=new CategoryService(); 

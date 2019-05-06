@@ -4,7 +4,7 @@
 <div class="modal fade" id="modalAddCategory" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content" style="width:650px;">
 			<div class="modal-header">
 				<h5 class="modal-title" id="modal">카테고리 추가</h5>
 				<button type="button" class="close" data-dismiss="modal"
@@ -46,7 +46,7 @@
 						<div class="row">
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<select id="small2" name="small" size='5' style="width:200px;" class="col-3">
+						<select id="small" name="small" size='5' style="width:200px;" class="col-3">
 						    <option value="축구">축구</option>
 						    <option value="야구">야구</option>
 						    <option value="농구">농구</option>
@@ -55,9 +55,9 @@
 						</select>
 						<div>
 						<br/><br/>
-						<input type="text" id="textCate2" style="width:110px; margin-left:10px; margin-bottom:5px;" maxlength="7" value="abc"/><br/>
-						<input type="button" id="addCate2" value="추가" style="margin-left:10px;"/>
-						<input type="button" id="delCate2" value="삭제"/>
+						<input type="text" id="textCate" style="width:110px; margin-left:10px; margin-bottom:5px;" maxlength="7" value="abc"/><br/>
+						<input type="button" id="addCate" value="추가" style="margin-left:10px;"/>
+						<input type="button" id="delCate" value="삭제"/>
 						</div>
 						</div>
 					</div>

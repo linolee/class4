@@ -1,10 +1,14 @@
 package kr.co.sist.admin.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +23,14 @@ import kr.co.sist.admin.service.CategoryService;
 import kr.co.sist.admin.vo.AddInnerCategory;
 import kr.co.sist.admin.vo.ListVO;
 
+
 @Controller
 public class CategoryController {
 
 	@Autowired
 	private CategoryService cs;
 	
-	@RequestMapping(value="/admin/category.do",method=GET)
+	@RequestMapping(value="/admin/category.do",method= {GET,POST})
 	public String categoryPage(ListVO lvo, Model model) {
 		
 		List<CategoryDomain> list=null;
@@ -61,9 +66,6 @@ public class CategoryController {
 		String[] innerBtn= {"btn-twitter", "btn-vine"};
 		model.addAttribute("btn", innerBtn);
 		
-		
-		
-		
 		String indexList = cs.indexList(lvo.getCurrentPage(), totalPage, "category.do");
 		
 		model.addAttribute("categoryList", list);
@@ -77,12 +79,29 @@ public class CategoryController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/addInnerCate.do",method=GET)
-	public String addBlack(@RequestParam(value="category")String category,@RequestParam(value="innerCategory")String innerCategory) {
+	public String addInnerCategory(@RequestParam(value="category")String category, @RequestParam(value="innerCategory")String innerCategory
+											) {
 		JSONObject json = null;
 		AddInnerCategory aic=new AddInnerCategory(category, innerCategory);
 		json=cs.addInnerCate(aic);
-		System.out.println("------+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+category+"+-+-+-+-+-+-+-+"+innerCategory);
+		//System.out.println("------+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+category+"+-+-+-+-+-+-+-+"+innerCategory);
+		
 		return json.toJSONString();
+	}
+
+	@RequestMapping(value="/admin/cateUpload.do", method=POST)
+	public String uploadImg(HttpServletRequest request) {
+		
+		String url="admin/template"; 
+		
+		try {
+			if(cs.fileUploadProcess(request)) {
+				url="forward:/admin/category.do";
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url;
 	}
 	
 }

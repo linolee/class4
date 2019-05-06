@@ -90,7 +90,7 @@ public class BlackListDAO {
 			flag=true;
 			ss.commit();
 		}
-		System.out.println(flag);
+		ss.close();
 		return flag;
 	}
 	
