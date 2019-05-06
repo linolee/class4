@@ -160,7 +160,10 @@ public class CategoryService {
 		MultipartRequest mr=new MultipartRequest(request, 
 				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category/",
 						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
-			CategoryImgVO civo=new CategoryImgVO(mr.getParameter("category"), mr.getFilesystemName("img"));
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			CategoryImgVO civo=new CategoryImgVO(mr.getParameter("hdnCateName"), mr.getFilesystemName("file"));
 			/*CategoryImgVO civo=new CategoryImgVO();
 			civo.setCategory(request.getParameter("hdnCateName"));
 			civo.setImg(request.getParameter("foo"));*/

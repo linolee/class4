@@ -22,9 +22,9 @@
 						
 					<form action="cateUpload.do" method="post" name="uploadImgFrm" enctype="multipart/form-data">
 						<input type="file" id="file" name="file"/>
-						<%-- <c:forEach var="cate" items="${categoryList }">
-							<input type="hidden" value=${cate.category } id="hdnCateName"/>
-						</c:forEach> --%>
+						<c:forEach var="cate" items="${categoryList }">
+							<input type="hidden" value=${cate.category } name="hdnCateName" id="hdnCateName"/>
+						</c:forEach>
 						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">
 	                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg" id="foo">
 						</button>
@@ -36,7 +36,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<button type="button" class="btn btn-secondary" id="uploadCateImg">확인</button>
 								</div>
 							</div>

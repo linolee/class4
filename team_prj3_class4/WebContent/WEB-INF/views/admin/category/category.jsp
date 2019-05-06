@@ -35,8 +35,6 @@ $(function () {
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	/* alert("path : "+fileValue2);
-		   	alert("ext : "+inputExt);*/
 		   	alert("filename : "+fileName); 
 	   	 	
 		   	for(var i=0; i<ext.length; i++){
@@ -141,22 +139,6 @@ $(function () {
  	});//change
 	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
-	$("#small2").click(function(){
-		$("#textCate2").val($("#small2").val());
-		return;
-	});
- 	
- 	$("#addCate2").click(function(){
- 		var varCate=$("#textCate2").val();
- 		alert(varCate+"추가");
- 		
- 	});
- 	$("#delCate2").click(function(){
- 		var varCate=$("#textCate2").val();
- 		alert(varCate+"삭제");
- 	});
- 	
- 	
  	$("#addSCate").click(function(){
  		var input = prompt("추가할 카테고리명을 입력해주세요");
  		if(input!=null){
@@ -175,7 +157,7 @@ $(function () {
 					},
 					success:function( json ){
 					 	alert("카테고리가 추가되었습니다");
-						window.location.href="<c:url value='/admin/category.do"+"?currentPage="+page+"' />";
+						window.location.href="<c:url value='/admin/category.do"+"?currentPage="+page+"'/>";
 					}
 				});//ajax 
  		}
@@ -183,8 +165,8 @@ $(function () {
  	});
  	
  	$("#uploadCateImg").click(function(){
-		$("[name='uploadImgFrm']").submit();	
-	}); 
+		$("[name='uploadImgFrm']").submit();
+	});
  	
 });
 
@@ -234,13 +216,14 @@ $(function () {
 									</c:forEach>
 									<%-- </c:if> --%>
 									
-									<input type="button" value="소분류 추가" id="addSCate"/>
+									<input type="button" class="btn btn-brand btn-vine" value="소분류 추가" id="addSCate" style="margin-bottom: 4px;"/>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<a data-toggle="modal" href="#modalCategory" style="width:150px;">
-										<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg">
+										<img src="http://localhost:8080/team_prj3_class4/upload/category/${cate.img }" class="categoryImg">
+										<!-- <img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg"> -->
 									</a>
 								</td>
 							</tr>

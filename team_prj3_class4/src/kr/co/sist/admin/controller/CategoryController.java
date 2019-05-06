@@ -18,11 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.sist.admin.dao.CategoryDAO;
 import kr.co.sist.admin.domain.CategoryDomain;
 import kr.co.sist.admin.service.CategoryService;
 import kr.co.sist.admin.vo.AddInnerCategory;
-import kr.co.sist.admin.vo.CategoryImgVO;
 import kr.co.sist.admin.vo.ListVO;
 
 
@@ -32,7 +30,7 @@ public class CategoryController {
 	@Autowired
 	private CategoryService cs;
 	
-	@RequestMapping(value="/admin/category.do",method=GET)
+	@RequestMapping(value="/admin/category.do",method= {GET,POST})
 	public String categoryPage(ListVO lvo, Model model) {
 		
 		List<CategoryDomain> list=null;
@@ -91,19 +89,14 @@ public class CategoryController {
 		return json.toJSONString();
 	}
 
-	
-	
-	
-	
-	
 	@RequestMapping(value="/admin/cateUpload.do", method=POST)
 	public String uploadImg(HttpServletRequest request) {
 		
-		String url="err";
+		String url="admin/template"; 
 		
 		try {
 			if(cs.fileUploadProcess(request)) {
-				url="/admin/category.do";
+				url="forward:/admin/category.do";
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
