@@ -2,7 +2,7 @@ package kr.co.sist.user.vo;
 
 public class ListVO {
 	private String lcode, clientId;
-
+	
 	public ListVO(String lcode, String clientId) {
 		this.lcode = lcode;
 		this.clientId = clientId;
@@ -23,5 +23,4 @@ public class ListVO {
 	public void setClientId(String clientId) {
 		this.clientId = clientId;
 	}
-	
 }

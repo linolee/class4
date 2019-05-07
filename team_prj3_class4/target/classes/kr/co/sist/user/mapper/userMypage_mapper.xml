@@ -41,14 +41,30 @@
 	where	status='C' and client_id=#{clientId}
 </select>
 
+<select id="cancelTotalCnt" parameterType="String" resultType="int">
+	select		count(lcode) cnt
+	from		students
+	where	status='C' and client_id=#{clientId}
+</select>
+
 <select id="reviewStatus" parameterType="kr.co.sist.user.vo.ListVO" resultType="String">
 	select		subject
 	from		review
 	where	client_ID=#{clientId} and lcode=#{lcode}
 </select>
 
+<select id="insertReview" parameterType="kr.co.sist.user.vo.ReviewVO" resultType="boolean">
+	insert into review(client_id, lcode, subject, contents, score, r_date) values(#{clientId}, #{lcode},'ㅎㅇ', #{contents},#{score}, sysdate)	
+</select>
+
 <select id="insertJjim" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
 	insert into lesson_like values(#{clientId}, #{lcode})	
+</select>
+
+<select id="jjimTotalCnt" parameterType="String" resultType="int">
+	select count(lcode) cnt
+	from	lesson_like
+	where client_id=#{clientId}
 </select>
 
 <select id="deleteJjim" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
@@ -96,6 +112,12 @@
 	where	client_id=#{clientId}
 </select>
 
+<select id="qnaTotalCnt" parameterType="String" resultType="int">
+	select		count(lcode) cnt
+	from		lesson_qna
+	where	client_id=#{clientId}
+</select>
+
 <resultMap type="kr.co.sist.user.domain.ReportList" id="reportListResult">
 	<result column="r_date" property="rDate"/>
 	<result column="lname" property="lname"/>
@@ -113,11 +135,17 @@
 	where	client_id=#{clientId}
 </select>
 
+<select id="reportTotalCnt" parameterType="String" resultType="int">
+	select		count(lcode) cnt
+	from		report
+	where	client_id=#{clientId}
+</select>
 
-<select id="listTotalCnt" parameterType="String" resultType="int">
+
+<select id="listTotalCnt" parameterType="kr.co.sist.user.vo.TotalVO" resultType="int">
  	select count(lcode) cnt
 	from students
-	where client_id=#{clientId}
+	where client_id=#{clientId} and status=#{status}
 </select>
 
 <select id="">
