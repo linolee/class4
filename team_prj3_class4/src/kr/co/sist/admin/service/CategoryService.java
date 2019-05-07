@@ -158,7 +158,7 @@ public class CategoryService {
 	public boolean fileUploadProcess(HttpServletRequest request) throws IOException{
 		boolean flag=false;
 		MultipartRequest mr=new MultipartRequest(request, 
-				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category/",
+				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category",
 						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
