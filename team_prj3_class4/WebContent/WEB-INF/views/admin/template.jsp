@@ -10,7 +10,8 @@
 <style type="text/css">
 #file, #file2 { display:none; } 	
 .titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}
-.upCategoryImg{width:600px;height:2ㅂ00px}
+.upCategoryImg{width:900px;height:300px}
+.upCategoryImg2{width:600px;height:200px}
 </style>
 
 <link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
