@@ -18,6 +18,7 @@
 		</environment>
 	</environments>
 <mappers>
+	<mapper resource="kr/co/sist/admin/mapper/adminLogin_mapper.xml"/>	
 	<mapper resource="kr/co/sist/admin/mapper/member_mapper.xml"/>	
 	<mapper resource="kr/co/sist/admin/mapper/qna_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/charge_mapper.xml"/>
@@ -25,5 +26,7 @@
 	<mapper resource="kr/co/sist/admin/mapper/teacherPermit_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/blacklist_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/lecturePermit_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/teacher_mapper.xml"/>
+	<mapper resource="kr/co/sist/admin/mapper/category_mapper.xml"/>
 </mappers>
 </configuration>

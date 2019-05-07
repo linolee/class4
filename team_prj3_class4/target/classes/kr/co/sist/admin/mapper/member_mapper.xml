@@ -24,10 +24,15 @@
 </select> -->
 
 <select id="selectClient" resultMap="MemberListDomain" parameterType="kr.co.sist.admin.vo.ListVO">
-select client_id, name, birth, gender, email
+select c.client_id, c.name, c.birth, c.gender, c.email, b.reason
+from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
+from client) c left outer join blacklist b on c.client_id=b.client_id
+where r_num between #{ startNum } and #{ endNum }
+
+<!-- select client_id, name, birth, gender, email
 from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
 from client)
-where r_num between #{ startNum } and #{ endNum }
+where r_num between #{ startNum } and #{ endNum } -->
 </select>
 
 
@@ -43,5 +48,28 @@ from STUDENTS s, LESSON l
 where (s.lcode = l.lcode) and s.client_id = #{ client_id }
 </select>
 
+<insert id="addBlackList" parameterType="kr.co.sist.admin.vo.AddBlackVO" >
+insert into blacklist
+values(#{client_id}, #{reason}, #{sysdate})
+<!-- TO_DATE('2015-06-10','YYYY-MM-DD') -->
+</insert>
+
+<select id="ifBlack" resultType="int" parameterType="String">
+<!-- select client_id
+from blacklist
+where client_id=#{ client_id } -->
+select count(*) cnt from(
+select client_id
+from blacklist
+where client_id=#{ client_id })
+</select>
+
+<!-- 블랙리스트 추가버튼 표시여부 확인을 위한 쿼리 -->
+<select id="memberBlack" resultType="String" parameterType="kr.co.sist.admin.vo.ListVO">
+select client_id
+from(select client_id, row_number() over(order by inputdate desc) r_num
+from client)
+where r_num between #{ startNum } and #{ endNum }
+</select>
 
 </mapper>

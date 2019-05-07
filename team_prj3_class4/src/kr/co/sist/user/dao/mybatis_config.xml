@@ -30,5 +30,6 @@
      <mapper resource="kr/co/sist/user/mapper/mainContents_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/userReport_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/teacher_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/detailClass_mapper.xml"/>      
   </mappers>
 </configuration>

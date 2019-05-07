@@ -26,19 +26,21 @@ import kr.co.sist.admin.vo.QnaAnswerVO;
 @Controller
 public class AdminController {
 
-	@RequestMapping(value = "/admin/template.do", method = GET)
+
+	@RequestMapping(value="/admin/template.do",method= {GET,POST})
 	public String mainPage(Model model) {
 
 		return "admin/template";
 	}
+
 
 	@RequestMapping(value = "/admin/AdminLogin.do", method = GET)
 	public String loginPage(Model model) {
 		return "admin/AdminLogin";
 	}
 
-	@RequestMapping(value = "/admin/question.do", method = GET)
-	public String questionPage(ListVO lvo, Model model) {
+	@RequestMapping(value="/admin/question.do",method=GET)
+	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
 
 		// autowired로 의존성 주입//
@@ -124,7 +126,7 @@ public class AdminController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
-
+		
 		model.addAttribute("page", "charge");
 		return "admin/template";
 	}

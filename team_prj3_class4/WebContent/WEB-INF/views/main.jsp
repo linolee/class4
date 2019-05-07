@@ -57,7 +57,7 @@
 				<a href="student/mypage_list.do">수강생마이페이지</a><br/>
 				<a href="mainContents/mainContents.do">메인</a><br>
 				<a href="member/testSession.do">세션 테스트</a><br/>
-				<a href="classDetail/detail.do">상세 페이지</a>
+				<a href="classDetail/detail.do?lcode=20">상세 페이지</a>
 			</div>
 		</div>
 		<div id="footer">

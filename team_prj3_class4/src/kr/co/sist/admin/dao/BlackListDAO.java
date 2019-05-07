@@ -72,20 +72,33 @@ public class BlackListDAO {
 		BlackListDetailVO mldvo=null;
 		mldvo=new BlackListDetailVO();
 		
-		/*BlackListDAO bldao=BlackListDAO.bl_dao;*/
 		SqlSession ss=getSessionFactory().openSession();
 
 		mldvo=ss.selectOne("selectDetailBlackList", id);
-		System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
+		//System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
 		ss.close();
 
-		
 		return mldvo;
 	}
 	
+	public boolean deleteBlackList(String id) {
+		boolean flag=false;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		int del=ss.delete("deleteBlackList", id);
+		if(del==1) {
+			flag=true;
+			ss.commit();
+		}
+		ss.close();
+		return flag;
+	}
+	
+	
 	public static void main(String[] args) {
 		BlackListDAO bldao=new BlackListDAO();
-		bldao.selectDetailBlackList("1");
+		//bldao.selectDetailBlackList("1");
+		bldao.deleteBlackList("blacklist10");
 	}
 	
 	
