@@ -11,19 +11,19 @@
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
 							<tr>
+								<td><h3>카테고리 추가</h3></td>
+							</tr>
+							<tr>
 								<td style="width:1350px; height:100px">
-									<div class="modal-header" style="border-bottom:none;padding-left: 0px;">
+									<div class="modal-header" style="border-bottom:none;padding-left: 0px; justify-content:left;">
 									<h3 id="2cateName" name="2cateName" ></h3>
 									<input type="hidden" id="newCateHdn" name="newCateHdn" value=""/>
 									<input type="text" placeholder="카테고리명" id="newCategoryName" class="form-control input-search" style="width:200px;"/>&nbsp;
 									<input type="button" value="입력" id="categoryNameEnter" class="btn btn-pill btn-block btn-light active" style="width:70px;"/>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
 									</div>
 
 								<div id="divScate">
-											<input type="text"  id="sCateName"class="btn btn-brand btn-twitter" style="margin-bottom: 4px; width:150px;" placeholder="소분류명"/>
+									<input type="text"  id="sCateName"class="btn btn-brand btn-twitter" style="margin-bottom: 4px; width:150px;" placeholder="소분류명"/>
 									
 									<input type="button" class="btn btn-brand btn-vine" value="소분류 추가" id="addSSCate" style="margin-bottom: 4px;"/><br/>
 								</div>
@@ -51,7 +51,8 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer" style="border-top:none;">
-									<button type="button" class="btn btn-secondary" data-dismiss="modal" name="newCateSubmit">확인</button>
+									<button type="button" class="btn btn-primary" data-dismiss="modal" name="newCateSubmit">확인</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 								</div>
 							</div>
 						</div>
