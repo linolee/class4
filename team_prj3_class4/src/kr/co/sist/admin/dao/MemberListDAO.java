@@ -2,11 +2,7 @@ package kr.co.sist.admin.dao;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -17,10 +13,10 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
-import kr.co.sist.admin.domain.TeacherCareer;
 import kr.co.sist.admin.domain.TeacherIntro;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class MemberListDAO {
@@ -51,7 +47,6 @@ public class MemberListDAO {
 	
 	public List<MemberListDomain> selectAllMember(ListVO lvo) {
 		List<MemberListDomain> list=null;
-
 		SqlSession ss=getSessionFactory().openSession();
 		list=ss.selectList("selectClient", lvo);
 		ss.close();
@@ -127,9 +122,31 @@ public class MemberListDAO {
 		return list;
 	}
 	
+	public List<MemberListDomain> memberOptionSearch(OptionSearchVO osvo){
+		List<MemberListDomain> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("memberOptionSearch", osvo);
+		ss.close();
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		MemberListDAO adao=new MemberListDAO();
-		System.out.println(adao.teacherIntro("∫¿"));
+		OptionSearchVO osvo=new OptionSearchVO();
+		//osvo.setCurrentPage(1);
+		osvo.setEndNum(5);
+		osvo.setStartNum(1);
+		osvo.setOption("name");
+		osvo.setKeyword("πÈ¿Œ¿Á");
+		
+		
+		adao.memberOptionSearch(osvo);
+		
+		/*ListVO lvo=new ListVO();
+		lvo.setCurrentPage(1);
+		lvo.setStartNum(1);
+		lvo.setEndNum(10);
+		adao.selectAllMember(lvo);*/
 	}
 
 	

@@ -33,7 +33,7 @@ where client_id=#{client_id}
 
 <update id="updateTeacherPermitStat" parameterType="String">
 update client
-set status='Y'
+set status='X'
 where client_id=#{client_id}
 </update>
 
