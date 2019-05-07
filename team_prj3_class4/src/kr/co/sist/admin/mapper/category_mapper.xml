@@ -44,4 +44,9 @@ insert into category
 values(#{category}, #{img})
 </insert>
 
+<insert id="insertInnerCategory" parameterType="kr.co.sist.admin.vo.InnerCategoryVO">
+insert into innercategory
+values(#{category}, #{innercategory})
+</insert>
+
 </mapper>

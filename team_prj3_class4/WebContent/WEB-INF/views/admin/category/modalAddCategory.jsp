@@ -6,10 +6,10 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:1000px;">
 			<div class="card-body" style="padding-bottom: 0px;">
+						<form action="newCategory.do" method="post" name="newCateFrm" enctype="multipart/form-data">
 				<table class="table table-responsive-sm" style="margin-bottom: 0px;">
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
-					<form action="newCategory.do" method="post" name="newCateFrm" enctype="multipart/form-data">
 							<tr>
 								<td style="width:1350px; height:100px">
 									<div class="modal-header" style="border-bottom:none;padding-left: 0px;">
@@ -38,9 +38,9 @@
 									</button>
 								</td>
 							</tr>
-					</form>
 					</tbody>
 				</table>
+						</form>
 				<!-- 소분류 추가시 페이지 이동을 막기 위한 히든태그 -->
 				<input type="hidden" id="currentPage" value="${currentPage }"/>
 				<div style="text-align: center">

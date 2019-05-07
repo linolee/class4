@@ -15,6 +15,7 @@ import kr.co.sist.admin.domain.AddInnerCate;
 import kr.co.sist.admin.domain.CategoryDomain;
 import kr.co.sist.admin.vo.AddInnerCategory;
 import kr.co.sist.admin.vo.CategoryImgVO;
+import kr.co.sist.admin.vo.InnerCategoryVO;
 import kr.co.sist.admin.vo.ListVO;
 
 @Component
@@ -106,6 +107,18 @@ public class CategoryDAO {
 		return flag;
 	}
 	
+	public boolean insertInnerCategory(InnerCategoryVO icvo) {
+		boolean flag=false;
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.insert("insertInnerCategory", icvo);
+		if(cnt==1) {
+			ss.commit();
+			flag=true;
+		}
+		ss.close();
+		return flag;
+	}
+	
 	public static void main(String[] args) {
 		CategoryDAO cdao=new CategoryDAO();
 		//cdao.selectInnerCategory("음악");
@@ -113,6 +126,10 @@ public class CategoryDAO {
 		cdao.addInnerCategory(aic);*/
 		/*CategoryImgVO civo=new CategoryImgVO("패션", "null");
 		cdao.updateCategoryImg(civo);*/
+		/*InnerCategoryVO icvo=new InnerCategoryVO();
+		icvo.setCategory("게임");
+		icvo.setInnercategory("카트라이더");
+		cdao.insertInnerCategory(icvo);*/
 		
 	}
 	

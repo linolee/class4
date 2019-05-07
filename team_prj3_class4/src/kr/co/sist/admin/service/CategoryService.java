@@ -17,6 +17,7 @@ import kr.co.sist.admin.dao.CategoryDAO;
 import kr.co.sist.admin.domain.CategoryDomain;
 import kr.co.sist.admin.vo.AddInnerCategory;
 import kr.co.sist.admin.vo.CategoryImgVO;
+import kr.co.sist.admin.vo.InnerCategoryVO;
 import kr.co.sist.admin.vo.ListVO;
 
 
@@ -156,9 +157,12 @@ public class CategoryService {
 	
 	public boolean fileUploadProcess(HttpServletRequest request) throws IOException{
 		boolean flag=false;
-		MultipartRequest mr=new MultipartRequest(request, 
+		/*MultipartRequest mr=new MultipartRequest(request, 
 				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
-						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());*/
+		MultipartRequest mr=new MultipartRequest(request, 
+				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category",
+				1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 			/*System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");*/
@@ -181,29 +185,30 @@ public class CategoryService {
 	public boolean addNewCategory(HttpServletRequest request ) throws IOException {
 		boolean flag=false;
 		MultipartRequest mr=new MultipartRequest(request, 
-				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
+				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category",
 						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+		/*MultipartRequest mr=new MultipartRequest(request, 
+				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
+				1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());*/
 		
 		
 		
 		
-		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
-		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
-		System.out.println("파라미터파라미2423452352462462462462터파라미터");
-		System.out.println(mr.getParameter("newCateHdn")); // complate
-		System.out.println(mr.getFilesystemName("file2"));
+		/*System.out.println(mr.getParameter("newCateHdn"));
 		System.out.println(mr.getParameter("sCateHdn"));
-		System.out.println(mr.getParameterValues("sCateHdn"));
-		System.out.println("파라미터파라미터파라미터222222222222222");
-		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
-		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
-		
-		
+		System.out.println(mr.getParameterValues("sCateHdn"));*/
 		
 		CategoryImgVO civo=new CategoryImgVO(mr.getParameter("newCateHdn"), mr.getFilesystemName("file2"));
 		try {
 			if(c_dao.insertNewCategory(civo)) {
-				//request.setAttribute("inputData", civo);
+				InnerCategoryVO icvo=new InnerCategoryVO();
+				icvo.setCategory(mr.getParameter("newCateHdn"));
+				
+				String[] paramArray=mr.getParameterValues("sCateHdn");
+				for(int i=0;i<paramArray.length;i++) {
+					icvo.setInnercategory(paramArray[i]);
+					c_dao.insertInnerCategory(icvo);
+				}
 				flag=true;
 			}
 		}catch(DataAccessException das) {
