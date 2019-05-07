@@ -9,11 +9,12 @@
 				<table class="table table-responsive-sm" style="margin-bottom: 0px;">
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
-					<form action="newCate.do" method="get" name="newCateFrm" enctype="multipart/form-data">
+					<form action="newCategory.do" method="post" name="newCateFrm" enctype="multipart/form-data">
 							<tr>
 								<td style="width:1350px; height:100px">
 									<div class="modal-header" style="border-bottom:none;padding-left: 0px;">
-									<h3 id="2cateName" name="newCateNameSend" value=""></h3>
+									<h3 id="2cateName" name="2cateName" ></h3>
+									<input type="hidden" id="newCateHdn" name="newCateHdn" value=""/>
 									<input type="text" placeholder="카테고리명" id="newCategoryName" class="form-control input-search" style="width:200px;"/>&nbsp;
 									<input type="button" value="입력" id="categoryNameEnter" class="btn btn-pill btn-block btn-light active" style="width:70px;"/>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -31,7 +32,7 @@
 							</tr>
 							<tr>
 								<td>
-									<input type="file" id="file2" name="file" class="file"/>
+									<input type="file" id="file2" name="file2" class="file"/>
 									<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px;">
 				                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg" id="foo2">
 									</button>

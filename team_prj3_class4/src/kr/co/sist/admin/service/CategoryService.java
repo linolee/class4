@@ -160,9 +160,9 @@ public class CategoryService {
 		MultipartRequest mr=new MultipartRequest(request, 
 				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
 						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
-			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			/*System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
-			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");*/
 			CategoryImgVO civo=new CategoryImgVO(mr.getParameter("hdnCateName"), mr.getFilesystemName("file"));
 			/*CategoryImgVO civo=new CategoryImgVO();
 			civo.setCategory(request.getParameter("hdnCateName"));
@@ -178,6 +178,40 @@ public class CategoryService {
 			}//end if
 		return flag;
 	}//fileUploadProcess
+	
+	public boolean addNewCategory(HttpServletRequest request ) throws IOException {
+		boolean flag=false;
+		MultipartRequest mr=new MultipartRequest(request, 
+				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
+						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+		
+		
+		
+		
+		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
+		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
+		System.out.println("파라미터파라미2423452352462462462462터파라미터");
+		System.out.println(mr.getParameter("newCateHdn")); // complate
+		System.out.println(mr.getFilesystemName("file2"));
+		System.out.println(mr.getParameter("newSmallCate"));
+		System.out.println(mr.getParameterValues("newSmallCate"));
+		System.out.println("파라미터파라미터파라미터222222222222222");
+		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
+		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
+		
+		
+		
+		CategoryImgVO civo=new CategoryImgVO(mr.getParameter("newCateHdn"), mr.getFilesystemName("file2"));
+		try {
+			if(c_dao.insertNewCategory(civo)) {
+				//request.setAttribute("inputData", civo);
+				flag=true;
+			}
+		}catch(DataAccessException das) {
+			das.printStackTrace();
+		}//end if
+		return flag;
+	}
 	
 	
 	/*public static void main(String[] args) {

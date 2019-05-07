@@ -94,6 +94,18 @@ public class CategoryDAO {
 		return flag;
 	}
 	
+	public boolean insertNewCategory(CategoryImgVO civo) {
+		boolean flag=false;
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.insert("insertNewCategory", civo);
+		if(cnt==1) {
+			ss.commit();
+			flag=true;
+		}
+		ss.close();
+		return flag;
+	}
+	
 	public static void main(String[] args) {
 		CategoryDAO cdao=new CategoryDAO();
 		//cdao.selectInnerCategory("À½¾Ç");

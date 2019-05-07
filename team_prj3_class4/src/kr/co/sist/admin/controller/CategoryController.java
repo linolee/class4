@@ -23,7 +23,6 @@ import kr.co.sist.admin.service.CategoryService;
 import kr.co.sist.admin.vo.AddInnerCategory;
 import kr.co.sist.admin.vo.ListVO;
 
-
 @Controller
 public class CategoryController {
 
@@ -117,9 +116,35 @@ public class CategoryController {
 		
 		try {
 			if(cs.fileUploadProcess(request)) {
-				url="forward:/admin/category.do";
+				//url="forward:/admin/category.do";
+				url="redirect:/admin/category.do";
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	@RequestMapping(value="admin/newCategory.do", method=POST)
+	public String newCategory(HttpServletRequest request) {
+		String url="admin/template";
+		
+		
+		/*String category=request.getParameter("newCateHdn");
+		String smallCate=request.getParameter("newSmallCate");
+		
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("category:"+category+" smallCate:"+smallCate);
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");*/
+		
+		try {
+			if(cs.addNewCategory(request)) {
+				/*url="forward:/admin/category.do";*/
+				url="redirect:/admin/category.do"; // 파라미터 없앨때는 redirect 사용
+			}
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		return url;

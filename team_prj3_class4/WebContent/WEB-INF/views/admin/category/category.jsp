@@ -173,8 +173,8 @@ $(function () {
  		var btn=$("#categoryNameEnter").val();
 		if(cateName!=null && btn=="입력"){
 			$("#2cateName").html("");
-			$("#2cateName").val(cateName);
 	 		$("#2cateName").html(cateName);
+			$("#newCateHdn").val(cateName);
 	 		$("#newCategoryName").css("display","none");
 	 		$("#categoryNameEnter").val("수정");
 			$("#newCategoryName").val("");
@@ -192,6 +192,7 @@ $(function () {
  		var sCateName=$("#sCateName").val();
  		if(""!=sCateName){
 	 		$("#divScate").append("<input type='button' class='btn btn-brand btn-github' name='newSmallCate' value='"+sCateName+"' style='margin-bottom: 4px; width:150px;'/>&nbsp;");
+	 		// 히든으로 받아서 넘겨보자 !!!!
 	 		$("#sCateName").val("");
  		}
  	});
