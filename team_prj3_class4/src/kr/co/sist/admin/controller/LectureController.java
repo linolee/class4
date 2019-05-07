@@ -4,6 +4,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,13 @@ import kr.co.sist.admin.vo.ListVO;
 
 @Controller
 public class LectureController {
-
+	
+	@Autowired
+	private LectureService ls;
+	
 	@RequestMapping(value="/admin/lecture.do",method=GET)
 	public String lecturePage(ListVO lvo, Model model) {
 		List<LectureListDomain> list=null;
-		
-		ApplicationContext ac=new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		LectureService ls=ac.getBean(LectureService.class);
 		
 		int totalCount = ls.totalCount();//총 게시물의 수
 		int pageScale = ls.pageScale();

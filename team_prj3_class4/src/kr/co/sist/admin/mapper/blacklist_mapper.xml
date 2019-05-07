@@ -43,4 +43,9 @@ from client c, blacklist b
 where c.client_id=b.client_id and c.client_id=#{ id } 
 </select>
 
+<select id="deleteBlackList" parameterType="String">
+delete blacklist
+where client_id=#{id}
+</select>
+
 </mapper>

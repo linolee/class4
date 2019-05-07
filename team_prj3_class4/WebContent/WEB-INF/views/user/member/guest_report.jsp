@@ -80,7 +80,7 @@ $(function(){
 				<div id="summernote"></div>
 				<script>
 					$('#summernote').summernote({
-						placeholder : '신고 내용을 입력해주세요.',
+						placeholder : '문의 내용을 입력해주세요.',
 						tabsize : 2,
 						height : 300
 					});

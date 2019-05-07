@@ -1,31 +1,41 @@
 package kr.co.sist.user.domain;
 
+import java.sql.Date;
+
 public class ReviewDomain {
-	private String memberId, title, Content;
-	private int star;
+	private String client_id, subject, contents;
+	private int score;
+	private Date r_date;
 	
-	public String getMemberId() {
-		return memberId;
+	public String getClient_id() {
+		return client_id;
 	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setClient_id(String client_id) {
+		this.client_id = client_id;
 	}
-	public String getTitle() {
-		return title;
+	public String getSubject() {
+		return subject;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
-	public String getContent() {
-		return Content;
+	public String getContents() {
+		return contents;
 	}
-	public void setContent(String content) {
-		Content = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
-	public int getStar() {
-		return star;
+	public int getScore() {
+		return score;
 	}
-	public void setStar(int star) {
-		this.star = star;
+	public void setScore(int score) {
+		this.score = score;
 	}
+	public Date getR_date() {
+		return r_date;
+	}
+	public void setR_date(Date r_date) {
+		this.r_date = r_date;
+	}
+	
 }

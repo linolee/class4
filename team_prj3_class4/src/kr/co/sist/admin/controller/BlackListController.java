@@ -5,11 +5,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,17 +17,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
-import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.ListVO;
 
 @Controller
 public class BlackListController {
-	@RequestMapping(value="/admin/blacklist.do",method=GET)
-	public String blacklistPage(ListVO lvo, Model model) {
+	
+	@Autowired
+	private BlackListService bls;
+	
+	@RequestMapping(value="/admin/blacklist.do",method={GET,POST})
+	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request) {
+		
+		String id=request.getParameter("hdnBlack");
 		
 		List<BlackListDomain> list=null;
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		BlackListService bls=ac.getBean(BlackListService.class);
+		
+		String url="/admin/template";	
+		if((id!=null)) {
+			if (bls.deleteBlack(id)) {
+				url="forward:/admin/template.do";
+			}
+		}
 		
 		int totalCount = bls.totalCount();//총 게시물의 수
 		int pageScale = bls.pageScale();
@@ -40,8 +49,8 @@ public class BlackListController {
 		int endNum = bls.endNum(startNum);
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
-		
 		list=bls.selectBlackList(lvo);
+		
 		String indexList = bls.indexList(lvo.getCurrentPage(), totalPage, "blacklist.do");
 		model.addAttribute("page", "blacklist/blacklist");
 		model.addAttribute("blackList", list);
@@ -49,24 +58,18 @@ public class BlackListController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
 		model.addAttribute("totalCount", totalCount);
-		return "admin/template";
+		return url;
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping(value= "/admin/blackDetail.do", method=GET)
-	public  String AjaxView(@RequestParam("userID") String id){
+	@RequestMapping(value= "/admin/blackDetail.do", method= {GET,POST})
+	public String AjaxView(@RequestParam("userID") String id){
 		JSONObject json = null;
 		
-		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		BlackListService bls=ac.getBean(BlackListService.class);
-		
 		json = bls.detailBlack(id);
-		System.out.println(json.toJSONString());
-		
-	    return json.toJSONString();
+
+		return json.toJSONString();
 	}
-	
-	
 	
 }

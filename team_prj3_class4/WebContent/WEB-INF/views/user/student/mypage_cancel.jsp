@@ -32,9 +32,14 @@
 #periodList{ width: 320px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 #cancelDateList{ width: 280px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3;
 				border-right: 1px solid #C3C3C3; }
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -84,7 +89,7 @@
 		
 	</div>
 	<div style="padding-top: 20px; font-weight: normal; color:#757575;">
-		총 0개의 내역이 있습니다.
+		총 <c:out value="${cancelList.size()}"/>개의 내역이 있습니다.
 	</div>
 	<div id="listContents">
 	<table id="listTab">
@@ -94,17 +99,35 @@
 			<th id="periodList">클래스 기간</th>
 			<th id="cancelDateList">취소일</th>
 		</tr>
+	
+	<c:set var="i" value="${0 }"/>
+	<c:forEach var="cancelList" items="${ cancelList }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				취소완료
+			</td>
+			<td class=tableBody>
+				<c:out value="${ cancelList.get(i).lname}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ cancelList.get(i).startDate }~${ cancelList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ cancelList.get(i).cancelDate}"></c:out>
+			</td>
+		</tr>
+	</c:forEach>
+	<c:if test="${ empty cancelList }">
+	<tr>
+		<td colspan="5" align="center" class=tableBodyEmpty>등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
 	</table>
-	
-	<div id="classList">
-	
-	
 	</div>
-	
 	</div>
-	
-	<div id="classSearch">
-	</div>
+	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
 	
 	</div>
 	<div id="footer">
