@@ -23,7 +23,6 @@ import kr.co.sist.admin.service.CategoryService;
 import kr.co.sist.admin.vo.AddInnerCategory;
 import kr.co.sist.admin.vo.ListVO;
 
-
 @Controller
 public class CategoryController {
 
@@ -31,8 +30,9 @@ public class CategoryController {
 	private CategoryService cs;
 	
 	@RequestMapping(value="/admin/category.do",method= {GET,POST})
-	public String categoryPage(ListVO lvo, Model model) {
+	public String categoryPage(ListVO lvo, Model model, HttpServletRequest request) {
 		
+		String url="admin/template";
 		List<CategoryDomain> list=null;
 		int totalCount = cs.totalCount();//총 게시물의 수
 		int pageScale = cs.pageScale();
@@ -47,6 +47,24 @@ public class CategoryController {
 		lvo.setEndNum(endNum);
 		
 		list=cs.selectAllCategory(lvo);
+		
+		
+		
+		/////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////
+		///////////////// currentPage test////////////////////////////////////
+		/*String curr="";
+		if(request.getParameter("currentPage")!=null) {
+			String pp=request.getParameter("currentPage");
+			curr="?currentPage="+pp;
+			System.out.println("+--+--+-+---+++-+-+-+-+-"+curr);
+			System.out.println("+--+--+-+---+++-+-+-+-+-"+"category/category"+curr);
+			//url="forward:/admin/category.do"+curr;
+			url="/admin/category.do"+curr;
+		}*/
+		/////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////
 		
 		Map<String, List> map=new HashMap<String, List>();
 		List<String> innerCateList=null;
@@ -73,8 +91,10 @@ public class CategoryController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
+		/*model.addAttribute("page", "category/category"+curr);*/
 		model.addAttribute("page", "category/category");
-		return "admin/template";
+		/*return "admin/template";*/
+		return url;
 	}
 	
 	@ResponseBody
@@ -96,9 +116,35 @@ public class CategoryController {
 		
 		try {
 			if(cs.fileUploadProcess(request)) {
-				url="forward:/admin/category.do";
+				//url="forward:/admin/category.do";
+				url="redirect:/admin/category.do";
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return url;
+	}
+	
+	@RequestMapping(value="admin/newCategory.do", method=POST)
+	public String newCategory(HttpServletRequest request) {
+		String url="admin/template";
+		
+		
+		/*String category=request.getParameter("newCateHdn");
+		String smallCate=request.getParameter("newSmallCate");
+		
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("category:"+category+" smallCate:"+smallCate);
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
+		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");*/
+		
+		try {
+			if(cs.addNewCategory(request)) {
+				/*url="forward:/admin/category.do";*/
+				url="redirect:/admin/category.do"; // 파라미터 없앨때는 redirect 사용
+			}
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 		return url;

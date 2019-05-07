@@ -15,6 +15,7 @@ import kr.co.sist.admin.domain.TeacherDetailDomain;
 import kr.co.sist.admin.domain.TeacherDomain;
 import kr.co.sist.admin.domain.TeacherLesson;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class TeacherDAO {
@@ -92,13 +93,30 @@ private SqlSessionFactory ssf;
 		return list;
 	}
 	
+	public List<TeacherDomain> teacherOptionSearch(OptionSearchVO osvo){
+		List<TeacherDomain> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("teacherOptionSearch", osvo);
+		ss.close();
+		return list;
+	}
+	
 	
 	public static void main(String[] args) {
 		TeacherDAO tdao=new TeacherDAO();
+
 		
-		//System.out.println(tdao.selectTeacherDetail("백인재").getCategory());
-		//System.out.println(tdao.selectCareer("백인재"));
-		System.out.println(tdao.selectLesson("백인재"));
+		List<TeacherDomain> list=null;
+		OptionSearchVO osvo=new OptionSearchVO();
+		osvo.setCurrentPage(1);
+		osvo.setStartNum(1);
+		osvo.setEndNum(10);
+		osvo.setOption("t.teacher_name");
+		osvo.setKeyword("백인재");
+		list=tdao.teacherOptionSearch(osvo);
+		for(int i=0;i<list.size();i++) {
+			System.out.println(1);
+		}
 		
 	}
 }

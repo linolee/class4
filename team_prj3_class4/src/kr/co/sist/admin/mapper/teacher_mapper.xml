@@ -54,4 +54,10 @@ from career
 where teacher_name=#{teacher_name}
 </select>
 
+<select id="teacherOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="teacherResult">
+select c.client_id, t.teacher_name, c.name, c.gender, c.birth, c.email
+from client c, teacher t
+where c.client_id=t.client_id and t.status='Y' and ${option}=#{keyword}
+</select>
+
 </mapper>

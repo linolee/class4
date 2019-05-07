@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.sist.admin.domain.TeacherDomain;
 import kr.co.sist.admin.service.TeacherService;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class TteacherController {
@@ -27,7 +28,9 @@ public class TteacherController {
 	private TeacherService ts;
 	
 	@RequestMapping(value="/admin/teacher.do",method=GET)
-	public String teacherPage(Model model, ListVO lvo) {
+	public String teacherPage(Model model, ListVO lvo, 
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 
 		List<TeacherDomain> list=null;
 		
@@ -44,8 +47,21 @@ public class TteacherController {
 		lvo.setEndNum(endNum);
 		
 		list=ts.selectAllTeacher(lvo);
-		System.out.println("-------------------------"+startNum+"-----------------"+endNum);
-		System.out.println("-------------------------"+list);
+		
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=ts.teacherOptionSearch(osvo);
+			System.out.println("-+-+-+-+--+-++-+-+-+-+-+-+-++-+++-+-+-+-+-+-+-+-");
+			System.out.println("option:"+option+"  keyword:"+keyword);
+			System.out.println(list);
+			System.out.println("-+-+-+-+--+-++-+-+-+-+-+-+-++-+++-+-+-+-+-+-+-+-");
+		}
+		
 		String indexList = ts.indexList(lvo.getCurrentPage(), totalPage, "teacher.do");
 		
 		model.addAttribute("teacherList", list);

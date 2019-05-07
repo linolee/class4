@@ -168,6 +168,41 @@ $(function () {
 		$("[name='uploadImgFrm']").submit();
 	});
  	
+ 	$("#categoryNameEnter").click(function(){
+ 		var cateName=$("#newCategoryName").val();
+ 		var btn=$("#categoryNameEnter").val();
+		if(cateName!=null && btn=="입력"){
+			$("#2cateName").html("");
+	 		$("#2cateName").html(cateName);
+			$("#newCateHdn").val(cateName);
+	 		$("#newCategoryName").css("display","none");
+	 		$("#categoryNameEnter").val("수정");
+			$("#newCategoryName").val("");
+		}
+		if(btn=="수정"){
+			$("#newCategoryName").val("");
+			$("#newCategoryName").css("display","");
+			$("#categoryNameEnter").val("입력");
+		}
+		
+		
+ 	});
+ 	
+ 	$("#addSSCate").click(function(){
+ 		var sCateName=$("#sCateName").val();
+ 		if(""!=sCateName){
+	 		$("#divScate").append("<input type='button' class='btn btn-brand btn-github' name='newSmallCate' value='"+sCateName+"' style='margin-bottom: 4px; width:150px;'/>&nbsp;");
+	 		$("#divScate").append("<input type='hidden' name='sCateHdn' value='"+sCateName+"'/>");
+	 		$("#sCateName").val("");
+ 		}
+ 	});
+ 	
+ 	$("[name='newCateSubmit']").click(function(){
+ 		$("[name='newCateFrm']").submit();
+ 	});
+ 	
+ 	
+ 	
 });
 
 </script>

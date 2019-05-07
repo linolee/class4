@@ -18,6 +18,7 @@ import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class MemberListController {
@@ -26,7 +27,9 @@ public class MemberListController {
 	private MemberListService mls;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(ListVO lvo, Model model) {
+	public String memberPage(ListVO lvo, Model model, 
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 		
 		List<MemberListDomain> list=null;
 		int totalCount = mls.totalCount();//총 게시물의 수
@@ -43,22 +46,20 @@ public class MemberListController {
 		
 		list=mls.selectAllMember(lvo);
 
-		//String dx="";
 		
-		//List<String> tempList=null;
-		//tempList=mls.memberBlack(lvo);
 		
-		/*for(int i=0;i<tempList.size();i++) {
-			//String temp=mls.ifBlack(list2.get(i));
-			//String temp=""; 
-			//temp=tempList.get(i);
-			//list.get
-			System.out.println("---------------temp-----------"+mls.ifBlack(tempList.get(i)));
-		}*/
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=mls.memberOptionSearch(osvo);
+		}
+		
 		
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
-		
-		//System.out.println(list);
 		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
