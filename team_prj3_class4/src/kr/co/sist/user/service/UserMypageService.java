@@ -11,8 +11,10 @@ import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.domain.QnaList;
 import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
+import kr.co.sist.user.vo.TotalVO;
 
 @Component
 public class UserMypageService {
@@ -50,6 +52,12 @@ public class UserMypageService {
 		
 		return lcode;
 	}//reviewList
+
+	public boolean insertReview(ReviewVO rvo) {
+		boolean flag=false;
+		flag=um_dao.insertReview(rvo);
+		return flag;
+	}//insertJjim
 	
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
@@ -64,6 +72,30 @@ public class UserMypageService {
 		flag=um_dao.insertJjim(lvo);
 		return flag;
 	}//insertJjim
+	
+	public int jjimTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.jjimTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int cancelTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.cancelTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int qnaTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.qnaTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int reportTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.reportTotalCnt(clientId);
+		return cnt;
+	}//totalCount
 	
 	public boolean deleteJjim(ListVO lvo) {
 		boolean flag=false;
@@ -117,9 +149,9 @@ public class UserMypageService {
 	 * 총 게시물의 수 얻기
 	 * @return
 	 */
-	public int totalCount(String clientId) {
+	public int totalCount(TotalVO tvo) {
 		int cnt=0;
-		cnt=um_dao.selectTotalCount(clientId);
+		cnt=um_dao.selectTotalCount(tvo);
 		return cnt;
 	}//totalCount
 	
@@ -128,7 +160,7 @@ public class UserMypageService {
 	 * @return
 	 */
 	public int pageScale() {
-		int pageScale=10;
+		int pageScale=5;
 		return pageScale;
 	}//pageScale
 	
@@ -201,7 +233,7 @@ public class UserMypageService {
 	// 첫번째 페이지 인덱스 화면이 아닌경우
 	if ( current_page > pagenumber) {
 		curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-		strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&lt;&lt;</a> ]";
+		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&lt;&lt;</a> ]";
 	}else{
 		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/left.png'/>";
 	}
@@ -215,7 +247,7 @@ public class UserMypageService {
 		if (curpage == current_page) {
 			strList = strList + "["+current_page+"]";
 		} else {
-			strList = strList +"[ <a href="+list_url+"?currentPage="+curpage+">"+curpage+"</a> ]";
+			strList = strList +"[ <a href="+list_url+"currentPage="+curpage+">"+curpage+"</a> ]";
 		}//end else
 
 		curpage++;
@@ -226,7 +258,7 @@ public class UserMypageService {
 	// 뒤에 페이지가 더 있는경우
 	if ( total_page > endpage) {
 		curpage = endpage + 1; 
-		strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&gt;&gt;</a> ]";
+		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&gt;&gt;</a> ]";
 	}else{
 		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/right.png'/>";
 	}//end else

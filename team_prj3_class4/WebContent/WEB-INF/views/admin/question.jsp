@@ -1,6 +1,3 @@
-<%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.MemberListService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -85,8 +82,3 @@
 		
 	</div>
 </div>
-<%-- <c:import url="modalUserInfo.jsp"/>
-<c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/> --%>
-<!--  -->
-

@@ -27,21 +27,21 @@ public class CategoryService {
 	@Autowired
 	private CategoryDAO c_dao;
 	
-	// 1. ÀüÃ¼ °Ô½Ã¹° ¼ö ¾ò±â
+	// 1. ì „ì²´ ê²Œì‹œë¬¼ ìˆ˜ ì–»ê¸°
 			public int totalCount() {
 				int cnt = 0;
 				cnt = c_dao.selectTotalCount();
 				return cnt;
 			}
 
-			// 2. ÇÑ È­¸é¿¡ º¸¿©Áú °Ô½Ã¹°ÀÇ ¼ö
+			// 2. í•œ í™”ë©´ì— ë³´ì—¬ì§ˆ ê²Œì‹œë¬¼ì˜ ìˆ˜
 			public int pageScale() {
 				int pageScale = 1;
 
 				return pageScale;
 			}
 
-			// 3. ÃÑ ÆäÀÌÁö ¼ö ±¸ÇÏ±â
+			// 3. ì´ í˜ì´ì§€ ìˆ˜ êµ¬í•˜ê¸°
 			public int totalPage(int totalCount) {
 				int totalPage = totalCount / pageScale();
 				if (totalCount % pageScale() != 0) {
@@ -51,15 +51,15 @@ public class CategoryService {
 				return totalPage;
 			}
 
-			// 4. ½ÃÀÛ ÆäÀÌÁö ¹øÈ£ ±¸ÇÏ±â
-			// current_page¿¡ µû¶ó ½ÃÀÛ ¹øÈ£´Â ´Ş¶óÁø´Ù. 1-> 1, 2->11, 3->21 ,,,
+			// 4. ì‹œì‘ í˜ì´ì§€ ë²ˆí˜¸ êµ¬í•˜ê¸°
+			// current_pageì— ë”°ë¼ ì‹œì‘ ë²ˆí˜¸ëŠ” ë‹¬ë¼ì§„ë‹¤. 1-> 1, 2->11, 3->21 ,,,
 			public int startNum(int currentPage) {
 				int startNum = 1;
 				startNum = currentPage * pageScale() - pageScale() + 1;
 				return startNum;
 			}
 
-			// 5. ³¡¹øÈ£ ¾ò±â
+			// 5. ëë²ˆí˜¸ ì–»ê¸°
 			public int endNum(int startNum) {
 				int endNum = startNum + pageScale() - 1;
 
@@ -67,48 +67,48 @@ public class CategoryService {
 			}
 			
 			/**
-			 * ÀÎµ¦½º ¸®½ºÆ® [ << ] ... [1][2][3] ... [ >> ]
+			 * ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸ [ << ] ... [1][2][3] ... [ >> ]
 			 * 
 			 * @param current_page
 			 * @param total_page
 			 * @param list_url
 			 * @return
 			 */
-			// ÇöÀç °Ô½ÃÆÇÀÇ ÆäÀÌÁö ÀÎµ¦½º ¼³Á¤
+			// í˜„ì¬ ê²Œì‹œíŒì˜ í˜ì´ì§€ ì¸ë±ìŠ¤ ì„¤ì •
 			public String indexList(int current_page, int total_page, String list_url) {
-				int pagenumber; // È­¸é¿¡ º¸¿©Áú ÆäÀÌÁö ÀÎµ¦½º ¼ö
-				int startpage; // È­¸é¿¡ º¸¿©Áú ½ÃÀÛÆäÀÌÁö ¹øÈ£
-				int endpage; // È­¸é¿¡ º¸¿©Áú ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£
-				int curpage; // ÀÌµ¿ÇÏ°íÀÚ ÇÏ´Â ÆäÀÌÁö ¹øÈ£
+				int pagenumber; // í™”ë©´ì— ë³´ì—¬ì§ˆ í˜ì´ì§€ ì¸ë±ìŠ¤ ìˆ˜
+				int startpage; // í™”ë©´ì— ë³´ì—¬ì§ˆ ì‹œì‘í˜ì´ì§€ ë²ˆí˜¸
+				int endpage; // í™”ë©´ì— ë³´ì—¬ì§ˆ ë§ˆì§€ë§‰í˜ì´ì§€ ë²ˆí˜¸
+				int curpage; // ì´ë™í•˜ê³ ì í•˜ëŠ” í˜ì´ì§€ ë²ˆí˜¸
 
-				String strList = ""; // ¸®ÅÏµÉ ÆäÀÌÁö ÀÎµ¦½º ¸®½ºÆ®
+				String strList = ""; // ë¦¬í„´ë  í˜ì´ì§€ ì¸ë±ìŠ¤ ë¦¬ìŠ¤íŠ¸
 
-				pagenumber = 10; // ÇÑ È­¸éÀÇ ÆäÀÌÁö ÀÎµ¦½º ¼ö
+				pagenumber = 10; // í•œ í™”ë©´ì˜ í˜ì´ì§€ ì¸ë±ìŠ¤ ìˆ˜
 
-				// ½ÃÀÛ ÆäÀÌÁö¹øÈ£ ±¸ÇÏ±â
+				// ì‹œì‘ í˜ì´ì§€ë²ˆí˜¸ êµ¬í•˜ê¸°
 				startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
 
-				// ¸¶Áö¸· ÆäÀÌÁö¹øÈ£ ±¸ÇÏ±â
+				// ë§ˆì§€ë§‰ í˜ì´ì§€ë²ˆí˜¸ êµ¬í•˜ê¸°
 				endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
 
-				// ÃÑ ÆäÀÌÁö ¼ö°¡ °è»êµÈ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£º¸´Ù ÀÛÀ»°æ¿ì
+				// ì´ í˜ì´ì§€ ìˆ˜ê°€ ê³„ì‚°ëœ ë§ˆì§€ë§‰í˜ì´ì§€ ë²ˆí˜¸ë³´ë‹¤ ì‘ì„ê²½ìš°
 
-				// ÃÑ ÆäÀÌÁö ¼ö°¡ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£°¡ µÊ
+				// ì´ í˜ì´ì§€ ìˆ˜ê°€ ë§ˆì§€ë§‰í˜ì´ì§€ ë²ˆí˜¸ê°€ ë¨
 
 				if (total_page <= endpage) {
 					endpage = total_page;
 				} // end if
 
-				// Ã¹¹øÂ° ÆäÀÌÁö ÀÎµ¦½º È­¸éÀÌ ¾Æ´Ñ°æ¿ì
+				// ì²«ë²ˆì§¸ í˜ì´ì§€ ì¸ë±ìŠ¤ í™”ë©´ì´ ì•„ë‹Œê²½ìš°
 				if (current_page > pagenumber) {
-					curpage = startpage - 1; // ½ÃÀÛÆäÀÌÁö ¹øÈ£º¸´Ù 1 ÀûÀº ÆäÀÌÁö·Î ÀÌµ¿
+					curpage = startpage - 1; // ì‹œì‘í˜ì´ì§€ ë²ˆí˜¸ë³´ë‹¤ 1 ì ì€ í˜ì´ì§€ë¡œ ì´ë™
 					strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
 				} else {
 					strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 					
 				}
 
-				// ½ÃÀÛÆäÀÌÁö ¹øÈ£ºÎÅÍ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£±îÁö È­¸é¿¡ Ç¥½Ã
+				// ì‹œì‘í˜ì´ì§€ ë²ˆí˜¸ë¶€í„° ë§ˆì§€ë§‰í˜ì´ì§€ ë²ˆí˜¸ê¹Œì§€ í™”ë©´ì— í‘œì‹œ
 				curpage = startpage;
 
 				while (curpage <= endpage) {
@@ -121,7 +121,7 @@ public class CategoryService {
 					curpage++;
 				} // end while
 
-				// µÚ¿¡ ÆäÀÌÁö°¡ ´õ ÀÖ´Â°æ¿ì
+				// ë’¤ì— í˜ì´ì§€ê°€ ë” ìˆëŠ”ê²½ìš°
 				if (total_page > endpage) {
 					curpage = endpage + 1;
 					strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
@@ -161,9 +161,15 @@ public class CategoryService {
 				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
 						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());*/
 		MultipartRequest mr=new MultipartRequest(request, 
+
 				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category",
 				1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 			/*System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+
+				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category",
+						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");
+
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+-"+mr.getFilesystemName("file")+"-++--+-+-+-+-+-+-+-+-++--+++-+-");
 			System.out.println("-++--+-+-+-+-+-+-+-+-++--+++-+--++--+-+-+-+-+-+-+-+-++--+++-+-");*/
 			CategoryImgVO civo=new CategoryImgVO(mr.getParameter("hdnCateName"), mr.getFilesystemName("file"));

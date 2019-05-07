@@ -71,61 +71,62 @@ function addClass() {
     if(className == null || className == ''){
        alert("클래스 이름을 입력해주세요.");
        $("#className").focus();
-       return false;
+       return;
     }
    
     if(classSimpleInfo == null || classSimpleInfo == ''){
        alert("간단 소개를 입력해주세요.");
        $("#classSimpleInfo").focus();
-       return false;
+       return;
     }
     
     if(startDate == null || startDate == ''){
        alert("시작 일자를 선택해주세요.");
        $("#startDate").focus();
-       return false;
+       return;
     }
    
     if(endDate == null || endDate == ''){
        alert("종료 일자를 선택해주세요.");
        $("#endDate").focus();
-       return false;
+       return;
     }
-   
-    if ($("input:checkbox[name='chkWeek']:checked").length == 0) {
-        alert("요일을 선택해주세요.");
-        return false;
-     }
    
     var sDate = new Date(startDate);   //시작일자
     var eDate = new Date(endDate);      //종료일자
     if (sDate > eDate) {
        alert("시작일자는 종료일자보다 클 수 없습니다.");
-       return false;
+       return;
     }
+    
+    if ($("input:checkbox[name='chkWeek']:checked").length == 0) {
+        alert("요일을 선택해주세요.");
+        return;
+     }
+   
     
     if(minPerson == null || minPerson == ''){
        alert("최소인원을 입력해주세요.");
        $("#minPerson").focus();
-       return false;
+       return;
     }
    
     if(maxPerson == null || maxPerson == ''){
        alert("최대인원을 입력해주세요.");
        $("#maxPerson").focus();
-       return false;
+       return;
     }
 
     if(maxPerson < minPerson){
        alert("최소인원은 최대인원보다 많을 수 없습니다.");
        $("#minPerson").focus();
-       return false;
+       return;
     }
     
     if(finDate == null || finDate == ''){
        alert("신청마감일을 선택해주세요.");
        $("#finDate").focus();
-       return false;
+       return;
     } 
     
     var category=$('#mainCategory option:selected').val();
@@ -144,58 +145,56 @@ function addClass() {
 
     if(classInfo == null || classInfo == ''){
        alert("클래스 소개를 입력해주세요.");
-       return false;
+       return;
     }
    
-    if(classCurriculum == null || classCurriculum == ''){
+/*     if(classCurriculum == null || classCurriculum == ''){
        alert("진행 방법을 입력해주세요.");
        return false;
-    }
+    } */
    
-    if(classTogether == null || classTogether == ''){
+/*     if(classTogether == null || classTogether == ''){
        alert("함께하고 싶어요 항목을 입력해주세요.");
        return false;
-    }
+    } */
    
-    if ($("input:checkbox[name='include1']:checked").length == 0) {
+/*     if ($("input:checkbox[name='include1']:checked").length == 0) {
        alert("포함/불포함 사항을 선택해주세요.");
        return false;
-    }
+    } */
     
-    if(etc == null || etc == ''){
+/*     if(etc == null || etc == ''){
        alert("기타사항을 입력해주세요.");
        $("#etc").focus();
        return false;
-    } 
+    }  */
     
     if(topBannerImg == null || topBannerImg == ''){
        alert("배너사진을 추가해주세요.");
-       return false;
+       return;
     }
    
     if(mainBannerImg == null || mainBannerImg == ''){
        alert("대표사진을 추가해주세요.");
-       return false;
+       return;
     }
 
     if(classAddr1 == null || classAddr1 == ''){
        alert("주소를 입력해주세요.");
-       return false;
+       return;
     }
    
     if(classAddr2 == null || classAddr2 == ''){
        alert("나머지 주소를 입력해주세요.");
-       return false;
+       return;
     }
    
-  	var classState = $("input[name='classState']:checked").val();
+/*   	var classState = $("input[name='classState']:checked").val();
     if(classState == null || classState == ''){
        alert("클래스상태를 선택해주세요.");
-   }
+   } */
    
 } // addClass
-
-
 
    $(function() {
       $('.summernote').summernote({
@@ -206,7 +205,6 @@ function addClass() {
            lang: 'ko-KR'
       });
    });
-
 </script>
 <!-- summernote 관련 library 끝 -->
 
