@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.DependencyDescriptor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
@@ -193,8 +192,8 @@ public class CategoryService {
 		System.out.println("파라미터파라미2423452352462462462462터파라미터");
 		System.out.println(mr.getParameter("newCateHdn")); // complate
 		System.out.println(mr.getFilesystemName("file2"));
-		System.out.println(mr.getParameter("newSmallCate"));
-		System.out.println(mr.getParameterValues("newSmallCate"));
+		System.out.println(mr.getParameter("sCateHdn"));
+		System.out.println(mr.getParameterValues("sCateHdn"));
 		System.out.println("파라미터파라미터파라미터222222222222222");
 		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");
 		System.out.println("-+-++-+-+-+--++-+-++-+-+-+-++-+--++-+--++--+-+-+");

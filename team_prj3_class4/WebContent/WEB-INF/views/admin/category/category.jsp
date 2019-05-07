@@ -192,7 +192,7 @@ $(function () {
  		var sCateName=$("#sCateName").val();
  		if(""!=sCateName){
 	 		$("#divScate").append("<input type='button' class='btn btn-brand btn-github' name='newSmallCate' value='"+sCateName+"' style='margin-bottom: 4px; width:150px;'/>&nbsp;");
-	 		// 히든으로 받아서 넘겨보자 !!!!
+	 		$("#divScate").append("<input type='hidden' name='sCateHdn' value='"+sCateName+"'/>");
 	 		$("#sCateName").val("");
  		}
  	});
