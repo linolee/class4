@@ -18,6 +18,7 @@ import kr.co.sist.admin.domain.TeacherPermitDomain;
 import kr.co.sist.admin.service.TeacherPermitService;
 import kr.co.sist.admin.service.TeacherService;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class TeacherPermitController {
@@ -28,7 +29,9 @@ public class TeacherPermitController {
 	private TeacherPermitService tps;
 	
 	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
-	public String teacherAuthorityPage(ListVO lvo, Model model) {
+	public String teacherAuthorityPage(ListVO lvo, Model model,
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 		
 		List<TeacherPermitDomain> list=null;
 		/*ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
@@ -45,11 +48,25 @@ public class TeacherPermitController {
 
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
+		list=tps.selectTeacherPermit(lvo);
+		
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=tps.teacherPermitOptionSearch(osvo);
+		}
+		
+		
+		
+		
 		
 		String indexList = tps.indexList(lvo.getCurrentPage(), totalPage, "teacherAuthority.do");
 		
 		
-		list=tps.selectTeacherPermit(lvo);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
