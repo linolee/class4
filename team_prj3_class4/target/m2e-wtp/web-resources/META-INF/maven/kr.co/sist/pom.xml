@@ -65,19 +65,6 @@
 		    <artifactId>json-simple</artifactId>
 		    <version>1.1.1</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/servlets.com/cos -->
-		<dependency>
-		    <groupId>servlets.com</groupId>
-		    <artifactId>cos</artifactId>
-		    <version>05Nov2002</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.springframework/spring-dao -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-dao</artifactId>
-		    <version>2.0.8</version>
-		</dependency>				
 				
 		<!-- Logging -->
 		<dependency>

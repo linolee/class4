@@ -33,12 +33,6 @@ public class AdminController {
 		return "admin/template";
 	}
 
-
-	@RequestMapping(value = "/admin/AdminLogin.do", method = GET)
-	public String loginPage(Model model) {
-		return "admin/AdminLogin";
-	}
-
 	@RequestMapping(value="/admin/question.do",method=GET)
 	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
@@ -202,23 +196,6 @@ public class AdminController {
 			cs.removeReport(rcode);
 		}
 		return "redirect:/admin/charge.do";
-	}
-	
-	
-	
-	
-	@RequestMapping(value = "/admin/category.do", method = GET)
-	public String categoryPage(Model model) {
-
-		model.addAttribute("page", "category");
-		return "admin/template";
-	}
-
-	@RequestMapping(value = "/admin/title.do", method = GET)
-	public String titlePage(Model model) {
-
-		model.addAttribute("page", "title");
-		return "admin/template";
 	}
 
 }
