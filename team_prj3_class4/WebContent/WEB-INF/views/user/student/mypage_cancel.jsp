@@ -32,6 +32,7 @@
 #periodList{ width: 320px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 #cancelDateList{ width: 280px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3;
 				border-right: 1px solid #C3C3C3; }
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
 			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
@@ -122,16 +123,11 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</tr>
 	</c:if>
 	</table>
-	
-	<div id="classList">
-	
-	
 	</div>
-	
 	</div>
-	
-	<div id="classSearch">
-	</div>
+	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
 	
 	</div>
 	<div id="footer">
