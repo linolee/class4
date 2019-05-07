@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class BlackListController {
@@ -26,7 +27,9 @@ public class BlackListController {
 	private BlackListService bls;
 	
 	@RequestMapping(value="/admin/blacklist.do",method={GET,POST})
-	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request) {
+	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request,
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 		
 		String id=request.getParameter("hdnBlack");
 		
@@ -39,10 +42,10 @@ public class BlackListController {
 			}
 		}
 		
-		int totalCount = bls.totalCount();//총 게시물의 수
+		int totalCount = bls.totalCount();
 		int pageScale = bls.pageScale();
-		int totalPage = bls.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
-		if(lvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+		int totalPage = bls.totalPage(totalCount);
+		if(lvo.getCurrentPage() == 0) {
 			lvo.setCurrentPage(1);
 		}
 		int startNum = bls.startNum(lvo.getCurrentPage());
@@ -50,6 +53,17 @@ public class BlackListController {
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
 		list=bls.selectBlackList(lvo);
+		
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=bls.blackOptionSearch(osvo);
+		}
+		
 		
 		String indexList = bls.indexList(lvo.getCurrentPage(), totalPage, "blacklist.do");
 		model.addAttribute("page", "blacklist/blacklist");

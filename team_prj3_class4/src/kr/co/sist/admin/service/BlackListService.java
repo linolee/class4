@@ -14,6 +14,8 @@ import kr.co.sist.admin.dao.BlackListDAO;
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
+import kr.co.sist.user.domain.Blacklist;
 
 @Component
 public class BlackListService {
@@ -174,6 +176,13 @@ public class BlackListService {
 			flag=true;
 		}
 		return flag;
+	}
+	
+	public List<BlackListDomain> blackOptionSearch(OptionSearchVO osvo){
+		List<BlackListDomain> list=null;
+		BlackListDAO bldao=BlackListDAO.getInstance();
+		list=bldao.blackOptionSearch(osvo);
+		return list;
 	}
 	
 	
