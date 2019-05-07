@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.dao.DetailDAO;
+import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.JoinCount;
 import kr.co.sist.user.domain.QnA;
 import kr.co.sist.user.domain.ReviewDomain;
 import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
+import kr.co.sist.user.domain.TClass;
 
 @Component
 public class detailClassService {
@@ -81,5 +84,36 @@ public class detailClassService {
 		qnalist=d_dao.selectQnaList(lcode);
 		return qnalist;
 	}//searchQnaList
+	
+	public List<TClass> searchTclassList(String lcode) {
+		List<TClass> tclist=null;
+		tclist=d_dao.selectTclassList(lcode);
+		return tclist;
+	}//searchTclassList
+
+ 	public List<String> searchClassday(String lcode) {
+		List<String> day=null;
+		day=d_dao.selectClassday(lcode);
+		return day;
+	}//searchClassday
+
+ 	public List<ClassTime> searchClassTime(String lcode) {
+		List<ClassTime> ctlist=null;
+		ctlist=d_dao.selectClassTime(lcode);
+		return ctlist;
+	}//searchClassTime
+
+ 	public JoinCount searchJoinCount(String lcode) {
+		JoinCount joinCount=null;
+		joinCount=d_dao.selectJoinCount(lcode);
+		return joinCount;
+	}//searchQnaList
+
+ 	public String searchLike(String lcode) {
+		String like=null;
+		like=d_dao.selectLike(lcode);
+		return like;
+	}//searchQnaList
+
 	
 }//class

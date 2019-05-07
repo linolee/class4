@@ -1,24 +1,24 @@
 package kr.co.sist.user.domain;
 
 public class TClass {
-	private String img, tName, title;
+	private String main_img, lname, lcode;
 
-	public String getImg() {
-		return img;
+	public String getMain_img() {
+		return main_img;
 	}
-	public void setImg(String img) {
-		this.img = img;
+	public void setMain_img(String main_img) {
+		this.main_img = main_img;
 	}
-	public String gettName() {
-		return tName;
+	public String getLname() {
+		return lname;
 	}
-	public void settName(String tName) {
-		this.tName = tName;
+	public void setLname(String lname) {
+		this.lname = lname;
 	}
-	public String getTitle() {
-		return title;
+	public String getLcode() {
+		return lcode;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
 	}
 }

@@ -10,11 +10,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.JoinCount;
 import kr.co.sist.user.domain.QnA;
 import kr.co.sist.user.domain.ReviewDomain;
 import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
+import kr.co.sist.user.domain.TClass;
 
 @Component
 public class DetailDAO {
@@ -114,7 +117,61 @@ public class DetailDAO {
 		return qnaList;
 	}//selectQnaList
 	
-	
+	public List<TClass> selectTclassList(String lcode){
+		List<TClass> tclist=null;
+
+ 		SqlSession ss=getSessionFactory().openSession();
+		tclist=ss.selectList("selectTclass", lcode);
+		ss.close();
+		return tclist;
+	}//selectTclassList
+
+ 	public List<String> selectClassday(String lcode) {
+		List<String> day=null;
+
+ 		SqlSession ss=getSessionFactory().openSession();
+		day=ss.selectOne("selectDay",lcode);
+		ss.close();
+		return day;
+	}//selectClassday
+
+ 	public List<ClassTime> selectClassTime(String lcode){
+		List<ClassTime> ctlist=null;
+
+ 		SqlSession ss=getSessionFactory().openSession();
+		ctlist=ss.selectList("selectClassTime", lcode);
+		ss.close();
+		return ctlist;
+	}//selectClassTime
+
+
+ 	public JoinCount selectJoinCount(String lcode) {
+		JoinCount joinCount=null;
+
+ 		SqlSession ss=getSessionFactory().openSession();
+		joinCount=ss.selectOne("selectJoinCount", lcode);
+		ss.close();
+		return joinCount;
+	}//selectJoinCount
+
+ 	public String selectLike(String lcode) {
+		String like=null;
+
+ 		SqlSession ss=getSessionFactory().openSession();
+		like=ss.selectOne("selectLike", lcode);
+		ss.close();
+		return like;
+	}//selectLike
+
+ /*	public  selectBar(String lcode) {
+		 =null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		=ss.selectOne("selectAddr", lcode);
+		ss.close();
+		return ;
+	}//selectBar
+*/	
 /*	public static void main(String[] args) {
 		DetailDAO d_dao=new DetailDAO();
 			System.out.println(d_dao.selectSummary("2"));
