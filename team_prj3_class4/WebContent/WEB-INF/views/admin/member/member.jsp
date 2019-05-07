@@ -105,12 +105,10 @@ $(function(){
 			};
 		});
 	 	
-	 	$("#searchBtn").click(function(){
+/* 	 	$("#searchBtn").click(function(){
 	 		var option=$("#searchOption option:selected").val();
-	 		alert(option);
 	 		var search=$("#keyword").val();
-	 		alert(search);
-	 	});
+	 	}); */
 	 	
 	 	
 		
@@ -127,7 +125,6 @@ $(function(){
 	<div class="card-body">
 	
 		<form name="memberSearch" class="form-inline" action="member.do" method="get">
-        <%-- <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" /> --%>
         <select name="searchOption" id="searchOption" class="form-control input-sm">
             <option value="name">이름</option>
             <option value="client_id">아이디</option>
