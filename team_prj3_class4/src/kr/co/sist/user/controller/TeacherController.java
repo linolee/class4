@@ -27,10 +27,7 @@ public class TeacherController {
 		
 		String id = "";	//나중에 세션값으로 조회하기
 		id = "1";	//우선 값 넣음
-		
 		// 서비스 호출하기
-		
-		
 		return "user/teacher/classStatus";
 	}
 	

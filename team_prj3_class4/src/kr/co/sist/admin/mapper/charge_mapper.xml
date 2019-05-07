@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin.charge">
+
+
+<select id="selectChargeAllList" resultType="kr.co.sist.admin.domain.ChargeAllList" parameterType="kr.co.sist.admin.vo.ListVO">
+	select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS
+	from(select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS, row_number() over(order by L_DATE desc) r_num
+		from(select LCODE, LNAME, TEACHER_NAME,
+				(select count(LCODE) from REPORT where lcode = l.LCODE) as all_REPORT,
+				(select count(*) from REPORT where lcode = l.LCODE and STATUS = 'T') as apply_REPORT, STATUS, L_DATE
+			from LESSON l)
+		where all_REPORT > 0)
+	where r_num between #{ startNum } and #{ endNum }
+</select>
+
+<select id="chargeTotalCnt" resultType="int">
+	select count(*) cnt
+	from(select LCODE,(select count(LCODE) from REPORT where lcode = l.LCODE) as all_REPORT
+		from LESSON l)
+	where all_REPORT > 0
+</select>
+
+<select id="selectChargeDetailList" resultType="kr.co.sist.admin.domain.ChargeDetailList" parameterType="kr.co.sist.admin.vo.ListChargeDetailVO">
+	select RCODE, SUBJECT, CLIENT_ID, R_DATE, STATUS
+	from(select RCODE, SUBJECT, CLIENT_ID, R_DATE, STATUS, row_number() over(order by R_DATE desc) r_num
+		from REPORT
+		where lcode = #{ lcode })
+	where r_num between #{ startNum } and #{ endNum }
+</select>
+
+<select id="chargeDetailTotalCnt" resultType="int" parameterType="String">
+	select count(*) cnt from REPORT where lcode = #{ lcode }
+</select>
+
+
+<select id="chargeDetailLessonInfo" resultType="kr.co.sist.admin.domain.LessonInfo" parameterType="String">
+	select LNAME, TEACHER_NAME, STATUS
+	from LESSON
+	where LCODE = #{ lcode }
+</select>
+
+<delete id="deleteLessonClosure" parameterType="String">
+	delete from LESSON where lcode = #{ lcode }
+</delete>
+
+<select id="selectChargeDetail" parameterType="String" resultType="kr.co.sist.admin.domain.ChargeDetail">
+	select SUBJECT, CLIENT_ID, CONTENTS, STATUS
+	from REPORT
+	where RCODE = #{ rcode }
+</select>
+
+<delete id="deleteReport" parameterType="String">
+	delete from REPORT where rcode = #{ rcode }
+</delete>
+
+<update id="updateReport" parameterType="String">
+	update REPORT
+	set STATUS = 'T'
+	where rcode = #{ rcode }
+</update>
+
+</mapper>
