@@ -1,40 +1,34 @@
 package kr.co.sist.user.domain;
 
-import java.sql.Date;
+ import java.sql.Date;
 
-public class ClassTime {
-	private Date date;
-	private String startTime, endTime;
-	private int newPersonal, maxPersonal;
+ public class ClassTime {
+	private Date start_date,end_date;
+	private String start_time, end_time;
 	
-	public Date getDate() {
-		return date;
+	public Date getStart_date() {
+		return start_date;
 	}
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
 	}
-	public String getStartTime() {
-		return startTime;
+	public Date getEnd_date() {
+		return end_date;
 	}
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
+	public void setEnd_date(Date end_date) {
+		this.end_date = end_date;
 	}
-	public String getEndTime() {
-		return endTime;
+	public String getStart_time() {
+		return start_time;
 	}
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
 	}
-	public int getNewPersonal() {
-		return newPersonal;
+	public String getEnd_time() {
+		return end_time;
 	}
-	public void setNewPersonal(int newPersonal) {
-		this.newPersonal = newPersonal;
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
 	}
-	public int getMaxPersonal() {
-		return maxPersonal;
-	}
-	public void setMaxPersonal(int maxPersonal) {
-		this.maxPersonal = maxPersonal;
-	}
-}
+
+ }

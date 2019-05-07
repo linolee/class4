@@ -1,14 +1,14 @@
 package kr.co.sist.user.domain;
 
 public class DetailContents {
-	private String dcontents,curriculum,others,address;
+	private String contents,curriculum,others,address;
 
-	public String getDcontents() {
-		return dcontents;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setDcontents(String dcontents) {
-		this.dcontents = dcontents;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public String getCurriculum() {
@@ -34,5 +34,5 @@ public class DetailContents {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 }
