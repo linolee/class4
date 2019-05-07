@@ -23,6 +23,7 @@
 #container{clear:both; width:1100px; min-height:1500px; }
 #footer{clear:both;position:static;width:1100px; height: 140px; clear:both }
 #footerTitle{float: right; font-size:15px; padding-top:20px; padding-right:20px; }
+
  /* 내부 */
 table{align : center; text-align: center;}
 td{font-size: 17px;}  
@@ -33,9 +34,15 @@ dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adad
 dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
+#reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- include summernote css/js -->
+<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
  $(function(){
 /*   	// 주메뉴 스크롤링
@@ -51,6 +58,13 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	 });  */
  });//ready
 </script>
+<script type="text/javascript">
+$(function () {
+   $('.summernote_contents').summernote({ airMode: true });
+   $('.summernote_contents').summernote('disable');
+});
+</script>
+<!-- summernote 관련 library 끝 -->   
 </head>
 <body>
 <div id="wrap">
@@ -58,13 +72,14 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
 	<div id="container">
+	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
 			<div id="classTitleImg" style="height: 400px; border: 1px solid #333; top:20px; ">
 				<!-- 대표이미지 -->
 				<img style="width: 100%; height: 400px;" src="http://localhost:8080/team_prj3_class4/resources/img/${summary.banner_img}">
 			</div>
-            <div id="summary">
+            <div id="summary" style="margin: 5px;">
             <%-- <c:forEach var="summary" items="${ requestScope.summary }">
       		<li><a href="#void"><c:out value="${summary.}"/></a></li>
       		<c:set var="i" value="${ i + 1 }"/>
@@ -90,14 +105,31 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
             		<td><c:out value="${summary.max_member}"/>명</td>
            		</tr>
            		<tr style="align-content: center">
-           			<td>
-           				<c:out value="${star.starAvg}"/>(<c:out value="${star.starCount}"/>)
+           			<td colspan="3">
+           				<%-- <c:out value="${star.starAvg}"/> --%>
+           				<c:choose>
+						<c:when test="${star.starAvg le 0}">
+						☆☆☆☆☆
+						</c:when>
+						<c:when test="${star.starAvg le 1}">
+						★☆☆☆☆
+						</c:when>
+						<c:when test="${star.starAvg le 2}">
+						★★☆☆☆
+						</c:when>
+						<c:when test="${star.starAvg le 3}">
+						★★★☆☆
+						</c:when>
+						<c:when test="${star.starAvg le 4}">
+						★★★★☆
+						</c:when>
+						<c:when test="${star.starAvg le 5}">
+						★★★★★
+						</c:when>
+						</c:choose>
+						(<c:out value="${star.starCount}"/>)
            			</td>
-           			<td colspan="2">
-           				<input type="button" class="btn" value="♡찜하기" style="font-size: 14px;"/>
-           				&nbsp;&nbsp;
-           				<input type="button" class="btn" value="신고하기" style="font-size: 14px;"/>
-           			</td>
+           			
            		</tr>
             	</table>
 			</div>	
@@ -112,6 +144,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                   		<c:forEach var="career" items="${ requestScope.career }">
                   			<c:out value="${career}"/><br/>
                   		</c:forEach>
+                  		<c:if test="${empty career}">
+                  			등록된 강사 경력이 없습니다.
+                  		</c:if>
                           <!-- *강사 경력<br/>
                            oo대학교 oo과 졸업<br/>
                            oo자격증 1급<br/> 
@@ -122,6 +157,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                   	</div>
                       <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스를 소개해요</span></div>
+                          <div style="margin:20px; font-size: 15px;">
+                          <textarea name="contents" class="summernote_contents" id="summernote" style="width: 90%; margin: 15px;">
+                          <c:out value="${detailc.contents}"/> 
+                          	<%-- <%=dd_vo.getContents()%> --%>	
+                          </textarea>
+                          </div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
                           	<%-- <c:out value="${dcontents.dcontents}"/> --%>
                           	<%-- <c:if test="${empty contents.contents}">
@@ -141,8 +182,15 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">수업 정보</span></div>
+                          <div style="margin:20px; font-size: 15px;">
+                           <textarea name="contents" class="summernote_contents" id="summernote" style="width: 90%; margin: 15px;">
+                          <c:out value="${detailc.curriculum}"/> 
+                          	<%-- <%=dd_vo.getContents()%> --%>	
+                          </textarea>
+                          </div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
-                              <p><span style="font-size: 12pt;"><br></span></p>
+                          
+                              <!-- <p><span style="font-size: 12pt;"><br></span></p>
                               <p><span style="font-size: 12pt;"><strong>1. 강의 소개</strong>
                               <br>- 강사 소개<br>- 하바리움은?&nbsp;</span></p>
                               <p><span style="font-size: 12pt;"><br></span></p>
@@ -153,7 +201,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                               <br>- 완성작 촬영<br>- 보관 팁, 주의사항 안내<br>- 정리 및 인사</span></p>
                               <p><br></p><p><span style="font-size: 12pt;"><br></span></p>
                               <p><span style="font-size: 12pt;"><strong>* 하바리움은 100ml 용량의 PET용기로 진행됩니다.</strong></span></p>
-                              <p><span style="font-size: 12pt;"><strong>* 소요 시간은 보통 1시간 내외로&nbsp;</strong><strong>소요됩니다.</strong></span></p><p><br></p><p><br></p>                            
+                              <p><span style="font-size: 12pt;"><strong>* 소요 시간은 보통 1시간 내외로&nbsp;</strong><strong>소요됩니다.</strong></span></p><p><br></p><p><br></p> -->                            
                           </span>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
@@ -168,6 +216,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									<c:forEach var="optlist" items="${ requestScope.optlist }">
 			                  			<c:out value="${optlist}"/><br/>
 			                  		</c:forEach>
+			                  		<c:if test="${empty optlist}">
+			                  			포함사항이 없습니다.
+			                  		</c:if>
 								</td>
                           		<td style="font-size: 15px;">
                           			<c:forEach var="noptlist" items="${ requestScope.noptlist }">
@@ -176,6 +227,15 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                           		</td>
                           	</tr>
                           </table>
+                      </div>
+                      <div class="group" style="border-top: 1px solid #cfcfcf;">
+                          <div class="detail_info_title"><span class="contentTitle">기타 사항</span></div>
+                          <div style="margin: 20px; font-size:15px;">
+                          	<c:out value="${detailc.others}"/>
+                          	<c:if test="${empty detailc.others}">
+                          		기타사항이 없습니다.
+                          	</c:if>
+                          </div>
                       </div>
 
                        <!-- <div class="group" style="border-top: 1px solid #cfcfcf;">
@@ -205,7 +265,10 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 
                        <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스 위치</span></div>
-                          <p class="detail editor_st" style="margin: 15px;">서울 용산구 동빙고동 262-6 B1 </p>
+                          <p class="detail editor_st" style="margin: 15px;font-size: 15px;">
+                          		<!-- 서울 용산구 동빙고동 262-6 B1 -->
+                          		 <c:out value="${detailc.address}"/>
+                          		</p>
 							<div id="kakaoMap">
 							</div>
 
@@ -217,7 +280,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							        center: new daum.maps.LatLng(37.499490, 127.033167), // 지도의 중심좌표
 							        level: 3 // 지도의 확대 레벨
 							    };  
- 							setMarker("서울 용산구 동빙고동 262-6","클래스 위치");
+ 							setMarker("<c:out value="${detailc.address}"/>","클래스 위치");
 							});//ready
 							
 							function setMarker(addr,dong){	
@@ -257,14 +320,35 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
 									<span class="contentTitle" style="float: letf">리뷰</span>
-									<input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/>
+									<!-- <input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/> -->
 								</div>
 								<table width="640" style="margin-left: 10px;">
 									<c:forEach var="rvlist" items="${ requestScope.rvlist }">
 										<tr>
 											<td rowspan="2">
 												<c:out value="${rvlist.client_id}"/><br/>
-												<c:out value="${rvlist.score}"/>
+												<input type="hidden" value="${rvlist.score}" id="rvScore"/>
+												<c:choose>
+												<c:when test="${rvlist.score eq 0}">
+												☆☆☆☆☆
+												</c:when>
+												<c:when test="${rvlist.score eq 1}">
+												★☆☆☆☆
+												</c:when>
+												<c:when test="${rvlist.score eq 2}">
+												★★☆☆☆
+												</c:when>
+												<c:when test="${rvlist.score eq 3}">
+												★★★☆☆
+												</c:when>
+												<c:when test="${rvlist.score eq 4}">
+												★★★★☆
+												</c:when>
+												<c:when test="${rvlist.score eq 5}">
+												★★★★★
+												</c:when>
+												</c:choose>
+												<%-- <c:out value="${rvlist.score}"/> --%>
 											</td>
 											<td><c:out value="${rvlist.subject}"/></td>
 										</tr>
@@ -287,7 +371,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
 									<span class="contentTitle"  style="float: letf">Q&A</span>
-									<input style="float: right;" type="button" name="qnaWBtn" id="qnaWBtn" class="btn" value="Q&A 작성"/>
+									<!-- <input style="float: right;" type="button" name="qnaWBtn" id="qnaWBtn" class="btn" value="Q&A 작성"/> -->
 								</div>
 								<table width="640" style="margin-left: 10px;">
 									<c:forEach var="qnalist" items="${ requestScope.qnalist }">
@@ -312,13 +396,31 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 								</div>
 								<div style="float: right; border-left: 1px solid #cfcfcf;width: 150px; height: 200px; text-align: center;">
 									<div style="float:none;margin-top: 15px;margin-bottom:10px ; margin-left:35px;
-										border:1px solid #cfcfcf; width: 50%; height: 40%;">강사 사진</div>
-									<span style="">강사 명</span><br/>
-									<span style="">강사 간단소개</span>
+										border:1px solid #cfcfcf; width: 50%; height: 40%;">
+										<img src="http://localhost:8080/team_prj3_class4/resources/img/${summary.img}">
+									</div>
+									<span style=""><c:out value="${summary.teacher_name}"/></span><br/>
+									<span style="">
+									<!-- 강사 간단소개 -->
+									<c:out value="${addr.introduce}"/>
+									</span>
 								</div>
+								<c:forEach var="tclist" items="${requestScope.tclist}">
 								<div style="border: 1px solid #333; width: 150px; height: 200px; float: left;">
-									
+									<div style="width: 150px; height: 100px;">
+										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/resources/img/${tclist.main_img}"/>
+										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
+									</div>
+									<div style="width: 150px; height: 100px;">
+										<c:out value="${tclist.lname}"/><br/>
+										<c:out value="${summary.teacher_name}"/>
+									</div>
+									<input type="hidden" value="${tclist.lcode}"/>
 								</div>
+								</c:forEach>
+								<c:if test="${empty tclist}">
+								<span style="text-align: center; margin: 15px; font-size: 15px;">등록된 다른 클래스가 없습니다.</span>
+								</c:if>
 
  							</div>					
                        </div>
@@ -329,8 +431,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
            </div>
            </div>     
 
- 		<div id="moveBar" style="position:relative; float:right; width:350px; height: 450px; top:20px; margin: 5px; max-height: 1500px; ">
-			<aside class="other" style="clear:both; position:fixed; border: 1px solid #afafaf; width: 320px; height: 450px; float: right; padding: 10px;">
+ 		<div id="moveBar" style="position:relative; float:right; width:350px; height: 425px; top:20px; margin: 5px; max-height: 1500px; ">
+			<aside class="other" style="clear:both; position:fixed; border: 1px solid #afafaf; width: 320px; height: 425px; float: right; padding: 10px;">
 				<div id="barTitle">
 				<span id="Title" style="font-size: 20px; font-weight: bold"><c:out value="${summary.lname}"/></span>
 				</div>
@@ -359,10 +461,31 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	                              <dd>09:00 ~ 10:00</dd>
 	                          </dl>
 	                      </div>
-	                      <div class="select_day group" >
+	                      <div class="select_day group" style="margin-bottom: 10px;">
 	                          <div class="c_selectbox">
 	                          <select onChange="setPeople(this.value)" style="width: 100%; height: 30px; margin-top: 10px;">
-                                  <option value="0">2019.05 첫째주-월,수,금 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 </option>
+	                          <!-- <option value="0">
+	                          2019.05 첫째주-월,수,금 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4
+	                          </option> -->
+	                          <option value="0">
+	                          <c:out value="${classTime.start_date}"/>&nbsp;&nbsp;
+	                           <c:forEach var="day" items="${requestScope.day}">
+                                  <c:out value="${day}"/>,
+                                </c:forEach>
+                                 <c:out value="${classTime.start_time}"/>시 ~ <c:out value="${classTime.end_time}"/>시
+                                  &nbsp; &nbsp; &nbsp; &nbsp; 
+                                  <c:out value="${joinCount.now_member}"/>
+                                  <c:if test="${empty joinCount.now_member}">0</c:if>
+                                   / <c:out value="${summary.max_member}"/>
+	                          </option>
+                                  <!-- 	2019.05 첫째주-월,수,금 19:00 ~ 20:00 &nbsp; &nbsp; &nbsp; &nbsp; 0 / 4 -->
+                                  <%-- <option value="0">
+                                  <c:out value="${ctlist.start_date}"/>-
+                                  <c:forEach var="day" items="${requestScope.day}">
+                                  <c:out value="${day}"/>
+                                  </c:forEach>
+                                  <c:out value="${ctlist.start_time}"/> ~ <c:out value="${ctlist.end_time}"/>
+                                  </option> --%>
 	                              </select>
 	                             <!--  <label for="">클릭해서 클래스날짜 선택하기</label> -->
 	                             <!--  <select onChange="setPeople(this.value)" style="width: 100%; height: 30px; margin-top: 10px;">
@@ -381,23 +504,30 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	                              </select> -->
 	                          </div>
 	                      </div>
-	                      <dl class="clear_fix" style="border-top: 1px solid #cdcdcd;">
+	                      <dl class="clear_fix" style="padding-top:10px;border-top:1px solid #cdcdcd;">
 	                          <dt>지역정보</dt>
-	                          <dd title="서울 > 용산구">서울 > 용산구</dd>
+	                          <dd title="${addr.si}&gt;${addr.gu}"><c:out value="${addr.si}"/>&gt;<c:out value="${addr.gu}"/></dd>
 	                      </dl>
 	                      <dl class="clear_fix">
 	                          <dt>수강인원</dt>
-	                          <dd><span class="mark" id="lec_count_now">0</span> / <span id="lec_count_max">4</span>명</dd>
+	                          <dd><span class="mark" id="lec_count_now">
+	                          <c:out value="${joinCount.now_member}"/>
+	                          <c:if test="${empty joinCount.now_member}">0
+	                          </c:if>
+	                          </span>
+	                          	 / <span id="lec_count_max">
+	                          	 <c:out value="${summary.max_member}"/></span>명</dd>
 	                      </dl>
 	                      <dl class="clear_fix">
 	                          <dt>신청마감일</dt>
 	                          <dd>
-									2019. 05. 29(월)
+	                          	<c:out value="${addr.due_date}"/>
+									<!-- 2019. 05. 29(월) -->
 							  </dd>
 	                      </dl>
 	                      <dl class="clear_fix">
 	                          <dt>찜한 회원</dt>
-	                          <dd><span id="likeCnt">0</span>명</dd>
+	                          <dd><span id="likeCnt"><c:out value="${like}"/></span>명</dd>
 	                      </dl>
 	                   <!--  <div class="tutor_t">
 						<dl class="tutor_txt" style="height:200px;">
@@ -415,6 +545,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 						</div> -->
 	                  </div>
 	                  <div>
+	                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
+           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 	                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
 	                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
 	                  
@@ -435,7 +567,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		</div>
 
      </div>
-	<script>
+<!-- 	<script>
     var lec_type=2;
     var all_count_max='4';
     var all_count_min='1';
@@ -477,7 +609,10 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
     arrText4[10] = '4';
     arrCount[10] = '0';
     var oneday = 0;
-  var chk = '2019-04-15 > 19:0 > 20:0 > 1 > 4,2019-04-16 > 19:0 > 20:0 > 1 > 4,2019-04-21 > 12:30 > 13:30 > 1 > 4,2019-04-21 > 14:0 > 15:0 > 1 > 4,2019-04-21 > 18:0 > 19:30 > 1 > 4,2019-04-27 > 12:30 > 13:30 > 1 > 4,2019-04-27 > 14:0 > 15:0 > 1 > 4,2019-04-27 > 16:0 > 17:0 > 1 > 4,2019-04-29 > 19:0 > 20:0 > 1 > 4,2019-04-30 > 19:0 > 20:0 > 1 > 4,2019-04-21 > 16:0 > 17:0 > 1 > 4';
+  var chk = '2019-04-15 > 19:0 > 20:0 > 1 > 4,2019-04-16 > 19:0 > 20:0 > 1 > 4,2019-04-21 > 12:30 > 13:30 > 1 > 4,
+  2019-04-21 > 14:0 > 15:0 > 1 > 4,2019-04-21 > 18:0 > 19:30 > 1 > 4,2019-04-27 > 12:30 > 13:30 > 1 > 4,
+  2019-04-27 > 14:0 > 15:0 > 1 > 4,2019-04-27 > 16:0 > 17:0 > 1 > 4,2019-04-29 > 19:0 > 20:0 > 1 > 4,
+  2019-04-30 > 19:0 > 20:0 > 1 > 4,2019-04-21 > 16:0 > 17:0 > 1 > 4';
   function setPeople(num){
 	var num_array = num.split("_");
 	var num = num_array[0];
@@ -532,7 +667,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
     }
     document.location.href = "/reservation/reservation_form.php?idx=341&oneday="+oneday;
   }
-</script>
+</script> -->
 	<div id="footer">
 		<c:import url="../footer/footer.jsp" />
 	</div>

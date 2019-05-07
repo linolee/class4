@@ -15,7 +15,7 @@
 	<result column="img" property="img"/>
 </resultMap>
 <select id="selectSummary" resultMap="summary" parameterType="String">
-	select l.banner_img,l.lname,l.lintro,l.teacher_name,substr(l.address,instr(l.address,'시')+2,3) address,l.max_member,l.end_time-l.start_time class_time,t.img
+	select l.banner_img,l.lname,l.lintro,l.teacher_name,substr(l.address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) address,l.max_member,l.end_time-l.start_time class_time,t.img
 	from lesson l ,teacher t
 	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
 </select>
@@ -40,17 +40,17 @@
 	where lcode= #{lcode})
 </select>
 
-<!-- <resultMap type="kr.co.sist.domain.DetailContents" id="detailC">
-	<result column="dcontents" property="dcontents"/>
+<resultMap type="kr.co.sist.user.domain.DetailContents" id="detailContents">
+	<result column="contents" property="contents"/>
 	<result column="curriculum" property="curriculum"/>
 	<result column="others" property="others"/>
 	<result column="address" property="address"/>
 </resultMap>
-<select id="selectContents" resultMap="detailC" parameterType="String">
-	select contents dcontents,curriculum,others,address
+<select id="selectDeContents" resultMap="detailContents" parameterType="String">
+	select contents,curriculum,others,address
 	from lesson
-	where lcode=#{lcode}
-</select> -->
+	where lcode= #{lcode}
+</select>
 
 <select id="selectOpt" resultType="String" parameterType="String">
 	select opt
@@ -76,6 +76,10 @@
 	where lcode = #{lcode}
 </select>
 
+<select id="selectReviewTotalCnt" resultType="int">
+select count(*) cnt from review
+</select>
+
 <resultMap type="kr.co.sist.user.domain.QnA" id="qna">
 	<result column="qcode" property="qcode"/>
 	<result column="id" property="id"/>
@@ -88,6 +92,11 @@
 	from lesson_qna
 	where lcode=#{lcode}
 </select>
+
+<select id="selectQnaTotalCnt" resultType="int">
+select count(*) cnt from lesson_qna
+</select>
+
 <resultMap type="kr.co.sist.user.domain.TClass" id="Tclass">
 	<result column="main_img" property="main_img"/>
 	<result column="lname" property="lname"/>
@@ -108,11 +117,12 @@
 
  <resultMap type="kr.co.sist.user.domain.ClassTime" id="time">
 	<result column="start_date" property="start_date"/>
+	<result column="end_date" property="end_date"/>
 	<result column="start_time" property="start_time"/>
 	<result column="end_time" property="end_time"/>
 </resultMap>
 <select id="selectClassTime" resultMap="time" parameterType="String">
-	select start_date,start_time, end_time
+	select start_date,end_date,start_time, end_time
 	from lesson
 	where lcode=#{lcode}
 </select>
@@ -126,18 +136,24 @@
 	from lesson l inner join students s
 	on l.lcode=s.lcode
 	where l.lcode=#{lcode}
-	group by min_member
+	group by max_member
 </select>
 
  <select id="selectLike" resultType="String" parameterType="String">
 	select count(client_id) from LESSON_LIKE where lcode=#{lcode}
 </select>
 
- <!-- <select id="selectAddr" resultMap="" parameterType="String">
-select  l.due_date, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,3) gu
+<resultMap type="kr.co.sist.user.domain.Addr" id="Addr">
+	<result column="due_date" property="due_date"/>
+	<result column="si" property="si"/>
+	<result column="gu" property="gu"/>
+	<result column="introduce" property="introduce"/>
+</resultMap>
+<select id="selectAddr" resultMap="Addr" parameterType="String">
+select l.due_date, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) gu,t.introduce
 from lesson l inner join teacher t
 on t.teacher_name=l.teacher_name
 where lcode=#{lcode}
-</select> -->
+</select>
 
 </mapper>

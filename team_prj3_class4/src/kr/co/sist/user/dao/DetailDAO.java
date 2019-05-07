@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
 import kr.co.sist.user.domain.JoinCount;
@@ -72,15 +73,15 @@ public class DetailDAO {
 		return list;
 	}//selectCareer
 	
-/*	public DetailContents selectContents(String lcode) {
-		DetailContents dc=null;
+	public DetailContents selectDeContents(String lcode) {
+		DetailContents detailc=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		dc=ss.selectOne("selectContents", lcode);
+		detailc=ss.selectOne("selectDeContents", lcode);
 		ss.close();
-		return dc;
+		return detailc;
 	}//selectContents
-*/	
+	
 	public List<String> selectOpt(String lcode) {
 		List<String> optList=null;
 		
@@ -108,6 +109,14 @@ public class DetailDAO {
 		return rvList;
 	}//selectReviewList
 	
+	public int selectRTotalCount() {
+		int cnt=0;
+		SqlSession ss = getSessionFactory().openSession();
+		cnt=ss.selectOne("selectReviewTotalCnt");
+		ss.close();
+		return cnt;
+	}//selectRTotalCount
+	
 	public List<QnA> selectQnaList(String lcode){
 		List<QnA> qnaList=null;
 		
@@ -116,6 +125,14 @@ public class DetailDAO {
 		ss.close();
 		return qnaList;
 	}//selectQnaList
+	
+	public int selectQTotalCount() {
+		int cnt=0;
+		SqlSession ss = getSessionFactory().openSession();
+		cnt=ss.selectOne("selectQnaTotalCnt");
+		ss.close();
+		return cnt;
+	}//selectRTotalCount
 	
 	public List<TClass> selectTclassList(String lcode){
 		List<TClass> tclist=null;
@@ -130,18 +147,18 @@ public class DetailDAO {
 		List<String> day=null;
 
  		SqlSession ss=getSessionFactory().openSession();
-		day=ss.selectOne("selectDay",lcode);
+		day=ss.selectList("selectDay",lcode);
 		ss.close();
 		return day;
 	}//selectClassday
 
- 	public List<ClassTime> selectClassTime(String lcode){
-		List<ClassTime> ctlist=null;
+ 	public ClassTime selectClassTime(String lcode){
+ 		ClassTime classTime=null;
 
  		SqlSession ss=getSessionFactory().openSession();
-		ctlist=ss.selectList("selectClassTime", lcode);
+ 		classTime=ss.selectOne("selectClassTime", lcode);
 		ss.close();
-		return ctlist;
+		return classTime;
 	}//selectClassTime
 
 
@@ -163,15 +180,15 @@ public class DetailDAO {
 		return like;
 	}//selectLike
 
- /*	public  selectBar(String lcode) {
-		 =null;
+	public Addr selectBar(String lcode) {
+		Addr addr=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		=ss.selectOne("selectAddr", lcode);
+		addr=ss.selectOne("selectAddr", lcode);
 		ss.close();
-		return ;
+		return addr;
 	}//selectBar
-*/	
+	
 /*	public static void main(String[] args) {
 		DetailDAO d_dao=new DetailDAO();
 			System.out.println(d_dao.selectSummary("2"));
