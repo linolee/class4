@@ -2,7 +2,7 @@ package kr.co.sist.user.domain;
 
 import java.sql.Date;
 
-public class ClassDate {
+public class ClassTime {
 	private Date date;
 	private String startTime, endTime;
 	private int newPersonal, maxPersonal;
