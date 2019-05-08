@@ -129,16 +129,6 @@ public class CategoryController {
 	public String newCategory(HttpServletRequest request) {
 		String url="admin/template";
 		
-		
-		/*String category=request.getParameter("newCateHdn");
-		String smallCate=request.getParameter("newSmallCate");
-		
-		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
-		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
-		System.out.println("category:"+category+" smallCate:"+smallCate);
-		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");
-		System.out.println("+--++-+--+-+--+-++--+-+-+-+-++-+--+-++-+--++--++--+-++-");*/
-		
 		try {
 			if(cs.addNewCategory(request)) {
 				/*url="forward:/admin/category.do";*/

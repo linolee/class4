@@ -5,6 +5,17 @@
 <mapper namespace="kr.co.sist.admin.charge">
 
 
+<update id="endStatus1">
+	update LESSON
+	set STATUS = 'E'
+	where (END_DATE &lt; sysdate) and STATUS = 'I'
+</update>
+<update id="endStatus2">
+	update LESSON
+	set STATUS = 'C'
+	where (END_DATE &lt; sysdate) and ((STATUS = 'A') or (STATUS = 'R') or (STATUS = 'Y') or (STATUS = 'F'))
+</update>
+
 <select id="selectChargeAllList" resultType="kr.co.sist.admin.domain.ChargeAllList" parameterType="kr.co.sist.admin.vo.ListVO">
 	select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS
 	from(select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS, row_number() over(order by L_DATE desc) r_num
@@ -12,7 +23,7 @@
 				(select count(LCODE) from REPORT where lcode = l.LCODE) as all_REPORT,
 				(select count(*) from REPORT where lcode = l.LCODE and STATUS = 'T') as apply_REPORT, STATUS, L_DATE
 			from LESSON l
-			where l.STATUS != 'E')
+			where l.STATUS != 'E' and l.STATUS != 'C')
 		where all_REPORT > 0)
 	where r_num between #{ startNum } and #{ endNum }
 </select>

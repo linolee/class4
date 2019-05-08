@@ -17,6 +17,6 @@ public class UserQnaService {
 		boolean flag=false;
 		flag=uq_dao.insertQna(qvo);
 		return flag;
-	}//insertJjim
+	}//insertQna
 	
 }//class

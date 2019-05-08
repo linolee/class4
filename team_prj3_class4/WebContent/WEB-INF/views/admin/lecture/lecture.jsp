@@ -28,8 +28,7 @@
 		<br/>
 </div>
 
-               		 
-                    <table class="table table-responsive-sm">
+                    <table class="table table-responsive-sm table-striped" style="text-align:center">
                       <thead>
                         <tr>
                           <th width="100px">강의코드</th>
@@ -55,22 +54,37 @@
                       		<td><c:out value="${lecture.category }"/></td>
                       		<td><c:out value="${lecture.lname }"/></td>
                       		<td><c:out value="${lecture.teacher_name }"/></td>
+                      		
+                      		<c:set var="status" value="${lecture.status }" />
+							<c:choose>
+							    <c:when test="${status eq 'A'}">
+							        <td>승인대기</td>
+							    </c:when>
+							    <c:when test="${status eq 'R'}">
+							        <td>준비중</td>
+							    </c:when>
+							    <c:when test="${status eq 'Y'}">
+							        <td>오픈</td>
+							    </c:when>
+							    <c:when test="${status eq 'F'}">
+							        <td>마감</td>
+							    </c:when>
+							    <c:when test="${status eq 'I'}">
+							        <td>진행중</td>
+							    </c:when>
+							    <c:when test="${status eq 'E'}">
+							        <td>종료</td>
+							    </c:when>
+							    <c:when test="${status eq 'C'}">
+							        <td>취소</td>
+							    </c:when>
+							    <c:otherwise>
+							        <td>알수없음</td>
+							    </c:otherwise>
+							</c:choose>
+
                       	</tr>
                       	</c:forEach>
-                        <!-- <tr>
-                          <td>A0001</td>
-                          <td>기타</td>
-                          <td>스윙스와 함께하는 돈까스 맛있게 먹는법</td>
-                           <td>스윙스</td>
-                          <td>
-                            <span class="badge badge-success">진행중</span>
-                          </td>
-                           <td>
-                           <form method="get" action="./member.jsp" class="form-inline">
-                          <a data-toggle="modal" href="#reportModal"><span class="badge badge-primary">상세정보</span></a> 
-                          </form>
-                          </td> 
-                        </tr> -->
                       </tbody>
                     </table>
                     <div style="text-align: center">
@@ -81,7 +95,4 @@
                     </div>
                     </div>
                   </div>
-                </div>
-            
-
-<!--  -->
+</div>       

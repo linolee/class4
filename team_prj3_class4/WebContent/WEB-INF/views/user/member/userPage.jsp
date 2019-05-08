@@ -55,6 +55,52 @@
 
 <script type="text/javascript">
 $(function(){
+	
+	$("#changePasswordBtn").click(function (){
+		if (CheckPassword()) {
+			$.ajax({
+				type:"POST",
+				url:"changePassword.do",
+				data : {password : $('#pass1').val()},
+				dataType : "json",
+				success: function(json){
+					if (json.resultFlag) {
+						$('#pass0').val("");
+						$('#pass1').val("");
+						$('#pass2').val("");
+						alert('비밀번호가 정상적으로 변경되었습니다.');
+					}else{
+						alert('비밀번호가 정상적으로 변경되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+					}
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		}else{
+			alert("비밀번호를 다시 확인해주세요.");
+		}
+	});
+	
+	$("#pass0").change(function (){
+		$.ajax({
+			type:"POST",
+			url:"checkPassword.do",
+			data : {password : $('#pass0').val()},
+			dataType : "json",
+			success: function(json){
+				if (json.resultFlag) {
+					$('#passwordWarning0').text('');
+				}else{
+					$('#passwordWarning0').text('비밀번호가 일치하지 않습니다.').css("color", "red");
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+	});
+	
 	$("#reportSubmitBtn").click(function (){
 		$.ajax({
 			type:"POST",
@@ -76,29 +122,19 @@ $(function(){
 		});
 	});
 	
-	$("#changePasswordBtn").click(function (){
-		if (CheckPassword()) {
-			$.ajax({
-				type:"POST",
-				url:"changePassword.do",
-				data : {password : $('#pass1').val()},
-				dataType : "json",
-				success: function(json){
-					if (json.resultFlag) {
-						$('#pass1').val("");
-						$('#pass2').val("");
-						alert('비밀번호가 정상적으로 변경되었습니다.');
-					}else{
-						alert('비밀번호가 정상적으로 변경되지 않았습니다. 잠시 후에 다시 시도해주세요.');
-					}
-				},
-				error: function(xhr) {
-					console.log(xhr.status);
-				}	
-			});
-		}else{
-			alert("비밀번호를 다시 확인해주세요.");
-		}
+	$("#deleteClientInfoBtn").click(function(){
+		location.href = "deleteUserAgreement.do"
+	});
+	
+	$("#changeClientInfoBtn[name='change']").click(function(){
+		$(".clientInfo").attr("disabled", false);
+		$("#changeClientInfoBtn").val("회원정보 수정 완료").attr("name", "send");
+	});
+	
+	$("#changeClientInfoBtn[name='send']").click(function(){
+		alert("바뀐 버튼");
+		$(".clientInfo").attr("disabled", true);
+		$("#sendChangeClientInfoBtn").val("회원정보 수정").attr("name", "change");
 	});
 	
 	jb("#tabs").tabs();
@@ -107,10 +143,6 @@ $(function(){
 		placeholder : '신고 내용을 입력해주세요.',
 		tabsize : 2,
 		height : 300
-	});
-	
-	$("#deleteClientInfoBtn").click(function(){
-		location.href = "deleteUserAgreement.do"
 	});
 	
 });//ready
@@ -123,7 +155,7 @@ function CheckPassword() {
 	} else {
 		if ($('#pass1').val().length < 4
 				|| $('#pass1').val().length > 13) {//비밀번호 길이를 체크
-			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.');
+			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.').css("color", "red");
 			passwordFlag = false;
 		} else {
 			$('#passwordWarning').text('');
@@ -155,23 +187,23 @@ function CheckPassword() {
 							<table>
 								<tr>
 									<th>이름</th>
-									<td colspan="${fn:length(client_favor) }">${clientInfo.name}</td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.name}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>아이디</th>
-									<td colspan="${fn:length(client_favor) }">${clientInfo.client_id }</td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.client_id}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>생년월일</th>
-									<td colspan="${fn:length(client_favor) }">${clientInfo.birth }</td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.birth}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
-									<td colspan="${fn:length(client_favor) }">${clientInfo.tel }</td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.tel}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
-									<td colspan="${fn:length(client_favor) }">${clientInfo.email }</td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.email }" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>관심목록</th>
@@ -183,14 +215,22 @@ function CheckPassword() {
 									</c:forEach>
 								</tr>
 							</table>
-							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn">
+							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="change">
+							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="send">
 							<input type="button" value="회원 탈퇴" id="deleteClientInfoBtn" class="inputBtn">
 						</div>
 						<div id="fragment-2">
 							<table>
 								<tr>
+									<td>현재 비밀번호 입력</td>
+									<td><input type="password" id="pass0"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><label id="passwordWarning0"></label></td>
+								</tr>
+								<tr>
 									<td>비밀번호 입력</td>
-									<td><input type="password" id="pass1" name="password" onchange="CheckPassword()"></td>
+									<td><input type="password" id="pass1" onchange="CheckPassword()"></td>
 								</tr>
 								<tr>
 									<td>비밀번호 재입력</td>

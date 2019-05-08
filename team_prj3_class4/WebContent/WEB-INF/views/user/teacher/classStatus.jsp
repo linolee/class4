@@ -77,7 +77,7 @@ function viewImport( code ) {
 
 function viewClassStatus(status) {
 	location.href="classStatus.do?status="+status;
-} // viewClassStatus
+} // viewClassStatus//
 
 $(function(){
 	$("[name='btnClose']").click(function() {

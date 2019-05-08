@@ -5,8 +5,8 @@
 <mapper namespace="kr.co.sist.user.mapper.qna_mapper">
 
 <select id="insertQna" parameterType="kr.co.sist.user.vo.QnaVO" resultType="boolean">
-	insert into qna(qcode, lcode, client_id, subject, contents, q_date, status)
-	values(seq_text.nextval, #{lcode}, #{clientId}, #{subject}, #{contents}, sysdate, 'N')
+	insert into lesson_qna(qcode, lcode, client_id, subject, contents, q_date, status)
+	values(seq_qna.nextval, #{lcode}, #{clientId}, #{subject}, #{contents}, sysdate, 'N')
 </select>
 
 </mapper>
