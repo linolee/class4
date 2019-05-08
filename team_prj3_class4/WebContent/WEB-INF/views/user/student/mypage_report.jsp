@@ -93,9 +93,9 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			</div>
 		</div>
 		<div style="float: right">
-		<a href="#void" >전체보기</a> | 
-		<a href="#void" >처리대기</a> | 
-		<a href="#void" >처리완료</a> 
+		<a href="mypage_report.do" >전체보기</a> | 
+		<a href="?status=N" >처리대기</a> | 
+		<a href="?status=Y" >처리완료</a> 
 		</div>
 	</div>
 	<br/>
@@ -111,12 +111,20 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		<c:forEach var="reportList" items="${ reportList }">
 			<tr class=searchDetail>
 				<td class=tableBody>
-					<c:out value="${ reportList.get(i).rDate}"></c:out>
+					<c:if test="${ reportList.get(i).status == 'Y'}">
+						<c:out value="${ reportList.get(i).rDate}"></c:out>
+					</c:if>
+					<c:if test="${ reportList.get(i).status == 'N'}">
+						<c:out value="${ reportList.get(i).rDate}"></c:out>
+					</c:if>
 				</td>
 				<td class=tableBody>
-					<a href="#void" onclick="writeEvt('write_form',1)">
+					<c:if test="${ reportList.get(i).status == 'Y'}">
 						<c:out value="${ reportList.get(i).lname }"></c:out>
-					</a>
+					</c:if>
+					<c:if test="${ reportList.get(i).status == 'N'}">
+						<c:out value="${ reportList.get(i).lname }"></c:out>
+					</c:if>
 				</td>
 				<td class=tableBody>
 					<c:choose>

@@ -112,9 +112,9 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			</div>
 		</div>
 		<div style="float: right">
-		<a href="#void" >전체보기</a> | 
-		<a href="#void" >답변대기</a> | 
-		<a href="#void" >답변완료</a> 
+		<a href="mypage_q&a.do" >전체보기</a> | 
+		<a href="?status=N" >답변대기</a> | 
+		<a href="?status=Y" >답변완료</a> 
 		</div>
 	</div>
 	<br/>
@@ -125,17 +125,26 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			<th id="subjectList">클래스명</th>
 			<th id="statusList">답변여부</th>
 		</tr>
-		
 		<c:set var="i" value="${0 }"/>
 		<c:forEach var="qnaList" items="${ qnaList }">
 			<tr class=searchDetail>
 				<td class=tableBody>
-					<c:out value="${ qnaList.get(i).qDate}"></c:out>
+					<c:if test="${ qnaList.get(i).status == 'Y'}">
+						<c:out value="${ qnaList.get(i).qDate}"></c:out>
+					</c:if>
+					<c:if test="${ qnaList.get(i).status == 'N'}">
+						<c:out value="${ qnaList.get(i).qDate}"></c:out>
+					</c:if>
 				</td>
 				<td class=tableBody>
+					<c:if test="${ qnaList.get(i).status == 'Y'}">
 					<a href="#void" onclick="writeEvt('write_form',1)">
 						<c:out value="${ qnaList.get(i).lname }"></c:out>
 					</a>
+					</c:if>
+					<c:if test="${ qnaList.get(i).status == 'N'}">
+						<c:out value="${ qnaList.get(i).lname }"></c:out>
+					</c:if>
 				</td>
 				<td class=tableBody>
 					<c:choose>

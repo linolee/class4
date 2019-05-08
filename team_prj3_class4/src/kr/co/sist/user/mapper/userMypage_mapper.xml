@@ -117,6 +117,11 @@
 	from		lesson_qna
 	where	client_id=#{clientId}
 </select>
+<select id="qnaStatusCnt" parameterType="kr.co.sist.user.vo.QnaStatusVO" resultType="int">
+	select		count(lcode) cnt
+	from		lesson_qna
+	where	client_id=#{clientId} and status=#{status}
+</select>
 
 <resultMap type="kr.co.sist.user.domain.ReportList" id="reportListResult">
 	<result column="r_date" property="rDate"/>
@@ -139,6 +144,12 @@
 	select		count(lcode) cnt
 	from		report
 	where	client_id=#{clientId}
+</select>
+
+<select id="reportStatusCnt" parameterType="kr.co.sist.user.vo.ReportStatusVO" resultType="int">
+	select		count(lcode) cnt
+	from		report
+	where	client_id=#{clientId} and status=#{status}
 </select>
 
 

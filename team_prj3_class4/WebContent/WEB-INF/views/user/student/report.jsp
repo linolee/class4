@@ -105,7 +105,31 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		$("#writeButton").click(function(){
+			var count=$("input:checked[type='checkbox']").length;
+			$("input[type='checkbox']").on("click",function(){
+				count=$("input:checked[type='checkbox']").length;
+			})
+			if($("#SELECT0").val()==0){
+				alert("문의유형을 선택해 주세요.");
+				return;
+			}
+			if($("#subject").val()==""){
+				alert("제목을 입력해 주세요.");
+				return;
+			}
+			if($("#contents").val()==""){
+				alert("내용을 입력해 주세요.");
+				return;
+			}
+			if(count==0){
+				alert("정보수집에 동의해 주세요.");
+				return;
+			}
+			
+			$("#actionForm").submit();
+			
+		});
 	});//ready
 </script>
 </head>
@@ -122,17 +146,18 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 			</div>
 			<div class="reportContent">
 			<div class="form_area">
-				<form id="actionForm" name="actionForm" method="post" action="" style="margin:0px;" >
+				<form id="actionForm" name="actionForm" method="GET" action="reportProcess.do" style="margin:0px;" >
 				<input type="hidden" id="customerEmail" name="customerEmail" value=""/>
 				<input type="hidden" id="attach" name="attach" />
 				<input type="hidden" id="attachListJSON" name="attachListJSON"/>
 				<input type="hidden" id="customerId" name="customerId" value="guest"/>
+				<input type="hidden" id="lcode" name="lcode" value="${param.lcode }"/>
 				<table cellspacing="0" cellpadding="0">
 					<colgroup><col width="106" /><col width="242" /><col width="59" /><col width="*" /></colgroup>
 					<tr class="t1">
 						<th><span>문의유형</span></th>
 						<td>
-							<select id="SELECT0" name="SELECT0" onchange="ChangeCategory0(this.options[this.selectedIndex].value);">
+							<select id="SELECT0" name="reportType" onchange="ChangeCategory0(this.options[this.selectedIndex].value);">
 								<option value="0">-----문의유형선택-----</option>
 								<option value="1">성적인 콘텐츠</option>
 								<option value="2">폭력적 또는 혐오스러운 콘텐츠</option>
@@ -144,26 +169,24 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 					</tr>
 					<tr class="t3">
 						<th><span>아이디</span></th>
-						<td colspan="3"><input type="text" value="guest" class="input_txt" id="memberid" name="customerName" readonly /><span class="sp">로그인이 되지 않았을 경우 GUEST로 표기 됩니다.</span></td>
+						<td colspan="3"><input type="text" value="${client_id }" class="input_txt" id="memberid" name="customerName" readonly /><span class="sp">로그인이 되지 않았을 경우 GUEST로 표기 됩니다.</span></td>
 					</tr>
 					<tr class="t5">
 						<th><span>제목</span></th>
-						<td colspan="3"><input type="text" class="input_txt" id="reportTitle" name="reportTitle" /></td>
+						<td colspan="3"><input type="text" class="input_txt" id="subject" name="subject" /></td>
 					</tr>
 					<tr class="t6">
 						<th ><span>내용</span></th>
 
-						<td colspan="3"><textarea name='Content' id="reportContents" placeholder="" onfocus="javascript:setBlank();" >신고 내용을 상세히 적어 주시면 감사하겠습니다.
+						<td colspan="3"><textarea name='contents' id="contents" placeholder="" onfocus="javascript:setBlank();" >신고 내용을 상세히 적어 주시면 감사하겠습니다.
 
 ※ 개인정보 보호를 위해 신분증과 같은 개인정보 항목을 첨부하실 경우,
     주민등록번호 뒷자리가 노출 되지 않도록 첨부 해 주시기 바랍니다.</textarea></td>
 					</tr>
-				</form>
 					<tr class="t7">
 						<th><span>첨부파일</span></th>
 						<td colspan="3">
 							<input type="hidden" id="enableFileExtension" name="enableFileExtension" value="jpg;jpeg;gif;doc;zip;docx;xls;pdf;png;bmp;txt" />
-							<form name="attachForm" id="attachForm" method="post" enctype="multipart/form-data">
 							<div class="input_filewrap">
 								<input type="text"  id="file_route" class="file_text" readonly="readonly" title="첨부된 파일경로" />
 								<em class="file_wrap">
@@ -178,7 +201,6 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 								<select size="4" id="attachList" name="attachList" id="attachList" ></select>
 							</div>
 							<iframe id="mnHiddenFrame" name="mnHiddenFrame" style="display:none;" ></iframe>
-							</form>
 						</td>
 					</tr>
 				</table>
@@ -211,7 +233,8 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 				</dl>
 				<p class="a_info">※ 고객센터로 문의/신고 시 회원님께서 추가로 입력하시는 개인정보가 있을 수 있습니다.</p>
 
-				<p class="agree"><input type="checkbox" id="ag" name="agree" /><label for="ag">위 입력정보를 이메일 상담을 위하여 수집하는 것에 동의합니다</label></p>
+				<p class="agree"><input type="checkbox" id="agree" name="agr" /><label for="ag">위 입력정보를 이메일 상담을 위하여 수집하는 것에 동의합니다</label></p>
+			</form>
 			</div>
 			<div class="btn_area">
 				<button type="button" class="btn_ok" id="writeButton" name="writeButton" ><span class="blind">확인</span></button><button type="button" class="btn_cancel" id="cancelButton" name="cancelButton" ><span class="blind">취소</span></button>
