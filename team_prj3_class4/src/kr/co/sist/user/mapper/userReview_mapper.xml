@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.userReview_mapper">
+<resultMap type="kr.co.sist.user.domain.Review" id="ReviewInfo">
+	<result column="num" property="num"/>
+	<result column="lname" property="lname"/>
+	<result column="lcode" property="lcode"/>
+	<result column="subject" property="subject"/>
+	<result column="client_id" property="clientId"/>
+	<result column="contents" property="contents"/>
+	<result column="name" property="name"/>
+	<result column="r_date" property="rDate"/>
+	<result column="teacher_name" property="teacherName"/>
+</resultMap>
+<select id="selectReview" resultMap="ReviewInfo" parameterType="hashMap">
+	select B.lname, B.lcode, B.subject, C.client_id, C.name, to_char(B.r_date,'yyyy-mm-dd') r_date
+		from CLIENT C
+		join
+			(select R.client_id, R.lcode, A.lname, R.subject, R.contents, R.r_date
+				from REVIEW R
+			 	 join
+				 		(select lcode, lname
+							from LESSON
+							where TEACHER_NAME = #{tn_list}
+						 ) A
+				on A.lcode = R.lcode
+				<if test="fromDate != null and !fromDate.equals('') and toDate != null and !toDate.equals('')">
+				where R.r_date between TO_DATE(#{fromDate}, 'yyyy-mm-dd') and TO_DATE(#{toDate}, 'yyyy-mm-dd') + 0.99999 
+				</if>
+				) B
+		on B.client_id = C.client_id
+		
+		order by B.r_date desc
+</select>
+
+<select id="selectReviewCnt" resultType="int" parameterType="hashMap">
+	select count(*)
+		from CLIENT C
+		join
+			(select R.client_id, R.lcode, A.lname, R.subject, R.contents, R.r_date
+				from REVIEW R
+			 	 join
+				 		(select lcode, lname
+							from LESSON
+							where TEACHER_NAME = #{tn_list}
+						 ) A
+				on A.lcode = R.lcode
+				<if test="(fromDate != null and !fromDate.equals('')) and (toDate != null and !toDate.equals(''))">
+				where R.r_date between TO_DATE(#{fromDate}, 'yyyy-mm-dd') and TO_DATE(#{toDate}, 'yyyy-mm-dd') + 0.99999 
+				</if>				
+				) B
+		on B.client_id = C.client_id
+</select>
+
+<select id="selectTeacherName" resultType="String" parameterType="String">
+	select teacher_name
+		from teacher
+		where client_id=#{value} and status='Y'
+</select>
+<select id="selectReviewDetail" resultMap="ReviewInfo" parameterType="hashMap">
+select L.lname, A.*
+	from lesson L
+    join
+	(select R.lcode, R.client_id, R.subject, R.contents, R.r_date, C.name
+			from review R
+			join client C
+			on C.client_id = R.client_id
+
+			where R.client_id = #{clientId} and R.lcode = #{lcode}
+	) A
+
+	on A.lcode = L.lcode
+
+</select>
+
+</mapper>
+
+
+
+
+
+

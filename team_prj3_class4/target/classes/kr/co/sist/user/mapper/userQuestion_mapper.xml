@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.userQuestion_mapper">
+<resultMap type="kr.co.sist.user.domain.Question" id="QuestionInfo">
+	<result column="num" property="num"/>
+	<result column="lname" property="lname"/>
+	<result column="qcode" property="qcode"/>
+	<result column="lcode" property="lcode"/>
+	<result column="status" property="status"/>
+	<result column="subject" property="subject"/>
+	<result column="client_id" property="clientId"/>
+	<result column="contents" property="contents"/>
+	<result column="a_contents" property="aContents"/>
+	<result column="name" property="name"/>
+	<result column="a_date" property="aDate"/>
+	<result column="q_date" property="qDate"/>
+	<result column="teacher_name" property="teacherName"/>
+</resultMap>
+<select id="selectQuestion" resultMap="QuestionInfo" parameterType="hashMap">
+	select B.qcode, B.lcode, B.lname, B.client_id, C.name, B.subject, B.contents, B.a_contents, to_char(B.q_date,'yyyy-mm-dd') q_date, B.a_date, B.status
+		from CLIENT C
+		join
+			(select q.qcode, q.client_id, q.subject, q.contents, q.a_contents, q.q_date, q.a_date, q.status, A.lname, A.lcode
+				from LESSON_QNA q
+			 	 join
+				 		(select lcode, lname
+							from LESSON
+							where TEACHER_NAME = #{tn_list}
+						 ) A
+				on A.lcode = q.lcode
+				<if test="(fromDate != null and !fromDate.equals('')) and (toDate != null and !toDate.equals(''))">
+				where q_date between #{fromDate} and #{toDate}
+				</if>				
+				) B
+		on B.client_id = C.client_id
+
+		order by q_date desc
+</select>
+
+ <select id="selectQusetionCnt" resultType="int" parameterType="hashMap">
+	select count(*)
+		from CLIENT C
+		join
+			(select q.qcode, q.client_id, q.subject, q.contents, q.a_contents, q.q_date, q.a_date, q.status, A.lname, A.lcode
+				from LESSON_QNA q
+			 	 join
+				 		(select lcode, lname
+							from LESSON
+							where TEACHER_NAME = #{tn_list}
+						 ) A
+				on A.lcode = q.lcode
+				<if test="(fromDate != null and !fromDate.equals('')) and (toDate != null and !toDate.equals(''))">
+				where q_date between #{fromDate} and #{toDate}
+				</if>				
+				) B
+		on B.client_id = C.client_id
+</select>
+
+<select id="selectQuestionDetail" resultMap="QuestionInfo" parameterType="String">
+select L.lname, A.*
+	from lesson L
+	join
+	(select L.qcode, L.lcode, L.client_id, L.subject, L.contents, L.a_contents, L.q_date, L.a_date, L.status, C.name
+		from LESSON_QNA L
+		join CLIENT C
+		on C.client_id = L.client_id
+		where L.qcode = #{value}
+	) A	
+		on A.lcode = L.lcode
+</select>
+
+<!-- <update id="updateQuestionReply" parameterType="vo.QuestionReplyVO">
+	update LESSON_QNA
+	set A_CONTENTS='반갑습니다. 고갱님~' 
+	where QCODE='q124'
+</update> -->
+
+</mapper>
+
+
+
+
+
+

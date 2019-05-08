@@ -6,16 +6,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.user.domain.LectureView;
-import kr.co.sist.user.domain.StatusCnt;
+import kr.co.sist.user.domain.Question;
+import kr.co.sist.user.domain.Review;
+import kr.co.sist.user.vo.QuestionReplyVO;
 
 @Component
-public class UserLectureDAO {
+public class UserLectureQuestionDAO {
+
 	private SqlSessionFactory ssf = null;
 
 	public SqlSessionFactory getSessionFactory() {
@@ -36,48 +39,15 @@ public class UserLectureDAO {
 		} // end if
 		return ssf;
 	}// getSqlSessionFactory
-
 	
-	//lcode로 하나의 클래스를 조회한다
-	public LectureView selectLecture(Map<String, String> param) {
+	public List<Question> selectQuestion (Map<String, String> map){
 		SqlSession ss = getSessionFactory().openSession();
-		LectureView lv = ss.selectOne("selectLectureInfo", param);
-		ss.close();
-		
-		return lv;
-	} // selectLecture
-	
-	//teachername으로 lcode를 가져온다
-	public List<String> selectLcode(String teacherName) {
-		SqlSession ss = getSessionFactory().openSession();
-		List<String> list = ss.selectList("selectLcode", teacherName);
+		List<Question> list = ss.selectList("selectQuestion",map);
 		ss.close();
 		
 		return list;
-	} // selectLcode
+	} // selectQuestion
 	
-	//id로 teacherName 조회
-	public List<String> selectTeachername(String userId) {
-		SqlSession ss = getSessionFactory().openSession();
-		List<String> list = ss.selectList("selectTeachername", userId);
-		ss.close();
-		
-		return list;
-	} // selectTeachername
-	
-	public List<LectureView> selectStudentsList(String lcode){
-		SqlSession ss = getSessionFactory().openSession();
-		List<LectureView> list = ss.selectList("selectStudentsList", lcode);
-		ss.close();
-		return list;		
-	} // selectStudentsList
-	
-	public List<StatusCnt> selectLectureStatus(String teacherName){
-		SqlSession ss = getSessionFactory().openSession();
-		List<StatusCnt> list = ss.selectList("selectLectureStatus", teacherName);
-		ss.close();		
-		return list;
-	} // selectLectureStatus
 	
 	public List<String> selectTeacherName(String userId){
 		SqlSession ss = getSessionFactory().openSession();
@@ -86,5 +56,28 @@ public class UserLectureDAO {
 		
 		return list;
 	} // selectTeacherName
+
+	public int selectQusetionCnt (Map<String, String> map) {
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt = 0;
+		cnt = ss.selectOne("selectQusetionCnt", map);
+		
+		return cnt;
+	} // selectReviewCnt
+	
+	public Question selectQuestionDetail(String qcode) {
+		SqlSession ss = getSessionFactory().openSession();
+		Question question = ss.selectOne("selectQuestionDetail", qcode);
+		
+		return question;
+	} //selectQuestionDetail
+	
+	public int updateQuestionReply(QuestionReplyVO qrvo) {
+		SqlSession ss = getSessionFactory().openSession();
+		int i = ss.update("updateQuestionReply", qrvo);
+		
+		System.out.println(i);
+		return i;
+	}
 	
 } // class
