@@ -52,7 +52,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		})
 	});//ready
 	
-	function writeEvt(pageFlag, evtCnt){
+	function readEvt(pageFlag, evtCnt){
 		$("[name='pageFlag']").val(pageFlag);
 		$("[name='mypageFrm']").submit();
 	}//writeEvt
@@ -138,7 +138,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 				</td>
 				<td class=tableBody>
 					<c:if test="${ qnaList.get(i).status == 'Y'}">
-					<a href="#void" onclick="writeEvt('write_form',1)">
+					<a href="?lcode=${qnaList.get(i).lcode }" onclick="readEvt('read_form',1)">
 						<c:out value="${ qnaList.get(i).lname }"></c:out>
 					</a>
 					</c:if>

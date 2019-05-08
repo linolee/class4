@@ -1,7 +1,6 @@
 package kr.co.sist.user.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +8,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -21,10 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
-import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.domain.QnaList;
 import kr.co.sist.user.domain.ReportList;
-import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserMypageService;
 import kr.co.sist.user.vo.ListPageVO;
 import kr.co.sist.user.vo.ListVO;
@@ -282,7 +277,7 @@ public class MypageController {
 		List<List<ClassList>> jjimList=new ArrayList<List<ClassList>>();
 		List<String> jjimStatus=new ArrayList<String>();
 		List<String> lcodeList=null;
-		lcodeList=ums.lcodeList(clientId);
+		lcodeList=ums.jjimLcodeList(clientId);
 		
 		int totalCount=ums.jjimTotalCnt(clientId);
 		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
