@@ -24,6 +24,7 @@ import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
+import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -137,7 +138,7 @@ public class MemberController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
-	public String memberReportSubmint(HttpServletRequest request, HttpSession session) {
+	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
 		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
 				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
@@ -193,6 +194,21 @@ public class MemberController {
 			return "user/member/login";
 		}
 	}// deleteUserAgreementPage
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/changePassword.do", method = POST)
+	public String changePassword(HttpServletRequest request, HttpSession session) {
+		System.out.println("비밀번호 변경 불림");
+		System.out.println(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password")));
+		JSONObject json = new JSONObject();
+		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+			json.put("resultFlag", true);
+			System.out.println("비밀번호 변경 성공");
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
 
 	@RequestMapping(value = "user/member/report.do", method = GET)
 	public String reportPage() {
