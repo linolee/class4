@@ -4,14 +4,25 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mainC">
 
-
 <select id="selectCategoryList" resultType="String">
-select CATEGORY 
-from CATEGORY 
-where IMG is not null
+	 <![CDATA[
+	select category 
+	from category 
+	where rownum <= 11 
+	order by category
+	 ]]>
 </select>
 
-
-
+<resultMap type="kr.co.sist.user.domain.Category" id="category">
+	<result column="category" property="category"/>
+	<result column="img" property="img"/>
+</resultMap>
+<select id="selectCategoryImgList" resultMap="category">
+	 <![CDATA[
+	select category,img 
+	from category 
+	where rownum <= 9 
+	 ]]>
+</select>
 
 </mapper>
