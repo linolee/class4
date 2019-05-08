@@ -103,10 +103,14 @@ select count(*) cnt from lesson_qna
 	<result column="lcode" property="lcode"/>
 </resultMap>
 <select id="selectTclass" resultMap="Tclass" parameterType="String">
+	<![CDATA[
+	select * from(
 	select main_img,lname,lcode
 	from lesson
 	where teacher_name=(select teacher_name from lesson where lcode=#{lcode})
 	and lcode!=#{lcode}
+	)where rownum <= 3 
+	]]>
 </select>
 
  <select id="selectDay" resultType="String" parameterType="String">
