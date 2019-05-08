@@ -33,6 +33,7 @@
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
+					<th width="100px">강의코드</th>
 					<th width="300px">강의명</th>
 					<th width="100px">강사명</th>
 					<th width="100px">카테고리</th>
@@ -52,7 +53,12 @@
 				<c:set var="i" value="${i+1 }"/>
 				<tr>
 					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
-					<td><c:out value="${permit.lname }"/></td>
+					<td><c:out value="${permit.lcode }"/></td>
+					<td>
+						<a href="">
+							<c:out value="${permit.lname }"/>
+						</a>
+					</td>
 					<td><c:out value="${permit.teacher_name }"/></td>
 					<td><c:out value="${permit.category }"/></td>
 				</tr>
