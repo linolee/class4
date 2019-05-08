@@ -11,7 +11,8 @@
 		from(select LCODE, LNAME, TEACHER_NAME,
 				(select count(LCODE) from REPORT where lcode = l.LCODE) as all_REPORT,
 				(select count(*) from REPORT where lcode = l.LCODE and STATUS = 'T') as apply_REPORT, STATUS, L_DATE
-			from LESSON l)
+			from LESSON l
+			where l.STATUS != 'E')
 		where all_REPORT > 0)
 	where r_num between #{ startNum } and #{ endNum }
 </select>
@@ -42,9 +43,11 @@
 	where LCODE = #{ lcode }
 </select>
 
-<delete id="deleteLessonClosure" parameterType="String">
-	delete from LESSON where lcode = #{ lcode }
-</delete>
+<update id="updateLessonClosure" parameterType="String">
+	update LESSON
+	set STATUS = 'E'
+	where lcode = #{ lcode }
+</update>
 
 <select id="selectChargeDetail" parameterType="String" resultType="kr.co.sist.admin.domain.ChargeDetail">
 	select SUBJECT, CLIENT_ID, CONTENTS, STATUS

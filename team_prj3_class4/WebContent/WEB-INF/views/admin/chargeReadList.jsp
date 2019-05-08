@@ -43,8 +43,9 @@
 						</c:choose></td>
 				</tr>
 				<tr height="250px">
-					<td>내용</td>
-					<td>
+					<td colspan="2">
+						<br>
+						<label style="font-weight: bold;">신고 사항 상세 목록</label>
 						<table class="table table-responsive-sm">
 							<thead>
 								<tr>
