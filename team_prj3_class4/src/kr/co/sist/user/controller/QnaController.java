@@ -32,7 +32,6 @@ public class QnaController {
 			UserQnaService ums = ac.getBean(UserQnaService.class);
 			
 			boolean insertFlag=false;
-			
 			String clientId = session.getAttribute("client_id").toString();
 			String lcode=request.getParameter("lcode");
 			String subject=request.getParameter("subject");

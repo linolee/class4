@@ -106,6 +106,26 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 <script type="text/javascript">
 	$(function(){
 		$("#writeButton").click(function(){
+			var count=$("input:checked[type='checkbox']").length;
+			$("input[type='checkbox']").on("click",function(){
+				count=$("input:checked[type='checkbox']").length;
+			})
+			if($("#SELECT0").val()==0){
+				alert("문의유형을 선택해 주세요.");
+				return;
+			}
+			if($("#subject").val()==""){
+				alert("제목을 입력해 주세요.");
+				return;
+			}
+			if($("#contents").val()==""){
+				alert("내용을 입력해 주세요.");
+				return;
+			}
+			if(count==0){
+				alert("정보수집에 동의해 주세요.");
+				return;
+			}
 			
 			$("#actionForm").submit();
 			
@@ -126,11 +146,12 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 			</div>
 			<div class="questionContent">
 			<div class="form_area">
-				<form id="actionForm" name="actionForm" method="post" action="qnaProcess.do" style="margin:0px;" >
+				<form id="actionForm" name="actionForm" method="GET" action="qnaProcess.do" style="margin:0px;" >
 				<input type="hidden" id="customerEmail" name="customerEmail" value=""/>
 				<input type="hidden" id="attach" name="attach" />
 				<input type="hidden" id="attachListJSON" name="attachListJSON"/>
 				<input type="hidden" id="customerId" name="customerId" value="guest"/>
+				<input type="hidden" id="lcode" name="lcode" value="${param.lcode }"/>
 				<table cellspacing="0" cellpadding="0">
 					<colgroup><col width="106" /><col width="242" /><col width="59" /><col width="*" /></colgroup>
 					<tr class="t1">
@@ -151,12 +172,12 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 					</tr>
 					<tr class="t5">
 						<th><span>제목</span></th>
-						<td colspan="3"><input type="text" class="input_txt" id="questionTitle" name="subject" /></td>
+						<td colspan="3"><input type="text" class="input_txt" id="subject" name="subject" /></td>
 					</tr>
 					<tr class="t6">
 						<th ><span>내용</span></th>
 
-						<td colspan="3"><textarea name='contents' id="questionContents" placeholder="" onfocus="javascript:setBlank();" >문의 내용을 상세히 적어 주시면 감사하겠습니다.
+						<td colspan="3"><textarea name='contents' id="contents" placeholder="" onfocus="javascript:setBlank();" >문의 내용을 상세히 적어 주시면 감사하겠습니다.
 
 ※ 개인정보 보호를 위해 신분증과 같은 개인정보 항목을 첨부하실 경우,
     주민등록번호 뒷자리가 노출 되지 않도록 첨부 해 주시기 바랍니다.</textarea></td>
@@ -182,7 +203,6 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 						</td>
 					</tr>
 				</table>
-				</form>
 				<dl class="a_info">
 					<dt>1:1 문의 유의사항</dt>
 					<dd><span class="bul_num">1)</span>접수 된 내용은 최초 접수 건부터 순차적으로 답변 해 드리고 있으며, 문의량이 급증하거나 확인이
@@ -212,7 +232,8 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 				</dl>
 				<p class="a_info">※ 고객센터로 문의/신고 시 회원님께서 추가로 입력하시는 개인정보가 있을 수 있습니다.</p>
 
-				<p class="agree"><input type="checkbox" id="ag" name="agree" /><label for="ag">위 입력정보를 이메일 상담을 위하여 수집하는 것에 동의합니다</label></p>
+				<p class="agree"><input type="checkbox" id="agree" name="agr" /><label for="ag">위 입력정보를 이메일 상담을 위하여 수집하는 것에 동의합니다</label></p>
+			</form>
 			</div>
 			<div class="btn_area">
 				<button type="button" class="btn_ok" id="writeButton" name="writeButton" ><span class="blind">확인</span></button><button type="button" class="btn_cancel" id="cancelButton" name="cancelButton" ><span class="blind">취소</span></button>

@@ -28,6 +28,8 @@ import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserMypageService;
 import kr.co.sist.user.vo.ListPageVO;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.QnaStatusVO;
+import kr.co.sist.user.vo.ReportStatusVO;
 import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
@@ -399,7 +401,7 @@ public class MypageController {
 	
 	
 	@RequestMapping(value="user/student/mypage_q&a.do", method=GET)
-	public String mypageQA(Model model, HttpSession session, ListPageVO lpvo) {
+	public String mypageQA(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
@@ -408,7 +410,14 @@ public class MypageController {
 		List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
 		List<String> lcodeList=null;
 		lcodeList=ums.qnaLcodeList(clientId);
+		
+		QnaStatusVO qsvo=new QnaStatusVO(clientId, "");
 		int totalCount=ums.qnaTotalCnt(clientId);
+		if(!(request.getParameter("status")==null)) {
+			qsvo.setStatus(request.getParameter("status"));
+			totalCount=ums.qnaStatusCnt(qsvo);
+		}//end if
+		
 		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
 		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
 		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
@@ -425,12 +434,33 @@ public class MypageController {
 		lpvo.setStartNum(startNum);
 		lpvo.setEndNum(endNum);
 		
-		for(int i=startNum-1; i<endNum; i++) {
-			lvo.setLcode(lcodeList.get(i));
-			qnaList.add(ums.qnaList(lvo));
-		}//end for
+		if(request.getParameter("status")==null){
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				qnaList.add(ums.qnaList(lvo));
+			}//end for
+		}//end if
+		if(!(request.getParameter("status")==null)) {
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(request.getParameter("status").equals("Y")) {
+					System.out.println("------"+ums.qnaList(lvo).get(i).getStatus());
+					if(ums.qnaList(lvo).get(i).getStatus().equals("Y")) {
+						qnaList.add(ums.qnaList(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("status").equals("N")) {
+					if(ums.qnaList(lvo).get(i).getStatus().equals("N")) {
+						qnaList.add(ums.qnaList(lvo));
+					}//end if
+				}//end if
+			}//end for
+		}//end if
 		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a?");
+		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?");
+		if(!(request.getParameter("status")==null)) {
+			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status"+request.getParameter("status")+"&");
+		}//end if
 		
 		model.addAttribute("indexList",indexList);
 		model.addAttribute("pageScale",pageScale);
@@ -443,7 +473,7 @@ public class MypageController {
 	}//useRequest
 	
 	@RequestMapping(value="user/student/mypage_report.do", method=GET)
-	public String mypageReport(Model model, HttpSession session, ListPageVO lpvo) {
+	public String mypageReport(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
@@ -453,7 +483,13 @@ public class MypageController {
 		List<String> lcodeList=null;
 		lcodeList=ums.reportLcodeList(clientId);
 		
+		ReportStatusVO rsvo=new ReportStatusVO(clientId, "");
 		int totalCount=ums.reportTotalCnt(clientId);
+		if(!(request.getParameter("status")==null)) {
+			rsvo.setStatus(request.getParameter("status"));
+			totalCount=ums.reportStatusCnt(rsvo);
+		}//end if
+		
 		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
 		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
 		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
@@ -470,12 +506,34 @@ public class MypageController {
 		lpvo.setStartNum(startNum);
 		lpvo.setEndNum(endNum);
 		
-		for(int i=startNum-1; i<endNum; i++) {
-			lvo.setLcode(lcodeList.get(i));
-			reportList.add(ums.reportList(lvo));
-		}//end for
 		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report?");
+		if(request.getParameter("status")==null){
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				reportList.add(ums.reportList(lvo));
+			}//end for
+		}//end if
+		
+		if(!(request.getParameter("status")==null)) {
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(request.getParameter("status").equals("Y")) {
+					if(ums.reportList(lvo).get(i).getStatus().equals("Y")) {
+						reportList.add(ums.reportList(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("status").equals("N")) {
+					if(ums.reportList(lvo).get(i).getStatus().equals("N")) {
+						reportList.add(ums.reportList(lvo));
+					}//end if
+				}//end if
+			}//end for
+		}//end if
+		
+		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?");
+		if(!(request.getParameter("status")==null)) {
+			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status"+request.getParameter("status")+"&");
+		}//end if
 		
 		model.addAttribute("indexList",indexList);
 		model.addAttribute("pageScale",pageScale);
@@ -486,4 +544,4 @@ public class MypageController {
 		
 		return "user/student/mypage_report";
 	}//useRequest
-}
+}//class
