@@ -31,11 +31,6 @@
 	values
 	(#{client_id}, #{favor})
 </insert>
-<insert id="deleteUser" parameterType="String">
-	insert into deleted_user(client_id, d_date)
-	values
-	(#{client_id}, sysdate)
-</insert>
 
 
 </mapper>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.sist.user.dao.UserPageDAO;
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.vo.ChangePasswordVO;
 
 public class UserPageServiceImpl implements UserPageService {
 	private UserPageDAO up_dao;
@@ -24,6 +25,12 @@ public class UserPageServiceImpl implements UserPageService {
 	@Override
 	public int deleteUser(String client_id) {
 		int cnt = up_dao.deleteUser(client_id);
+		return cnt;
+	}
+	
+	@Override
+	public int changePassword(ChangePasswordVO cp_vo) {
+		int cnt = up_dao.changePassword(cp_vo);
 		return cnt;
 	}
 	
