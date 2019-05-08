@@ -123,7 +123,53 @@ public class LectureService {
 	
 	public List<LectureListDomain> selectLectureList(ListVO lvo){
 		List<LectureListDomain> list=null;
+		
+		LectureListDomain lld=new LectureListDomain();
+		
+		
+/*		String lessonStatus=lld.getStatus();
+		
+		if(lessonStatus=="A") {
+			lld.setStatus("승인 대기");
+		} else if(lessonStatus=="R") {
+			lld.setStatus("준비중");
+		} else if(lessonStatus=="Y") {
+			lld.setStatus("오픈");
+		} else if(lessonStatus=="F") {
+			lld.setStatus("마감");
+		} else if(lessonStatus=="I") {
+			lld.setStatus("진행중");
+		} else if(lessonStatus=="E") {
+			lld.setStatus("종료");
+		} else if(lessonStatus=="C") {
+			lld.setStatus("취소");
+		} */
+		
+		
+/*		switch(lessonStatus) {
+			case "A" :
+				 lld.setStatus("승인 대기");
+			case "R" :
+				lld.setStatus("준비중");
+			case "Y" :
+				lld.setStatus("오픈");
+			case "F" :
+				lld.setStatus("마감");
+			case "I" :
+				lld.setStatus("진행중");
+			case "E" :
+				lld.setStatus("종료");
+			case "C" :
+				lld.setStatus("취소");
+		} // switch
+*/		
+		
 		list=l_dao.selectLectureList(lvo);
+		
+		
+		
+		
+		
 		return list;
 	}
 	
