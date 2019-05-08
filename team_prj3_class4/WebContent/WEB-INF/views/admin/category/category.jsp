@@ -188,17 +188,33 @@ $(function () {
 		
  	});
  	
+ 	var sCateArray=new Array(); // 컨펌창에서 소카테고리 값 확인을 위한 배열
+ 	
  	$("#addSSCate").click(function(){
  		var sCateName=$("#sCateName").val();
  		if(""!=sCateName){
 	 		$("#divScate").append("<input type='button' class='btn btn-brand btn-github' name='newSmallCate' value='"+sCateName+"' style='margin-bottom: 4px; width:150px;'/>&nbsp;");
 	 		$("#divScate").append("<input type='hidden' name='sCateHdn' value='"+sCateName+"'/>");
+	 		sCateArray.push(sCateName);
 	 		$("#sCateName").val("");
  		}
  	});
  	
  	$("[name='newCateSubmit']").click(function(){
- 		$("[name='newCateFrm']").submit();
+ 		var cateName=$("#newCateHdn").val();
+ 		if(""==sCateArray){
+ 			sCateArray="없음";
+ 		}
+ 		var cateConfirm="\카테고리명 : "+cateName+"\n소카테고리 : "+sCateArray+"\n정말 새로운 카테고리를 만드시겠습니까?";
+ 	 	if(""!=cateName){
+ 	 		if(confirm(cateConfirm)){
+			 	$("[name='newCateFrm']").submit();
+ 	 		} // confirm if
+ 	 	} 
+ 		else{
+ 			alert("카테고리명을 입력해주세요");
+ 			$("#newCategoryName").focus();
+ 		} 
  	});
  	
  	
@@ -216,7 +232,7 @@ $(function () {
 			</li>
 			<li class="breadcrumb-menu d-md-down-none">
 				<div>
-					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top:5px; padding-bottom:5px;width:150px;">카테고리 추가하기</a>
+					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top:5px; padding-bottom:5px;width:150px;">카테고리 추가</a>
 				</div> 
 			</li>
 		</ol>

@@ -48,6 +48,6 @@ public class UserQnaDAO {
 		}//end if
 		ss.close();
 		return flag;
-	}//insertJjim
+	}//insertQna
 	
 }//class

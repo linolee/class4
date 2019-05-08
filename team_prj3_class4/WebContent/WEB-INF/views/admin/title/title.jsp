@@ -11,28 +11,28 @@ $(function () {
 		e.preventDefault();
 	$('#file').click();
 			});
+	$('#btn-upload2').click(function (e) {
+		e.preventDefault();
+	$('#file2').click();
+			});
+	$('#btn-upload3').click(function (e) {
+		e.preventDefault();
+	$('#file3').click();
+			});
 	
-			// 업로드시키고 업로드장소에 파일네임을 더하여 본문에 추가해야함
-			// 파일네임은 업로드시간정보를 추가해서 저장
-   	var ext=["jpg","png"];
+   	/* var ext=["jpg","png"]; */
+   	var ext=["jpg"];
    	var flag=null;
-    /* $("#file").change(function(){ */
     $("#file").change(function(){
 		 flag=false;
-	   	 /* alert("파일바뀜"); */
-	   	 /* alert("클릭"); */
 	   	 if($("#file").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
+	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file").val().split("\\");
 		   	var fileValue2 = $("#file").val(); // path
 		   	var fileValue3 = $("#file").val().split("."); // path
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	/* alert("path : "+fileValue2);
-		   	alert("ext : "+inputExt);*/
-		   	alert("filename : "+fileName); 
-	   	 	
 		   	for(var i=0; i<ext.length; i++){
 		   		if(ext[i] ==inputExt){
 		   			flag=true;
@@ -45,23 +45,115 @@ $(function () {
 		   		return;
 		   	} else{
 		   		function readURL(input) {
-		   			//alert("1");
 			        if (input.files && input.files[0]) {
-			        	//alert("2");
 			            var reader = new FileReader();
 			            reader.onload = function(e) {
-			            	//alert("3");
 			                $('#foo').attr('src', e.target.result);
+			            }
+		            	$("#imgNullChk").val("true");
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+
+			        readURL(this);
+		   	}
+   		 } // if
+ 	});//change
+    $("#file2").change(function(){
+		 flag=false;
+	   	 if($("#file2").val()!=""){
+	   		 //alert("파일이 빈칸이 아닐때");
+			var fileValue = $("#file2").val().split("\\");
+		   	var fileValue2 = $("#file2").val(); // path
+		   	var fileValue3 = $("#file2").val().split("."); // path
+		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
+		   	var fileName = fileValue[fileValue.length-1]; // 파일명
+	
+		   	for(var i=0; i<ext.length; i++){
+		   		if(ext[i] ==inputExt){
+		   			flag=true;
+		   			break;
+		   		} // if
+		   	} // for
+		   	
+		   	if(!flag){
+		   		alert("업로드 불가한 확장자입니다");
+		   		return;
+		   	} else{
+		   		function readURL(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            reader.onload = function(e) {
+			            	$("#imgNullChk2").val("true");
+			                $('#foo2').attr('src', e.target.result);
 			            }
 			            reader.readAsDataURL(input.files[0]);
 			        }
 			    }
 
-			    	 //alert("4");
 			        readURL(this);
 		   	}
    		 } // if
  	});//change
+    $("#file3").change(function(){
+		 flag=false;
+	   	 if($("#file3").val()!=""){
+	   		 //alert("파일이 빈칸이 아닐때");
+			var fileValue = $("#file3").val().split("\\");
+		   	var fileValue2 = $("#file3").val(); // path
+		   	var fileValue3 = $("#file3").val().split("."); // path
+		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
+		   	var fileName = fileValue[fileValue.length-1]; // 파일명
+	
+		   	for(var i=0; i<ext.length; i++){
+		   		if(ext[i] ==inputExt){
+		   			flag=true;
+		   			break;
+		   		} // if
+		   	} // for
+		   	
+		   	if(!flag){
+		   		alert("업로드 불가한 확장자입니다");
+		   		return;
+		   	} else{
+		   		function readURL(input) {
+			        if (input.files && input.files[0]) {
+			            var reader = new FileReader();
+			            reader.onload = function(e) {
+			            	$("#imgNullChk3").val("true");
+			                $('#foo3').attr('src', e.target.result);
+			            }
+			            reader.readAsDataURL(input.files[0]);
+			        }
+			    }
+
+			        readURL(this);
+		   	}
+   		 } // if
+ 	});//change
+ 	
+ 	$("[name='titleSubmit']").click(function(){
+ 		if($("#imgNullChk").val()=="true"){
+	 		$("[name='titleUploadFrm']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	$("[name='titleSubmit2']").click(function(){
+ 		if($("#imgNullChk2").val()=="true"){
+	 		$("[name='titleUploadFrm2']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	$("[name='titleSubmit3']").click(function(){
+ 		if($("#imgNullChk3").val()=="true"){
+	 		$("[name='titleUploadFrm3']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	
  	
 });
 
@@ -69,34 +161,103 @@ $(function () {
 
 
 <!--  -->
-                <div class="card">
-                  <div class="card-header">
-                    <i class="fa fa-align-justify"></i> 메인 헤더</div>
-                  <div class="card-body">
-                    이미지 최적사이즈는 가로1200px, 세로 400px입니다
+<div class="card">
+	<div class="card-header">
+                    <i class="fa fa-align-justify"></i> 메인 헤더
+	</div>
+	<div class="card-body">
+                    <li style="font-size:20px;">이미지 최적사이즈는 가로1200px, 세로 400px입니다</li>
 				
-				<!--  -->				
+		<div>
+				<table class="table table-responsive-sm">
+						
+					<tbody style="border-bottom: 1px solid #c8ced3;">
+						<!-- <td> -->
+							<tr>
+								<td>
+									<h3>첫번째 이미지</h3>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div style="display:flex; align-items:center;">
+										<input type="hidden" id="imgNullChk" value=""/>
+										<form action="titleUpload.do" method="post" name="titleUploadFrm" enctype="multipart/form-data">
+											<input type="hidden" name="titleNumber" value="01"/>
+											<input type="file" id="file" name="file"/>
+											<button type="button" id="btn-upload" name="btn-upload" value="temp" style="margin-top:10px; width:1200px; height:400px;">
+												<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg01.jpg" class="categoryImg" id="foo">
+											</button>
+										</form>
+										<span class="input-group-btn col-3" style="   padding-left: 50px;    padding-right: 30px;    padding-bottom: 20px;    padding-top: 50px;    border-bottom-width: 20px; margin-bottom: 0px;">
+							                <span class="input-group-btn">
+							               		 <button type="submit" name="titleSubmit" class="btn" style="font-size:100px; width:100%; height:100%;">
+							               		 	<i class="glyphicon glyphicon-floppy-open"></i>
+							               		 </button>
+							           		</span>
+							            </span>
+										
+										
+										
+									</div>
+								</td>
+							</tr>
+						<!-- </td> -->
+						<!-- <td> -->
+							<tr>
+								<td>
+									<h3>두번째 이미지</h3>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<div style="display:flex; align-items:center;">
+								<input type="hidden" id="imgNullChk2" value=""/>
+									<form action="titleUpload.do" method="post" name="titleUploadFrm2" enctype="multipart/form-data">
+										<input type="hidden" name="titleNumber" value="02"/>
+										<input type="file" id="file2" name="file"/>
+										<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
+											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg02.jpg" class="categoryImg" id="foo2">
+										</button>
+									</form>
+									<span class="input-group-btn col-3">
+							                <span class="input-group-btn">
+							               		 <button type="submit" name="titleSubmit2" class="btn" style="font-size:100px; width:100%; height:100%;"><i class="glyphicon glyphicon-floppy-open"></i></button>
+							           		</span>
+							        </span>
+									</div>
+								</td>
+							</tr>
+						<!-- </td>
+						<td> -->
+							<tr>
+								<td>
+									<h3>세번째 이미지</h3>
+								</td>
+							</tr>
+							<tr>
+								<td>
+								<div style="display:flex; align-items:center;">
+								<input type="hidden" id="imgNullChk3" value=""/>
+									<form action="titleUpload.do" method="post" name="titleUploadFrm3" enctype="multipart/form-data">
+										<input type="hidden" name="titleNumber" value="03"/>
+										<input type="file" id="file3" name="file"/>
+										<button type="button" id="btn-upload3" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
+											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg03.jpg" class="categoryImg" id="foo3">
+										</button>
+									</form>
+									<span class="input-group-btn col-3">
+							                <span class="input-group-btn">
+							               		 <button type="submit" class="btn" name="titleSubmit3" style="font-size:100px; width:100%; height:100%;"><i class="glyphicon glyphicon-floppy-open"></i></button>
+							           		</span>
+							       </span>
+									</div>
+								</td>
+							</tr>
+						<!-- </td> -->
+					</tbody>
+				</table>
+		</div>
 				
-				<div>
-				<form action="#void" method="post" name="uploadImg" id="uploadImg" enctype="multipart/form-data">
-					<input type="file" id="file" name="file"/>
-					<!-- <input type="file" id="file" name="file" onchange="changeValue(this)"/> -->
-					<button type="button" id="btn-upload" name="temp" value="temp" class="btn btn-pill btn-block btn-light active col-2" align="right" style="margin-top:10px;">사진 변경</button><br/>
-                  		<div>
-                  		<!-- <img src="category.png" align="left" style="max-width: 70%; height: auto; margin-bottom:20px;" id="foo"><br/> -->
-                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" id="foo" class="titleImg"><br/>
-                  		</div><br/>
-                  	<input class="btn btn-pill btn-block btn-light active col-2" type="button" value="적용하기"/><br/>
-                </form>
-				</div>
-				
-				<!--  -->
-				
-                  </div>
-                </div>
-					            
-
-<!--  -->
-
-
-
+	</div>
+</div>

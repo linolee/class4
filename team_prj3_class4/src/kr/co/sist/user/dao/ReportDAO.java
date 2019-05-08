@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.io.Reader;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
+
+import kr.co.sist.user.vo.QnaVO;
+import kr.co.sist.user.vo.ReportVO;
 
 @Component
 public class ReportDAO {
@@ -32,4 +36,18 @@ private SqlSessionFactory ssf=null;
 		}//end if
 		return ssf;
 	}//getSqlSessionFactory
+	
+	public boolean insertReport(ReportVO rvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("insertReport", rvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertReport
+	
 }//class

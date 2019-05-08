@@ -15,6 +15,8 @@ import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.domain.QnaList;
 import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.QnaStatusVO;
+import kr.co.sist.user.vo.ReportStatusVO;
 import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
@@ -135,10 +137,26 @@ public class UserMypageDAO {
 		return cnt;
 	}//selectTotalCount
 	
+	public int qnaStatusCnt(QnaStatusVO qsvo) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("qnaStatusCnt",qsvo);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+	
 	public int reportTotalCnt(String clientId) {
 		SqlSession ss=getSessionFactory().openSession();
 		
 		int cnt=ss.selectOne("reportTotalCnt",clientId);
+		ss.close();
+		return cnt;
+	}//selectTotalCount
+	
+	public int reportStatusCnt(ReportStatusVO rsvo) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		int cnt=ss.selectOne("reportStatusCnt",rsvo);
 		ss.close();
 		return cnt;
 	}//selectTotalCount

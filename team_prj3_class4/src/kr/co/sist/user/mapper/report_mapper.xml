@@ -4,4 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mapper.report_mapper">
 
+<select id="insertReport" parameterType="kr.co.sist.user.vo.ReportVO" resultType="boolean">
+	insert into report(rcode, client_id, lcode, report_type, subject, contents, r_date, status)
+	values(seq_report.nextval,#{clientId}, #{lcode}, #{reportType}, #{subject}, #{contents}, sysdate, 'N')
+</select>
+
 </mapper>
