@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Hi</title>
 <style type="text/css">
-#file, #file2 { display:none; } 	
+#file, #file2, #file3 { display:none; } 	
 .titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}
 .upCategoryImg{width:900px;height:300px}
 .upCategoryImg2{width:600px;height:200px}

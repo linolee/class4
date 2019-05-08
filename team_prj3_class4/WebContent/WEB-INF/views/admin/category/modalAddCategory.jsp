@@ -51,7 +51,7 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer" style="border-top:none;">
-									<button type="button" class="btn btn-primary" data-dismiss="modal" name="newCateSubmit">확인</button>
+									<button type="button" class="btn btn-primary" name="newCateSubmit">확인</button>
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 								</div>
 							</div>

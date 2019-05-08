@@ -11,6 +11,8 @@ import kr.co.sist.user.domain.ClassList;
 import kr.co.sist.user.domain.QnaList;
 import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.QnaStatusVO;
+import kr.co.sist.user.vo.ReportStatusVO;
 import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
@@ -91,6 +93,12 @@ public class UserMypageService {
 		return cnt;
 	}//totalCount
 	
+	public int qnaStatusCnt(QnaStatusVO qsvo) {
+		int cnt=0;
+		cnt=um_dao.qnaStatusCnt(qsvo);
+		return cnt;
+	}//totalCount
+	
 	public int reportTotalCnt(String clientId) {
 		int cnt=0;
 		cnt=um_dao.reportTotalCnt(clientId);
@@ -138,6 +146,12 @@ public class UserMypageService {
 		list=um_dao.reportList(lvo);
 		return list;
 	}//qnaList
+	
+	public int reportStatusCnt(ReportStatusVO rsvo) {
+		int cnt=0;
+		cnt=um_dao.reportStatusCnt(rsvo);
+		return cnt;
+	}//reportStatusCnt
 	
 	public int statusCnt(StatusCntVO ssvo) {
 		int cnt=0;

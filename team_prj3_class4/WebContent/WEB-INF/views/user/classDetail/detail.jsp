@@ -56,6 +56,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		 $("#other").stop(true).css({'position' : 'relative'});
 	 }//end else
 	 });  */
+	$("#qnaBtn").click(function(){
+		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
+	});
+	$("#reportBtn").click(function(){
+		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
+	});
  });//ready
 </script>
 <script type="text/javascript">
