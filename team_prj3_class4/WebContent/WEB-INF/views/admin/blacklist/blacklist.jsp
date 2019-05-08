@@ -24,7 +24,7 @@ $(function(){
 						alert(xhr.status+" " + xhr.statusText);
 					},
 					success:function( json ){
-						//alert("success");
+						var space = /\+/g;
 						$("#bId").text(json.idResult);
 						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
@@ -34,7 +34,7 @@ $(function(){
 						$("#bTel").text(json.tel);
 						$("#bInputdate").text(json.inputdate);
 						$("#bEmail").text(json.email);
-						$("#bReason").text(decodeURIComponent(json.reason));
+						$("#bReason").text(decodeURIComponent(json.reason.replace(space," ")));
 						$("#bBinputdate").val(json.b_date);
 
 					}//success

@@ -28,7 +28,7 @@ where r_num between #{ startNum } AND #{ endNum }
 
 <delete id="delTeacherPermit" parameterType="String">
 delete from teacher 
-where client_id=#{client_id}
+where client_id=#{client_id} and status='N'
 </delete>
 
 <update id="updateTeacherPermitStat" parameterType="String">
