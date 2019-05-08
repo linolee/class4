@@ -126,15 +126,14 @@ $(function(){
 		location.href = "deleteUserAgreement.do"
 	});
 	
-	$("#changeClientInfoBtn[name='change']").click(function(){
-		$(".clientInfo").attr("disabled", false);
-		$("#changeClientInfoBtn").val("회원정보 수정 완료").attr("name", "send");
-	});
-	
-	$("#changeClientInfoBtn[name='send']").click(function(){
-		alert("바뀐 버튼");
-		$(".clientInfo").attr("disabled", true);
-		$("#sendChangeClientInfoBtn").val("회원정보 수정").attr("name", "change");
+	$("#changeClientInfoBtn").click(function(){
+		if($("#changeClientInfoBtn").val()=="회원정보 수정"){
+			$(".clientInfo").attr("readonly", false);
+			$("#changeClientInfoBtn").val('회원정보 수정 완료')
+		}else{
+			$("#changeClientInfoBtn").val("회원정보 수정")
+			$(".clientInfo").attr("readonly", "readonly");
+		}
 	});
 	
 	jb("#tabs").tabs();
@@ -187,23 +186,23 @@ function CheckPassword() {
 							<table>
 								<tr>
 									<th>이름</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.name}" disabled="disabled"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.name}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>아이디</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.client_id}" disabled="disabled"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.client_id}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>생년월일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.birth}" disabled="disabled"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.birth}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.tel}" disabled="disabled"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.tel}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.email }" disabled="disabled"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.email }" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>관심목록</th>
@@ -216,7 +215,6 @@ function CheckPassword() {
 								</tr>
 							</table>
 							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="change">
-							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="send">
 							<input type="button" value="회원 탈퇴" id="deleteClientInfoBtn" class="inputBtn">
 						</div>
 						<div id="fragment-2">
