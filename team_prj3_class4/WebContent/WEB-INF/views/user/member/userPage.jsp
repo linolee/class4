@@ -55,26 +55,6 @@
 
 <script type="text/javascript">
 $(function(){
-	$("#reportSubmitBtn").click(function (){
-		$.ajax({
-			type:"POST",
-			url:"memberReportSubmit.do",
-			data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
-			dataType : "json",
-			success: function(json){
-				if (json.resultFlag) {
-					$('#reportSubject').val("");
-					$('#summernote').summernote('code', "");
-					alert('문의가 정상적으로 제출되었습니다.');
-				}else{
-					alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
-				}
-			},
-			error: function(xhr) {
-				console.log(xhr.status);
-			}	
-		});
-	});
 	
 	$("#changePasswordBtn").click(function (){
 		if (CheckPassword()) {
@@ -101,6 +81,46 @@ $(function(){
 		}
 	});
 	
+	$("#pass0").change(function (){
+		$.ajax({
+			type:"POST",
+			url:"checkPassword.do",
+			data : {password : $('#pass0').val()},
+			dataType : "json",
+			success: function(json){
+				if (json.resultFlag) {
+					$('#passwordWarning0').text('');
+				}else{
+					$('#passwordWarning0').text('비밀번호가 일치하지 않습니다.').css("color", "red");
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+	});
+	
+	$("#reportSubmitBtn").click(function (){
+		$.ajax({
+			type:"POST",
+			url:"memberReportSubmit.do",
+			data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
+			dataType : "json",
+			success: function(json){
+				if (json.resultFlag) {
+					$('#reportSubject').val("");
+					$('#summernote').summernote('code', "");
+					alert('문의가 정상적으로 제출되었습니다.');
+				}else{
+					alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+	});
+	
 	jb("#tabs").tabs();
 	
 	$('#summernote').summernote({
@@ -123,7 +143,7 @@ function CheckPassword() {
 	} else {
 		if ($('#pass1').val().length < 4
 				|| $('#pass1').val().length > 13) {//비밀번호 길이를 체크
-			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.');
+			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.').css("color", "red");
 			passwordFlag = false;
 		} else {
 			$('#passwordWarning').text('');
@@ -189,8 +209,15 @@ function CheckPassword() {
 						<div id="fragment-2">
 							<table>
 								<tr>
+									<td>현재 비밀번호 입력</td>
+									<td><input type="password" id="pass0"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><label id="passwordWarning0"></label></td>
+								</tr>
+								<tr>
 									<td>비밀번호 입력</td>
-									<td><input type="password" id="pass1" name="password" onchange="CheckPassword()"></td>
+									<td><input type="password" id="pass1" onchange="CheckPassword()"></td>
 								</tr>
 								<tr>
 									<td>비밀번호 재입력</td>

@@ -198,12 +198,21 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value = "user/member/changePassword.do", method = POST)
 	public String changePassword(HttpServletRequest request, HttpSession session) {
-		System.out.println("비밀번호 변경 불림");
-		System.out.println(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password")));
 		JSONObject json = new JSONObject();
 		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
 			json.put("resultFlag", true);
-			System.out.println("비밀번호 변경 성공");
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/checkPassword.do", method = POST)
+	public String checkPassword(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		if (ups.checkPassword(new UserLoginVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+			json.put("resultFlag", true);
 		}else {
 			json.put("resultFlag", false);
 		}
