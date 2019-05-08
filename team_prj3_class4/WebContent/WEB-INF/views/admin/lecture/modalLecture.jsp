@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
+<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <style type="text/css">
 #wrapper {
 	font-family: 'PT Sans', sans-serif;
@@ -239,6 +242,20 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									</c:forEach> 
 									</tr>
 								</table>
+								
+								
+								<div style="text-align: center">
+									<div style="display: inline-block;">
+										<div class="form-row">
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary"	data-dismiss="modal" id="permission">승인</button>
+												<button type="button" class="btn btn-danger"	data-dismiss="modal" id="refuse">거절</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
 							</div>					
                        </div>
                       </div>
@@ -248,13 +265,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
            </div>
            </div>     
 
- 		<div id="moveBar" style="position:relative; float:right; width:350px; height: 425px; top:20px; margin: 5px; max-height: 1500px; ">
-		</div>
 
      </div>
-	<div id="footer">
-		<c:import url="../footer/footer.jsp" />
-	</div>
 </div>
 		
 		
