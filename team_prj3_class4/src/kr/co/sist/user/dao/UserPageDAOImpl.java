@@ -59,6 +59,15 @@ public class UserPageDAOImpl implements UserPageDAO {
 		return clientFavor;
 	}
 	
+	@Override
+	public int deleteUser(String client_id) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt = ss.insert("deleteUser", client_id);
+		
+		ss.close();
+		return cnt;
+	}
+	
 	public static void main(String[] args) {
 		UserPageDAOImpl upd = new UserPageDAOImpl();
 		System.out.println(upd.selectClientInfo("linolee"));
