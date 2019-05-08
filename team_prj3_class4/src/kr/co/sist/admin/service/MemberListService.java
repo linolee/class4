@@ -18,6 +18,7 @@ import kr.co.sist.admin.domain.TeacherCareer;
 import kr.co.sist.admin.domain.TeacherIntro;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class MemberListService {
@@ -221,6 +222,11 @@ public class MemberListService {
 		return json;
 	}
 	
+	public List<MemberListDomain> memberOptionSearch(OptionSearchVO osvo){
+		List<MemberListDomain> list=null;
+		list=a_dao.memberOptionSearch(osvo);
+		return list;
+	}
 	
 	
 

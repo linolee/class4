@@ -59,21 +59,20 @@ $(function(){
                     <i class="fa fa-align-justify"></i>블랙리스트</div>
                   <div class="card-body">
 
-					<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
-				        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
-				        <select name="where" class="form-control input-sm">
-				            <option value="userNM">이름</option>
-				            <option value="userID">아이디</option>
+					<form name="blackSearch" class="form-inline" action="blacklist.do" method="get">
+				        <select name="searchOption" id="searchOption" class="form-control input-sm">
+				            <option value="c.name">이름</option>
+				            <option value="c.client_id">아이디</option>
 				        </select>
 				        <div class="input-group input-group-sm">
-				            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+				            <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
 				            <span class="input-group-btn">
 				                <span class="input-group-btn">
-				               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+				               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
 				           		</span>
 				            </span>
 				        </div>
-			  	  </form>
+				  </form>
 
 					<br/>
 

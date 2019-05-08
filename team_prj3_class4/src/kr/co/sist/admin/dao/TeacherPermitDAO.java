@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.TeacherDetailDomain;
 import kr.co.sist.admin.domain.TeacherPermitDomain;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class TeacherPermitDAO {
@@ -83,5 +84,24 @@ public class TeacherPermitDAO {
 		ss.commit();
 		ss.close();
 	}
+	
+	public List<TeacherPermitDomain> teacherPermitOptionSearch(OptionSearchVO osvo){
+		List<TeacherPermitDomain> list=null;
+		SqlSession ss = getSessionFactory().openSession();
+		list=ss.selectList("teacherPermitOptionSearch", osvo);
+		ss.close();
+		return list;
+	}
+	
+/*	public static void main(String[] args) {
+		TeacherPermitDAO tpdao=new TeacherPermitDAO();
+		OptionSearchVO osvo=new OptionSearchVO();
+		osvo.setCurrentPage(1);
+		osvo.setStartNum(1);
+		osvo.setEndNum(10);
+		osvo.setOption("c.client_id");
+		osvo.setKeyword("test");
+		tpdao.teacherPermitOptionSearch(osvo);
+	}*/
 	
 } // class

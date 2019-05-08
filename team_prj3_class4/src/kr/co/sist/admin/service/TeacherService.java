@@ -15,6 +15,7 @@ import kr.co.sist.admin.domain.TeacherDetailDomain;
 import kr.co.sist.admin.domain.TeacherDomain;
 import kr.co.sist.admin.domain.TeacherLesson;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class TeacherService {
@@ -193,9 +194,23 @@ public class TeacherService {
 			//System.out.println("-------------------------"+json.toJSONString());
 			return json;
 		}
+		
+		public List<TeacherDomain> teacherOptionSearch(OptionSearchVO osvo){
+			List<TeacherDomain> list=null;
+			TeacherDAO tdao=TeacherDAO.getInstance();
+			list=tdao.teacherOptionSearch(osvo);
+			return list;
+		}
 			
 		public static void main(String[] args) {
 			TeacherService ts=new TeacherService();
-			ts.selectDeatailTeacher("백인재");
+//			ts.selectDeatailTeacher("백인재");
+			OptionSearchVO osvo=new OptionSearchVO();
+			osvo.setCurrentPage(1);
+			osvo.setStartNum(1);
+			osvo.setEndNum(10);
+			osvo.setOption("t.teacher_name");
+			osvo.setKeyword("백인재");
+			ts.teacherOptionSearch(osvo);
 		}
 }

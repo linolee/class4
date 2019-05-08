@@ -62,6 +62,7 @@ function teacherInfo(teacherName) {
 			}
 		}
 	});//ajax 
+	
 }
 
 
@@ -71,20 +72,20 @@ function teacherInfo(teacherName) {
 		<i class="fa fa-align-justify"></i> 강사 조회
 	</div>
 	<div class="card-body">
-		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
-	        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
-	        <select name="where" class="form-control input-sm">
-	            <option value="userNM">이름</option>
-	            <option value="userID">아이디</option>
-	        </select>
-	        <div class="input-group input-group-sm">
-	            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
-	            <span class="input-group-btn">
-	                <span class="input-group-btn">
-	               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
-	           		</span>
-	            </span>
-	        </div>
+		<form name="teacherSearch" class="form-inline" action="teacher.do" method="get">
+        <select name="searchOption" id="searchOption" class="form-control input-sm">
+            <option value="t.teacher_name">강사명</option>
+            <option value="c.name">이름</option>
+            <option value="t.client_id">아이디</option>
+        </select>
+        <div class="input-group input-group-sm">
+            <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+            <span class="input-group-btn">
+                <span class="input-group-btn">
+               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+           		</span>
+            </span>
+        </div>
   	  </form>
   	  
 		<br/>
