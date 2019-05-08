@@ -21,4 +21,10 @@ public class UserPageServiceImpl implements UserPageService {
 		return clientFavor;
 	}
 	
+	@Override
+	public int deleteUser(String client_id) {
+		int cnt = up_dao.deleteUser(client_id);
+		return cnt;
+	}
+	
 }
