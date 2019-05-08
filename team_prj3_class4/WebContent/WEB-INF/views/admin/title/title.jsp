@@ -185,7 +185,7 @@ $(function () {
 										<form action="titleUpload.do" method="post" name="titleUploadFrm" enctype="multipart/form-data">
 											<input type="hidden" name="titleNumber" value="01"/>
 											<input type="file" id="file" name="file"/>
-											<button type="button" id="btn-upload" name="btn-upload" value="temp" style="margin-top:10px;">
+											<button type="button" id="btn-upload" name="btn-upload" value="temp" style="margin-top:10px; width:1200px; height:400px;">
 												<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg01.jpg" class="categoryImg" id="foo">
 											</button>
 										</form>
@@ -216,7 +216,7 @@ $(function () {
 									<form action="titleUpload.do" method="post" name="titleUploadFrm2" enctype="multipart/form-data">
 										<input type="hidden" name="titleNumber" value="02"/>
 										<input type="file" id="file2" name="file"/>
-										<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px;">
+										<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
 											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg02.jpg" class="categoryImg" id="foo2">
 										</button>
 									</form>
@@ -242,7 +242,7 @@ $(function () {
 									<form action="titleUpload.do" method="post" name="titleUploadFrm3" enctype="multipart/form-data">
 										<input type="hidden" name="titleNumber" value="03"/>
 										<input type="file" id="file3" name="file"/>
-										<button type="button" id="btn-upload3" name="temp" value="temp" style="margin-top:10px;">
+										<button type="button" id="btn-upload3" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
 											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg03.jpg" class="categoryImg" id="foo3">
 										</button>
 									</form>
