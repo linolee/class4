@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.vo.ChangePasswordVO;
+import kr.co.sist.user.vo.UserLoginVO;
 
 public class UserPageDAOImpl implements UserPageDAO {
 
@@ -72,6 +73,19 @@ public class UserPageDAOImpl implements UserPageDAO {
 	}
 	
 	@Override
+	public int checkPassword(UserLoginVO ul_vo) {
+		int cnt;
+		SqlSession ss=getSessionFactory().openSession();
+		if (ss.selectOne("checkPassword", ul_vo) == null) {
+			cnt = 0;
+		}else {
+			cnt = 1;
+		}
+		ss.close();
+		return cnt;
+	}
+	
+	@Override
 	public int changePassword(ChangePasswordVO cp_vo) {
 		SqlSession ss=getSessionFactory().openSession();
 		int cnt = ss.update("changePassword", cp_vo);
@@ -84,7 +98,7 @@ public class UserPageDAOImpl implements UserPageDAO {
 	
 	public static void main(String[] args) {
 		UserPageDAOImpl upd = new UserPageDAOImpl();
-		System.out.println(upd.selectClientInfo("linolee"));
+		System.out.println(upd.checkPassword(new UserLoginVO("linolee", "1234")));
 //		System.out.println(upd.selectClientFavor("linolee"));
 	}
 
