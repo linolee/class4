@@ -63,7 +63,9 @@ public class UserPageDAOImpl implements UserPageDAO {
 	public int deleteUser(String client_id) {
 		SqlSession ss=getSessionFactory().openSession();
 		int cnt = ss.insert("deleteUser", client_id);
-		
+		if (cnt == 1) {
+			ss.commit();
+		}
 		ss.close();
 		return cnt;
 	}

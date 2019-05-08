@@ -184,10 +184,11 @@ public class MemberController {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			session.invalidate();
+			if (ups.deleteUser(client_id) == 1) {
+				System.out.println(client_id+" 정상 삭제 완료");
+			}
 			
-			System.out.println(client_id);
-			
-			return "user/member/userPage";
+			return "main";
 		}else {
 			return "user/member/login";
 		}
