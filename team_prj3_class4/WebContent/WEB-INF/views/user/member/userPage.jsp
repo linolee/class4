@@ -76,12 +76,41 @@ $(function(){
 		});
 	});
 	
+	$("#changePasswordBtn").click(function (){
+		if (CheckPassword()) {
+			$.ajax({
+				type:"POST",
+				url:"changePassword.do",
+				data : {password : $('#pass1').val()},
+				dataType : "json",
+				success: function(json){
+					if (json.resultFlag) {
+						$('#pass1').val("");
+						$('#pass2').val("");
+						alert('비밀번호가 정상적으로 변경되었습니다.');
+					}else{
+						alert('비밀번호가 정상적으로 변경되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+					}
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		}else{
+			alert("비밀번호를 다시 확인해주세요.");
+		}
+	});
+	
 	jb("#tabs").tabs();
 	
 	$('#summernote').summernote({
 		placeholder : '신고 내용을 입력해주세요.',
 		tabsize : 2,
 		height : 300
+	});
+	
+	$("#deleteClientInfoBtn").click(function(){
+		location.href = "deleteUserAgreement.do"
 	});
 	
 });//ready
@@ -161,7 +190,7 @@ function CheckPassword() {
 							<table>
 								<tr>
 									<td>비밀번호 입력</td>
-									<td><input type="password" id="pass1" onchange="CheckPassword()"></td>
+									<td><input type="password" id="pass1" name="password" onchange="CheckPassword()"></td>
 								</tr>
 								<tr>
 									<td>비밀번호 재입력</td>

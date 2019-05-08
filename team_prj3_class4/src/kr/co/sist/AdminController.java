@@ -167,7 +167,7 @@ public class AdminController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
 		ChargeService cs = ac.getBean(ChargeService.class);
 
-		cs.removeLessonClosure(lcode);
+		cs.closeLessonClosure(lcode);
 		return "redirect:/admin/charge.do";
 	}
 	

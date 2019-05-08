@@ -83,9 +83,9 @@ private SqlSessionFactory ssf=null;
 		return li;
 	}
 	
-	public int deleteLessonClosure(String lcode) {
+	public int updateLessonClosure(String lcode) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.delete("deleteLessonClosure", lcode);
+		int cnt = ss.delete("updateLessonClosure", lcode);
 		ss.commit();
 		ss.close();
 		return cnt;

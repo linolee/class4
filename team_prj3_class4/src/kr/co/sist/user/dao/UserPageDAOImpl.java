@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.vo.ChangePasswordVO;
 
 public class UserPageDAOImpl implements UserPageDAO {
 
@@ -57,6 +58,28 @@ public class UserPageDAOImpl implements UserPageDAO {
 		ss.close();
 		
 		return clientFavor;
+	}
+	
+	@Override
+	public int deleteUser(String client_id) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt = ss.insert("deleteUser", client_id);
+		if (cnt == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return cnt;
+	}
+	
+	@Override
+	public int changePassword(ChangePasswordVO cp_vo) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt = ss.update("changePassword", cp_vo);
+		if (cnt == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return cnt;
 	}
 	
 	public static void main(String[] args) {

@@ -5,7 +5,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
@@ -26,6 +24,7 @@ import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
+import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -35,14 +34,14 @@ import kr.co.sist.user.vo.memberReportVO;
  * Handles requests for the application home page.
  */
 @Controller
-public class UserController {
+public class MemberController {
 
 	private UserLoginService uls;
 	private UserPageService ups;
 	private UserJoinService ujs;
 	private UserReportService urs;
 
-	public UserController() {
+	public MemberController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
 		this.uls = ac.getBean("UserLoginService", UserLoginService.class);
@@ -56,6 +55,7 @@ public class UserController {
 
 		return "main";
 	}// mainPage
+
 
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
@@ -138,7 +138,7 @@ public class UserController {
 	}
 	@ResponseBody
 	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
-	public String memberReportSubmint(HttpServletRequest request, HttpSession session) {
+	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
 		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
 				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
@@ -173,6 +173,42 @@ public class UserController {
 			return "user/member/login";
 		}
 	}// userPage
+	
+	@RequestMapping(value = "user/member/deleteUserAgreement.do", method = GET)
+	public String deleteUserAgreementPage() {
+		
+		return "user/member/deleteUserAgreement";
+	}// deleteUserAgreementPage
+	
+	@RequestMapping(value = "user/member/deleteUser.do", method = POST)
+	public String deleteUser(HttpSession session) {
+		if (session.getAttribute("client_id") != null) {
+			String client_id = session.getAttribute("client_id").toString();
+			session.invalidate();
+			if (ups.deleteUser(client_id) == 1) {
+				System.out.println(client_id+" 정상 삭제 완료");
+			}
+			
+			return "main";
+		}else {
+			return "user/member/login";
+		}
+	}// deleteUserAgreementPage
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/changePassword.do", method = POST)
+	public String changePassword(HttpServletRequest request, HttpSession session) {
+		System.out.println("비밀번호 변경 불림");
+		System.out.println(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password")));
+		JSONObject json = new JSONObject();
+		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+			json.put("resultFlag", true);
+			System.out.println("비밀번호 변경 성공");
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
 
 	@RequestMapping(value = "user/member/report.do", method = GET)
 	public String reportPage() {
@@ -253,5 +289,11 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}// teacherPage
+	
+	@RequestMapping(value = "user/search.do", method = GET)
+	public String searchResult() {
+		return "user/member/searchResult";
+	}
+	
 
 }

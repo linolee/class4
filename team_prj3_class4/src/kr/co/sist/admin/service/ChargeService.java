@@ -215,8 +215,8 @@ public class ChargeService {
 		return li;
 	}
 	
-	public int removeLessonClosure(String lcode) {
-		int cnt = c_dao.deleteLessonClosure(lcode);
+	public int closeLessonClosure(String lcode) {
+		int cnt = c_dao.updateLessonClosure(lcode);
 		return cnt;
 	}
 	
