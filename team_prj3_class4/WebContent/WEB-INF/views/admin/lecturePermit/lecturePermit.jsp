@@ -55,9 +55,9 @@
 					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${permit.lcode }"/></td>
 					<td>
-						<a href="">
-							<c:out value="${permit.lname }"/>
-						</a>
+						<a data-toggle="modal" href="#modalLecturePermit" >
+                      				<c:out value="${permit.lname }"/>
+                      	</a>
 					</td>
 					<td><c:out value="${permit.teacher_name }"/></td>
 					<td><c:out value="${permit.category }"/></td>
@@ -94,8 +94,5 @@
 		</div>
 	</div>
 </div>
-<%-- <c:import url="modalUserInfo.jsp"/>
-<c:import url="modalAddBlackList.jsp"/>
-<c:import url="modalTeacherInfo.jsp"/> --%>
 <!--  -->
-
+<c:import url="lecturePermit/modalLecturePermit.jsp"/> 

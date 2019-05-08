@@ -53,7 +53,7 @@
                       		<td><c:out value="${lecture.lcode }"/></td>
                       		<td><c:out value="${lecture.category }"/></td>
                       		<td>
-                      			<a data-toggle="modal" href="#modalLecture" >
+                      			<a href="../user/classDetail/detail.do?lcode=${lecture.lcode }" target="_blank">
                       				<c:out value="${lecture.lname }"/>
                       			</a>
                       		</td>
@@ -100,4 +100,3 @@
                     </div>
                   </div>
 </div>       
-<c:import url="lecture/modalLecture.jsp"/> 
