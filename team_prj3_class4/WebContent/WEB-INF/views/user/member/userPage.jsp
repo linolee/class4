@@ -65,6 +65,7 @@ $(function(){
 				dataType : "json",
 				success: function(json){
 					if (json.resultFlag) {
+						$('#pass0').val("");
 						$('#pass1').val("");
 						$('#pass2').val("");
 						alert('비밀번호가 정상적으로 변경되었습니다.');
