@@ -198,7 +198,15 @@ $(function () {
  	});
  	
  	$("[name='newCateSubmit']").click(function(){
- 		$("[name='newCateFrm']").submit();
+ 		var cateName=$("#newCateHdn").val();
+ 	 	if(""!=cateName){
+ 	 		alert("submit test");
+		 	$("[name='newCateFrm']").submit();
+ 	 	} 
+ 		else{
+ 			alert("카테고리명을 입력해주세요");
+ 			$("#newCategoryName").focus();
+ 		} 
  	});
  	
  	
