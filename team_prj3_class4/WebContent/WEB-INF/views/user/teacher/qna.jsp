@@ -23,21 +23,79 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 <style type="text/css">
-#wrap { margin: 0px auto; width: 1100px; height: 860px;}
-#headerTitle{font-family: 'Nanum Myeongjo', serif; font-size: 30px; font-weight: bold; text-align: center;
-					position: absolute; top: 40px; left: 290px;}
-#mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif;
-			font-size: 50px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
-#headerTitle2{font-size: 30px; font-weight: normal; color:#757575; text-align: left;
-			top: 40px; left: 290px;}
-#container{ margin: 0px auto; width: 1100px; min-height: 600px;}
-.status{margin:0px auto;}
-.tableHeader{ background-color: #F7F7F7}
-#review{ position: absolute; top: 220px; left: 500px; }
+#wrap {margin: 0px auto; width: 1100px; height: 860px;}
+#headerTitle {font-size: 30px; font-weight: bold; text-align: center; position: absolute; top: 40px; left: 290px;}
+#mypageTitle {ont-size: 50px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
+#headerTitle2 {font-size: 30px; font-weight: normal; color:#757575; text-align: left; top: 40px; left: 290px;}
+#container {margin: 0px auto; width: 1100px; min-height: 600px;}
+.status {margin:0px auto;}
+.tableHeader {background-color: #F7F7F7;}
+/* #review {position: absolute; top: 25%; left: 31%;} */
 </style>
 
 <script type="text/javascript">
 webshim.polyfill('forms forms-ext');
+
+function searchDate () {
+	var fromDate = $("#fromDate").val();
+	var toDate = $("#toDate").val();
+	
+	location.href = "http://localhost:8080/team_prj3_class4/user/teacher/qna.do?fromDate="+fromDate+"&toDate="+toDate;
+}
+
+function viewDetail(qcode) {
+    
+    $(".modal-reply").hide();
+	
+	var qcode = qcode;
+	var sendData = {"qcode":qcode};
+	
+	$.ajax({
+		url:"<c:url value= '/user/teacher/question_detail.do'/>",
+		data : sendData,
+		dataType:"json",
+		success: function (msg) {
+ 			$("#lname").text(msg.lname);
+			$("#subject").text(msg.subject);
+			$("#m-content").val(msg.contents);
+			$("#qDate").text(msg.qDate);
+			$("#wName").text(msg.name); 
+			
+			$(".panel-modal").show();
+		},
+		error: function (data) {
+			console.log(data);
+		}
+	}); // ajax
+	
+}
+
+//답글달기 버튼을 눌렀을 때 실행
+function addReplyBtn() {
+    $('#reply-btn').attr("value", "작성");
+    $('#reply-btn').attr("onclick", "addReply()");
+    $('#close-Modal').attr("value", "닫기");    
+    
+    $(".modal-reply").show();
+}
+
+//답글 작성 실행 - ajax 
+function addReply() {
+    $('#reply-btn').attr("value", "답글달기");
+    $('#reply-btn').attr("onclick", "addReplyBtn()");
+    $('#close-Modal').attr("value", "확인");   
+	
+}
+
+//답글 모달 닫기
+function closeModal() {
+	$("#m-reply").val("");
+	$(".panel-modal").hide();
+	
+    $('#reply-btn').attr("value", "답글달기");
+    $('#reply-btn').attr("onclick", "addReplyBtn()");
+    $('#close-Modal').attr("value", "확인");    
+}
 
 jQuery(function($) {
     $('#fromDate').on('change', function() {
@@ -46,15 +104,8 @@ jQuery(function($) {
     $('#toDate').on('change', function() {
 	$('#fromDate').prop('max', $(this).val());
     });
+
 });
-
-function viewDetail() {
-	$(".panel-modal").show();
-}
-
-function closeModal() {
-	$(".panel-modal").hide();
-}
 </script>
 </head>
 <body>
@@ -89,16 +140,16 @@ function closeModal() {
 				<div class="panel-search">
 					<div class="panel-search-in">
 						<label for="fromDate"></label>
-						<input type="date" class="searchDate" id="fromDate"/>
+						<input type="date" class="searchDate" id="fromDate" value="${param.fromDate}" />
 						<label for="toDate">~</label>
-						<input type="date" class="searchDate" id="toDate"/>
-						<input type="submit" value="검색" class="btn btn-warning" id="dateSearch"/>
+						<input type="date" class="searchDate" id="toDate" value="${param.toDate}" />
+						<input type="submit" value="검색" class="btn btn-warning" id="dateSearch" onclick="searchDate()"/>
 					</div>
 				</div>	
 				
 				<!-- total_cnt -->
 				<div class="total_cnt">
-					총 0개의 게시글이 있습니다.
+					총 <strong>${cntList}</strong>개의 게시글이 있습니다.
 				</div>
 				<!--// total_cnt -->
 				
@@ -122,14 +173,22 @@ function closeModal() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>쌍용교육센터</td>
-								<td><a href="#" onclick="viewDetail()">쌍용교육센터 맞나요?</a></td>
-								<td>곽쌍용</td>
-								<td>2019/04/21</td>
-<!-- 								<td colspan="5">등록된 Q&A가 없습니다</td> -->
+						<c:if test="${not empty requestScope.q_list}">
+						<c:forEach var="List" items="${ requestScope.q_list }" varStatus="status">						
+							<tr class="content-list">
+								<td><c:out value="${ status.index+1 }"/></td>
+								<td><c:out value="${ List.lname }"/></td>
+								<td><a href="#" onclick="viewDetail('${List.qcode}')"><c:out value="${ List.subject }"/></a></td>
+								<td><c:out value="${ List.name }"/></td>
+								<td><c:out value="${ List.qDate }"/></td>
 							</tr>
+						</c:forEach>
+						</c:if>	
+							<c:if test="${empty q_list}">
+								<tr class="class-list">
+									<td colspan="5"  align="center">Q&A가 존재하지 않습니다.<br/></td>
+								</tr>
+							</c:if>
 						</tbody>
 					</table>
 				</div>
@@ -153,26 +212,29 @@ function closeModal() {
 	<div class="panel-modal" style="display: none;" id="review">
 		<div class="modal-inner">
 			<div class="modal-className">
-				후기 - 쌍용교육센터 좋네요.
-	<!-- 			<input type="text" class="inputBox"/> -->
+				후기 - <span id="lname"></span>
 			</div>
 			<div class="modal-title">
-				쌍용교육센터 맞나요?
+				<span id="subject"><strong></strong></span>
 			</div>
 			<div class="modal-contents">
-				<textarea rows="10" id="m-content">궁금</textarea>
+				<textarea rows="10" id="m-content" readonly></textarea>
 				<div class="modal-info">
 					<div class="modal-date">
-						작성일 :
+						작성일 : <span id="qDate"></span>
 					</div>
 					<div class="modal-writer">
-						작성자 :
+						작성자 : <span id="wName"></span>
 					</div>
 				</div>
 			</div>
+			<div class="modal-reply">
+						<p><strong>[답글달기]</strong></p>
+						<textarea id="m-reply"></textarea>
+			</div>
 			<div class="modal-btn">
-				<input type="button" class="btn btn-warning" value="답글달기">
-				<input type="button" class="btn btn-warning" value="확인" onclick="closeModal()">
+				<input type="button" id="reply-btn" class="btn btn-warning" value="답글달기" onclick="addReplyBtn()">
+				<input type="button" id="close-Modal" class="btn btn-warning" value="확인" onclick="closeModal()">
 			</div>
 		</div>
 	</div>

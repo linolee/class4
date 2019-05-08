@@ -1,7 +1,14 @@
 @charset "UTF-8";
+@import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 
-body { font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; }
-.menu-title { margin-bottom: 10px; font-size: 40px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
+body { font-family: "Nanum Gothic", sans-serif; }
+a {color: #4b4783;}
+#mypageTitle {font-size: 45px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
+#headerTitle2 {font-size: 18px; font-weight: normal; color:#757575; text-align: left; top: 40px; left: 290px;}
+.btn-warning {height: 100%; margin-top: -3px;}
+.menu-title-div {margin-bottom: 10px; color:#2B2B2B; top: 40px; left: 290px;}
+.menu-title {font-size: 40px; font-weight: bold; text-align: left;}
+.menu-title2 {font-size: 14px; text-align: left;}
 #listContents { width:100%; padding-top: 6px; margin: auto; }
 #listTab { width: 100%; border-top: 1px solid #333; border-spacing: 0px; margin: auto; border: #ddd; border-left: #fff; border-right: #fff; text-align: center;}
 .panel-search { padding-top: 10px; padding-left: 30px; background-color: #F3F3F3; height: 55px; }
@@ -9,6 +16,7 @@ body { font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; }
 .searchDate { height: 35px; border: 1px solid #ddd; font-size: 14px; text-align: center; width: 200px;}
 .nav-tabs li a { color: #4b4783; }
 .total_cnt { padding-top: 25px; }
+.content-list {text-align: center; height: 35px;}
 
 .panel-tab li { width: 50%; text-align: center; font-size: 30px; align-content: center; border: 1px solid #4b4783; border-bottom: 1px solid #fff; }
 .panel-tab li.on { background-color: #4b4783; }
@@ -16,12 +24,58 @@ body { font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; }
 
 .class-th { height: 45px; background-color: #4b4783; color: #fff; margin: auto; text-align: center; }
 
-.paging { padding-top: 20px; }
+.paging {padding-top: 20px; margin: auto; margin-left: 45%;}
 
-/* Modal */
-.panel-modal { margin: 0px auto; width: 500px; border: 1px solid gray; }
-.modal-className { margin: auto; padding: 15px; font-size: 12px;}
-.modal-title { font-size: 22px;  text-align: center;  border-bottom: 1px solid gray; padding-bottom: 10px; padding-top: 10px;}
-#m-content { width: 90%; margin: 20px; display: block; margin-left: auto; margin-right: auto;}
-.modal-btn { width: 35%; padding-top: 15px; margin: auto; text-align: center; }
-.modal-btn btn { margin-right: 20px; }
+/* Review & QnA Modal */
+.panel-modal {margin: 0px auto; width: 500px; border: 1px solid gray; position: absolute; top: 35%; left: 31%; background: #fff; z-index: 9999;}
+.modal-className {margin: auto; padding: 15px; font-size: 12px;}
+.modal-info {margin: 20px;}
+.modal-title  {font-size: 22px;  text-align: center;  border-bottom: 1px solid gray; padding-bottom: 10px; padding-top: 10px;}
+#m-content  {width: 90%; margin: 20px; display: block; margin-left: auto; margin-right: auto; padding: 5px; resize: none;}
+.modal-btn  {width: 35%; padding-top: 15px; margin: auto; margin-bottom: 15px; text-align: center;}
+.modal-btn btn { margin-right: 20px;}
+.modal-date {padding-bottom: 10px;}
+.modal-writer {padding-bottom: 10px;}
+.modal-reply {margin: 20px;}
+#m-reply {width: 100%; height: 90px; padding: 5px; resize: none;}
+
+/* Class Status */
+.applyPeoples {background:#fff; position: absolute; top: 40%; left: 39%; z-index: 9999;}
+.tdHeight {height: 100px; font-size: 16px;}
+.class-list {text-align: center; height: 50px;}
+.panel-classList {padding-top: 25px; margin: auto; padding-bottom: 10px;}
+.panel-classList a {padding: 21px;}
+.panel-classList a:hover {font-weight: bold;}
+
+/* 관리자 문의 */
+.addBtn {padding-top: 15px; float: right;} 
+#addQuestion {width: 500px; position: absolute; top: 35%; left: 35%; z-index: 9999;}
+#addQuestionFrm {border: 1px solid #333333; background-color: #FFFFFF; padding: 20px;}
+.qnaFormTitle {height: 30px; width: 92%; margin-left: 5px; padding: 5px; border: 1px solid #d1d1d1;}
+.qnaContentsForm {margin-bottom: 10px;}
+#qnaTxtArea {width: 100%; height: 200px; padding: 5px; border: 1px solid #d1d1d1; resize: none;}
+
+/* 강사 프로필 관리 */
+#addProfile {height: auto; width: 400px; position: absolute; top:10%; left: 35%; background: #fff; z-index: 9999;}
+#addProfileFrm {height:480px; padding: 10px;}
+.picture-area {height: 170px;}
+.picture-panel {width: 100px; height: 120px; border: 1px solid #888888; margin: 0px auto; margin-top: 5px; margin-bottom: 5px;}
+.picture-panel span {padding-left: 33%;}
+.picture-btn {text-align: center;}
+#picUpload {height: 100%;}
+.teacher-info {height: 290px; margin-top: 10px;}
+.teacher-info-name-area {padding-bottom: 15px;}
+.teacher-info-name span {padding-right: 5px; font-weight: bold;}
+.inputBox {height: 30px; width: 60%; margin-right: 5px; padding: 5px;}
+#doubleCheck {height: 100%;}
+.teacher-edu {padding-bottom: 15px;}
+.teacher-edu span {padding-right: 5px; padding-bottom: 10px; font-weight: bold;}
+.classField {width: 60%; height: 30px;}
+.teacher-career {padding-bottom: 15px;}
+.teacher-career span {padding-right: 5px; font-weight: bold;}
+#careerList {overflow: auto; height: 160px;}
+.careerDiv {padding-top: 5px;}
+#delCareer {height: 100%; margin-right: 10px;}
+#addCareer {height: 100%;}
+.teacher-intro-area span {padding-right: 5px; font-weight: bold;}
+#teacher-intro {width: 84%; height: 80px; float: right; margin-top: -18px; padding: 5px; margin-left: 5px; border: 1px solid #eeeeee; margin-bottom: 15px; resize: none;}
