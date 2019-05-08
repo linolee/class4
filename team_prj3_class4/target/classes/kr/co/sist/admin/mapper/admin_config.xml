@@ -28,5 +28,7 @@
 	<mapper resource="kr/co/sist/admin/mapper/lecturePermit_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/teacher_mapper.xml"/>
 	<mapper resource="kr/co/sist/admin/mapper/category_mapper.xml"/>
+	
+	<mapper resource="kr/co/sist/mapper/update_mapper.xml"/>
 </mappers>
 </configuration>
