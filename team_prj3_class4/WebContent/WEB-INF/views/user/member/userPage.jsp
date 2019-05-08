@@ -84,6 +84,10 @@ $(function(){
 		height : 300
 	});
 	
+	$("#deleteClientInfoBtn").click(function(){
+		location.href = "deleteUserAgreement.do"
+	});
+	
 });//ready
 
 function CheckPassword() {
