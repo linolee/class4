@@ -117,14 +117,14 @@ public class TeacherController {
 		} // end for
 		
 		//Paging
-		int pageScale = urs.pageScale(); // �� ȭ�鿡 ������ �Խù��� ��
-		int totalPage=urs.totalPage(cnt); //�� �Խù��� �����ֱ� ���� �� ������ ��
-		if(lpvo.getCurrentPage() == 0) { //web parameter�� ���� ���� ��
-			lpvo.setCurrentPage(1); //1������ ��ȸ�ؾ� �ϹǷ� 1�� ����
+		int pageScale = urs.pageScale(); // 占쏙옙 화占썽에 占쏙옙占쏙옙占쏙옙 占쌉시뱄옙占쏙옙 占쏙옙
+		int totalPage=urs.totalPage(cnt); //占쏙옙 占쌉시뱄옙占쏙옙 占쏙옙占쏙옙占쌍깍옙 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙
+		if(lpvo.getCurrentPage() == 0) { //web parameter占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙
+			lpvo.setCurrentPage(1); //1占쏙옙占쏙옙占쏙옙 占쏙옙회占쌔억옙 占싹므뤄옙 1占쏙옙 占쏙옙占쏙옙
 		}//end if
 		
-		int startNum = urs.startNum(lpvo.getCurrentPage());// ���۹�ȣ
-		int endNum = urs.endNum(startNum);//����ȣ
+		int startNum = urs.startNum(lpvo.getCurrentPage());// 占쏙옙占쌜뱄옙호
+		int endNum = urs.endNum(startNum);//占쏙옙占쏙옙호
 		
 		lpvo.setStartNum(startNum);
 		lpvo.setEndNum(endNum);
