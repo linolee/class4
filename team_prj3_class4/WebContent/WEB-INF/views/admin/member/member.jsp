@@ -1,12 +1,8 @@
-<%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.MemberListService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
-
 
 function userInfo(userId) {
  	var queryString = "id="+userId;
@@ -92,7 +88,7 @@ $(function(){
 								console.log(xhr.status + "/" + xhr.statusText);
 							},
 							success:function( json ){
-								alert("성공!!");
+								alert("블랙리스트에 등록되었습니다.");
 								/* $("#addBid").text(json.jid);
 								$("#addBname").text(decodeURIComponent(json.jname));
 								$("#addBbirth").text(json.jbirth);
@@ -100,12 +96,21 @@ $(function(){
 								$("#addBtel").text(json.jtel);
 								$("#addBinputdate").text(json.jinputdate);
 								$("#addBemail").text(json.jemail); */
+							 	$("#addBlackCancle").trigger("click"); // 강제로 실행
+							 	//location.href("/admin/member.do");
+							 	window.location.href="<c:url value='/admin/member.do' />";
 							}
 						});//ajax
 				//} // addBlack
-					 	$("#addBlackCancle").trigger("click"); // 강제로 실행
 			};
 		});
+	 	
+/* 	 	$("#searchBtn").click(function(){
+	 		var option=$("#searchOption option:selected").val();
+	 		var search=$("#keyword").val();
+	 	}); */
+	 	
+	 	
 		
 });		
 		
@@ -118,24 +123,24 @@ $(function(){
 
 	</div>
 	<div class="card-body">
-		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
-        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
-        <select name="where" class="form-control input-sm">
-            <option value="userNM">이름</option>
-            <option value="userID">아이디</option>
+	
+		<form name="memberSearch" class="form-inline" action="member.do" method="get">
+        <select name="searchOption" id="searchOption" class="form-control input-sm">
+            <option value="name">이름</option>
+            <option value="client_id">아이디</option>
         </select>
         <div class="input-group input-group-sm">
-            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+            <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>
   	  </form>
   	  
 		<br/>
-		<table class="table table-responsive-sm" style="text-align:center">
+		<table class="table table-responsive-sm table-striped" style="text-align:center">
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
@@ -171,8 +176,13 @@ $(function(){
 						<form method="get" action="./member.jsp" class="form-inline">
 							<!-- <a data-toggle="modal" href="#modalUserInfo" onclick="userInfo()"><span class="badge badge-primary">상세정보</span></a>  -->
 							<a data-toggle="modal" href="#modalUserInfo2" onclick="userInfo('${ member.client_id }')"><span class="badge badge-primary">상세정보</span></a>
-							<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
-							<a data-toggle="modal" href="#modalTeacherInfo" ><span class="badge badge-primary">강사정보</span></a>
+							<c:if test="${empty member.reason }">
+								<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
+							</c:if>
+							<%-- <c:out value="${member.reason }"==null?"":"<a data-toggle='modal' href='#modalAddBlackList'  onclick='addBlack('${ member.client_id }')'><span class='badge badge-warning'>블랙리스트 등록</span></a>"/> --%>
+							<%-- ${ifBlack?<a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>:""} --%>
+							<%-- <a data-toggle="modal" href="#modalAddBlackList"  onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a> --%>
+							<%-- <a data-toggle="modal" href="#modalTeacherInfo" onclick="teacherInfo('${ member.client_id }')"><span class="badge badge-primary">강사정보</span></a> --%>
 						</form>
 					</td>
 				</tr>

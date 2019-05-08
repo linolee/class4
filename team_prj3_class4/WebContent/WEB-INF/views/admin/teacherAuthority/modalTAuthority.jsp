@@ -20,31 +20,31 @@
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
-								<td width="50px">itswings</td>
+								<td width="50px" id="tId"></td>
 								<td width="50px" style="background: #C8CED3">카테고리</td>
-								<td width="50px">돌겜</td>
+								<td width="80px" id="tCategory"></td>
 							</tr>
 							<tr>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px">문지훈</td>
+								<td width="50px" id="tName"></td>
 								<td width="50px" style="background: #C8CED3">강사명</td>
-								<td width="50px">돈까스</td>
+								<td width="50px" id="tnName"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>
-								<td>2012/01/01</td>
+								<td id="tBirth"></td>
 								<td style="background: #C8CED3">성별</td>
-								<td>남</td>
+								<td id="tGender"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">연락처</td>
-								<td>119</td>
+								<td id="tTel"></td>
 								<td style="background: #C8CED3">가입일자</td>
-								<td>2018-18-18</td>
+								<td id="tInputdate"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #C8CED3;">
 								<td style="background: #C8CED3">이메일</td>
-								<td colspan="3">itswings@gmail.com</td>
+								<td colspan="3" id="tEmail"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -56,13 +56,13 @@
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">
-							<tbody>
-								<tr>
+							<tbody id="career">
+								<!-- <tr>
 									<td width="50px" class="col-10">경력경력경력경력경력경력경력</td>
 								</tr>
 								<tr style="border-bottom: 1px solid #C8CED3;">
 									<td width="50px" class="col-10">경력2경력2경력2경력2경력2경력2경력2</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -70,17 +70,15 @@
 					<div class="form-group">
 						<label>자기소개</label>
 						<textarea name="reportContent" class="form-control" maxlength="2048"
-								style="height:180px; resize: none;" readonly="readonly"></textarea>
+								style="height:180px; resize: none;" readonly="readonly" id="tIntro"></textarea>
 					</div>
 					
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-									<button type="button" class="btn btn-primary"
-										data-dismiss="modal">승인</button>
-									<button type="button" class="btn btn-danger"
-										data-dismiss="modal">거절</button>
+									<button type="button" class="btn btn-primary"	data-dismiss="modal" id="permission">승인</button>
+									<button type="button" class="btn btn-danger"	data-dismiss="modal" id="refuse">거절</button>
 								</div>
 							</div>
 						</div>

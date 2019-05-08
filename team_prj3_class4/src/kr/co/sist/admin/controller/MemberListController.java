@@ -18,18 +18,20 @@ import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class MemberListController {
 	
 	@Autowired
-	MemberListService mls;
+	private MemberListService mls;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(ListVO lvo, Model model) {
+	public String memberPage(ListVO lvo, Model model, 
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 		
 		List<MemberListDomain> list=null;
-		
 		int totalCount = mls.totalCount();//총 게시물의 수
 		int pageScale = mls.pageScale();
 		int totalPage = mls.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
@@ -41,9 +43,24 @@ public class MemberListController {
 		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
-
+		
 		list=mls.selectAllMember(lvo);
+
+		
+		
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=mls.memberOptionSearch(osvo);
+		}
+		
+		
 		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
+		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
@@ -74,8 +91,8 @@ public class MemberListController {
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		Date date = new Date();
 		String time = format1.format(date);
-		System.out.println("------------------"+"id="+id+"  reason="+reason);
-		System.out.println("-------------------"+time);
+		//System.out.println("------------------"+"id="+id+"  reason="+reason);
+		//System.out.println("-------------------"+time);
 		AddBlackVO abvo=new AddBlackVO(id, reason, time);
 		
 		json=mls.addBlack(abvo);

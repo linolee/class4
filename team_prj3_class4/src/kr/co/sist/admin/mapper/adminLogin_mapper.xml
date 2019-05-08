@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.admin">
+
+<resultMap type="kr.co.sist.admin.vo.AdminLoginVO" id="adminLogin">
+	<result column="adminId" property="admin_id"/>
+	<result column="pass" property="pass"/>
+</resultMap>
+
+<select id="selectAdminLogin" parameterType="kr.co.sist.admin.vo.AdminLoginVO" resultMap="adminLogin">
+select admin_id, pass
+from admin
+where admin_id=#{adminId} and pass=#{pass}
+</select>
+
+</mapper>

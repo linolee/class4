@@ -34,7 +34,6 @@ from(select b.client_id, c.name, c.birth, c.gender, c.email, row_number() over(o
 from blacklist b, client c
 where b.client_id=c.client_id)
 where r_num between #{ startNum } and #{ endNum }
-
 </select>
 
 <select id="selectDetailBlackList" resultMap="detailBlackListResult" parameterType="String">
@@ -47,5 +46,15 @@ where c.client_id=b.client_id and c.client_id=#{ id }
 delete blacklist
 where client_id=#{id}
 </select>
+
+<select id="blackOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="blackListResult">
+select client_id, name, birth, gender, email
+from(select b.client_id, c.name, c.birth, c.gender, c.email, row_number() over(order by b_date desc) r_num
+from blacklist b, client c
+where b.client_id=c.client_id and ${option}=#{keyword})
+where r_num between #{startNum} and #{endNum}
+</select>
+
+
 
 </mapper>
