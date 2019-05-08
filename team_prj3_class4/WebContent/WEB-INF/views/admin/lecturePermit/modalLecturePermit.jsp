@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 <link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
 <script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
@@ -31,7 +32,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	
 	
 	
-<div class="modal fade" id="modalLecture" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+<div class="modal fade" id="modalLecturePermit" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 		
@@ -39,7 +40,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		
 		<div id="wrap">
 	<div id="header">
-		<c:import url="../header/header.jsp"></c:import>
+		<%-- <c:import url="../header/header.jsp"></c:import> --%>
 	</div>
 	<div id="container2">
 	<input type="hidden" name="lcode" value="${param.lcode}"/>
@@ -115,15 +116,30 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                   		</c:if>
                       	</div>
                   	</div>
-                      <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
+                       <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스를 소개해요</span></div>
                           <div style="margin:20px; font-size: 15px;">
                           <textarea name="contents" class="summernote_contents" id="summernote" style="width: 90%; margin: 15px;">
-                          <c:out value="${detailc.contents}"/> 
+                          <%-- <c:out value="${detailc.contents}"/>  --%>
+                          ㅁㄴㅇㄴㅁㄴㅇ
                           	<%-- <%=dd_vo.getContents()%> --%>	
                           </textarea>
                           </div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
+                          	<%-- <c:out value="${dcontents.dcontents}"/> --%>
+                          	<%-- <c:if test="${empty contents.contents}">
+                          		등록된 클래스 소개가 없습니다.
+                          	</c:if> --%>
+                              <!-- <p style="text-align: center;"><br></p>
+                              <p style="text-align: center;"><span style="background-color: transparent;">
+                              	변하지 않는 아름다움을 더욱 오랫동안 간직할&nbsp;</span></p>
+                              <p style="text-align: center;">하바리움 클래스로 당신을 초대합니다.</p>
+                              <p><br></p>
+                              <p>About 하바리움?</p>
+                              <p>식물표본이란 뜻을 가진 &lsquo;하바리움(Herbarium)&rsquo;&nbsp;은</p>
+                              <p><br>꽃(Flower)을 사용해서 만든다고 하여 하바플라리움(Herbaflorium) 이라고도 불리고 있어요.</p>
+                              <p>가장 아름다운 상태로 특수 처리한 프리저브드 플라워를 이용하여 생화 느낌 그대로 감상할 수 있는 장점이 있답니다.<br>
+                              	드라이 플라워를 사용한 하바리움은 빈티지한 고혹미를 오랫동안 간직할 수 있어서 더욱 매력적이에요 ;)</p> -->
                            </span>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
