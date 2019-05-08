@@ -57,6 +57,12 @@
 	insert into review(client_id, lcode, subject, contents, score, r_date) values(#{clientId}, #{lcode},'ㅎㅇ', #{contents},#{score}, sysdate)	
 </select>
 
+<select id="jjimLcodeList" parameterType="String" resultType="String">
+	select		lcode
+	from		lesson_like
+	where	client_id=#{clientId}
+</select>
+
 <select id="insertJjim" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
 	insert into lesson_like values(#{clientId}, #{lcode})	
 </select>
@@ -117,10 +123,17 @@
 	from		lesson_qna
 	where	client_id=#{clientId}
 </select>
+
 <select id="qnaStatusCnt" parameterType="kr.co.sist.user.vo.QnaStatusVO" resultType="int">
 	select		count(lcode) cnt
 	from		lesson_qna
 	where	client_id=#{clientId} and status=#{status}
+</select>
+
+<select id="selectAnswer" parameterType="kr.co.sist.user.vo.ListVO" resultType="String">
+	select a_contents
+	from lesson_qna
+	where client_id=#{clientId} and lcode=#{lcode}
 </select>
 
 <resultMap type="kr.co.sist.user.domain.ReportList" id="reportListResult">

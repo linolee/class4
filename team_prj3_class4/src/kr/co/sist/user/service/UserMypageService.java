@@ -61,6 +61,14 @@ public class UserMypageService {
 		return flag;
 	}//insertJjim
 	
+	public List<String> jjimLcodeList(String clientId){
+		List<String> list=null;
+		
+		list=um_dao.jjimLcodeList(clientId);
+		
+		return list;
+	}//lcodeList
+	
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
 		
@@ -133,6 +141,11 @@ public class UserMypageService {
 		List<QnaList> list=null;
 		list=um_dao.qnaList(lvo);
 		return list;
+	}//qnaList
+	
+	public String selectAnswer(ListVO lvo){
+		String answer=um_dao.selectAnswer(lvo);
+		return answer;
 	}//qnaList
 	
 	public List<String> reportLcodeList(String clientId){
