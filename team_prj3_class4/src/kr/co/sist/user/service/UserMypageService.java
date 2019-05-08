@@ -2,28 +2,29 @@ package kr.co.sist.user.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.dao.UserMypageDAO;
+import kr.co.sist.user.domain.CancelList;
 import kr.co.sist.user.domain.ClassList;
+import kr.co.sist.user.domain.QnaList;
+import kr.co.sist.user.domain.ReportList;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
+import kr.co.sist.user.vo.TotalVO;
 
 @Component
 public class UserMypageService {
-	
+	@Autowired
 	private UserMypageDAO um_dao;
-	
-	public UserMypageService() {
-		um_dao=UserMypageDAO.getInstance();
-	}//UserMypageService
 	
 	public List<ClassList> classList(ListVO lvo){
 		List<ClassList> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectClass(lvo);
+		list=um_dao.selectClass(lvo);
 		
 		return list;
 	}//classList
@@ -31,8 +32,7 @@ public class UserMypageService {
 	public List<ClassList> selectStatusClass(StatusListVO slvo){
 		List<ClassList> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectStatusClass(slvo);
+		list=um_dao.selectStatusClass(slvo);
 		
 		return list;
 	}//classList
@@ -40,15 +40,107 @@ public class UserMypageService {
 	public List<String> lcodeList(String clientId){
 		List<String> list=null;
 		
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		list=mb_dao.selectLcode(clientId);
+		list=um_dao.selectLcode(clientId);
 		
 		return list;
 	}//lcodeList
 	
+	public String reviewStatus(ListVO lvo) {
+		String lcode="";
+		
+		lcode=um_dao.reviewStatus(lvo);
+		
+		return lcode;
+	}//reviewList
+
+	public boolean insertReview(ReviewVO rvo) {
+		boolean flag=false;
+		flag=um_dao.insertReview(rvo);
+		return flag;
+	}//insertJjim
+	
+	public String jjimStatus(ListVO lvo) {
+		String lcode="";
+		
+		lcode=um_dao.jjimStatus(lvo);
+		
+		return lcode;
+	}//reviewList
+	
+	public boolean insertJjim(ListVO lvo) {
+		boolean flag=false;
+		flag=um_dao.insertJjim(lvo);
+		return flag;
+	}//insertJjim
+	
+	public int jjimTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.jjimTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int cancelTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.cancelTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int qnaTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.qnaTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public int reportTotalCnt(String clientId) {
+		int cnt=0;
+		cnt=um_dao.reportTotalCnt(clientId);
+		return cnt;
+	}//totalCount
+	
+	public boolean deleteJjim(ListVO lvo) {
+		boolean flag=false;
+		flag=um_dao.deleteJjim(lvo);
+		return flag;
+	}//insertJjim
+	
+	public List<String> cancelLcodeList(String clientId){
+		List<String> list=null;
+		list=um_dao.cancelLcodeList(clientId);
+		return list;
+	}//cancelLcodeList
+	
+	public List<CancelList> cancelList(ListVO lvo){
+		List<CancelList> list=null;
+		list=um_dao.cancelList(lvo);
+		return list;
+	}//cancelList
+
+	public List<String> qnaLcodeList(String clientId){
+		List<String> list=null;
+		list=um_dao.qnaLcodeList(clientId);
+		return list;
+	}//qnaLcodeList
+	
+	public List<QnaList> qnaList(ListVO lvo){
+		List<QnaList> list=null;
+		list=um_dao.qnaList(lvo);
+		return list;
+	}//qnaList
+	
+	public List<String> reportLcodeList(String clientId){
+		List<String> list=null;
+		list=um_dao.reportLcodeList(clientId);
+		return list;
+	}//qnaLcodeList
+	
+	public List<ReportList> reportList(ListVO lvo){
+		List<ReportList> list=null;
+		list=um_dao.reportList(lvo);
+		return list;
+	}//qnaList
+	
 	public int statusCnt(StatusCntVO ssvo) {
 		int cnt=0;
-		UserMypageDAO um_dao=UserMypageDAO.getInstance();
 		cnt=um_dao.statusCnt(ssvo);
 		return cnt;
 	}//totalCount
@@ -57,10 +149,9 @@ public class UserMypageService {
 	 * 총 게시물의 수 얻기
 	 * @return
 	 */
-	public int totalCount(String clientId) {
+	public int totalCount(TotalVO tvo) {
 		int cnt=0;
-		UserMypageDAO mb_dao=UserMypageDAO.getInstance();
-		cnt=mb_dao.selectTotalCount(clientId);
+		cnt=um_dao.selectTotalCount(tvo);
 		return cnt;
 	}//totalCount
 	
@@ -69,7 +160,7 @@ public class UserMypageService {
 	 * @return
 	 */
 	public int pageScale() {
-		int pageScale=10;
+		int pageScale=5;
 		return pageScale;
 	}//pageScale
 	
@@ -142,7 +233,7 @@ public class UserMypageService {
 	// 첫번째 페이지 인덱스 화면이 아닌경우
 	if ( current_page > pagenumber) {
 		curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-		strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&lt;&lt;</a> ]";
+		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&lt;&lt;</a> ]";
 	}else{
 		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/left.png'/>";
 	}
@@ -156,7 +247,7 @@ public class UserMypageService {
 		if (curpage == current_page) {
 			strList = strList + "["+current_page+"]";
 		} else {
-			strList = strList +"[ <a href="+list_url+"?currentPage="+curpage+">"+curpage+"</a> ]";
+			strList = strList +"[ <a href="+list_url+"currentPage="+curpage+">"+curpage+"</a> ]";
 		}//end else
 
 		curpage++;
@@ -167,7 +258,7 @@ public class UserMypageService {
 	// 뒤에 페이지가 더 있는경우
 	if ( total_page > endpage) {
 		curpage = endpage + 1; 
-		strList = strList + "[ <a href="+list_url+"?currentPage="+curpage+">&gt;&gt;</a> ]";
+		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&gt;&gt;</a> ]";
 	}else{
 		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/right.png'/>";
 	}//end else

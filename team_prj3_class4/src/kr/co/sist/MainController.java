@@ -40,10 +40,10 @@ public class MainController {
 		return "";
 	}//mvRecommendCalss
 	
-	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
-	public String mvDetailClass(Model model) {
+/*	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
+	public String mvDetailClass(String lcode,Model model) {
 		return "user/classDetail/detail";
 	}//mvRecommendCalss
-	
+*/	
 }//class
 

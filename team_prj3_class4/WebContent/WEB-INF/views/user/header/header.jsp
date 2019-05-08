@@ -11,7 +11,7 @@
 					<ul>
 						<c:choose>
 							<c:when test="${sessionScope.client_id ne null }"><!-- 로그인이 되어 있을 때 -->
-								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/guest_report.do">수강생 페이지</a></li>
+								<li><a href="<%= serverDomain %>/team_prj3_class4/user/student/mypage_list.do">수강생 페이지</a></li>
 								<li><a href="<%= serverDomain %>/team_prj3_class4/user/teacher/teacherPage.do">강사 페이지</a></li>
 								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/userPage.do">회원정보</a></li>
 								<li><a href="<%= serverDomain %>/team_prj3_class4/user/member/logout.do">로그아웃</a></li>
@@ -25,10 +25,12 @@
 					</ul>
 				</div>
 				<div id="headerContent">
+				<form action="search.do">
 					<a href="<%= serverDomain %>/team_prj3_class4/user/main.do"><img alt="로고" src="<c:url value="/resources/img/logo.png" />" id="logoImg"></a>
 					<span id="searchWindow">
 						<input type='text' class='input_text' />
 						<button type='submit' class='sch_smit'>검색</button>
 					</span>
+				</form>
 				</div>
 			</div>

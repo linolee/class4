@@ -37,13 +37,6 @@
 	src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-
-<!-- tab -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <!-- include summernote css/js -->
 <link
 	href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css"
@@ -51,7 +44,96 @@
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
 
+<!-- tab -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+  var jb = jQuery.noConflict();
+</script>
 
+<script type="text/javascript">
+$(function(){
+	$("#reportSubmitBtn").click(function (){
+		$.ajax({
+			type:"POST",
+			url:"memberReportSubmit.do",
+			data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
+			dataType : "json",
+			success: function(json){
+				if (json.resultFlag) {
+					$('#reportSubject').val("");
+					$('#summernote').summernote('code', "");
+					alert('문의가 정상적으로 제출되었습니다.');
+				}else{
+					alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+				}
+			},
+			error: function(xhr) {
+				console.log(xhr.status);
+			}	
+		});
+	});
+	
+	$("#changePasswordBtn").click(function (){
+		if (CheckPassword()) {
+			$.ajax({
+				type:"POST",
+				url:"changePassword.do",
+				data : {password : $('#pass1').val()},
+				dataType : "json",
+				success: function(json){
+					if (json.resultFlag) {
+						$('#pass1').val("");
+						$('#pass2').val("");
+						alert('비밀번호가 정상적으로 변경되었습니다.');
+					}else{
+						alert('비밀번호가 정상적으로 변경되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+					}
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		}else{
+			alert("비밀번호를 다시 확인해주세요.");
+		}
+	});
+	
+	jb("#tabs").tabs();
+	
+	$('#summernote').summernote({
+		placeholder : '신고 내용을 입력해주세요.',
+		tabsize : 2,
+		height : 300
+	});
+	
+	$("#deleteClientInfoBtn").click(function(){
+		location.href = "deleteUserAgreement.do"
+	});
+	
+});//ready
+
+function CheckPassword() {
+	var passwordFlag = false;
+	if ($('#pass1').val() != $('#pass2').val()) {//비밀번호가 서로 같은지 체크
+		$('#passwordWarning').text('비밀번호가 서로 다릅니다.').css("color", "red");
+		passwordFlag = false;
+	} else {
+		if ($('#pass1').val().length < 4
+				|| $('#pass1').val().length > 13) {//비밀번호 길이를 체크
+			$('#passwordWarning').text('4~13자 사이의 비밀번호를 입력해주세요.');
+			passwordFlag = false;
+		} else {
+			$('#passwordWarning').text('');
+			passwordFlag = true;
+		}
+	}
+	return passwordFlag;
+}
+
+</script>	
 </head>
 <body>
 	<div id="wrapper">
@@ -108,11 +190,14 @@
 							<table>
 								<tr>
 									<td>비밀번호 입력</td>
-									<td><input type="password"></td>
+									<td><input type="password" id="pass1" name="password" onchange="CheckPassword()"></td>
 								</tr>
 								<tr>
 									<td>비밀번호 재입력</td>
-									<td><input type="password"></td>
+									<td><input type="password" id="pass2" onchange="CheckPassword()"></td>
+								</tr>
+								<tr>
+									<td colspan="2"><label id="passwordWarning"></label></td>
 								</tr>
 							</table>
 							<br> <input type="button" value="비밀번호 변경" id="changePasswordBtn" class="inputBtn">
@@ -121,23 +206,13 @@
 
 							<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
 							<div id="summernote"></div>
-							<script>
-								$('#summernote').summernote({
-									placeholder : '신고 내용을 입력해주세요.',
-									tabsize : 2,
-									height : 300
-								});
-							</script>
 							<div id="reportBtnDiv">
-								<input type="submit" value="제출하기" id="reportSubmitBtn" class="inputBtn">
+								<input type="button" value="제출하기" id="reportSubmitBtn" class="inputBtn">
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<script>
-					$("#tabs").tabs();
-				</script>
 			</div>
 		</div>
 		<div id="footer">

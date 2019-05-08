@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.vo.BlackListDetailVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class BlackListDAO {
@@ -68,19 +69,52 @@ public class BlackListDAO {
 		return cnt;
 	}
 	
-	public List<BlackListDetailVO> selectDetailBlackList(String id){
-		List<BlackListDetailVO> list=null;
+	public BlackListDetailVO selectDetailBlackList(String id){
+		BlackListDetailVO mldvo=null;
+		mldvo=new BlackListDetailVO();
 		
 		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("selectDetailBlackList", id);
+
+		mldvo=ss.selectOne("selectDetailBlackList", id);
+		//System.out.println(mldvo.getClient_id()+"/"+mldvo.getB_date());
 		ss.close();
+
+		return mldvo;
+	}
+	
+	public boolean deleteBlackList(String id) {
+		boolean flag=false;
 		
+		SqlSession ss=getSessionFactory().openSession();
+		int del=ss.delete("deleteBlackList", id);
+		if(del==1) {
+			flag=true;
+			ss.commit();
+		}
+		ss.close();
+		return flag;
+	}
+	
+	public List<BlackListDomain> blackOptionSearch(OptionSearchVO osvo){
+		List<BlackListDomain> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("blackOptionSearch", osvo);
+		ss.close();
 		return list;
 	}
 	
+	
 	public static void main(String[] args) {
 		BlackListDAO bldao=new BlackListDAO();
-		bldao.selectDetailBlackList("1");
+		//bldao.selectDetailBlackList("1");
+		//bldao.deleteBlackList("blacklist10");
+		/*OptionSearchVO osvo=new OptionSearchVO();
+		osvo.setCurrentPage(1);
+		osvo.setStartNum(1);
+		osvo.setEndNum(10);
+		osvo.setOption("c.client_id");
+		osvo.setKeyword("eeee");
+		bldao.blackOptionSearch(osvo);*/
 	}
 	
 	

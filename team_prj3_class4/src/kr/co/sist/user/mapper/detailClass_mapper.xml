@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.detailC">
+
+<resultMap type="kr.co.sist.user.domain.Summary" id="summary">
+	<result column="banner_img" property="banner_img"/>
+	<result column="lname" property="lname"/>
+	<result column="lintro" property="lintro"/>
+	<result column="teacher_name" property="teacher_name"/>
+	<result column="address" property="address"/>
+	<result column="max_member" property="max_member"/>
+	<result column="class_time" property="class_time"/>
+	<result column="img" property="img"/>
+</resultMap>
+<select id="selectSummary" resultMap="summary" parameterType="String">
+	select l.banner_img,l.lname,l.lintro,l.teacher_name,substr(l.address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) address,l.max_member,l.end_time-l.start_time class_time,t.img
+	from lesson l ,teacher t
+	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.Star" id="star">
+	<result column="starAvg" property="starAvg"/>
+	<result column="starCount" property="starCount"/>
+</resultMap>
+<select id="selectStar" resultMap="star" parameterType="String">
+	select avg(score) starAvg ,count(score) starCount
+	from review
+	where lcode = #{lcode}
+</select>
+
+<select id="selectCareerList" resultType="String" parameterType="String"> 
+	select c.career
+	from career c
+	where c.teacher_name=
+	(select t.TEACHER_NAME
+	from lesson l inner join teacher t
+	on t.teacher_name=l.TEACHER_NAME
+	where lcode= #{lcode})
+</select>
+
+<resultMap type="kr.co.sist.user.domain.DetailContents" id="detailContents">
+	<result column="contents" property="contents"/>
+	<result column="curriculum" property="curriculum"/>
+	<result column="others" property="others"/>
+	<result column="address" property="address"/>
+</resultMap>
+<select id="selectDeContents" resultMap="detailContents" parameterType="String">
+	select contents,curriculum,others,address
+	from lesson
+	where lcode= #{lcode}
+</select>
+
+<select id="selectOpt" resultType="String" parameterType="String">
+	select opt
+	from l_OPT
+	where lcode=#{lcode}
+</select>
+
+<select id="selectNoOpt" resultType="String">
+	select opt
+	from opt
+</select>
+
+<resultMap type="kr.co.sist.user.domain.ReviewDomain" id="Review">
+	<result column="client_id" property="client_id"/>
+	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
+	<result column="score" property="score"/>
+	<result column="r_date" property="r_date"/>
+</resultMap>
+<select id="selectReviewList" resultMap="Review" parameterType="String">
+	select   client_id, subject, contents, score, r_date
+	from review
+	where lcode = #{lcode}
+</select>
+
+<select id="selectReviewTotalCnt" resultType="int">
+select count(*) cnt from review
+</select>
+
+<resultMap type="kr.co.sist.user.domain.QnA" id="qna">
+	<result column="qcode" property="qcode"/>
+	<result column="id" property="id"/>
+	<result column="subject" property="subject"/>
+	<result column="inputdate" property="inputdate"/>
+	<result column="status" property="status"/>
+</resultMap>
+<select id="selectQnaList" resultMap="qna" parameterType="String">
+	select qcode,client_id id, subject,q_date inputdate,status
+	from lesson_qna
+	where lcode=#{lcode}
+</select>
+
+<select id="selectQnaTotalCnt" resultType="int">
+select count(*) cnt from lesson_qna
+</select>
+
+<resultMap type="kr.co.sist.user.domain.TClass" id="Tclass">
+	<result column="main_img" property="main_img"/>
+	<result column="lname" property="lname"/>
+	<result column="lcode" property="lcode"/>
+</resultMap>
+<select id="selectTclass" resultMap="Tclass" parameterType="String">
+	select main_img,lname,lcode
+	from lesson
+	where teacher_name=(select teacher_name from lesson where lcode=#{lcode})
+	and lcode!=#{lcode}
+</select>
+
+ <select id="selectDay" resultType="String" parameterType="String">
+	select dow
+	from lesson_dow
+	where lcode=#{lcode}
+</select>
+
+ <resultMap type="kr.co.sist.user.domain.ClassTime" id="time">
+	<result column="start_date" property="start_date"/>
+	<result column="end_date" property="end_date"/>
+	<result column="start_time" property="start_time"/>
+	<result column="end_time" property="end_time"/>
+</resultMap>
+<select id="selectClassTime" resultMap="time" parameterType="String">
+	select start_date,end_date,start_time, end_time
+	from lesson
+	where lcode=#{lcode}
+</select>
+
+ <resultMap type="kr.co.sist.user.domain.JoinCount" id="joinCount">
+	<result column="max_member" property="max_member"/>
+	<result column="now_member" property="now_member"/>
+</resultMap>
+<select id="selectJoinCount" resultMap="joinCount" parameterType="String">
+	select max_member, count(client_id) now_member
+	from lesson l inner join students s
+	on l.lcode=s.lcode
+	where l.lcode=#{lcode}
+	group by max_member
+</select>
+
+ <select id="selectLike" resultType="String" parameterType="String">
+	select count(client_id) from LESSON_LIKE where lcode=#{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.Addr" id="Addr">
+	<result column="due_date" property="due_date"/>
+	<result column="si" property="si"/>
+	<result column="gu" property="gu"/>
+	<result column="introduce" property="introduce"/>
+</resultMap>
+<select id="selectAddr" resultMap="Addr" parameterType="String">
+	select l.due_date, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) gu,t.introduce
+	from lesson l inner join teacher t
+	on t.teacher_name=l.teacher_name
+	where lcode=#{lcode}
+</select>
+
+
+</mapper>

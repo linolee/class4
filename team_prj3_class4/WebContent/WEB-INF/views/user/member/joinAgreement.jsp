@@ -6,11 +6,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>당신을 위한 수업 Class4</title>
+<title>당신을 위한 수업★Class4★</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- css -->
+<link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<!-- google font -->
+<link href="https://fonts.googleapis.com/css?family=PT+Sans"
+	rel="stylesheet">
 <!-- Bootstrap core CSS -->
 <link
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
@@ -20,6 +25,9 @@
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
 	rel="stylesheet">
 <!-- CSS -->
+<style type="text/css">
+body {padding-top: 0px;}
+</style>
 <script type="text/javascript">
 	function CheckForm() {
 
@@ -54,14 +62,10 @@
 				<div class="container my-5">
 					<!-- Page Heading/Breadcrumbs -->
 					<h1 class="mt-4 mb-3">
-						회원 약관 동의 <small>Login</small>
+						회원 약관 동의
 					</h1>
 
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item active">메인</li>
-						<li class="breadcrumb-item active">회원 약관 동의</li>
-					</ol>
-					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
+					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm" method="post">
 						
 						<div id="agreementDiv" class="container my-5">
 							<div class="input-group">

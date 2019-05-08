@@ -12,7 +12,6 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form action="./reportAction.jsp" method="post">
 
 					<!-- temp table -->
 
@@ -20,25 +19,25 @@
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
-								<td width="50px">itswings</td>
+								<td width="50px" id="addBid"></td>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px">문지훈</td>
+								<td width="50px" id="addBname"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>
-								<td>2012/01/01</td>
+								<td id="addBbirth"></td>
 								<td style="background: #C8CED3">성별</td>
-								<td>남</td>
+								<td id="addBgender"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">연락처</td>
-								<td>119</td>
+								<td id="addBtel"></td>
 								<td style="background: #C8CED3">가입일자</td>
-								<td>2018-18-18</td>
+								<td id="addBinputdate"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #C8CED3;">
 								<td style="background: #C8CED3">이메일</td>
-								<td colspan="3">itswings@gmail.com</td>
+								<td colspan="3" id="addBemail"></td>
 							</tr>
 						</tbody>
 					</table>
@@ -47,7 +46,7 @@
 
 					<div class="form-group">
 						<label>사유</label>
-						<textarea name="reportContent" class="form-control" maxlength="2048"
+						<textarea id="reportReason" name="reportContent" class="form-control" maxlength="2048"
 								style="height:180px; resize: none;"></textarea>
 					</div>
 					
@@ -55,13 +54,14 @@
 						<div style="display: inline-block;">
 							<div class="form-row">
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">확인</button>
+									<form action="member.do" method="post" name="addFrm">
+										<button type="button" class="btn btn-danger" id="addBlack">확인</button>
+									</form>
+									<button type="button" class="btn btn-secondary"	data-dismiss="modal" id="addBlackCancle">취소</button>
 								</div>
 							</div>
 						</div>
 					</div>
-				</form>
 
 			</div>
 		</div>

@@ -180,6 +180,7 @@ $(function(){
 				<tbody>
 				<c:if test="${not empty requestScope.l_list}">
 				<c:forEach var="List" items="${ requestScope.l_list }">
+
 					<tr class="class-list">
 						<td><strong><c:out value="${ List.status }"/></strong></td>
 						<td><c:out value="${ List.lname }"/></td>
@@ -188,6 +189,7 @@ $(function(){
 						<td><c:out value="${ List.teacherName }"/></td>
 						<td><input type="button" class="btn btn-warning" name="btnDetail" value="상세보기"></td>
 					</tr>
+          
 				</c:forEach>
 				</c:if>
 				<c:if test="${empty l_list}">

@@ -105,7 +105,11 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		
+		$("#writeButton").click(function(){
+			
+			$("#actionForm").submit();
+			
+		});
 	});//ready
 </script>
 </head>
@@ -122,7 +126,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 			</div>
 			<div class="questionContent">
 			<div class="form_area">
-				<form id="actionForm" name="actionForm" method="post" action="" style="margin:0px;" >
+				<form id="actionForm" name="actionForm" method="post" action="qnaProcess.do" style="margin:0px;" >
 				<input type="hidden" id="customerEmail" name="customerEmail" value=""/>
 				<input type="hidden" id="attach" name="attach" />
 				<input type="hidden" id="attachListJSON" name="attachListJSON"/>
@@ -143,26 +147,24 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 					</tr>
 					<tr class="t3">
 						<th><span>아이디</span></th>
-						<td colspan="3"><input type="text" value="guest" class="input_txt" id="memberid" name="customerName" readonly /><span class="sp">로그인이 되지 않았을 경우 GUEST로 표기 됩니다.</span></td>
+						<td colspan="3"><input type="text" value="${client_id }" class="input_txt" id="memberid" name="customerName" readonly /><span class="sp">로그인이 되지 않았을 경우 GUEST로 표기 됩니다.</span></td>
 					</tr>
 					<tr class="t5">
 						<th><span>제목</span></th>
-						<td colspan="3"><input type="text" class="input_txt" id="questionTitle" name="questionTitle" /></td>
+						<td colspan="3"><input type="text" class="input_txt" id="questionTitle" name="subject" /></td>
 					</tr>
 					<tr class="t6">
 						<th ><span>내용</span></th>
 
-						<td colspan="3"><textarea name='Content' id="questionContents" placeholder="" onfocus="javascript:setBlank();" >문의 내용을 상세히 적어 주시면 감사하겠습니다.
+						<td colspan="3"><textarea name='contents' id="questionContents" placeholder="" onfocus="javascript:setBlank();" >문의 내용을 상세히 적어 주시면 감사하겠습니다.
 
 ※ 개인정보 보호를 위해 신분증과 같은 개인정보 항목을 첨부하실 경우,
     주민등록번호 뒷자리가 노출 되지 않도록 첨부 해 주시기 바랍니다.</textarea></td>
 					</tr>
-				</form>
 					<tr class="t7">
 						<th><span>첨부파일</span></th>
 						<td colspan="3">
 							<input type="hidden" id="enableFileExtension" name="enableFileExtension" value="jpg;jpeg;gif;doc;zip;docx;xls;pdf;png;bmp;txt" />
-							<form name="attachForm" id="attachForm" method="post" enctype="multipart/form-data">
 							<div class="input_filewrap">
 								<input type="text"  id="file_route" class="file_text" readonly="readonly" title="첨부된 파일경로" />
 								<em class="file_wrap">
@@ -177,10 +179,10 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 								<select size="4" id="attachList" name="attachList" id="attachList" ></select>
 							</div>
 							<iframe id="mnHiddenFrame" name="mnHiddenFrame" style="display:none;" ></iframe>
-							</form>
 						</td>
 					</tr>
 				</table>
+				</form>
 				<dl class="a_info">
 					<dt>1:1 문의 유의사항</dt>
 					<dd><span class="bul_num">1)</span>접수 된 내용은 최초 접수 건부터 순차적으로 답변 해 드리고 있으며, 문의량이 급증하거나 확인이

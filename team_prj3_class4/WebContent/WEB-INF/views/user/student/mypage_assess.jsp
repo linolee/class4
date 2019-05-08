@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/spring_mvc_prj/common/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/common/main_v190130.css">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
@@ -32,13 +32,19 @@
 #periodList{ width: 300px; height: 45px; background-color: #F3F3F3 }
 #peopleList{ width: 200px; height: 45px; background-color: #F3F3F3 }
 #marsterList{ width: 190px; height: 45px; background-color: #F3F3F3 }
-#assessJob{position: relative; bottom: 50px; left: 300px}
+#assessJob{position: relative; bottom: 200px; left: 300px}
 #writeFrm{background-color: #FFFFFF; border: 1px solid #CCCCCC;
 			box-shadow: 5px 5px 5px #444444; width:500px;
 			padding: 10px}
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
+.tableHeader{ background-color: #F7F7F7}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
-			font-size: 15px; font-weight:300; color:#2B2B2B; text-align:center;}
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
+.tableBodyEmpty{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
+			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:60px; color: #666666}
+td{ border-bottom: 1px solid #EEEEEE; }
+.searchDetail:hover { background-color: #F3F3F3 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
@@ -49,16 +55,35 @@
 		})
 	});//ready
 	
-	function writeEvt(pageFlag, evtCnt){
+	function write1(lcode){
+		alert(lcode+$("#point").val()+$("#review").val());
+		   $.ajax({
+			url : "mypage_assessWriter.do",
+			data :  {"lcode":lcode, "review":$("#review").val(), "point":$("#point").val()},
+			dataType : "text",
+			type : "get",
+			error : function( xhr ){
+				alert("잠시 후 다시 시도해주세요.");
+				console.log( xhr.status );
+			},
+			success : function( aa ){
+				alert(aa);
+				$(".w"+lcode).html("작성완료");
+			}
+		}); 
+	}//jjim
+	
+	function writeEvt(pageFlag, evtCnt, lcode){
+		$("[name='lcode']").val(lcode);
 		$("[name='pageFlag']").val(pageFlag);
 		$("[name='mypageFrm']").submit();
 	}//writeEvt
 	
 </script>
-<script type='text/javascript' src="jquery-1.10.2.min.js"></script>
-<script type='text/javascript' src="polyfiller.js"></script>
+<!-- <script type='text/javascript' src="jquery-1.10.2.min.js"></script>
+<script type='text/javascript' src="polyfiller.js"></script> -->
 <script>
-	webshim.polyfill('forms forms-ext');
+	/* webshim.polyfill('forms forms-ext'); */
 
 	jQuery(function($) {
 	    $('#fromDate').on('change', function() {
@@ -82,6 +107,7 @@
 		<input type="hidden" name="param_year"/>
 		<input type="hidden" name="param_day"/>
 		<input type="hidden" name="pageFlag"/>
+		<input type="hidden" name="lcode"/>
 	</form>
 		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
@@ -106,13 +132,15 @@
 	<div style="padding-top: 20px">
 		<div style="float: left">
 			<div style=" font-weight: normal; color:#757575;">
-				총 0개의 게시글이 있습니다.
+				<c:if test="${ param.status==null }">
+				총 <c:out value="${reviewList.size()}"/>개의 게시글이 있습니다.
+				</c:if>
 			</div>
 		</div>
 		<div style="float: right">
-		<a href="#void" >전체보기</a> | 
-		<a href="#void" >작성대기</a> | 
-		<a href="#void" >작성완료</a> 
+		<a href="mypage_assess.do" >전체보기</a> | 
+		<a href="?status=R" >작성대기</a> | 
+		<a href="?status=E" >작성완료</a> 
 		</div>
 	</div>
 	<br/>
@@ -125,30 +153,56 @@
 			<th id="peopleList" style="border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3">예약인원</th>
 			<th id="marsterList" style="border: 1px solid #C3C3C3">마스터</th>
 		</tr>
-		<tr>
-			<td>
-			<div>
-			<a href="#void" onclick="writeEvt('write_form',1)">dsds</a></div>
+	<c:set var="i" value="${0 }"/>
+	<c:set var="j" value="${0 }"/>
+	<c:forEach var="reviewList" items="${ reviewList }">
+		<tr class=searchDetail>
+			<td class=tableBody>
+				<c:if test="${ reviewStatus.get(j)==null }">
+				<div class="w${ reviewList.get(i).lcode}">작성대기</div>
+				</c:if>
+				<c:if test="${ reviewStatus.get(j)!=null }">
+				<div class="w${ reviewList.get(i).lcode}">작성완료</div>
+				</c:if>
 			</td>
-			<td>dsds</td>
-			<td>dsds</td>
+			<td class=tableBody>
+				<c:if test="${ reviewStatus.get(j)==null }">
+				<a href="#void" onclick="writeEvt('write_form',1,'${ reviewList.get(i).lcode}')">
+					<c:out value="${ reviewList.get(i).lname}"></c:out>
+				</a>
+				</c:if>
+				<c:if test="${ reviewStatus.get(j)!=null }">
+					<c:out value="${ reviewList.get(i).lname}"></c:out>
+				</c:if>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).startDate }~${ reviewList.get(i).endDate }"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).num}"></c:out>
+			</td>
+			<td class=tableBody>
+				<c:out value="${ reviewList.get(i).teacherName}"></c:out>
+			</td>
 		</tr>
+	<c:set var="j" value="${j+1 }"/>
+	</c:forEach>
+	<c:if test="${ empty reviewList }">
+	<tr>
+		<td colspan="5" align="center">등록된 클래스 정보가 없습니다.</td>
+	</tr>
+	</c:if>
 	</table>
+	</div>
 	<div id="assessJob">
 		<c:if test="${ not empty param.pageFlag }">
 			<c:import url="${param.pageFlag }.jsp"></c:import>
 		</c:if>
 	</div>
-	
-	<div id="classList">
-	
-	
 	</div>
-	
-	</div>
-	
-	<div id="classSearch">
-	</div>
+	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
 	
 	</div>
 	

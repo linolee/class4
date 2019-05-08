@@ -1,11 +1,20 @@
 package kr.co.sist.user.domain;
 
 public class ClassList {
-	private String status, lname, startDate, endDate, teacherName;
+	private String lcode, status, lname, startDate, endDate, teacherName;
 	private int num;
 	public String getStatus() {
 		return status;
 	}
+	
+	public String getLcode() {
+		return lcode;
+	}
+
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
+	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}
