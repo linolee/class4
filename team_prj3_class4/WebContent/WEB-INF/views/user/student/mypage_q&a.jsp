@@ -34,6 +34,7 @@
 #writeFrm{background-color: #FFFFFF; border: 1px solid #CCCCCC;
 			box-shadow: 5px 5px 5px #444444; width:500px;
 			padding: 10px}
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
 			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
@@ -160,17 +161,11 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			<c:import url="${param.pageFlag }.jsp"></c:import>
 		</c:if>
 	</div>
-	
-	<div id="classList">
-	
-	
 	</div>
-	
 	</div>
-	
-	<div id="classSearch">
-	</div>
-	
+	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
 	
 	</div>
 	<div id="footer">

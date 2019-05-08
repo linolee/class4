@@ -8,43 +8,56 @@
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/main_v190130.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/class.css">
+
+<!-- Bootstrap btn include -->
+<!-- <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+<link href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" rel="stylesheet">
+<!-- <link href="/docs/4.0/assets/css/docs.min.css" rel="stylesheet"> -->
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <style type="text/css">
-#wrap { margin: 0px auto; width: 1100px; height: 860px;}
-#headerTitle{font-family: 'Nanum Myeongjo', serif; font-size: 30px; font-weight: bold; text-align: center;
-					position: absolute; top: 40px; left: 290px;}
-#mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif;
-			font-size: 50px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
-#headerTitle2{font-size: 30px; font-weight: normal; color:#757575; text-align: left;
+#wrap {margin: 0px auto; width: 1100px; height: 860px;}
+#headerTitle {font-size: 30px; font-weight: bold; text-align: center; position: absolute; top: 40px; left: 290px;}
+#mypageTitle {font-size: 50px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
+#headerTitle2 {font-size: 30px; font-weight: normal; color:#757575; text-align: left;
 			top: 40px; left: 290px;}
-#container{ margin: 0px auto; width: 1100px; min-height: 600px;}
-.status{margin:0px auto;}
-.tableHeader{ background-color: #F7F7F7}
-#hugi{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif;
-			font-size: 40px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}
-#addQuestion{ position: absolute; top: 400px; left: 800px; }
-#addQuestionFrm{ border: 1px solid #333333; background-color: #FFFFFF; padding: 10px;}			
+#container {margin: 0px auto; width: 1100px; min-height: 600px;}
+.status {margin:0px auto;}
+.tableHeader {background-color: #F7F7F7;}
+#hugi {font-size: 40px; color:#2B2B2B; font-weight: bold; text-align: left; top: 40px; left: 290px;}		
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 /* webshim.polyfill('forms forms-ext'); */
+
+//모달 보이기
+function view( url ) {
+	if(url == "addQuestion"){
+		$("#addQuestion").show();
+	}
+}
+
+function clearModal() {
+	$(".qnaFormTitle").val("");
+	$("#qnaTxtArea").val("");
+}
 
 $(function(){
 	$("#addQuestion").hide();
 	$("[name='btnClose']").click(function() {
 		$("#addQuestion").hide();
 	});
+	
+	clearModal();
 
 });//ready
-function view( url ) {
-	if(url == "addQuestion"){
-		$("#addQuestion").show();
-	}
-}
+
 </script>
 </head>
 <body>
@@ -80,14 +93,14 @@ function view( url ) {
 				<col width="20%" />
 			</colgroup>
 			<thead>
-				<tr style="margin: auto;">
+				<tr class="content-list">
 					<th class="class-th" id="listNum" style="margin: auto;">등록일</th>
 					<th class="class-th" id="subjectName">제목</th>
 					<th class="class-th" id="dateList">답변여부</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr class="content-list">
 					<td colspan="6">문의사항이 없습니다</td>
 				</tr>
 			</tbody>
@@ -95,10 +108,12 @@ function view( url ) {
 	</div>
 	<!--// listContents -->
 	
-	<input type="button" value="문의하기" class="btn" style="float: right;" onclick="view('addQuestion')"/><br/>
-		<div id="addQuestion">
-			<c:import url="add_Question.jsp"/>
-		</div>
+	<div class="addBtn">
+		<input type="button" value="문의하기" class="btn btn-warning" style="float: right;" onclick="view('addQuestion')"/><br/>
+	</div>
+	<div id="addQuestion">
+		<c:import url="add_Question.jsp"/>
+	</div>
 	
 	<!-- prev & next btn -->
 	<div class="paging" align="center">

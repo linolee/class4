@@ -18,7 +18,6 @@ FROM TEACHER
 WHERE STATUS='N'
 </select>
 
-
 <select id="selectTeacherPermit" resultMap="TeacherPermitDomain" parameterType="kr.co.sist.admin.vo.ListVO">
 select client_id, teacher_name, birth, gender, email
 from(select t.client_id, t.teacher_name, c.birth, c.gender, c.email, row_number() over(order by c.inputdate desc) r_num
@@ -26,5 +25,33 @@ from  teacher t, client c
 where t.client_id=c.client_id and t.status='N')
 where r_num between #{ startNum } AND #{ endNum }
 </select>
+
+<delete id="delTeacherPermit" parameterType="String">
+delete from teacher 
+where client_id=#{client_id}
+</delete>
+
+<update id="updateTeacherPermitStat" parameterType="String">
+update client
+set status='X'
+where client_id=#{client_id}
+</update>
+
+<update id="teacherPermission" parameterType="String">
+update teacher
+set status='Y'
+where client_id=#{client_id}
+</update>
+
+<select id="teacherPermitOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="TeacherPermitDomain">
+select client_id, teacher_name, birth, gender, email
+from(select t.client_id, t.teacher_name, c.birth, c.gender, c.email, row_number() over(order by c.inputdate desc) r_num
+from  teacher t, client c
+where t.client_id=c.client_id and t.status='N' and ${option}=#{keyword})
+where r_num between #{ startNum } AND #{ endNum }
+</select>
+
+
+
 
 </mapper>

@@ -12,25 +12,52 @@
 	<result column="teacher_name" property="teacherName"/>
 	<result column="max_member" property="maxMember"/>
 	<result column="now_member" property="nowMember"/>
+	
+	<result column="client_id" property="clientId"/>
+	<result column="name" property="name"/>
+	<result column="tel" property="tel"/>
 </resultMap>
-<select id="selectLectureInfo" resultMap="LectureViewInfo" parameterType="String">
-	select STATUS, LNAME, START_DATE, END_DATE, TEACHER_NAME, MAX_MEMBER,
-	nvl((select count(*)
-		from STUDENTS
-		where lcode = #{ lcode }), 0) as now_member
-from LESSON
-where lcode = #{ lcode }
+<select id="selectLectureInfo" resultMap="LectureViewInfo" parameterType="map">
+	select STATUS, LNAME, LCODE, TO_CHAR(START_DATE,'yyyy-mm-dd') START_DATE,  TO_CHAR(END_DATE,'yyyy-mm-dd') END_DATE, TEACHER_NAME, MAX_MEMBER,
+		nvl((select count(*)
+			from STUDENTS
+			where lcode = #{ lcode }), 0) as now_member
+	from LESSON
+	where lcode = #{ lcode } <!-- map으로 넘길땐 key값으로 -->
 
+	<if test="status != null and !status.equals('') and !status.equals('All')">
+		and status = #{status}
+	</if>
 </select>
 
 <select id="selectLcode" resultType="String" parameterType="String">
-	select LCODE from LESSON
+	select LCODE 
+	from LESSON
 	where TEACHER_NAME = #{ TEACHER_NAME }
 </select>
 
 <select id="selectTeachername" resultType="String" parameterType="String">
-	select TEACHER_NAME from TEACHER
-	where CLIENT_ID = #{ CLIENT_ID }
+	select TEACHER_NAME 
+	from TEACHER
+	where CLIENT_ID = #{CLIENT_ID}
+</select>
+
+<select id="selectStudentsList" resultMap="LectureViewInfo" parameterType="String">
+	select s.client_id, c.name, c.tel
+	from STUDENTS s, CLIENT c
+	where s.client_id = c.client_id
+		and s.lcode = #{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.StatusCnt" id="StatusCnt">
+	<result column="status" property="status"/>
+	<result column="num" property="num"/>
+</resultMap>
+<select id="selectLectureStatus" resultMap="StatusCnt" parameterType="String">
+	select L.status, count(*) num
+	from lesson L
+	where teacher_name = #{value}
+    group by L.status
 </select>
 
 </mapper>

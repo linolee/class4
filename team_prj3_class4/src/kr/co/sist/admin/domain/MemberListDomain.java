@@ -1,7 +1,7 @@
 package kr.co.sist.admin.domain;
 
 public class MemberListDomain {
-	private String client_id, name, birth, gender, email;
+	private String client_id, name, birth, gender, email, reason;
 
 	public String getClient_id() {
 		return client_id;
@@ -42,6 +42,12 @@ public class MemberListDomain {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 	
 }

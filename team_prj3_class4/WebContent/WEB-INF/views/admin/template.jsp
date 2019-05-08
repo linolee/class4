@@ -6,11 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>112233</title>
+<title>Hi</title>
 <style type="text/css">
 #file, #file2 { display:none; } 	
-.titleImg, .categoryImg{width:1200px; height:400px; width:100%; height:100%;}
-.upCategoryImg{width:300px;height:100px}
+.titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}
+.upCategoryImg{width:900px;height:300px}
+.upCategoryImg2{width:600px;height:200px}
 </style>
 
 <link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
@@ -81,7 +82,9 @@ $(function(){
             <li class="nav-title">회원관리</li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="member.do" >
-                <i class="nav-icon icon-star" ></i> 회원조회</a>
+                <i class="nav-icon icon-star" ></i> 회원 조회</a>
+              <a class="nav-link nav-dropdown-toggle" href="teacher.do">
+                <i class="nav-icon icon-star"></i> 강사 조회 </a>
               <a class="nav-link nav-dropdown-toggle" href="teacherAuthority.do">
                 <i class="nav-icon icon-star"></i> 강사 권한 승인 </a>
               <a class="nav-link nav-dropdown-toggle" href="blacklist.do">
@@ -93,10 +96,6 @@ $(function(){
                 <i class="nav-icon icon-star"></i> 카테고리</a>
               <a class="nav-link nav-dropdown-toggle" href="title.do">
                 <i class="nav-icon icon-star"></i> 타이틀</a>
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=test">
-                <i class="nav-icon icon-star"></i> TEST</a>
-              <a class="nav-link nav-dropdown-toggle" href="template.do?page=test2">
-                <i class="nav-icon icon-star"></i> TEST2</a>
           </ul>
         </nav>
       </div>
@@ -118,14 +117,18 @@ $(function(){
 	
 	<!-- 메인 -->
 	<div class="container-fluid">
-	<c:if test="${ not empty param.page }">
+	<%-- <c:if test="${ not empty param.page }">
 		<c:import url="${ param.page }.jsp"/>
-	</c:if> 
+	</c:if>  --%>
 	
 	<!-- 아래걸로 바꿀 것  -->
 	<c:if test="${ not empty page }">
 		<c:import url="${ page }.jsp"/>
 	</c:if>
+	<c:if test="${ empty page }">
+		메인
+	</c:if>
+	
 	
 		<br/><br/>
 	</div>

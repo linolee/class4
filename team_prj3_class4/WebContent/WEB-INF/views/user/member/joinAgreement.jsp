@@ -65,7 +65,7 @@ body {padding-top: 0px;}
 						회원 약관 동의
 					</h1>
 
-					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm">
+					<form action="join.do" id="JoinAgreementFrm" name="joinAgreementFrm" method="post">
 						
 						<div id="agreementDiv" class="container my-5">
 							<div class="input-group">

@@ -15,26 +15,33 @@
 		<th colspan="2" style="text-align: left">
 			<span style="font-size: 40px">클래스 후기 작성</span>
 			<span style="float:right; padding-right: 20px">
-			<a href="#void" id="btnCloseFrm"><img src="images/close.png"/></a>
+			<a href="#void" id="btnCloseFrm"><!-- <img src="images/close.png"/> --></a>
 			</span>
 		</th>
 	</tr>
 	<tr>
 		<td style="width: 100px; height: 30px;">별점</td>
 		<td style="width: 600px; height: 30px;">
+		<select id="point">
+		<option value="1">★☆☆☆☆</option>
+		<option value="2">★★☆☆☆</option>
+		<option value="3">★★★☆☆</option>
+		<option value="4">★★★★☆</option>
+		<option value="5">★★★★★</option>
+		</select>
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 100px; height: 30px; " valign="top">내용</td>
 		<td style="width: 600px">
-			<textarea rows="10" cols="45"></textarea>
+			<textarea rows="10" cols="45" id="review"></textarea>
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 100px">작성자</td>
 		<td style="width: 600px">
 			<input type="text" name="writer" id="writer" class="inputBox"
-				style="width: 150px; height: 30px;"/>
+				style="width: 150px; height: 30px;" value="${client_id }" readonly="readonly"/>
 		</td>
 	</tr>
 	<tr>
@@ -46,7 +53,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" align="center">
-			<input type="button" value="이벤트 작성" class="btn" id="btnWrite"/>
+			<input type="button" value="이벤트 작성" class="btn" id="btnWrite" onclick="write1('${param.lcode}')"/>
 			<input type="button" value="닫기" class="btn" id="btnWriteClose"/>
 		</td>
 	</tr>

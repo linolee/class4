@@ -32,6 +32,7 @@
 #peopleList{ width: 150px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
 #marsterList{ width: 180px; height: 45px; background-color: #F3F3F3; border-bottom: 1px solid #C3C3C3; border-top: 1px solid #C3C3C3 }
 #jjimList{ width: 100px; height: 45px; background-color: #F3F3F3; border: 1px solid #C3C3C3 }
+#IndexList{ height: 30px; text-align: center; }
 .status{margin:0px auto; border-top: 1px solid #30B7BF; border-spacing: 0px;}
 .tableBody{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
 			font-size: 13px; font-weight:300; color:#2B2B2B; text-align:center; height:50px;}
@@ -42,14 +43,26 @@ td{ border-bottom: 1px solid #EEEEEE; }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function(){
-		
-	});//ready
+	function jjim(lcode){
+		$.ajax({
+			url : "jjimHeart.do",
+			data : "lcode="+lcode,
+			dataType : "text",
+			type : "get",
+			error : function( xhr ){
+				alert("잠시 후 다시 시도해주세요.");
+				console.log( xhr.status );
+			},
+			success : function( jjim ){
+				$(".y"+lcode).html(jjim);
+			}
+		});
+	}//jjim
 </script>
-<script type='text/javascript' src="jquery-1.10.2.min.js"></script>
-<script type='text/javascript' src="polyfiller.js"></script>
+<!-- <script type='text/javascript' src="jquery-1.10.2.min.js"></script>
+<script type='text/javascript' src="polyfiller.js"></script> -->
 <script>
-	webshim.polyfill('forms forms-ext');
+/* 	webshim.polyfill('forms forms-ext'); */
 
 	jQuery(function($) {
 	    $('#fromDate').on('change', function() {
@@ -105,9 +118,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		<c:forEach var="jjimList" items="${ jjimList }">
 			<tr class=searchDetail>
 				<td class=tableBody>
-					<a href="#void" onclick="writeEvt('write_form',1)">
 						<c:out value="${ jjimList.get(i).lname}"></c:out>
-					</a>
 				</td>
 				<td class=tableBody>
 					<c:out value="${ jjimList.get(i).startDate }~${ jjimList.get(i).endDate }"></c:out>
@@ -120,10 +131,16 @@ td{ border-bottom: 1px solid #EEEEEE; }
 				</td>
 				<td class=tableBody>
 					<c:if test="${ jjimStatus.get(j)==null }">
-					<a href="?addJjim=${jjimList.get(i).lcode }">♡</a>
+						<div class="y${jjimList.get(i).lcode }" onclick="jjim('${jjimList.get(i).lcode }')">
+							<input type="hidden" name="lcode" value="${jjimList.get(i).lcode }" id="lcode"/>
+							♡
+						</div>
 					</c:if>
 					<c:if test="${ jjimStatus.get(j) ne null }">
-					<a href="?cancelJjim=${jjimList.get(i).lcode }">♥</a>
+						<div class="y${jjimList.get(i).lcode }" onclick="jjim('${jjimList.get(i).lcode }')">
+							<input type="hidden" name="lcode" value="${jjimList.get(i).lcode }" id="lcode"/>
+							♥
+						</div>
 					</c:if>
 				</td>
 			</tr>
@@ -137,15 +154,13 @@ td{ border-bottom: 1px solid #EEEEEE; }
 	</table>
 	</form>
 	
-	<div id="classList">
-	
-	
 	</div>
 	
 	</div>
 	
-	<div id="classSearch">
-	</div>
+	<div id="IndexList" style="text-aling: center">
+	<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
+		<c:out value="${indexList }" escapeXml="false"/>
 	
 	</div>
 	<div id="footer">

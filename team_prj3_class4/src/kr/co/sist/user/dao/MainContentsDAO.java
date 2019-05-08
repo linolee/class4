@@ -10,8 +10,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
-import kr.co.sist.user.service.mainContentsService;
-
 @Component
 public class MainContentsDAO {
 	
@@ -47,4 +45,11 @@ public class MainContentsDAO {
 		return category;
 	}//selectCategory
 
+	public static void main(String[] args) {
+		MainContentsDAO m_dao=new MainContentsDAO();
+		List<String> category=m_dao.selectCategory();
+		System.out.println(category);
+		
+	}//main
+	
 }

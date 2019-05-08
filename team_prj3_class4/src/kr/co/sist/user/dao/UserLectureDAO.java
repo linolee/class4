@@ -3,6 +3,7 @@ package kr.co.sist.user.dao;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,10 +12,10 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.domain.LectureView;
+import kr.co.sist.user.domain.StatusCnt;
 
 @Component
 public class UserLectureDAO {
-
 	private SqlSessionFactory ssf = null;
 
 	public SqlSessionFactory getSessionFactory() {
@@ -37,31 +38,53 @@ public class UserLectureDAO {
 	}// getSqlSessionFactory
 
 	
-	//lcode·Î Å¬·¡½º ÇöÈ² µé°í¿À±â
-	public LectureView selectLecture(String lcode) {
+	//lcodeë¡œ í•˜ë‚˜ì˜ í´ë˜ìŠ¤ë¥¼ ì¡°íšŒí•œë‹¤
+	public LectureView selectLecture(Map<String, String> param) {
 		SqlSession ss = getSessionFactory().openSession();
-		LectureView lv = ss.selectOne("selectLectureInfo", lcode);
+		LectureView lv = ss.selectOne("selectLectureInfo", param);
 		ss.close();
 		
 		return lv;
-	}
+	} // selectLecture
 	
-	//teachernameÀ¸·Î lcode Á¶È¸
+	//teachernameìœ¼ë¡œ lcodeë¥¼ ê°€ì ¸ì˜¨ë‹¤
 	public List<String> selectLcode(String teacherName) {
 		SqlSession ss = getSessionFactory().openSession();
 		List<String> list = ss.selectList("selectLcode", teacherName);
 		ss.close();
 		
 		return list;
-	}
+	} // selectLcode
 	
-	//id·Î teacherName Á¶È¸
+	//idë¡œ teacherName ì¡°íšŒ
 	public List<String> selectTeachername(String userId) {
 		SqlSession ss = getSessionFactory().openSession();
 		List<String> list = ss.selectList("selectTeachername", userId);
 		ss.close();
 		
 		return list;
-	}
+	} // selectTeachername
+	
+	public List<LectureView> selectStudentsList(String lcode){
+		SqlSession ss = getSessionFactory().openSession();
+		List<LectureView> list = ss.selectList("selectStudentsList", lcode);
+		ss.close();
+		return list;		
+	} // selectStudentsList
+	
+	public List<StatusCnt> selectLectureStatus(String teacherName){
+		SqlSession ss = getSessionFactory().openSession();
+		List<StatusCnt> list = ss.selectList("selectLectureStatus", teacherName);
+		ss.close();		
+		return list;
+	} // selectLectureStatus
+	
+	public List<String> selectTeacherName(String userId){
+		SqlSession ss = getSessionFactory().openSession();
+		List<String> list = ss.selectList("selectTeacherName", userId);
+		ss.close();
+		
+		return list;
+	} // selectTeacherName
 	
 } // class
