@@ -27,7 +27,7 @@
 				</span>
 			</div>
 		</form>
-		<br /> <br /> --%>
+		<br /> <br /> --%><!--  -->
 		<table class="table table-responsive-sm">
 			<thead>
 				<tr>
