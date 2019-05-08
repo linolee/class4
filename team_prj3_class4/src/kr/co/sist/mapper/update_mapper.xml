@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.update">
+
+
+<update id="endStatus1">
+	update LESSON
+	set STATUS = 'E'
+	where (END_DATE &lt; sysdate) and STATUS = 'I'
+</update>
+<update id="endStatus2">
+	update LESSON
+	set STATUS = 'C'
+	where (END_DATE &lt; sysdate) and ((STATUS = 'A') or (STATUS = 'R') or (STATUS = 'Y') or (STATUS = 'F'))
+</update>
+
+</mapper>

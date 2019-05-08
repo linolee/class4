@@ -92,6 +92,14 @@ public class UserMypageDAO {
 		return flag;
 	}//insertJjim
 	
+	public List<String> jjimLcodeList(String clientId){
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("jjimLcodeList", clientId);
+		ss.close();
+		return list;
+	}//selectLcode
+	
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
 		SqlSession ss=getSessionFactory().openSession();
@@ -204,6 +212,13 @@ public class UserMypageDAO {
 		list=ss.selectList("qnaList", lvo);
 		ss.close();
 		return list;
+	}//qnaList
+	
+	public String selectAnswer(ListVO lvo) {
+		SqlSession ss=getSessionFactory().openSession();
+		String answer=ss.selectOne("selectAnswer", lvo);
+		ss.close();
+		return answer;
 	}//qnaList
 	
 	public List<String> reportLcodeList(String clientId) {
