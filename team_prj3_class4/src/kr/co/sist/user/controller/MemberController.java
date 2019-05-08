@@ -55,6 +55,7 @@ public class MemberController {
 		return "main";
 	}// mainPage
 
+
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
 
@@ -171,6 +172,27 @@ public class MemberController {
 			return "user/member/login";
 		}
 	}// userPage
+	
+	@RequestMapping(value = "user/member/deleteUserAgreement.do", method = GET)
+	public String deleteUserAgreementPage() {
+		
+		return "user/member/deleteUserAgreement";
+	}// deleteUserAgreementPage
+	
+	@RequestMapping(value = "user/member/deleteUser.do", method = POST)
+	public String deleteUser(HttpSession session) {
+		if (session.getAttribute("client_id") != null) {
+			String client_id = session.getAttribute("client_id").toString();
+			session.invalidate();
+			if (ups.deleteUser(client_id) == 1) {
+				System.out.println(client_id+" 정상 삭제 완료");
+			}
+			
+			return "main";
+		}else {
+			return "user/member/login";
+		}
+	}// deleteUserAgreementPage
 
 	@RequestMapping(value = "user/member/report.do", method = GET)
 	public String reportPage() {

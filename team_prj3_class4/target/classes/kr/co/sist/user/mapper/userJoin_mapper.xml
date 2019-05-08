@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mapper.userJoin_mapper">
-<select id="selectCategory" resultType="String" >
+<select id="joinSelectCategory" resultType="String" >
 	select category
 	from category
 </select>
@@ -30,6 +30,11 @@
 	insert into favor(client_id, category)
 	values
 	(#{client_id}, #{favor})
+</insert>
+<insert id="deleteUser" parameterType="String">
+	insert into deleted_user(client_id, d_date)
+	values
+	(#{client_id}, sysdate)
 </insert>
 
 

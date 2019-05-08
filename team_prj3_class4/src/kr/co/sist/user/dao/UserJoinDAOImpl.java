@@ -42,7 +42,7 @@ public class UserJoinDAOImpl implements UserJoinDAO{
 	public List<String> categoryList() {
 		SqlSession ss=getSessionFactory().openSession();
 		
-		List<String> categoryList=ss.selectList("selectCategory");
+		List<String> categoryList=ss.selectList("joinSelectCategory");
 		ss.close();
 		return categoryList;
 	}
