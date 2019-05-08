@@ -20,12 +20,13 @@ $(function () {
 	$('#file3').click();
 			});
 	
-   	var ext=["jpg","png"];
+   	/* var ext=["jpg","png"]; */
+   	var ext=["jpg"];
    	var flag=null;
     $("#file").change(function(){
 		 flag=false;
 	   	 if($("#file").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
+	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file").val().split("\\");
 		   	var fileValue2 = $("#file").val(); // path
 		   	var fileValue3 = $("#file").val().split("."); // path
@@ -49,6 +50,7 @@ $(function () {
 			            reader.onload = function(e) {
 			                $('#foo').attr('src', e.target.result);
 			            }
+		            	$("#imgNullChk").val("true");
 			            reader.readAsDataURL(input.files[0]);
 			        }
 			    }
@@ -60,7 +62,7 @@ $(function () {
     $("#file2").change(function(){
 		 flag=false;
 	   	 if($("#file2").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
+	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file2").val().split("\\");
 		   	var fileValue2 = $("#file2").val(); // path
 		   	var fileValue3 = $("#file2").val().split("."); // path
@@ -82,6 +84,7 @@ $(function () {
 			        if (input.files && input.files[0]) {
 			            var reader = new FileReader();
 			            reader.onload = function(e) {
+			            	$("#imgNullChk2").val("true");
 			                $('#foo2').attr('src', e.target.result);
 			            }
 			            reader.readAsDataURL(input.files[0]);
@@ -95,7 +98,7 @@ $(function () {
     $("#file3").change(function(){
 		 flag=false;
 	   	 if($("#file3").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
+	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file3").val().split("\\");
 		   	var fileValue2 = $("#file3").val(); // path
 		   	var fileValue3 = $("#file3").val().split("."); // path
@@ -117,6 +120,7 @@ $(function () {
 			        if (input.files && input.files[0]) {
 			            var reader = new FileReader();
 			            reader.onload = function(e) {
+			            	$("#imgNullChk3").val("true");
 			                $('#foo3').attr('src', e.target.result);
 			            }
 			            reader.readAsDataURL(input.files[0]);
@@ -127,6 +131,29 @@ $(function () {
 		   	}
    		 } // if
  	});//change
+ 	
+ 	$("[name='titleSubmit']").click(function(){
+ 		if($("#imgNullChk").val()=="true"){
+	 		$("[name='titleUploadFrm']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	$("[name='titleSubmit2']").click(function(){
+ 		if($("#imgNullChk2").val()=="true"){
+	 		$("[name='titleUploadFrm2']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	$("[name='titleSubmit3']").click(function(){
+ 		if($("#imgNullChk3").val()=="true"){
+	 		$("[name='titleUploadFrm3']").submit();
+ 		} else{
+ 			alert("이미지를 선택해주세요");
+ 		}
+ 	});
+ 	
  	
 });
 
@@ -139,13 +166,13 @@ $(function () {
                     <i class="fa fa-align-justify"></i> 메인 헤더
 	</div>
 	<div class="card-body">
-                    이미지 최적사이즈는 가로1200px, 세로 400px입니다
+                    <li style="font-size:20px;">이미지 최적사이즈는 가로1200px, 세로 400px입니다</li>
 				
 		<div>
 				<table class="table table-responsive-sm">
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
-						<td>
+						<!-- <td> -->
 							<tr>
 								<td>
 									<h3>첫번째 이미지</h3>
@@ -154,33 +181,29 @@ $(function () {
 							<tr>
 								<td>
 									<div style="display:flex; align-items:center;">
+										<input type="hidden" id="imgNullChk" value=""/>
 										<form action="titleUpload.do" method="post" name="titleUploadFrm" enctype="multipart/form-data">
-											<input type="hidden" name="firstTitle" value="1"/>
+											<input type="hidden" name="titleNumber" value="01"/>
 											<input type="file" id="file" name="file"/>
 											<button type="button" id="btn-upload" name="btn-upload" value="temp" style="margin-top:10px;">
-												<img src="http://localhost:8080/team_prj3_class4/upload/category/default.jpg" class="categoryImg" id="foo">
+												<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg01.jpg" class="categoryImg" id="foo">
 											</button>
 										</form>
-										&nbsp;&nbsp;&nbsp;
-										&nbsp;&nbsp;&nbsp;
-										
-										<span class="input-group-btn">
+										<span class="input-group-btn col-3" style="   padding-left: 50px;    padding-right: 30px;    padding-bottom: 20px;    padding-top: 50px;    border-bottom-width: 20px; margin-bottom: 0px;">
 							                <span class="input-group-btn">
-							               		 <button type="submit" class="btn" style="font-size:100px;"><i class="glyphicon glyphicon-floppy-open"></i></button>
+							               		 <button type="submit" name="titleSubmit" class="btn" style="font-size:100px; width:100%; height:100%;">
+							               		 	<i class="glyphicon glyphicon-floppy-open"></i>
+							               		 </button>
 							           		</span>
 							            </span>
 										
 										
 										
-										
-										
-										
-										<!-- <input type="button" value="버튼"/> -->
 									</div>
 								</td>
 							</tr>
-						</td>
-						<td>
+						<!-- </td> -->
+						<!-- <td> -->
 							<tr>
 								<td>
 									<h3>두번째 이미지</h3>
@@ -189,19 +212,24 @@ $(function () {
 							<tr>
 								<td>
 								<div style="display:flex; align-items:center;">
+								<input type="hidden" id="imgNullChk2" value=""/>
 									<form action="titleUpload.do" method="post" name="titleUploadFrm2" enctype="multipart/form-data">
-										<input type="hidden" name="secondTitle" value="2"/>
+										<input type="hidden" name="titleNumber" value="02"/>
 										<input type="file" id="file2" name="file"/>
 										<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px;">
-											<img src="http://localhost:8080/team_prj3_class4/upload/category/default.jpg" class="categoryImg" id="foo2">
+											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg02.jpg" class="categoryImg" id="foo2">
 										</button>
 									</form>
-									<input type="button" value="버튼"/>
+									<span class="input-group-btn col-3">
+							                <span class="input-group-btn">
+							               		 <button type="submit" name="titleSubmit2" class="btn" style="font-size:100px; width:100%; height:100%;"><i class="glyphicon glyphicon-floppy-open"></i></button>
+							           		</span>
+							        </span>
 									</div>
 								</td>
 							</tr>
-						</td>
-						<td>
+						<!-- </td>
+						<td> -->
 							<tr>
 								<td>
 									<h3>세번째 이미지</h3>
@@ -210,18 +238,23 @@ $(function () {
 							<tr>
 								<td>
 								<div style="display:flex; align-items:center;">
+								<input type="hidden" id="imgNullChk3" value=""/>
 									<form action="titleUpload.do" method="post" name="titleUploadFrm3" enctype="multipart/form-data">
-										<input type="hidden" name="thirdTitle" value="3"/>
+										<input type="hidden" name="titleNumber" value="03"/>
 										<input type="file" id="file3" name="file"/>
 										<button type="button" id="btn-upload3" name="temp" value="temp" style="margin-top:10px;">
-											<img src="http://localhost:8080/team_prj3_class4/upload/category/default.jpg" class="categoryImg" id="foo3">
+											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg03.jpg" class="categoryImg" id="foo3">
 										</button>
 									</form>
-									<input type="button" value="버튼"/>
+									<span class="input-group-btn col-3">
+							                <span class="input-group-btn">
+							               		 <button type="submit" class="btn" name="titleSubmit3" style="font-size:100px; width:100%; height:100%;"><i class="glyphicon glyphicon-floppy-open"></i></button>
+							           		</span>
+							       </span>
 									</div>
 								</td>
 							</tr>
-						</td>
+						<!-- </td> -->
 					</tbody>
 				</table>
 		</div>
