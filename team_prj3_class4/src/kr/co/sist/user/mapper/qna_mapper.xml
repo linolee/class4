@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.qna_mapper">
+
+<select id="insertQna" parameterType="kr.co.sist.user.vo.QnaVO" resultType="boolean">
+	insert into qna(qcode, lcode, client_id, subject, contents, q_date, status)
+	values(seq_text.nextval, #{lcode}, #{clientId}, #{subject}, #{contents}, sysdate, 'N')
+</select>
+
+</mapper>
