@@ -52,7 +52,7 @@ a {
   height: 250px;
 }
 .swipe li  img{
-	max-width:80%;
+	max-width:100%;
 }
 .swipe li{
 	margin:10px;

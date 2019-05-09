@@ -25,7 +25,9 @@
 <script src="http://localhost:8080/team_prj3_class4/resources/maincontents/touchslider.js"></script>
 <script type="text/javascript">
  $(function(){
-	 
+	 $("#cg01").click(function(){
+			location.href="http://localhost:8080/team_prj3_class4/user/search/search.do?category="+$("[name='category']").val();	
+	 });
  });//ready
 </script>
 </head>
@@ -67,7 +69,7 @@
 	<div id="content">
 		<div id="category">
 		<span id="cgTitle">카테고리</span>
-		<div class='swipe' style='margin:10px ;height:350px;'>
+		<div class='swipe' style='margin:10px ;height:350px;padding-top: 40px;' >
 			<ul id='slider3'>
 			<%-- <c:forEach var="clist" items="${ requestScope.clist }">
       		<li><a href="#void"><c:out value="${clist}"/></a></li>
@@ -75,23 +77,42 @@
       		</c:forEach> --%>
 			    <li style='display:block'>
 			    <div>
-			    	<c:forEach var="clist" items="${ requestScope.clist }">
-			    	<c:set var="i" value="${ i + 1 }"/>
-			    	<div id="cg0+${i}"><c:out value="${clist}"/></div>
+			    	<c:forEach var="imgCate1" items="${ requestScope.imgCate1}">
+			    		<c:set var="i" value="${ i + 1 }"/>
+			    		<div id="cg0${i}" >
+			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate1.img}">
+			    			<span style="position: absolute;right:95px;"><c:out value="${imgCate1.category}"/></span>
+			    		</div>
 			    	</c:forEach>
-					<div id="cg01">음악</div>
+			    	
+					<!-- <div id="cg01">음악</div>
 					<div id="cg02">아트</div>
-					<div id="cg03">핸드메이드</div>
+					<div id="cg03">핸드메이드</div> -->
 				</div></li>
 			    <li><div>
-					<div id="cg04">뷰티/헬스</div>
+			    	<c:forEach var="imgCate2" items="${ requestScope.imgCate2}">
+			    		<c:set var="j" value="${ j + 1 }"/>
+			    		<div id="cg0${j+3}" >
+			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate2.img}">
+			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate2.category}"/></span>
+			    		</div>
+			    	</c:forEach>
+			    	
+					<!-- <div id="cg04">뷰티/헬스</div>
 					<div id="cg05">쿠킹</div>
-					<div id="cg06">가드닝</div>
+					<div id="cg06">가드닝</div> -->
 				</div></li>
 			    <li><div>
-					<div id="cg07">액티비티</div>
+			    	<c:forEach var="imgCate3" items="${ requestScope.imgCate3}">
+			    		<c:set var="q" value="${ q + 1 }"/>
+			    		<div id="cg0${q+6}" >
+			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate3.img}">
+			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate3.category}"/></span>
+			    		</div>
+			    	</c:forEach>
+					<!-- <div id="cg07">액티비티</div>
 					<div id="cg08">자기계발</div>
-					<div id="cg09">취미</div>
+					<div id="cg09">취미</div> -->
 				</div></li>
 			  </ul>
 		</div>
@@ -102,7 +123,7 @@
 		
 		<div id="recomnend">
 		<span id="rcTitle">추천 클래스</span>
-		<div class='swipe' style='margin:10px ;height:350px;'>
+		<div class='swipe' style='margin:10px ;height:350px;padding-top: 40px;'>
 			<ul id='slider2'>
 				<li style='display:block'><div>
 					<div id="rc01">
@@ -131,7 +152,7 @@
 	
 		<div id="review">
 			<span id="rvTitle">최신 리뷰</span>
-			<div class='swipe' style='margin:10px;'>
+			<div class='swipe' style='margin:10px;padding-top: 40px;'>
 			  <ul id='slider1'>
 			    <li style='display:block'><div>
 					<div id="rv01">

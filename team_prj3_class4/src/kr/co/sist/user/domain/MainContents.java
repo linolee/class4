@@ -4,8 +4,8 @@ import java.util.List;
 
 public class MainContents {
 	private List<Category> listCategory;
-	private List<RecommendClass> listRecommed;
-	private List<ReviewClass> listReview;
+	private List<Recommend> listRecommed;
+	private List<LatestReview> listReview;
 	String[] mainImgArr, categoryArr;
 	
 	public List<Category> getListCategory() {
@@ -14,16 +14,16 @@ public class MainContents {
 	public void setListCategory(List<Category> listCategory) {
 		this.listCategory = listCategory;
 	}
-	public List<RecommendClass> getListRecommed() {
+	public List<Recommend> getListRecommed() {
 		return listRecommed;
 	}
-	public void setListRecommed(List<RecommendClass> listRecommed) {
+	public void setListRecommed(List<Recommend> listRecommed) {
 		this.listRecommed = listRecommed;
 	}
-	public List<ReviewClass> getListReview() {
+	public List<LatestReview> getListReview() {
 		return listReview;
 	}
-	public void setListReview(List<ReviewClass> listReview) {
+	public void setListReview(List<LatestReview> listReview) {
 		this.listReview = listReview;
 	}
 	public String[] getMainImgArr() {
