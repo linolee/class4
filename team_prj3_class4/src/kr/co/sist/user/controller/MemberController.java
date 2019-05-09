@@ -335,11 +335,6 @@ public class MemberController {
 		return "redirect:"+referer;
 	}// logout
 
-	
-	@RequestMapping(value = "user/search.do", method = GET)
-	public String searchResult() {
-		return "user/member/searchResult";
-	}
-	
+
 
 }
