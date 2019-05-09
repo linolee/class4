@@ -126,6 +126,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 $(function () {
    $('.summernote_contents').summernote({ airMode: true });
    $('.summernote_contents').summernote('disable');
+   $('.summernote_contents2').summernote({ airMode: true });
+   $('.summernote_contents2').summernote('disable');
 });
 </script>
 <!-- summernote 관련 library 끝 -->   
@@ -247,7 +249,7 @@ $(function () {
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">수업 정보</span></div>
                           <div style="margin:20px; font-size: 15px;">
-                           <textarea name="contents" class="summernote_contents" id="summernote" style="width: 90%; margin: 15px;">
+                           <textarea name="contents" class="summernote_contents2" id="summernote" style="width: 90%; margin: 15px;">
                           <c:out value="${detailc.curriculum}"/> 
                           	<%-- <%=dd_vo.getContents()%> --%>	
                           </textarea>
