@@ -130,4 +130,19 @@ public class LecturePermitService {
 		return json;
 	}
 	
+	public void lecturePermission(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lecturePermission(lcode);
+	}
+	
+	public void lectureRefuse(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lectureRefuse(lcode);
+	}
+	
+	public static void main(String[] args) {
+		LecturePermitService lps=new LecturePermitService();
+		lps.lectureRefuse("in11202");
+	}
+	
 }

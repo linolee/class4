@@ -233,8 +233,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									<div style="display: inline-block;">
 										<div class="form-row">
 											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"	data-dismiss="modal" id="permission">승인</button>
-												<button type="button" class="btn btn-danger"	data-dismiss="modal" id="refuse">거절</button>
+												<button type="button" class="btn btn-primary"	data-dismiss="modal" id="lecturePermission">승인</button>
+												<button type="button" class="btn btn-danger"	data-dismiss="modal" id="lectureRefuse">거절</button>
 											</div>
 										</div>
 									</div>

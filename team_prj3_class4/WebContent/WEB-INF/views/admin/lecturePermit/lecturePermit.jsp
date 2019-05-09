@@ -1,6 +1,3 @@
-<%@page import="kr.co.sist.admin.domain.MemberListDomain"%>
-<%@page import="java.util.List"%>
-<%@page import="kr.co.sist.admin.service.MemberListService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,6 +7,7 @@
 function lecturePermitDetail(lcode) {
 	var detailAddress="";
  	var queryString="lcode="+lcode;
+ 	$("#lcodeHdn").val(queryString);
  	$.ajax({
 		url: "lecturePermitDetail.do",
 		/* contentType: 'application/json; charset=utf-8', */
@@ -35,6 +33,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
+			
 			var output="";
 			
 			$("#ls_career *").remove();
@@ -93,7 +92,7 @@ function lecturePermitDetail(lcode) {
 	});//ready
 	
 	function setMarker(addr,dong){
-		alert(detailAddress);
+		//alert(detailAddress);
 		// 지도를 생성합니다    
 		var map = new daum.maps.Map(mapContainer, mapOption); 
 		
@@ -131,6 +130,58 @@ function lecturePermitDetail(lcode) {
 }
 
 
+$(function(){
+	$("#lecturePermission").click(function(){
+		if(confirm("정말 강의를 승인하시겠습니까?")){
+			
+		/* function lecturePermission() { */
+		 	var queryString = $("#lcodeHdn").val();
+		 	alert(queryString);
+		 	$.ajax({
+				url: "lecturePermission.do",
+				data: queryString,
+				type: "get",
+				//dataType: "json",
+				error: function(xhr) {
+					alert("실패");
+					console.log(xhr.status + "/" + xhr.statusText);
+				},
+				success:function( json ){
+					alert("승인되었습니다.");
+				 	window.location.href="<c:url value='/admin/lecturePermit.do' />";
+				}
+			});//ajax 
+	
+		} // if
+	});// click
+});
+
+$(function(){
+	$("#lectureRefuse").click(function(){
+		if(confirm("정말 거절하시겠습니까?")){
+			
+		/* function lecturePermission() { */
+		 	var queryString = $("#lcodeHdn").val();
+		 	//alert(queryString);
+		 	$.ajax({
+				url: "lectureRefuse.do",
+				data: queryString,
+				type: "get",
+				//dataType: "json",
+				error: function(xhr) {
+					alert("실패");
+					console.log(xhr.status + "/" + xhr.statusText);
+				},
+				success:function( json ){
+					alert("거절되었습니다.");
+				 	window.location.href="<c:url value='/admin/lecturePermit.do' />";
+				}
+			});//ajax 
+	
+		} // if
+	});// click
+});	
+
 </script>
 
 
@@ -158,7 +209,7 @@ function lecturePermitDetail(lcode) {
             </span>
         </div>
   	  </form>
-  	  
+
 		<br/>
 		<table class="table table-responsive-sm table-striped" style="text-align:center">
 			<thead>
@@ -174,7 +225,7 @@ function lecturePermitDetail(lcode) {
 				<!--  -->
 				<c:if test="${ empty lecturePermit }">
 				<tr>
-					<td colspan="4" align="center">
+					<td colspan="5" align="center">
 						<strong>승인 대기중인 강의가 없습니다</strong>
 					</td>
 				</tr>
@@ -207,5 +258,6 @@ function lecturePermitDetail(lcode) {
 	</div>
 </div>
 <input type="hidden" id="addressHdn" value=""/>
+<input type="hidden" id="lcodeHdn" value=""/>
 <!--  -->
 <c:import url="lecturePermit/modalLecturePermit.jsp"/> 

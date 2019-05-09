@@ -23,4 +23,17 @@ where status='A')
 where r_num between #{ startNum } and #{ endNum }
 </select>
 
+<update id="lecturePermission" parameterType="String">
+update lesson
+set status='R'
+where lcode=#{lcode}
+</update>
+
+<update id="lectureRefuse" parameterType="String">
+update lesson
+set status='C'
+where lcode=#{lcode}
+</update>
+
+
 </mapper>

@@ -61,9 +61,19 @@ public class LecturePermitController {
 		
 		json=lps.lecturePermitDetail(lcode);
 		
-		
-		
 		return json.toJSONString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/admin/lecturePermission.do", method=GET)
+	public void lecturePermission(String lcode) {
+		lps.lecturePermission(lcode);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/admin/lectureRefuse.do", method=GET)
+	public void lectureRefuse(String lcode) {
+		lps.lectureRefuse(lcode);
 	}
 		
 	

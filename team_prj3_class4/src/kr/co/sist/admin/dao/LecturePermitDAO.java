@@ -17,6 +17,17 @@ import kr.co.sist.admin.vo.ListVO;
 public class LecturePermitDAO {
 
 private SqlSessionFactory ssf=null;
+
+private static LecturePermitDAO lp_dao;
+
+	public static LecturePermitDAO getInstance() {
+		if(lp_dao == null) {
+			lp_dao=new LecturePermitDAO();
+		}//end if
+		return lp_dao;
+	}//getInstance
+
+
 	
 	public synchronized SqlSessionFactory getSessionFactory() {
 		if(ssf == null) {
@@ -56,6 +67,36 @@ private SqlSessionFactory ssf=null;
 		ss.close();
 		return cnt;
 	}
+	
+	public boolean lecturePermission(String lcode) {
+		boolean flag=false;
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt=ss.update("lecturePermission", lcode);
+		if(cnt==1) {
+			flag=true;
+			ss.commit();
+		}
+		ss.close();
+		return flag;
+	}
+	
+	public boolean lectureRefuse(String lcode) {
+		boolean flag=false;
+		SqlSession ss = getSessionFactory().openSession();
+		int cnt=ss.update("lectureRefuse", lcode);
+		if(cnt==1) {
+			flag=true;
+			ss.commit();
+		}
+		ss.close();
+		return flag;
+	}
+	
+/*	public static void main(String[] args) {
+		LecturePermitDAO dao=new LecturePermitDAO();
+		dao.lectureRefuse("in11202");
+	}*/
+	
 	
 	
 }
