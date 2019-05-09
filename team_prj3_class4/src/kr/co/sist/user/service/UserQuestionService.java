@@ -33,7 +33,7 @@ public class UserQuestionService {
 		int cnt = ulq_dao.selectQusetionCnt(map);
 		
 		return cnt;
-	}
+	} // searchQuestionCnt
 	
 	
 	public Question searchQuestionDetail(String qcode){

@@ -59,6 +59,7 @@ public class UserLectureDAO {
 	//id로 teacherName 조회
 	public List<String> selectTeachername(String userId) {
 		SqlSession ss = getSessionFactory().openSession();
+		
 		List<String> list = ss.selectList("selectTeachername", userId);
 		ss.close();
 		

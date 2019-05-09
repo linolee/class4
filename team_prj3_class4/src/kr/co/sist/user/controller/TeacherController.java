@@ -26,6 +26,7 @@ import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserQuestionService;
 import kr.co.sist.user.service.UserReviewService;
 import kr.co.sist.user.vo.ListPageVO;
+import kr.co.sist.user.vo.QuestionReplyVO;
 @Controller
 public class TeacherController {
 	
@@ -196,7 +197,7 @@ public class TeacherController {
 		map.put("cntList", cnt);
 		
 		return map;
-	}
+	} // qnaForm
 	
 	@ResponseBody
 	@RequestMapping(value="user/teacher/question_detail.do", method=GET)
@@ -210,10 +211,27 @@ public class TeacherController {
 		return question;
 	} //selectOneReview	
 	
+	@ResponseBody
+	@RequestMapping(value="user/teacher/question_reply.do", method=GET)
+	public int questionReply(@RequestParam(value="qcode",required=false) String qcode, @RequestParam(value="aContents",required=false) String aContents) {
+		//autowired
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserQuestionService uqs = ac.getBean(UserQuestionService.class);
+		
+		QuestionReplyVO qrvo = new QuestionReplyVO();
+		qrvo.setQcode(qcode);
+		qrvo.setaContents(aContents);
+		
+		int reply = uqs.modifyQuestionReply(qrvo);
+		System.out.println(reply);
+		return reply;
+		
+	} //questionReply
+	
 	@RequestMapping(value="user/teacher/adminQuestion.do", method=GET)
 	public String adminQuestionForm() {
 		
 		return "user/teacher/adminQuestion";
-	}
+	} //adminQuestion
 	
 } // class
