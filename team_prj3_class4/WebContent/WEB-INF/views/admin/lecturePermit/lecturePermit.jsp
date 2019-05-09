@@ -34,6 +34,20 @@ function lecturePermitDetail(lcode) {
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
 			
+			/*  */
+			var bannerImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			var teacherImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			if(null!=json.banner_img){
+				bannerImg="http://localhost:8080/team_prj3_class4/upload/lessonBanner/"+json.banner_img;
+			}
+			
+			if(null!=json.teacher_img){
+				teacherImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+json.teacher_img
+			}
+			$("#ls_bannerImg").attr("src", bannerImg);
+			$("#ls_teacherImg").attr("src", teacherImg);
+			/*  */
+			
 			var output="";
 			
 			$("#ls_career *").remove();

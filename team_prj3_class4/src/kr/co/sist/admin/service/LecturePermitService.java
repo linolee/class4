@@ -73,7 +73,7 @@ public class LecturePermitService {
 				json.put("lintro", URLEncoder.encode(summary.getLintro(), "UTF-8"));
 			}
 			if(null!=summary.getImg()) {
-				json.put("img", URLEncoder.encode(summary.getImg(), "UTF-8"));
+				json.put("teacher_img", URLEncoder.encode(summary.getImg(), "UTF-8"));
 			}
 			json.put("teacher_name", URLEncoder.encode(summary.getTeacher_name(), "UTF-8"));
 			json.put("address", URLEncoder.encode(summary.getAddress(), "UTF-8"));

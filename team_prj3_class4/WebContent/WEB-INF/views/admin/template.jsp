@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hi</title>
+<title>HI</title>
 <style type="text/css">
 #file, #file2, #file3 { display:none; } 	
 .titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}
@@ -15,13 +15,8 @@
 </style>
 
 <link href="<c:url value="/resources/admin/css/style.css" />" rel="stylesheet">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-
 <script src="<c:url value="/resources/admin/js/bootstrap.min.js" />"></script>
-
-	
-	
 	
 <!-- 구글 태그 매니져  -->	
 <!-- Global site tag (gtag.js) - Google Analytics-->
