@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.vo.ChangePasswordVO;
+import kr.co.sist.user.vo.MemberFavorVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public interface UserPageDAO {
@@ -14,4 +16,7 @@ public interface UserPageDAO {
 	public int deleteUser(String client_id);
 	public int checkPassword(UserLoginVO ul_vo);
 	public int changePassword(ChangePasswordVO cp_vo);
+	public int memberUpdate(MemberUpdateVO mu_vo);
+	public int favorDelete(String client_id);
+	public int favorInsert(String client_id, String[] favors);
 }

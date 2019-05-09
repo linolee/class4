@@ -27,7 +27,9 @@ import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
+import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberJoinVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 import kr.co.sist.user.vo.memberReportVO;
 
@@ -200,7 +202,7 @@ public class MemberController {
 	/////////////////////////////////회원정보/////////////////////////////////////////////////////////
 	
 	
-	@RequestMapping(value = "user/member/userPage.do", method = GET)
+	@RequestMapping(value = "user/member/userPage.do")
 	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
@@ -273,9 +275,13 @@ public class MemberController {
 	
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
-		System.out.println(request.getAttribute("favor"));
-		
-		
+		String client_id = session.getAttribute("client_id").toString();
+		System.out.println(client_id);
+		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
+		System.out.println(mu_vo);
+		System.out.println("업데이트 수"+ups.memberUpdate(mu_vo));
+		String[] favors = request.getParameterValues("favor");
+		System.out.println("관심목록 업데이트 수"+ups.favorUpdate(client_id, favors));
 		return userPage(request ,response, session, model);
 	}
 	

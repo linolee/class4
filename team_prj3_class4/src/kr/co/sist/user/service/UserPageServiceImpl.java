@@ -5,6 +5,8 @@ import java.util.List;
 import kr.co.sist.user.dao.UserPageDAO;
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.vo.ChangePasswordVO;
+import kr.co.sist.user.vo.MemberFavorVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public class UserPageServiceImpl implements UserPageService {
@@ -38,6 +40,19 @@ public class UserPageServiceImpl implements UserPageService {
 	@Override
 	public int changePassword(ChangePasswordVO cp_vo) {
 		int cnt = up_dao.changePassword(cp_vo);
+		return cnt;
+	}
+	
+	@Override
+	public int memberUpdate(MemberUpdateVO mu_vo) {
+		int cnt = up_dao.memberUpdate(mu_vo);
+		return cnt;
+	}
+	
+	@Override
+	public int favorUpdate(String client_id, String[] favors) {
+		up_dao.favorDelete(client_id);
+		int cnt = up_dao.favorInsert(client_id, favors);
 		return cnt;
 	}
 	
