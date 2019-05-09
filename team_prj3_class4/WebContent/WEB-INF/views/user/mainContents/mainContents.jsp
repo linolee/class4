@@ -123,6 +123,7 @@
 			    				<c:out value="${recommend1.lname}"/><br/>
 			    				<%-- <c:out value="${recommend1.cliend_id}"/> --%>
 			    				
+			    				
 			    			</div>
 			    		</div>
 			    	</c:forEach>
