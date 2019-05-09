@@ -114,7 +114,9 @@ td{ border-bottom: 1px solid #EEEEEE; }
 				</c:choose>
 			</td>
 			<td class=tableBody>
-				<c:out value="${ classList.get(i).lname}"></c:out>
+				<a href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${classList.get(i).lcode }">
+					<c:out value="${ classList.get(i).lname}"></c:out>
+				</a>
 			</td>
 			<td class=tableBody>
 				<c:out value="${ classList.get(i).startDate }~${ classList.get(i).endDate }"></c:out>
@@ -155,7 +157,9 @@ td{ border-bottom: 1px solid #EEEEEE; }
 				</c:choose>
 			</td>
 			<td class=tableBody>
-				<c:out value="${ classStatusList.get(i).lname}"></c:out>
+				<a href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${classStatusList.get(i).lcode }">
+					<c:out value="${ classStatusList.get(i).lname}"></c:out>
+				</a>
 			</td>
 			<td class=tableBody>
 				<c:out value="${ classStatusList.get(i).startDate }~${ classStatusList.get(i).endDate }"></c:out>
