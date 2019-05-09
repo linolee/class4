@@ -127,12 +127,46 @@ $(function(){
 	});
 	
 	$("#changeClientInfoBtn").click(function(){
-		if($("#changeClientInfoBtn").val()=="회원정보 수정"){
+		if($("#changeClientInfoBtn").val()=="회원정보 수정"){///////수정 버튼을 누르고 새로운 정보를 입력할 상태를 만들어 줌
 			$(".clientInfo").attr("readonly", false);
+			$.ajax({
+				type:"POST",
+				url:"memberPageRequestFavorInfo.do",
+				dataType : "json",
+				success: function(json){
+					/////////////DB에서 카테고리 목록을 받아와서 테이블로 보여준다./////////////////////
+					var favorList = json.favorList;
+					var tableCode = "";
+					tableCode += "<th>관심목록</th>"
+					tableCode += "<td><table>"
+					tableCode += "<tr>"
+					for (var i = 0; i < favorList.length; i++) {
+						if (favorList[i] != null) {
+							if (i%3 == 0 && i != 0) {
+								tableCode += "</tr><tr>"
+							}
+							tableCode += "<td><input type='checkbox' name='favor' value = "+favorList[i]+"></td>"
+							tableCode += "<td>"+favorList[i]+"</td>"
+						}
+					}
+					if (tableCode.slice(tableCode.length-4) == "<tr>") {
+						tableCode = tableCode.slice(0, length-4)
+					}
+					tableCode += "</td></table>"
+					
+					$("#favorListTr").html(tableCode);
+					///////////////////////내가 원래 가지고 있던 애들은 체크해준다//////////
+					autoFavorCheck(convertClientFavor());					
+					
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		
 			$("#changeClientInfoBtn").val('회원정보 수정 완료')
-		}else{
-			$("#changeClientInfoBtn").val("회원정보 수정")
-			$(".clientInfo").attr("readonly", "readonly");
+		}else{///////////수정을 완료하고 입력 버튼을 누름
+			$("#clientInfo").submit();
 		}
 	});
 	
@@ -164,6 +198,20 @@ function CheckPassword() {
 	return passwordFlag;
 }
 
+function convertClientFavor(){
+	var clientFavor = "${client_favor}".slice(1, "${client_favor}".length-1).split(",");
+	for (var i = 0; i < clientFavor.length; i++) {
+		clientFavor[i] = clientFavor[i].trim();
+	}
+	return clientFavor;
+}
+
+function autoFavorCheck(clientFavor){
+	for (var i = 0; i < clientFavor.length; i++) {
+		$("[value = '"+clientFavor[i]+"']").attr("checked", "checked");
+	}
+}
+
 </script>	
 </head>
 <body>
@@ -183,28 +231,29 @@ function CheckPassword() {
 							<li><a href="#fragment-3"><span>관리자 문의</span></a></li>
 						</ul>
 						<div id="fragment-1">
+							<form id="clientInfo" action="changeClientInfo.do" method="post">
 							<table>
 								<tr>
 									<th>이름</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.name}" readonly="readonly"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" name="name" class="clientInfoNoChange" value="${clientInfo.name}" disabled="disabled" ></td>
 								</tr>
 								<tr>
 									<th>아이디</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.client_id}" readonly="readonly"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" name="client_id" class="clientInfoNoChange" value="${clientInfo.client_id}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>생년월일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.birth}" readonly="readonly"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" name="birth" class="clientInfoNoChange" value="${clientInfo.birth}" disabled="disabled"></td>
 								</tr>
 								<tr>
 									<th>휴대전화</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.tel}" readonly="readonly"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" name="tel" class="clientInfo" value="${clientInfo.tel}" readonly="readonly"></td>
 								</tr>
 								<tr>
 									<th>이메일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.email }" readonly="readonly"></td>
+									<td colspan="${fn:length(client_favor) }"><input type="text" name="email" class="clientInfo" value="${clientInfo.email }" readonly="readonly"></td>
 								</tr>
-								<tr>
+								<tr id="favorListTr">
 									<th>관심목록</th>
 									<c:if test="${fn:length(client_favor) == 0}">
 										<td>관심 목록이 없습니다.</td>
@@ -214,6 +263,7 @@ function CheckPassword() {
 									</c:forEach>
 								</tr>
 							</table>
+							</form>
 							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="change">
 							<input type="button" value="회원 탈퇴" id="deleteClientInfoBtn" class="inputBtn">
 						</div>
