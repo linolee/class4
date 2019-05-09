@@ -81,7 +81,7 @@
 			    		<c:set var="i" value="${ i + 1 }"/>
 			    		<div id="cg0${i}" >
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate1.img}">
-			    			<span style="position: absolute;right:95px;"><c:out value="${imgCate1.category}"/></span>
+			    			<span style="position: absolute;font-size: 15px; font-weight: bold;top:110px;"><c:out value="${imgCate1.category}"/></span>
 			    		</div>
 			    	</c:forEach>
 				</div></li>

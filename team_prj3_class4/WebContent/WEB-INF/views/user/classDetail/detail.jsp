@@ -86,6 +86,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+.trigger{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
+#guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -107,6 +109,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	 }//end else
 	 });  */
 	$("#qnaBtn").click(function(){
+		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
+	});
+	$("#guestqnaBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#reportBtn").click(function(){
@@ -604,10 +609,19 @@ $(function () {
 						</div> -->
 	                  </div>
 	                  <div>
-	                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
-           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
-	                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
-	                  	<input type="button" class="trigger" id="joinBtn" value="클래스 신청하기 "/>
+	                    <input type="hidden" value="${id}"/>
+	                    <c:choose>
+						<c:when test="${empty id}">
+		                  	<input type="button" class="btn" id="guestqnaBtn" value="강사에게 문의하기"/>
+		                  	<input type="button" class="trigger" value="클래스 신청하기 "/>
+						</c:when>
+						<c:otherwise>
+		                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
+	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
+		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
+		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
+						</c:otherwise>
+						</c:choose>
 	                  
 	                  </div>
 	                  
