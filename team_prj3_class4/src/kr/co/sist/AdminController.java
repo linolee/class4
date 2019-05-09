@@ -37,7 +37,7 @@ public class AdminController {
 	public String questionPage( ListVO lvo, Model model ) {
 		List<QnaQuestionList> list = null;
 
-		// autowired로 의존성 주입//
+		// autowired로 의존성 주입////
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
 		QnaService qs = ac.getBean(QnaService.class);
 
