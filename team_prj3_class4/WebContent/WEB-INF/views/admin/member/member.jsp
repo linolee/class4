@@ -104,8 +104,7 @@ $(function(){
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 회원 조회
-
+		<h5 style="margin-bottom: 0px;"><strong>회원 조회</strong></h5>
 	</div>
 	<div class="card-body">
 	
@@ -118,7 +117,7 @@ $(function(){
             <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-secondary" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>

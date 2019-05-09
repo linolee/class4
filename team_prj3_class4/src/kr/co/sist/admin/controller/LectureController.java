@@ -5,16 +5,16 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.sist.admin.dao.LectureDAO;
 import kr.co.sist.admin.domain.LectureListDomain;
 import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.LectureService;
+import kr.co.sist.admin.vo.LectureStatusVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 
@@ -29,13 +29,14 @@ public class LectureController {
 	@RequestMapping(value="/admin/lecture.do",method=GET)
 	public String lecturePage(ListVO lvo, Model model,
 			@RequestParam(value="searchOption", required=false)String option, 
-			@RequestParam(value="keyword", required=false)String keyword) {
+			@RequestParam(value="keyword", required=false)String keyword,
+			@RequestParam(value="status", required=false)String status) {
 		List<LectureListDomain> list=null;
 		
-		int totalCount = ls.totalCount();//총 게시물의 수
+		int totalCount = ls.totalCount();
 		int pageScale = is.pageScale();
-		int totalPage = is.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
-		if(lvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+		int totalPage = is.totalPage(totalCount); 
+		if(lvo.getCurrentPage() == 0) {
 			lvo.setCurrentPage(1);
 		}
 		int startNum = is.startNum(lvo.getCurrentPage());
@@ -45,14 +46,34 @@ public class LectureController {
 		
 		list=ls.selectLectureList(lvo);
 		
-		OptionSearchVO osvo=new OptionSearchVO();
 		if(null!=option && null!=keyword) {
+			list=null;
+			OptionSearchVO osvo=new OptionSearchVO();
 			osvo.setOption(option);
 			osvo.setKeyword(keyword);
 			osvo.setCurrentPage(lvo.getCurrentPage());
 			osvo.setStartNum(startNum);
 			osvo.setEndNum(endNum);
 			list=ls.lectureOptionSearch(osvo);
+		}
+		
+		LectureStatusVO lsvo=null;
+		if(null!=status) {
+			list=null;
+			lsvo=new LectureStatusVO();
+			lsvo.setStatus(status);
+			lsvo.setCurrentPage(lvo.getCurrentPage());
+			lsvo.setStartNum(startNum);
+			lsvo.setEndNum(endNum);
+			list=ls.lectureStatusSearch(lsvo);
+			/*LectureDAO ldao=LectureDAO.getInstance();
+			list=ldao.lectureStatusSearch(lsvo);*/
+			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+			System.out.println(lsvo.getCurrentPage()+" / "+lsvo.getStartNum()+" / "+lsvo.getEndNum()+" / "+lsvo.getStatus());
+			System.out.println(list);
+			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
+			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
 		}
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");
