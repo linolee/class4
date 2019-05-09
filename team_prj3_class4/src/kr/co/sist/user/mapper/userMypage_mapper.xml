@@ -79,7 +79,7 @@
 </select>
 
 <select id="statusClassList" parameterType="kr.co.sist.user.vo.StatusListVO" resultMap="classListResult">
-	select s.status, l.lname, to_char(l.start_date, 'yyyy-mm-dd') start_date, 
+	select l.lcode, s.status, l.lname, to_char(l.start_date, 'yyyy-mm-dd') start_date, 
 			to_char(l.end_date, 'yyyy-mm-dd') end_date,num,  l.teacher_name
 	from students s, lesson l,
 			(select max(rownum) num
