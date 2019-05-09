@@ -74,10 +74,18 @@ public class UserLectureQuestionDAO {
 	
 	public int updateQuestionReply(QuestionReplyVO qrvo) {
 		SqlSession ss = getSessionFactory().openSession();
-		int i = ss.update("updateQuestionReply", qrvo);
-		
-		System.out.println(i);
-		return i;
+		int cnt = ss.update("updateQuestionReply", qrvo);
+		if (cnt == 1) {
+			ss.commit();
+		}
+		ss.close();		
+		System.out.println(cnt);
+		return cnt;
+	} // updateQuestionReply
+	
+	public static void main(String[] args) {
+		UserLectureQuestionDAO ulq_dao = new UserLectureQuestionDAO();	
+		System.out.println(ulq_dao.updateQuestionReply(new QuestionReplyVO()));
 	}
 	
 } // class

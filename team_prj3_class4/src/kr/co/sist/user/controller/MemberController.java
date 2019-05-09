@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -26,7 +27,9 @@ import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
+import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberJoinVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 import kr.co.sist.user.vo.memberReportVO;
 
@@ -50,6 +53,8 @@ public class MemberController {
 		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
+	/////////////////////////////////////화면이동/////////////////////////////////////////////
+	
 	@RequestMapping(value = "user/main.do", method = GET)
 	public String mainPage() {
 
@@ -80,6 +85,62 @@ public class MemberController {
 
 		return "user/member/joinAgreement";
 	}// joinAgreementPage
+
+	@RequestMapping(value = "user/member/guest_report.do", method = GET)
+	public String guestReportPage() {
+
+		return "user/member/guest_report";
+	}// reportPage
+
+	@RequestMapping(value = "user/terms.do", method = GET)
+	public String termsPage() {
+
+		return "user/terms/terms";
+	}// termsPage
+
+	@RequestMapping(value = "user/member/report.do", method = GET)
+	public String reportPage() {
+
+		return "user/member/report";
+	}// reportPage
+	
+	@RequestMapping(value = "user/teacher/teacherPage.do", method = GET)
+	public void teacherPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		try {
+			response.sendRedirect("/team_prj3_class4/user/teacher/classStatus.do");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}// teacherPage
+	
+	/////////////////////////////////문의////////////////////////////////////////
+	
+	@ResponseBody
+	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
+	public String guestReportSubmint(HttpServletRequest request) {
+		JSONObject json = new JSONObject();
+		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
+	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
+		return json.toJSONString();
+	}
+	
+	///////////////////////////회원가입/////////////////////////////////////
 	
 	@RequestMapping(value = "user/member/join.do", method = POST)
 	public String joinPage(HttpServletRequest request, Model model) {
@@ -88,7 +149,9 @@ public class MemberController {
 		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
 	}// joinPage
-
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkId.do", method = POST)
 	public String checkId(HttpServletRequest request) {
@@ -124,30 +187,6 @@ public class MemberController {
 		}
 		return json.toJSONString();
 	}
-	@ResponseBody
-	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
-	public String guestReportSubmint(HttpServletRequest request) {
-		JSONObject json = new JSONObject();
-		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
-			json.put("resultFlag", true);
-		}else {
-			json.put("resultFlag", false);
-		}
-		return json.toJSONString();
-	}
-	@ResponseBody
-	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
-	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
-		JSONObject json = new JSONObject();
-		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
-			json.put("resultFlag", true);
-		}else {
-			json.put("resultFlag", false);
-		}
-		return json.toJSONString();
-	}
 	
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
@@ -160,7 +199,10 @@ public class MemberController {
 		return "main";
 	}// joinPage
 
-	@RequestMapping(value = "user/member/userPage.do", method = GET)
+	/////////////////////////////////회원정보/////////////////////////////////////////////////////////
+	
+	
+	@RequestMapping(value = "user/member/userPage.do")
 	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
@@ -208,6 +250,22 @@ public class MemberController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "user/member/memberPageRequestFavorInfo.do", method = POST, produces="text/plain;charset=UTF-8")
+	public String memberPageRequestFavorInfo(HttpServletRequest request, HttpSession session) {
+		JSONObject json = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		String[][] mapping = ujs.CategoryMapping();
+		for (String[] favors : mapping) {
+			for (String favor : favors) {
+				jsonArray.add(favor);
+			}
+		}
+		json.put("favorList", jsonArray);
+		System.out.println(json.toJSONString());
+		return json.toJSONString();
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "user/member/checkPassword.do", method = POST)
 	public String checkPassword(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
@@ -218,25 +276,22 @@ public class MemberController {
 		}
 		return json.toJSONString();
 	}
+	
+	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
+	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
+		String client_id = session.getAttribute("client_id").toString();
+		System.out.println(client_id);
+		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
+		System.out.println(mu_vo);
+		System.out.println("업데이트 수"+ups.memberUpdate(mu_vo));
+		String[] favors = request.getParameterValues("favor");
+		System.out.println("관심목록 업데이트 수"+ups.favorUpdate(client_id, favors));
+		return userPage(request ,response, session, model);
+	}
+	
 
-	@RequestMapping(value = "user/member/report.do", method = GET)
-	public String reportPage() {
-
-		return "user/member/report";
-	}// reportPage
-
-	@RequestMapping(value = "user/member/guest_report.do", method = GET)
-	public String guestReportPage() {
-
-		return "user/member/guest_report";
-	}// reportPage
-
-	@RequestMapping(value = "user/terms.do", method = GET)
-	public String termsPage() {
-
-		return "user/terms/terms";
-	}// termsPage
-
+///////////////////////////////////////////로그인//////////////////////////////////////////////////////////
+	
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
@@ -271,17 +326,6 @@ public class MemberController {
 		}
 	}// login
 	
-	@RequestMapping(value = "user/member/testSession.do", method = GET)
-	public void testSession(HttpSession session, HttpServletResponse response) {
-		System.out.println(session.getAttribute("name"));
-		System.out.println(session.getAttribute("client_id"));
-		try {
-			response.sendRedirect("/team_prj3_class4/user/main.do");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}// testSession
-	
 	@RequestMapping(value = "user/member/logout.do", method = GET)
 	public String logout(HttpServletRequest request, HttpSession session) {
 		session.invalidate();//세션을 지우고
@@ -289,15 +333,7 @@ public class MemberController {
 		String referer = request.getHeader("Referer");
 		return "redirect:"+referer;
 	}// logout
-	
-	@RequestMapping(value = "user/teacher/teacherPage.do", method = GET)
-	public void teacherPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		try {
-			response.sendRedirect("/team_prj3_class4/user/teacher/classStatus.do");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}// teacherPage
+
 	
 	@RequestMapping(value = "user/search.do", method = GET)
 	public String searchResult() {

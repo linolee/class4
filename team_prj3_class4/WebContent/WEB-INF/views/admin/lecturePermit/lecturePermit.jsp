@@ -5,6 +5,125 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script type="text/javascript">
+
+function lecturePermitDetail(lcode) {
+ 	var queryString="lcode="+lcode;
+ 	$.ajax({
+		url: "lecturePermitDetail.do",
+		/* contentType: 'application/json; charset=utf-8', */
+		data: queryString,
+		type: "get",
+		dataType: "json",
+		error: function(xhr) {
+			alert("2ERROR");
+			console.log(xhr.status + "/" + xhr.statusText);
+		},
+		success:function( json ){
+			var space = /\+/g;
+			
+			$("#ls_lname").text(decodeURIComponent(json.lname));
+			$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
+			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
+			$("#ls_class_time").text(json.class_time);
+			$("#ls_max_member").text(json.max_member);
+			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
+			$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," ")));
+			$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
+			$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
+			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
+			
+			var output="";
+			
+			$("#ls_career *").remove();
+			if(json.career.length != 0){
+				for(var i=0; i<json.career.length;i++){
+					output+=decodeURIComponent(json.career[i])+"<br/>";
+					$("#ls_career").append(output);
+					output="";
+				}
+ 			} else{
+				$("#ls_career").append("경력사항이 없습니다");
+			}
+			
+			
+			$("#ls_optlist *").remove();
+			if(json.optList.length != 0){
+				for(var i=0; i<json.optList.length;i++){
+					output+=decodeURIComponent(json.optList[i])+"<br/>";
+					$("#ls_optlist").append(output);
+					output="";
+				}
+ 			} else{
+				$("#ls_optlist").append("포함사항이 없습니다");
+			}
+			
+			$("#ls_noptlist *").remove();
+			if(json.noptList.length != 0){
+				for(var i=0; i<json.noptList.length;i++){
+					output+=decodeURIComponent(json.noptList[i])+"<br/>";
+					$("#ls_noptlist").append(output);
+					output="";
+				}
+ 			} 
+				/* else{
+				$("#ls_optlist").append("불포함사항이 없습니다");
+			} */
+			
+			/* $("#tId").text(json.tId);
+			$("#tCategory").text(decodeURIComponent(json.tCate));
+			$("#tName").text(decodeURIComponent(json.tName));
+			$("#tnName").text(decodeURIComponent(json.tTName));
+			$("#tBirth").text(json.tBirth);
+			$("#tGender").text(json.tGender);
+			$("#tTel").text(json.tTel);
+			$("#tInputdate").text(json.tInputdate);
+			$("#tEmail").text(json.tEmail);
+			$("#tIntro").text(decodeURIComponent(json.tIntroduce));
+			// 공백 변환처리
+			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," "))); */
+
+			/* var output;
+	 		$("#lesson *").remove();
+			if( json.lessonList.length != 0){
+ 				for(var i=0; i<json.lessonList.length; i++){
+					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
+					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
+					$("#lesson").append(output);
+					output = "";
+				} 
+			}
+			if( json.lessonList.length == 0){
+				output += "<tr><td width='50px' class='col-10'>강의가 없습니다.</td></tr>";
+				$("#lesson").append(output);
+				output = "";
+			}
+			
+			var output2;
+	 		$("#career *").remove();
+			if( json.careerList.length != 0){
+ 				for(var i=0; i<json.careerList.length; i++){
+					output2 += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.careerList[i].career.replace(space," "))+"</td>";
+					$("#career").append(output2);
+					output2 = "";
+				} 
+			}
+			if( json.careerList.length == 0){
+				output2 += "<tr><td width='50px' class='col-10'>경력이 없습니다.</td></tr>";
+				$("#career").append(output2);
+				output2 = "";
+			} */
+		}
+	});//ajax 
+	
+}
+
+
+</script>
+
+
+
+
 <!--  -->
 <div class="card">
 	<div class="card-header">
@@ -55,7 +174,7 @@
 					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 					<td><c:out value="${permit.lcode }"/></td>
 					<td>
-						<a data-toggle="modal" href="#modalLecturePermit" >
+						<a data-toggle="modal" href="#modalLecturePermit" onclick="lecturePermitDetail('${ permit.lcode }')">
                       				<c:out value="${permit.lname }"/>
                       	</a>
 					</td>
@@ -64,25 +183,6 @@
 				</tr>
 				</c:forEach>
 				
-				
-				<%-- <c:forEach var="member" items="${ MemberListDomain }">
-				<tr>		
-					<td><c:out value="${ member.client_id }"/></td>
-					<td><c:out value="${ member.name }"/></td>
-					<td><c:out value="${ member.birth }"/></td>
-					<td><c:out value="${ member.gender }"/></td>
-					<td><c:out value="${ member.email }"/></td>
-					<td>
-						<form method="get" action="./member.jsp" class="form-inline">
-							<a data-toggle="modal" href="#modalUserInfo"><span	class="badge badge-primary">상세정보</span></a> 
-							<a data-toggle="modal" href="#modalAddBlackList"><span class="badge badge-primary">블랙리스트 등록</span></a> 
-							<a data-toggle="modal" href="#modalTeacherInfo"><span class="badge badge-primary">강사정보</span></a>
-						</form>
-					</td>
-				</tr>
-				</c:forEach> --%>
-						
-				<!--  -->
 			</tbody>
 		</table>
 		<div style="text-align: center">

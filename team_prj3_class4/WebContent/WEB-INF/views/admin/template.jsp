@@ -105,7 +105,7 @@ $(function(){
   
       <ol class="breadcrumb">
           <li class="breadcrumb-item">
-		        <a href="https://sist.co.kr">SIST Class4 Group1</a>
+		        <a href="template.do">SIST Class4 Group1</a>
 		        <span>:: 2019 Web Project</span>
           </li>
           <li class="breadcrumb-menu d-md-down-none">
