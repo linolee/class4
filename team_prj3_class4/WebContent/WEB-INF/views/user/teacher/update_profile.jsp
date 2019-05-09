@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div style="text-align: center;">
-		<input type="button" value="수정신청" class="btn" name="btnUpdate">
+		<input type="button" value="수정" class="btn" name="btnUpdate">
 		<input type="button" value="삭제" class="btn" name="btnDelete">
 		<input type="button" value="취소" class="btn" name="btnClose">
 	</div>
