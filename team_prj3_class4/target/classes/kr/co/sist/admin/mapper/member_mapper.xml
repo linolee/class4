@@ -76,7 +76,7 @@ where r_num between #{ startNum } and #{ endNum }
 <select id="memberOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="MemberListDomain">
 select c.client_id, c.name, c.birth, c.gender, c.email
 from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
-from client where ${option}=#{keyword}) c left outer join blacklist b on c.client_id=b.client_id
+from client where ${option} like '%'||#{keyword}||'%') c left outer join blacklist b on c.client_id=b.client_id
 where r_num between #{startNum} and #{endNum}
 </select>
 

@@ -33,7 +33,7 @@ where r_num between #{ startNum } and #{ endNum } -->
 select lcode, category, lname, teacher_name, status
 from(select lcode, category, lname, teacher_name, status, row_number() over(order by lcode desc)r_num
 from lesson
-where not status='A' and ${option}=#{keyword})
+where not status='A' and ${option} like '%'||#{keyword}||'%')
 where r_num between #{ startNum } and #{ endNum }
 </select>
 
