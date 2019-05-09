@@ -25,8 +25,11 @@
 <script src="http://localhost:8080/team_prj3_class4/resources/maincontents/touchslider.js"></script>
 <script type="text/javascript">
  $(function(){
-	 $("#cg01").click(function(){
-			location.href="http://localhost:8080/team_prj3_class4/user/search/search.do?category="+$("[name='category']").val();	
+	 $(".imgcategory").click(function(){
+			//location.href="http://localhost:8080/team_prj3_class4/user/search/search.do?category="+$("[name='category']").val();	
+	 });
+	 $(".recommend").click(function(){
+			//location.href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode="+$("[name='recommend']").val();	
 	 });
  });//ready
 </script>
@@ -79,27 +82,33 @@
 			    <div>
 			    	<c:forEach var="imgCate1" items="${ requestScope.imgCate1}">
 			    		<c:set var="i" value="${ i + 1 }"/>
-			    		<div id="cg0${i}" >
+			    		<div id="cg0${i}" class="imgcategory">
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate1.img}">
-			    			<span style="position: absolute;right:95px;"><c:out value="${imgCate1.category}"/></span>
+		    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
+		    				<label><c:out value="${imgCate1.category}"/></label>
+		    			</div>
 			    		</div>
 			    	</c:forEach>
 				</div></li>
 			    <li><div>
 			    	<c:forEach var="imgCate2" items="${ requestScope.imgCate2}">
 			    		<c:set var="i" value="${ i + 1 }"/>
-			    		<div id="cg0${i}" >
+			    		<div id="cg0${i}" class="imgcategory">
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate2.img}">
-			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate2.category}"/></span>
+		    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
+		    				<label><c:out value="${imgCate2.category}"/></label>
+		    			</div>
 			    		</div>
 			    	</c:forEach>
 				</div></li>
 			    <li><div>
 			    	<c:forEach var="imgCate3" items="${ requestScope.imgCate3}">
 			    		<c:set var="i" value="${ i + 1 }"/>
-			    		<div id="cg0${i}" >
+			    		<div id="cg0${i}" class="imgcategory">
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate3.img}">
-			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate3.category}"/></span>
+		    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
+		    				<label><c:out value="${imgCate3.category}"/></label>
+		    			</div>
 			    		</div>
 			    	</c:forEach>
 				</div></li>
@@ -117,11 +126,45 @@
 				<li style='display:block'><div>
 					<c:forEach var="recommend1" items="${ requestScope.recommend1}">
 			    		<c:set var="a" value="${a + 1 }"/>
-			    		<div id="cg0${a}" >
+			    		<div id="rc0${a}" class="recommend">
+			    		<input type="hidden" name="recommend" value="${recommend1.lcode}"/>
 			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${recommend1.main_img}">
-			    			<div style="width:240px; height:50%;position: absolute;top:130px;font-size: 15px; font-weight: normal; margin: 5px;">
-			    				<c:out value="${recommend1.lname}"/><br/>
-			    				<%-- <c:out value="${recommend1.cliend_id}"/> --%>
+			    			<div style="width:230px; height:105px;position: absolute;top:130px; margin: 5px;">
+			    				<div style="width:230px; height:39px;font-size: 17px; font-weight:bold;">
+			    					<c:out value="${recommend1.lname}"/>
+			    				</div>
+			    				<div style="margin:5px;height:33px;">
+			    				<div style="float: left">
+			    					<c:out value="${recommend1.teacher_name}"/>
+			    				</div>
+			    				<div style="float: right;">
+			    					<c:out value="${recommend1.si}"/>><c:out value="${recommend1.gu}"/>
+			    				</div>
+			    				<br/>
+			    				<div style="margin:5px;height:33px;float: left;position:absolute;">
+			    					<%-- <c:out value="${recommend1.star}"/> --%>
+			    					<c:choose>
+									<c:when test="${recommend1.star le 0}">
+									☆☆☆☆☆
+									</c:when>
+									<c:when test="${recommend1.star le 1}">
+									★☆☆☆☆
+									</c:when>
+									<c:when test="${recommend1.star le 2}">
+									★★☆☆☆
+									</c:when>
+									<c:when test="${recommend1.star le 3}">
+									★★★☆☆
+									</c:when>
+									<c:when test="${recommend1.star le 4}">
+									★★★★☆
+									</c:when>
+									<c:when test="${recommend1.star le 5}">
+									★★★★★
+									</c:when>
+									</c:choose>
+		    					</div>
+			    				</div>
 			    			</div>
 			    		</div>
 			    	</c:forEach>
@@ -132,14 +175,100 @@
 					<div id="rc03"></div> -->
 				</div></li>
 				<li><div>
-					<div id="rc04"></div>
+					<c:forEach var="recommend2" items="${ requestScope.recommend2}">
+			    		<c:set var="a" value="${a + 1 }"/>
+			    		<div id="rc0${a}" >
+			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${recommend2.main_img}">
+			    			<div style="width:230px; height:105px;position: absolute;top:130px; margin: 5px;">
+			    				<div style="width:230px; height:39px;font-size: 17px; font-weight:bold;">
+			    					<c:out value="${recommend2.lname}"/>
+			    				</div>
+			    				<div style="margin:5px;height:33px;">
+			    				<div style="float: left">
+			    					<c:out value="${recommend2.teacher_name}"/>
+			    				</div>
+			    				<div style="float: right;">
+			    					<c:out value="${recommend2.si}"/>><c:out value="${recommend2.gu}"/>
+			    				</div>
+			    				<br/>
+			    				<div style="margin:5px;height:33px;float: left;position:absolute;">
+			    					<%-- <c:out value="${recommend2.star}"/> --%>
+			    					<c:choose>
+									<c:when test="${recommend2.star le 0}">
+									☆☆☆☆☆
+									</c:when>
+									<c:when test="${recommend2.star le 1}">
+									★☆☆☆☆
+									</c:when>
+									<c:when test="${recommend2.star le 2}">
+									★★☆☆☆
+									</c:when>
+									<c:when test="${recommend2.star le 3}">
+									★★★☆☆
+									</c:when>
+									<c:when test="${recommend2.star le 4}">
+									★★★★☆
+									</c:when>
+									<c:when test="${recommend2.star le 5}">
+									★★★★★
+									</c:when>
+									</c:choose>
+		    					</div>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</c:forEach>
+					<!-- <div id="rc04"></div>
 					<div id="rc05"></div>
-					<div id="rc06"></div>
+					<div id="rc06"></div> -->
 				</div></li>
 			    <li><div>
-					<div id="rc07"></div>
+			    <c:forEach var="recommend3" items="${ requestScope.recommend3}">
+			    		<c:set var="a" value="${a + 1 }"/>
+			    		<div id="rc0${a}" >
+			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${recommend3.main_img}">
+			    			<div style="width:230px; height:105px;position: absolute;top:130px; margin: 5px;">
+			    				<div style="width:230px; height:39px;font-size: 17px; font-weight:bold;">
+			    					<c:out value="${recommend3.lname}"/>
+			    				</div>
+			    				<div style="margin:5px;height:33px;">
+			    				<div style="float: left">
+			    					<c:out value="${recommend3.teacher_name}"/>
+			    				</div>
+			    				<div style="float: right;">
+			    					<c:out value="${recommend3.si}"/>><c:out value="${recommend3.gu}"/>
+			    				</div>
+			    				<br/>
+			    				<div style="margin:5px;height:33px;float: left;position:absolute;">
+			    					<%-- <c:out value="${recommend3.star}"/> --%>
+			    					<c:choose>
+									<c:when test="${recommend3.star le 0}">
+									☆☆☆☆☆
+									</c:when>
+									<c:when test="${recommend3.star le 1}">
+									★☆☆☆☆
+									</c:when>
+									<c:when test="${recommend3.star le 2}">
+									★★☆☆☆
+									</c:when>
+									<c:when test="${recommend3.star le 3}">
+									★★★☆☆
+									</c:when>
+									<c:when test="${recommend3.star le 4}">
+									★★★★☆
+									</c:when>
+									<c:when test="${recommend3.star le 5}">
+									★★★★★
+									</c:when>
+									</c:choose>
+		    					</div>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</c:forEach>
+					<!-- <div id="rc07"></div>
 					<div id="rc08"></div>
-					<div id="rc09"></div>
+					<div id="rc09"></div> -->
 				</div></li>
 			</ul>
 		<input type="button" value="&lt;" class="lbtn" id="rclbtn" onclick="t02.prev();"/>

@@ -2,6 +2,7 @@ package kr.co.sist.user.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ public class DetailClassController {
 			
 	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
 	public String showDetailClass(HttpSession session,String lcode,Model model) {
+		
+		String id=(String) session.getAttribute("client_id");
+
 		Summary summary=null;
 		Star star=null;
 		List<String> career,optlist,noptlist,day=null;
@@ -62,7 +66,7 @@ public class DetailClassController {
 		like=dcs.searchLike(lcode);
 		addr=dcs.searchAddr(lcode);
 		
-		model.addAttribute("session",session);
+		model.addAttribute("id",id);
 		
 		model.addAttribute("summary",summary);
 		model.addAttribute("star",star);
