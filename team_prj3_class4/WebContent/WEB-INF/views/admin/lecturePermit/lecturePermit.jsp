@@ -16,7 +16,7 @@ function lecturePermitDetail(lcode) {
 		type: "get",
 		dataType: "json",
 		error: function(xhr) {
-			alert("2ERROR");
+			alert("ERROR");
 			console.log(xhr.status + "/" + xhr.statusText);
 		},
 		success:function( json ){
