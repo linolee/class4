@@ -14,7 +14,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/template.do",method= {GET,POST})
 	public String mainPage(Model model) {
 
-		return "admin/template";
+		return "admin/template";//
 	}
 
 }
