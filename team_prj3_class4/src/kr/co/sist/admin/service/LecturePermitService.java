@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.dao.LecturePermitDAO;
 import kr.co.sist.admin.domain.LecturePermitDomain;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
@@ -139,6 +140,14 @@ public class LecturePermitService {
 		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
 		lpdao.lectureRefuse(lcode);
 	}
+	
+	public List<LecturePermitDomain> memberOptionSearch(OptionSearchVO osvo){
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		List<LecturePermitDomain> list=null;
+		list=lpdao.lecturePermitOptionSearch(osvo);
+		return list;
+	}
+	
 	
 	public static void main(String[] args) {
 		LecturePermitService lps=new LecturePermitService();

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.domain.LectureListDomain;
 import kr.co.sist.admin.domain.MemberListDomain;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class LectureDAO {
@@ -55,9 +56,14 @@ public class LectureDAO {
 		return cnt;
 	}
 	
-/*	public static void main(String[] args) {
-		LectureDAO ldao=new LectureDAO();
-		ldao.selectLectureList();
-	}*/
-	
+		
+	public List<LectureListDomain> lectureOptionSearch(OptionSearchVO osvo){
+		List<LectureListDomain> list=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("lectureOptionSearch", osvo);
+		ss.close();
+		
+		return list;
+	}
 }

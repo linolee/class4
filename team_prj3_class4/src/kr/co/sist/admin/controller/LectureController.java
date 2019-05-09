@@ -10,11 +10,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.sist.admin.domain.LectureListDomain;
 import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.LectureService;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Controller
 public class LectureController {
@@ -25,7 +27,9 @@ public class LectureController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/lecture.do",method=GET)
-	public String lecturePage(ListVO lvo, Model model) {
+	public String lecturePage(ListVO lvo, Model model,
+			@RequestParam(value="searchOption", required=false)String option, 
+			@RequestParam(value="keyword", required=false)String keyword) {
 		List<LectureListDomain> list=null;
 		
 		int totalCount = ls.totalCount();//총 게시물의 수
@@ -41,6 +45,16 @@ public class LectureController {
 		
 		list=ls.selectLectureList(lvo);
 		
+		OptionSearchVO osvo=new OptionSearchVO();
+		if(null!=option && null!=keyword) {
+			osvo.setOption(option);
+			osvo.setKeyword(keyword);
+			osvo.setCurrentPage(lvo.getCurrentPage());
+			osvo.setStartNum(startNum);
+			osvo.setEndNum(endNum);
+			list=ls.lectureOptionSearch(osvo);
+		}
+		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");
 		
 		model.addAttribute("page", "lecture/lecture");
@@ -52,6 +66,5 @@ public class LectureController {
 		
 		return "admin/template";
 	}
-	
 	
 }

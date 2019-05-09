@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.LecturePermitDomain;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class LecturePermitDAO {
@@ -92,11 +93,11 @@ private static LecturePermitDAO lp_dao;
 		return flag;
 	}
 	
-/*	public static void main(String[] args) {
-		LecturePermitDAO dao=new LecturePermitDAO();
-		dao.lectureRefuse("in11202");
-	}*/
-	
-	
-	
+	public List<LecturePermitDomain> lecturePermitOptionSearch(OptionSearchVO osvo){
+		List<LecturePermitDomain> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("lecturePermitOptionSearch", osvo);
+		ss.close();
+		return list;
+	}
 }

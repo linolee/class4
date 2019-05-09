@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.admin.dao.LectureDAO;
 import kr.co.sist.admin.domain.LectureListDomain;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 
 @Component
 public class LectureService {
@@ -23,12 +24,13 @@ public class LectureService {
 	
 	public List<LectureListDomain> selectLectureList(ListVO lvo){
 		List<LectureListDomain> list=null;
-		
-		LectureListDomain lld=new LectureListDomain();
-		
-		
 		list=l_dao.selectLectureList(lvo);
-		
+		return list;
+	}
+	
+	public List<LectureListDomain> lectureOptionSearch(OptionSearchVO osvo){
+		List<LectureListDomain> list=null;
+		list=l_dao.lectureOptionSearch(osvo);
 		return list;
 	}
 	
