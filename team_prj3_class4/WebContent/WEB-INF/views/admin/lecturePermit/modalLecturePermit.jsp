@@ -161,14 +161,14 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 
  							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
 							<script type="text/javascript">
-							var detailAddress=decodeURIComponent(json.detailAddress);
+							var detailAddress=$("#addressHdn").val();
 							$(function(){
 								mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 							    mapOption = {
 							        center: new daum.maps.LatLng(37.499490, 127.033167), // 지도의 중심좌표
 							        level: 3 // 지도의 확대 레벨
 							    };  
- 							/* setMarker("<c:out value="${detailc.address}"/>","클래스 위치"); */
+ 							/* setMarker("서울시 송파구 오륜동","클래스 위치"); */
  							setMarker(detailAddress,"클래스 위치");
 							});//ready
 							

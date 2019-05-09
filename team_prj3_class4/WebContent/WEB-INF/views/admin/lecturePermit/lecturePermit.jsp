@@ -32,6 +32,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
 			$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
+			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			
 			var output="";
 			
@@ -194,5 +195,6 @@ function lecturePermitDetail(lcode) {
 		</div>
 	</div>
 </div>
+<input type="hidden" id="addressHdn" value=""/>
 <!--  -->
 <c:import url="lecturePermit/modalLecturePermit.jsp"/> 
