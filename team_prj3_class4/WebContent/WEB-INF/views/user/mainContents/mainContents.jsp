@@ -122,8 +122,6 @@
 			    			<div style="width:240px; height:50%;position: absolute;top:130px;font-size: 15px; font-weight: normal; margin: 5px;">
 			    				<c:out value="${recommend1.lname}"/><br/>
 			    				<%-- <c:out value="${recommend1.cliend_id}"/> --%>
-			    				
-			    				
 			    			</div>
 			    		</div>
 			    	</c:forEach>
