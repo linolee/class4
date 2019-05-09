@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.MemberListDomain;
+import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.MemberListService;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
@@ -25,6 +26,8 @@ public class MemberListController {
 	
 	@Autowired
 	private MemberListService mls;
+	@Autowired
+	private IndexService is;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
 	public String memberPage(ListVO lvo, Model model, 
@@ -33,13 +36,13 @@ public class MemberListController {
 		
 		List<MemberListDomain> list=null;
 		int totalCount = mls.totalCount();//총 게시물의 수
-		int pageScale = mls.pageScale();
-		int totalPage = mls.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
+		int pageScale = is.pageScale();
+		int totalPage = is.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
 		if(lvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
 			lvo.setCurrentPage(1);
 		}
-		int startNum = mls.startNum(lvo.getCurrentPage());
-		int endNum = mls.endNum(startNum);
+		int startNum = is.startNum(lvo.getCurrentPage());
+		int endNum = is.endNum(startNum);
 		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
@@ -59,7 +62,7 @@ public class MemberListController {
 		}
 		
 		
-		String indexList = mls.indexList(lvo.getCurrentPage(), totalPage, "member.do");
+		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		
 		model.addAttribute("memberList", list);
 		model.addAttribute("indexList", indexList);

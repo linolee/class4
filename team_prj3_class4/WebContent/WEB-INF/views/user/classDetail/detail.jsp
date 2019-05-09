@@ -14,6 +14,56 @@
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
+<style type="text/css"> 
+
+     input:focus, textarea:focus{ 
+         border: 1px solid #97d6eb; 
+     } 
+    .modal { 
+         position: fixed; 
+         left: 0; 
+         top: 0; 
+         width: 100%; 
+         height: 100%; 
+         background-color: rgba(0, 0, 0, 0.5); 
+         opacity: 0; 
+         visibility: hidden; 
+         transform: scale(1.1); 
+         transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s; 
+     } 
+     .modal-content { 
+         position: absolute; 
+         top: 50%; 
+         left: 50%; 
+         transform: translate(-50%, -50%); 
+         background-color: white; 
+         padding: 1rem 1.5rem; 
+         width: 500px; 
+         height: 350px; 
+         border-radius: 0.5rem; 
+     } 
+     .close-button { 
+         float: right; 
+         width: 1.5rem; 
+         line-height: 1.5rem; 
+         text-align: center; 
+         cursor: pointer; 
+         border-radius: 0.25rem; 
+         background-color: lightgray; 
+     } 
+     .close-button:hover { 
+         background-color: darkgray; 
+     } 
+     .show-modal { 
+         opacity: 1; 
+         visibility: visible; 
+         transform: scale(1.0); 
+         transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s; 
+     } 
+    
+</style>
+
 <style type="text/css">
 #wrapper {
 	font-family: 'PT Sans', sans-serif;
@@ -81,9 +131,9 @@ $(function () {
 	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
-			<div id="classTitleImg" style="height: 400px; border: 1px solid #333; top:20px; ">
+			<div id="classTitleImg" style="height: 400px; top:20px; ">
 				<!-- 대표이미지 -->
-				<img style="width: 100%; height: 400px;" src="http://localhost:8080/team_prj3_class4/resources/img/${summary.banner_img}">
+				<img style="width: 100%; height: 400px;" src="http://localhost:8080/team_prj3_class4/upload/lessonBanner/${summary.banner_img}">
 			</div>
             <div id="summary" style="margin: 5px;">
             <%-- <c:forEach var="summary" items="${ requestScope.summary }">
@@ -97,7 +147,7 @@ $(function () {
             	<table style="margin: 20px;">
             	<tr>
             		<td rowspan="4" style="width: 180px; height: 180px;">
-            			<img style="border: 1px solid #333; width: 50px; height: 50px;" src="http://localhost:8080/team_prj3_class4/resources/img/${summary.img}">
+            			<img style="width: 50px; height: 50px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
             			<br/>
 						<c:out value="${summary.teacher_name}"/>
 					</td>
@@ -322,7 +372,7 @@ $(function () {
 								}); //end addressSerch
 							}//setMarker
 							</script>
-							<div id="map" style="width:600px;height:400px; border: 1px solid #cdcdcd;margin: 15px;"></div>
+							<div id="map" style="width:600px;height:400px; margin: 15px;"></div>
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
 									<span class="contentTitle" style="float: letf">리뷰</span>
@@ -401,9 +451,9 @@ $(function () {
 									<span class="contentTitle">강사가 강의중인 다른 클래스</span>
 								</div>
 								<div style="float: right; border-left: 1px solid #cfcfcf;width: 150px; height: 200px; text-align: center;">
-									<div style="float:none;margin-top: 15px;margin-bottom:10px ; margin-left:35px;
-										border:1px solid #cfcfcf; width: 50%; height: 40%;">
-										<img src="http://localhost:8080/team_prj3_class4/resources/img/${summary.img}">
+									<div style="float:none;margin-top: 15px;margin-bottom:10px ; margin-left:39px;
+										width: 50%; height: 40%;">
+										<img style="width: 100%; height:100%;"src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
 									</div>
 									<span style=""><c:out value="${summary.teacher_name}"/></span><br/>
 									<span style="">
@@ -412,9 +462,9 @@ $(function () {
 									</span>
 								</div>
 								<c:forEach var="tclist" items="${requestScope.tclist}">
-								<div style="border: 1px solid #333; width: 150px; height: 200px; float: left;">
+								<div style="width: 150px; height: 200px; float: left; margin: 7px;">
 									<div style="width: 150px; height: 100px;">
-										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/resources/img/${tclist.main_img}"/>
+										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
 									</div>
 									<div style="width: 150px; height: 100px;">
@@ -446,7 +496,7 @@ $(function () {
 				  <div class="box m_info">
 	                  <div class="clear_fix" style="height: 50px;">
 	                      <div class="pic" style="float: left;">
-	                        <img style="border: 1px solid #333; width: 40px; height: 40px; margin-right: 10px;" src="http://localhost:8080/team_prj3_class4/resources/img/${summary.img}">
+	                        <img style="width: 40px; height: 40px; margin-right: 10px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
 						  </div>
 	                      <div class="info" style=:float:right;>
 	                          <p class="name"><br/><c:out value="${summary.teacher_name}"/></p>
@@ -554,7 +604,7 @@ $(function () {
 	                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
            				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 	                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
-	                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
+	                  	<input type="button" class="trigger" id="joinBtn" value="클래스 신청하기 "/>
 	                  
 	                  </div>
 	                  
@@ -571,6 +621,64 @@ $(function () {
 	              </div>
 	          </aside>            
 		</div>
+		
+		<div class="modal" style="font-size: 20px; margin: 15px;"> 
+         <div class="modal-content"> 
+             <span class="close-button">&times;</span> 
+             <img style="margin-left: 140px;" src="http://localhost:8080/team_prj3_class4/resources/img/logo.png"/>
+             <!-- <h1 class="title" style="text-align: center;">Class4</h1> --> 
+             <form action="#post.php" method="POST"> 
+				<form id="FrmLogin" method="post">
+                <fieldset style="text-align: center">
+                    <label class="screen_out">로그인</label>
+                    <div class="input_box">
+                        <input type="text" id="login_mb_id" name="login_mb_id" placeholder="이메일을 입력해주세요."
+                            style="width: 60%;">
+                    </div>
+                    <div class="input_box">
+                        <input type="password" id="login_mb_pw" name="login_mb_pw" placeholder="비밀번호를 입력해주세요."
+                        	style="width: 60%;">
+                    </div>
+                    <br/>
+                    <div class="btns">
+                        <a style="width: 200px;" href="javascript:;" class="btn white" onclick="$('#FrmLogin').submit()">로그인</a>
+                        <br/>
+                        <a style="width: 200px;" onclick="location.href='../member/joinAgreement.do'" class="btn red">회원가입</a>
+                    </div>
+                </fieldset>
+             </form> 
+             </form> 
+          </div> 
+	     </div>
+	     <script type="text/javascript"> 
+	         var modal = document.querySelector(".modal"); 
+	         var trigger = document.querySelector(".trigger"); 
+	         var closeButton = document.querySelector(".close-button"); 
+	
+	        //console.log(modal);
+	
+	        function toggleModal() { 
+	             modal.classList.toggle("show-modal"); 
+	        	$('body').css({overflow:'hidden'});
+	         }
+	        function closeModel(){
+             	$('body').css({overflow:'visible'});
+	        }
+	
+	        function windowOnClick(event) { 
+	             if (event.target === modal) { 
+	                 toggleModal(); 
+	             }
+	             if (event.target===closeButton){
+	            	 closeModel();
+	             }
+	         }
+	
+	        trigger.addEventListener("click", toggleModal); 
+	         closeButton.addEventListener("click", toggleModal); 
+	         window.addEventListener("click", windowOnClick); 
+     	</script>
+	     
 
      </div>
 <!-- 	<script>

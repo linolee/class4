@@ -71,12 +71,12 @@ select L.lname, A.*
 		on A.lcode = L.lcode
 </select>
 
-<!-- <update id="updateQuestionReply" parameterType="vo.QuestionReplyVO">
+<update id="updateQuestionReply" parameterType="kr.co.sist.user.vo.QuestionReplyVO">
 	update LESSON_QNA
-	set A_CONTENTS='반갑습니다. 고갱님~' 
-	where QCODE='q124'
-</update> -->
-
+	set A_CONTENTS = TO_CLOB(#{aContents}), a_date = sysdate 
+	where QCODE = #{qcode}
+</update> 
+ 
 </mapper>
 
 
