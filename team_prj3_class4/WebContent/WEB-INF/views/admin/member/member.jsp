@@ -89,15 +89,7 @@ $(function(){
 							},
 							success:function( json ){
 								alert("블랙리스트에 등록되었습니다.");
-								/* $("#addBid").text(json.jid);
-								$("#addBname").text(decodeURIComponent(json.jname));
-								$("#addBbirth").text(json.jbirth);
-								$("#addBgender").text(json.jgender);
-								$("#addBtel").text(json.jtel);
-								$("#addBinputdate").text(json.jinputdate);
-								$("#addBemail").text(json.jemail); */
 							 	$("#addBlackCancle").trigger("click"); // 강제로 실행
-							 	//location.href("/admin/member.do");
 							 	window.location.href="<c:url value='/admin/member.do' />";
 							}
 						});//ajax
@@ -105,13 +97,6 @@ $(function(){
 			};
 		});
 	 	
-/* 	 	$("#searchBtn").click(function(){
-	 		var option=$("#searchOption option:selected").val();
-	 		var search=$("#keyword").val();
-	 	}); */
-	 	
-	 	
-		
 });		
 		
 </script>

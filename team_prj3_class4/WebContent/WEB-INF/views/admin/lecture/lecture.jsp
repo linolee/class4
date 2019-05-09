@@ -8,18 +8,18 @@
                     <i class="fa fa-align-justify"></i> 강의 조회</div>
                   <div class="card-body">
                		 
-               		 <div class='searchbox'>
-    		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
-        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
-        <select name="where" class="form-control input-sm">
-            <option value="userNM">강의명</option>
-            <option value="userID">강사명</option>
+        <div class='searchbox'>
+    	<form name="lectureSearch" class="form-inline" action="lecture.do" method="get">
+        <select name="searchOption" id="searchOption" class="form-control input-sm">
+            <option value="lcode">강의코드</option>
+            <option value="lname">강의명</option>
+            <option value="teacher_name">강사명</option>
         </select>
         <div class="input-group input-group-sm">
-            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+            <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>
