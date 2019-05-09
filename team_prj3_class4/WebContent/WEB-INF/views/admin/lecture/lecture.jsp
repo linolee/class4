@@ -52,7 +52,11 @@
                       	<tr>
                       		<td><c:out value="${lecture.lcode }"/></td>
                       		<td><c:out value="${lecture.category }"/></td>
-                      		<td><c:out value="${lecture.lname }"/></td>
+                      		<td>
+                      			<a href="../user/classDetail/detail.do?lcode=${lecture.lcode }" target="_blank">
+                      				<c:out value="${lecture.lname }"/>
+                      			</a>
+                      		</td>
                       		<td><c:out value="${lecture.teacher_name }"/></td>
                       		
                       		<c:set var="status" value="${lecture.status }" />

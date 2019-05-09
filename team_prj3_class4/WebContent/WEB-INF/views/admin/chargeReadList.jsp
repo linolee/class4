@@ -60,6 +60,7 @@
 							<tbody>
 								<c:forEach var="list" items="${ requestScope.detailList }">
 									<c:set var="i" value="${ i + 1 }"/>
+									<c:if test="${ list.status ne 'R' }">
 									<tr>
 										<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
 										<td><c:out value="${ list.rcode }"/></td>
@@ -68,15 +69,19 @@
 										<td><c:out value="${ list.r_date }"/></td>
 										<td>
 											<c:choose>
-												<c:when test="${ list.status eq 'T' }">
+												<c:when test="${ list.status eq 'Y' }">
 													<span style="font-weight: bold; color: #0000FF">승인됨</span>
 												</c:when>
-												<c:otherwise>
+												<c:when test="${ list.status eq 'N' }">
 													<span style="font-weight: bold; color: #FF0000">대기중</span>
-												</c:otherwise>
+												</c:when>
+<%-- 												<c:otherwise>
+													<span style="font-weight: bold; color: #FF0000">대기중</span>
+												</c:otherwise> --%>
 											</c:choose>
 										</td>
 									</tr>
+									</c:if>
 								</c:forEach>
 							</tbody>
 						</table>

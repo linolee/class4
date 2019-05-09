@@ -11,6 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.vo.ChangePasswordVO;
+import kr.co.sist.user.vo.MemberFavorVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public class UserPageDAOImpl implements UserPageDAO {
@@ -93,6 +95,40 @@ public class UserPageDAOImpl implements UserPageDAO {
 			ss.commit();
 		}
 		ss.close();
+		return cnt;
+	}
+	
+	@Override
+	public int memberUpdate(MemberUpdateVO mu_vo) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt = ss.update("memberUpdate", mu_vo);
+		if (cnt == 1) {
+			ss.commit();
+		}
+		ss.close();
+		return cnt;
+	}
+	
+	@Override
+	public int favorDelete(String client_id) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt = ss.delete("favorDelete", client_id);
+		ss.commit();
+		ss.close();
+		return cnt;
+	}
+	
+	@Override
+	public int favorInsert(String client_id, String[] favors) {
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=0;
+		for (String favor : favors) {
+			MemberFavorVO mfvo = new MemberFavorVO(client_id, favor);
+			cnt = ss.insert("memberFavor", mfvo);
+			if(cnt == 1) {
+				ss.commit();
+			}//end if
+		}
 		return cnt;
 	}
 	

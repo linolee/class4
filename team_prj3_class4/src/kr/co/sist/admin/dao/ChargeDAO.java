@@ -50,7 +50,7 @@ private SqlSessionFactory ssf=null;
 		SqlSession ss = getSessionFactory().openSession();
 		ss.update("endStatus1");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
 		ss.update("endStatus2");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
-		ss.commit();
+		ss.commit();////
 		
 		list = ss.selectList("selectChargeAllList", lvo);
 		ss.close();
@@ -102,9 +102,9 @@ private SqlSessionFactory ssf=null;
 		return cd;
 	}
 	
-	public int deleteReport(String rcode) {
+	public int updateReportToReject(String rcode) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.delete("deleteReport", rcode);
+		int cnt = ss.delete("updateReportToReject", rcode);
 		ss.commit();
 		ss.close();
 		return cnt;

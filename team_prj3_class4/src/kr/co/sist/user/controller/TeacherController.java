@@ -26,12 +26,13 @@ import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserQuestionService;
 import kr.co.sist.user.service.UserReviewService;
 import kr.co.sist.user.vo.ListPageVO;
+import kr.co.sist.user.vo.QuestionReplyVO;
 @Controller
 public class TeacherController {
 	
 	@RequestMapping(value="user/teacher/classStatus.do", method=GET)
 	public String classStatusForm(@RequestParam(value="status", required=false) String status, HttpSession session, Model model) {
-		//session에서 아이디와 이름을 가져온다
+		//session�뿉�꽌 �븘�씠�뵒�� �씠由꾩쓣 媛��졇�삩�떎
 		String id = "";	
 		String teacherName = "";
 		id = (String)session.getAttribute("client_id");
@@ -41,20 +42,24 @@ public class TeacherController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserLectureService uls = ac.getBean(UserLectureService.class);
 		
-		//id와 status로 클래스 현황을 가져온다
+		if (id != null) {	
+		//id�� status濡� �겢�옒�뒪 �쁽�솴�쓣 媛��졇�삩�떎
 		List<LectureView> list = uls.searchLectureInfo(id, status);
 		
-		//아이디로 이름을 가져온다.
-		//아이디당 여러개의 프로필을 사용할 수 있으므로, List에 담는다.
+		//�븘�씠�뵒濡� �씠由꾩쓣 媛��졇�삩�떎.
+		//�븘�씠�뵒�떦 �뿬�윭媛쒖쓽 �봽濡쒗븘�쓣 �궗�슜�븷 �닔 �엳�쑝誘�濡�, List�뿉 �떞�뒗�떎.
 		List<String> tn_list = uls.searchTeacherName(id);
 		
-		//이름으로 상태별 카운트를 들고온다.
+		//�씠由꾩쑝濡� �긽�깭蹂� 移댁슫�듃瑜� �뱾怨좎삩�떎.
 		Map<String, Object> r_cnt_list = uls.searchStatusCnt(tn_list);
 		
 		model.addAttribute("l_list", list);
 		model.addAttribute("cntList", r_cnt_list);
 
 		return "user/teacher/classStatus";
+      }else {
+          return "user/member/login";		
+      } // end else
 	} //classStatusForm
 	
 
@@ -66,7 +71,7 @@ public class TeacherController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserLectureService uls = ac.getBean(UserLectureService.class);
 		
-		//클래스별 신청현황을 가져온다
+		//�겢�옒�뒪蹂� �떊泥��쁽�솴�쓣 媛��졇�삩�떎
 		List<LectureView> s_list = uls.searchStudentsList(code);
 		
 		return s_list;
@@ -96,23 +101,23 @@ public class TeacherController {
 		String id = "";	
 		id = (String)session.getAttribute("client_id");
 		
-		List<String> tn_list = urs.searchTeacherName(id); // id로 이름을 들고온다
+		List<String> tn_list = urs.searchTeacherName(id); // id濡� �씠由꾩쓣 �뱾怨좎삩�떎
 		
 		List<Review> r_list = new ArrayList<Review>();
 		int cnt = 0;
 		
-		//받아온 이름 수만큼 반복
+		//諛쏆븘�삩 �씠由� �닔留뚰겮 諛섎났
 		for(int i = 0; i < tn_list.size(); i++) {
 			Map<String, String> dateMap = new HashMap<String, String>();
 			dateMap.put("fromDate", fromDate);
 			dateMap.put("toDate", toDate);
 			dateMap.put("tn_list", tn_list.get(i));
 			
-			//검색값을 담은 map을 넘긴다
+			//寃��깋媛믪쓣 �떞�� map�쓣 �꽆湲대떎
 			List<Review> tmpList = urs.searchReview(dateMap);
-			if (!tmpList.isEmpty()) { //tmpList가 빈 값이 아니라면 진입
-				r_list.addAll(tmpList); // r_list에 add
-				cnt += urs.searchReviewCnt(dateMap);	//리뷰 카운트 구하기
+			if (!tmpList.isEmpty()) { //tmpList媛� 鍮� 媛믪씠 �븘�땲�씪硫� 吏꾩엯
+				r_list.addAll(tmpList); // r_list�뿉 add
+				cnt += urs.searchReviewCnt(dateMap);	//由щ럭 移댁슫�듃 援ы븯湲�
 			} // end if
 		} // end for
 		
@@ -163,22 +168,22 @@ public class TeacherController {
 		String id = "";	
 		id = (String)session.getAttribute("client_id");
 		
-		List<String> tn_list = uqs.searchTeacherName(id); // id로 이름들을 가져온다
+		List<String> tn_list = uqs.searchTeacherName(id); // id濡� �씠由꾨뱾�쓣 媛��졇�삩�떎
 		
 		List<Question> q_list = new ArrayList<Question>();
-		int cnt = 0;	//카운트를 담을 변수 초기화
+		int cnt = 0;	//移댁슫�듃瑜� �떞�쓣 蹂��닔 珥덇린�솕
 		
-		//teacherName수만큼 반복
+		//teacherName�닔留뚰겮 諛섎났
 		for(int i = 0; i < tn_list.size(); i++) {	
 			Map<String, String> dateMap = new HashMap<String, String>();
 			dateMap.put("fromDate", fromDate);
 			dateMap.put("toDate", toDate);
 			dateMap.put("tn_list", tn_list.get(i));
 			
-			//검색 조건값을 담은 map을 보내서 해당하는 질문글 리스트를 가져온다
+			//寃��깋 議곌굔媛믪쓣 �떞�� map�쓣 蹂대궡�꽌 �빐�떦�븯�뒗 吏덈Ц湲� 由ъ뒪�듃瑜� 媛��졇�삩�떎
 			List<Question> tmpList = uqs.searchQuestion(dateMap);
 			
-			//받아온 데이터가 존재하면 진입
+			//諛쏆븘�삩 �뜲�씠�꽣媛� 議댁옱�븯硫� 吏꾩엯
 			if (!tmpList.isEmpty()) { 
 				q_list.addAll(tmpList);
 				cnt += uqs.searchQuestionCnt(dateMap);
@@ -192,7 +197,7 @@ public class TeacherController {
 		map.put("cntList", cnt);
 		
 		return map;
-	}
+	} // qnaForm
 	
 	@ResponseBody
 	@RequestMapping(value="user/teacher/question_detail.do", method=GET)
@@ -206,10 +211,27 @@ public class TeacherController {
 		return question;
 	} //selectOneReview	
 	
+	@ResponseBody
+	@RequestMapping(value="user/teacher/question_reply.do", method=GET)
+	public int questionReply(@RequestParam(value="qcode",required=false) String qcode, @RequestParam(value="aContents",required=false) String aContents) {
+		//autowired
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		UserQuestionService uqs = ac.getBean(UserQuestionService.class);
+		
+		QuestionReplyVO qrvo = new QuestionReplyVO();
+		qrvo.setQcode(qcode);
+		qrvo.setaContents(aContents);
+		
+		int reply = uqs.modifyQuestionReply(qrvo);
+		System.out.println(reply);
+		return reply;
+		
+	} //questionReply
+	
 	@RequestMapping(value="user/teacher/adminQuestion.do", method=GET)
 	public String adminQuestionForm() {
 		
 		return "user/teacher/adminQuestion";
-	}
+	} //adminQuestion
 	
 } // class

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.BlackListDomain;
 import kr.co.sist.admin.service.BlackListService;
+import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 
@@ -25,6 +26,8 @@ public class BlackListController {
 	
 	@Autowired
 	private BlackListService bls;
+	@Autowired
+	private IndexService is;
 	
 	@RequestMapping(value="/admin/blacklist.do",method={GET,POST})
 	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request,
@@ -43,13 +46,13 @@ public class BlackListController {
 		}
 		
 		int totalCount = bls.totalCount();
-		int pageScale = bls.pageScale();
-		int totalPage = bls.totalPage(totalCount);
+		int pageScale = is.pageScale();
+		int totalPage = is.totalPage(totalCount);
 		if(lvo.getCurrentPage() == 0) {
 			lvo.setCurrentPage(1);
 		}
-		int startNum = bls.startNum(lvo.getCurrentPage());
-		int endNum = bls.endNum(startNum);
+		int startNum = is.startNum(lvo.getCurrentPage());
+		int endNum = is.endNum(startNum);
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
 		list=bls.selectBlackList(lvo);
@@ -65,7 +68,7 @@ public class BlackListController {
 		}
 		
 		
-		String indexList = bls.indexList(lvo.getCurrentPage(), totalPage, "blacklist.do");
+		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "blacklist.do");
 		model.addAttribute("page", "blacklist/blacklist");
 		model.addAttribute("blackList", list);
 		model.addAttribute("indexList", indexList);

@@ -41,10 +41,9 @@ function searchDate () {
 	var toDate = $("#toDate").val();
 	
 	location.href = "http://localhost:8080/team_prj3_class4/user/teacher/qna.do?fromDate="+fromDate+"&toDate="+toDate;
-}
+} // searchDate
 
 function viewDetail(qcode) {
-    
     $(".modal-reply").hide();
 	
 	var qcode = qcode;
@@ -60,6 +59,21 @@ function viewDetail(qcode) {
 			$("#m-content").val(msg.contents);
 			$("#qDate").text(msg.qDate);
 			$("#wName").text(msg.name); 
+			$("#qcode").val(qcode);
+			$("#m-reply").val(msg.aContents);			
+			
+			//답글 내용이 존재하면 보임
+ 			if (msg.aContents != undefined) {
+ 				$("#m-reply").val(msg.aContents);
+ 			    $('#reply-btn').attr("value", "작성");
+ 			    $('#reply-btn').attr("onclick", "addReply()");
+ 			    $('#close-Modal').attr("value", "닫기"); 
+				$(".modal-reply").show();
+			} else {
+			    $('#reply-btn').attr("value", "답글달기");
+			    $('#reply-btn').attr("onclick", "addReplyBtn()");
+			    $('#close-Modal').attr("value", "확인");  
+			}
 			
 			$(".panel-modal").show();
 		},
@@ -68,7 +82,7 @@ function viewDetail(qcode) {
 		}
 	}); // ajax
 	
-}
+} //viewDetail 
 
 //답글달기 버튼을 눌렀을 때 실행
 function addReplyBtn() {
@@ -81,11 +95,30 @@ function addReplyBtn() {
 
 //답글 작성 실행 - ajax 
 function addReply() {
-    $('#reply-btn').attr("value", "답글달기");
-    $('#reply-btn').attr("onclick", "addReplyBtn()");
-    $('#close-Modal').attr("value", "확인");   
+	var qcode = $("#qcode").val();
+	var aContents = $("#m-reply").val();
+	var sendData = {"qcode":qcode, "aContents":aContents};    
 	
-}
+	$.ajax({
+		url:"<c:url value= '/user/teacher/question_reply.do'/>",
+		data : sendData,
+		dataType:"text",
+		success: function (msg) {
+//  			$("#m-reply").text(msg.aContents);
+// 			$(".panel-modal").show();
+			if (msg == 1) {
+				alert("답글이 작성되었습니다.");
+				location.href="";
+			} else {
+				alert("답글 작성에 실패했습니다.");				
+			}
+		},
+		error: function (data) {
+			console.log(data);
+		}
+	}); // ajax
+    
+} //addReply
 
 //답글 모달 닫기
 function closeModal() {
@@ -226,11 +259,14 @@ jQuery(function($) {
 					<div class="modal-writer">
 						작성자 : <span id="wName"></span>
 					</div>
+					<input type="hidden" id="qcode" value="">
 				</div>
 			</div>
 			<div class="modal-reply">
-						<p><strong>[답글달기]</strong></p>
-						<textarea id="m-reply"></textarea>
+				<p><strong>[답글달기]</strong></p>
+				<div>
+					<textarea id="m-reply"></textarea>
+				</div>
 			</div>
 			<div class="modal-btn">
 				<input type="button" id="reply-btn" class="btn btn-warning" value="답글달기" onclick="addReplyBtn()">

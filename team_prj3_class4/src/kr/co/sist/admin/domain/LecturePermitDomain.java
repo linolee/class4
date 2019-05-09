@@ -1,7 +1,15 @@
 package kr.co.sist.admin.domain;
 
 public class LecturePermitDomain {
-	private String lname, teacher_name, category;
+	private String lcode, lname, teacher_name, category;
+
+	public String getLcode() {
+		return lcode;
+	}
+
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
+	}
 
 	public String getLname() {
 		return lname;
@@ -26,5 +34,5 @@ public class LecturePermitDomain {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
+
 }

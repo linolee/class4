@@ -27,21 +27,21 @@ public class CategoryService {
 	@Autowired
 	private CategoryDAO c_dao;
 	
-	// 1. 전체 게시물 수 얻기
+	// 1. �쟾泥� 寃뚯떆臾� �닔 �뼸湲�
 			public int totalCount() {
 				int cnt = 0;
 				cnt = c_dao.selectTotalCount();
 				return cnt;
 			}
 
-			// 2. 한 화면에 보여질 게시물의 수
+			// 2. �븳 �솕硫댁뿉 蹂댁뿬吏� 寃뚯떆臾쇱쓽 �닔
 			public int pageScale() {
 				int pageScale = 1;
 
 				return pageScale;
 			}
 
-			// 3. 총 페이지 수 구하기
+			// 3. 珥� �럹�씠吏� �닔 援ы븯湲�
 			public int totalPage(int totalCount) {
 				int totalPage = totalCount / pageScale();
 				if (totalCount % pageScale() != 0) {
@@ -51,15 +51,15 @@ public class CategoryService {
 				return totalPage;
 			}
 
-			// 4. 시작 페이지 번호 구하기
-			// current_page에 따라 시작 번호는 달라진다. 1-> 1, 2->11, 3->21 ,,,
+			// 4. �떆�옉 �럹�씠吏� 踰덊샇 援ы븯湲�
+			// current_page�뿉 �뵲�씪 �떆�옉 踰덊샇�뒗 �떖�씪吏꾨떎. 1-> 1, 2->11, 3->21 ,,,
 			public int startNum(int currentPage) {
 				int startNum = 1;
 				startNum = currentPage * pageScale() - pageScale() + 1;
 				return startNum;
 			}
 
-			// 5. 끝번호 얻기
+			// 5. �걹踰덊샇 �뼸湲�
 			public int endNum(int startNum) {
 				int endNum = startNum + pageScale() - 1;
 
@@ -67,48 +67,48 @@ public class CategoryService {
 			}
 			
 			/**
-			 * 인덱스 리스트 [ << ] ... [1][2][3] ... [ >> ]
+			 * �씤�뜳�뒪 由ъ뒪�듃 [ << ] ... [1][2][3] ... [ >> ]
 			 * 
 			 * @param current_page
 			 * @param total_page
 			 * @param list_url
 			 * @return
 			 */
-			// 현재 게시판의 페이지 인덱스 설정
+			// �쁽�옱 寃뚯떆�뙋�쓽 �럹�씠吏� �씤�뜳�뒪 �꽕�젙
 			public String indexList(int current_page, int total_page, String list_url) {
-				int pagenumber; // 화면에 보여질 페이지 인덱스 수
-				int startpage; // 화면에 보여질 시작페이지 번호
-				int endpage; // 화면에 보여질 마지막페이지 번호
-				int curpage; // 이동하고자 하는 페이지 번호
+				int pagenumber; // �솕硫댁뿉 蹂댁뿬吏� �럹�씠吏� �씤�뜳�뒪 �닔
+				int startpage; // �솕硫댁뿉 蹂댁뿬吏� �떆�옉�럹�씠吏� 踰덊샇
+				int endpage; // �솕硫댁뿉 蹂댁뿬吏� 留덉�留됲럹�씠吏� 踰덊샇
+				int curpage; // �씠�룞�븯怨좎옄 �븯�뒗 �럹�씠吏� 踰덊샇
 
-				String strList = ""; // 리턴될 페이지 인덱스 리스트
+				String strList = ""; // 由ы꽩�맆 �럹�씠吏� �씤�뜳�뒪 由ъ뒪�듃
 
-				pagenumber = 10; // 한 화면의 페이지 인덱스 수
+				pagenumber = 10; // �븳 �솕硫댁쓽 �럹�씠吏� �씤�뜳�뒪 �닔
 
-				// 시작 페이지번호 구하기
+				// �떆�옉 �럹�씠吏�踰덊샇 援ы븯湲�
 				startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
 
-				// 마지막 페이지번호 구하기
+				// 留덉�留� �럹�씠吏�踰덊샇 援ы븯湲�
 				endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
 
-				// 총 페이지 수가 계산된 마지막페이지 번호보다 작을경우
+				// 珥� �럹�씠吏� �닔媛� 怨꾩궛�맂 留덉�留됲럹�씠吏� 踰덊샇蹂대떎 �옉�쓣寃쎌슦
 
-				// 총 페이지 수가 마지막페이지 번호가 됨
+				// 珥� �럹�씠吏� �닔媛� 留덉�留됲럹�씠吏� 踰덊샇媛� �맖
 
 				if (total_page <= endpage) {
 					endpage = total_page;
 				} // end if
 
-				// 첫번째 페이지 인덱스 화면이 아닌경우
+				// 泥ル쾲吏� �럹�씠吏� �씤�뜳�뒪 �솕硫댁씠 �븘�땶寃쎌슦
 				if (current_page > pagenumber) {
-					curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
+					curpage = startpage - 1; // �떆�옉�럹�씠吏� 踰덊샇蹂대떎 1 �쟻�� �럹�씠吏�濡� �씠�룞
 					strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
 				} else {
 					strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 					
 				}
 
-				// 시작페이지 번호부터 마지막페이지 번호까지 화면에 표시
+				// �떆�옉�럹�씠吏� 踰덊샇遺��꽣 留덉�留됲럹�씠吏� 踰덊샇源뚯� �솕硫댁뿉 �몴�떆
 				curpage = startpage;
 
 				while (curpage <= endpage) {
@@ -121,7 +121,7 @@ public class CategoryService {
 					curpage++;
 				} // end while
 
-				// 뒤에 페이지가 더 있는경우
+				// �뮘�뿉 �럹�씠吏�媛� �뜑 �엳�뒗寃쎌슦
 				if (total_page > endpage) {
 					curpage = endpage + 1;
 					strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
