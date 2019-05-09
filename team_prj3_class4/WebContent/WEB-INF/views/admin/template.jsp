@@ -66,12 +66,12 @@ $(function(){
             <li class="nav-title">강의관리</li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="lecturePermit.do">
-                <i class="nav-icon icon-puzzle"></i> 강의개설 승인</a>
+                <i class="nav-icon icon-puzzle"></i> 강의 개설 승인</a>
 
             </li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="lecture.do">
-                <i class="nav-icon icon-cursor"></i> 강의조회</a>
+                <i class="nav-icon icon-cursor"></i> 강의 조회</a>
             </li>
            
             <li class="nav-title">회원관리</li>
@@ -171,7 +171,7 @@ $(function(){
                       </div>
                     </div>
                     <div class="text-value">222</div>
-                    <div>총 강좌수</div>
+                    <div>진행중인 강좌 수</div>
                   </div>
                   <div class="chart-wrapper mt-3" style="height:70px;">
                     <canvas class="chart" id="card-chart3" height="70"></canvas>
@@ -193,7 +193,7 @@ $(function(){
                       </div>
                     </div>
                     <div class="text-value">100</div>
-                    <div>총 게시글 수</div>
+                    <div>총 강사 수</div>
                   </div>
                   <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
                     <canvas class="chart" id="card-chart4" height="70"></canvas>

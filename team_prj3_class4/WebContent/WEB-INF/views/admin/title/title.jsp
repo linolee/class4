@@ -163,10 +163,10 @@ $(function () {
 <!--  -->
 <div class="card">
 	<div class="card-header">
-                    <i class="fa fa-align-justify"></i> 메인 헤더
+		<h5 style="margin-bottom: 0px;"><strong>타이틀</strong></h5>
 	</div>
 	<div class="card-body">
-                    <li style="font-size:20px;">이미지 최적사이즈는 가로1200px, 세로 400px입니다</li>
+                    <div style="font-size:15px;"> ★ 이미지 최적사이즈는 가로1200px, 세로 400px입니다</div>
 				
 		<div>
 				<table class="table table-responsive-sm">
