@@ -10,6 +10,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
+import kr.co.sist.user.domain.Category;
+import kr.co.sist.user.domain.LatestReview;
+import kr.co.sist.user.domain.Recommend;
+
 @Component
 public class MainContentsDAO {
 	
@@ -44,12 +48,39 @@ public class MainContentsDAO {
 		ss.close();
 		return category;
 	}//selectCategory
+	
+	public List<Category> selectImgCategory(){
+		List<Category> imgCate=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		imgCate=ss.selectList("selectCategoryImgList");
+		ss.close();
+		return imgCate;
+	}//selectImgCategory
+	
+	public List<Recommend> selectRecommend(){
+		List<Recommend> recommend=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		recommend=ss.selectList("selectRecommend");
+		ss.close();
+		return recommend;
+	}//selectRecommend
+	
+	public List<LatestReview> selectLatestReview(){
+		List<LatestReview> latestreview=null;
+		
+		SqlSession ss=getSessionFactory().openSession();
+		latestreview=ss.selectList("selectLatestReview");
+		ss.close();
+		return latestreview;
+	}
 
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		MainContentsDAO m_dao=new MainContentsDAO();
 		List<String> category=m_dao.selectCategory();
 		System.out.println(category);
 		
 	}//main
-	
-}
+*/	
+}//class

@@ -112,6 +112,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	$("#reportBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
 	});
+	$("#joinBtn").click(function(){
+		
+	});
  });//ready
 </script>
 <script type="text/javascript">
