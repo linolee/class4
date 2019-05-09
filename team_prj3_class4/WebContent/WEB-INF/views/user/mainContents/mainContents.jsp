@@ -147,7 +147,6 @@
 		<br/><div id="pagenavi"></div>
 		</div>
 		</div>
-		
 	
 		<div id="review">
 			<span id="rvTitle">최신 리뷰</span>
