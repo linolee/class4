@@ -4,10 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
 <script type="text/javascript">
 
 function lecturePermitDetail(lcode) {
+	var detailAddress="";
  	var queryString="lcode="+lcode;
  	$.ajax({
 		url: "lecturePermitDetail.do",
@@ -33,7 +34,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
-			
+			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
 			var output="";
 			
 			$("#ls_career *").remove();
@@ -66,56 +67,66 @@ function lecturePermitDetail(lcode) {
 					$("#ls_noptlist").append(output);
 					output="";
 				}
- 			} 
+ 			}
+			
+			
+			mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new daum.maps.LatLng(37.499490, 127.033167), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };  
+			
+			setMarker(detailAddress,"클래스 위치");
 				/* else{
 				$("#ls_optlist").append("불포함사항이 없습니다");
 			} */
 			
-			/* $("#tId").text(json.tId);
-			$("#tCategory").text(decodeURIComponent(json.tCate));
-			$("#tName").text(decodeURIComponent(json.tName));
-			$("#tnName").text(decodeURIComponent(json.tTName));
-			$("#tBirth").text(json.tBirth);
-			$("#tGender").text(json.tGender);
-			$("#tTel").text(json.tTel);
-			$("#tInputdate").text(json.tInputdate);
-			$("#tEmail").text(json.tEmail);
-			$("#tIntro").text(decodeURIComponent(json.tIntroduce));
-			// 공백 변환처리
-			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," "))); */
-
-			/* var output;
-	 		$("#lesson *").remove();
-			if( json.lessonList.length != 0){
- 				for(var i=0; i<json.lessonList.length; i++){
-					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
-					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
-					$("#lesson").append(output);
-					output = "";
-				} 
-			}
-			if( json.lessonList.length == 0){
-				output += "<tr><td width='50px' class='col-10'>강의가 없습니다.</td></tr>";
-				$("#lesson").append(output);
-				output = "";
-			}
-			
-			var output2;
-	 		$("#career *").remove();
-			if( json.careerList.length != 0){
- 				for(var i=0; i<json.careerList.length; i++){
-					output2 += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.careerList[i].career.replace(space," "))+"</td>";
-					$("#career").append(output2);
-					output2 = "";
-				} 
-			}
-			if( json.careerList.length == 0){
-				output2 += "<tr><td width='50px' class='col-10'>경력이 없습니다.</td></tr>";
-				$("#career").append(output2);
-				output2 = "";
-			} */
 		}
 	});//ajax 
+	
+	/* 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 */
+	
+	$(function (){
+		
+		/* setMarker("서울시 송파구 오륜동","클래스 위치"); */
+		/* setMarker(detailAddress,"클래스 위치"); */
+	});//ready
+	
+	function setMarker(addr,dong){
+		alert(detailAddress);
+		// 지도를 생성합니다    
+		var map = new daum.maps.Map(mapContainer, mapOption); 
+		
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new daum.maps.services.Geocoder();
+		
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch(addr, function(result, status) {
+		
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === daum.maps.services.Status.OK) {
+	
+	        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new daum.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+	
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new daum.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스 위치</div>'
+	        });
+	        infowindow.open(map, marker);
+	
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    }//end if 
+		}); //end addressSerch
+	}//setMarker	
+
+	/* 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 */
 	
 }
 

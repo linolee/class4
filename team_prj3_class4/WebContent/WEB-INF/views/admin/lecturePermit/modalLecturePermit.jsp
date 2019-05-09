@@ -159,8 +159,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							<div id="kakaoMap">
 							</div>
 
- 							<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
-							<script type="text/javascript">
+							<!-- 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 -->
+ 							<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script> -->
+							<!-- <script type="text/javascript">
 							var detailAddress=$("#addressHdn").val();
 							$(function(){
 								mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -169,7 +170,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							        level: 3 // 지도의 확대 레벨
 							    };  
  							/* setMarker("서울시 송파구 오륜동","클래스 위치"); */
- 							setMarker(detailAddress,"클래스 위치");
+ 							setMarker("","클래스 위치");
 							});//ready
 							
 							function setMarker(addr,dong){	
@@ -204,7 +205,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 							    }//end if 
 								}); //end addressSerch
 							}//setMarker
-							</script>
+							</script> -->
+							
+							<!-- 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 -->
+							
+							
+							
 							<div id="map" style="width:600px;height:400px; border: 1px solid #cdcdcd;margin: 15px;"></div>
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<table width="640" style="margin-left: 10px;">
