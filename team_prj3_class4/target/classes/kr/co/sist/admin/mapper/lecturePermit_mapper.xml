@@ -12,14 +12,14 @@
 </resultMap>
 
 <select id="lecturePermitTotalCnt" resultType="int">
-select count(*) cnt from lesson where authority='N'
+select count(*) cnt from lesson where status='A'
 </select>
 
 <select id="selectLecturePermit" resultMap="lecturePermitResult">
 select lcode, lname, teacher_name, category
 from(select lcode, lname, teacher_name, category, row_number() over(order by lcode desc) r_num
 from lesson
-where authority='N')
+where status='A')
 where r_num between #{ startNum } and #{ endNum }
 </select>
 
