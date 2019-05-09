@@ -75,7 +75,7 @@
       		<li><a href="#void"><c:out value="${clist}"/></a></li>
       		<c:set var="i" value="${ i + 1 }"/>
       		</c:forEach> --%>
-			    <li style='display:block'>
+			    <li style='display:block;'>
 			    <div>
 			    	<c:forEach var="imgCate1" items="${ requestScope.imgCate1}">
 			    		<c:set var="i" value="${ i + 1 }"/>
@@ -84,35 +84,24 @@
 			    			<span style="position: absolute;right:95px;"><c:out value="${imgCate1.category}"/></span>
 			    		</div>
 			    	</c:forEach>
-			    	
-					<!-- <div id="cg01">음악</div>
-					<div id="cg02">아트</div>
-					<div id="cg03">핸드메이드</div> -->
 				</div></li>
 			    <li><div>
 			    	<c:forEach var="imgCate2" items="${ requestScope.imgCate2}">
-			    		<c:set var="j" value="${ j + 1 }"/>
-			    		<div id="cg0${j+3}" >
+			    		<c:set var="i" value="${ i + 1 }"/>
+			    		<div id="cg0${i}" >
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate2.img}">
 			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate2.category}"/></span>
 			    		</div>
 			    	</c:forEach>
-			    	
-					<!-- <div id="cg04">뷰티/헬스</div>
-					<div id="cg05">쿠킹</div>
-					<div id="cg06">가드닝</div> -->
 				</div></li>
 			    <li><div>
 			    	<c:forEach var="imgCate3" items="${ requestScope.imgCate3}">
-			    		<c:set var="q" value="${ q + 1 }"/>
-			    		<div id="cg0${q+6}" >
+			    		<c:set var="i" value="${ i + 1 }"/>
+			    		<div id="cg0${i}" >
 			    		<img style="float: left;position:none; width:100%;height:100%;" src="http://localhost:8080/team_prj3_class4/upload/category/${imgCate3.img}">
 			    		<span style="position: absolute;right:95px;"><c:out value="${imgCate3.category}"/></span>
 			    		</div>
 			    	</c:forEach>
-					<!-- <div id="cg07">액티비티</div>
-					<div id="cg08">자기계발</div>
-					<div id="cg09">취미</div> -->
 				</div></li>
 			  </ul>
 		</div>
@@ -126,11 +115,21 @@
 		<div class='swipe' style='margin:10px ;height:350px;padding-top: 40px;'>
 			<ul id='slider2'>
 				<li style='display:block'><div>
-					<div id="rc01">
+					<c:forEach var="recommend1" items="${ requestScope.recommend1}">
+			    		<c:set var="a" value="${a + 1 }"/>
+			    		<div id="cg0${a}" >
+			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${recommend1.main_img}">
+			    			<div style="width:240px; height:50%;position: absolute;top:130px;font-size: 15px; font-weight: normal; margin: 5px;">
+			    				<c:out value="${recommend1.lname}"/><br/>
+			    				<%-- <c:out value="${recommend1.cliend_id}"/> --%>
+			    			</div>
+			    		</div>
+			    	</c:forEach>
+					<!-- <div id="rc01">
 					추천1
 					</div>
 					<div id="rc02"></div>
-					<div id="rc03"></div>
+					<div id="rc03"></div> -->
 				</div></li>
 				<li><div>
 					<div id="rc04"></div>
