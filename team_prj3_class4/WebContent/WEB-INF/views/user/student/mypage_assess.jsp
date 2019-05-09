@@ -55,6 +55,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		})
 	});//ready
 	
+	
 	function write1(lcode){
 		alert(lcode+$("#point").val()+$("#review").val());
 		   $.ajax({
@@ -116,18 +117,19 @@ td{ border-bottom: 1px solid #EEEEEE; }
 			<c:import url="/common/class_jsp/main_menu.jsp"></c:import>
 		</div>
 	<div style="padding-top: 25px; padding-left: 30px; background-color: #F3F3F3; height: 50px;">
+		<form action="mypage_assess.do" name="dateFrm" method="get">
 		<input type="button" value="전체" class="btn" id="btnAll"/>
 		<input type="button" value="1주일" class="btn" id="btnWeek"/>
 		<input type="button" value="1달" class="btn" id="btn1Month"/>
 		<input type="button" value="2달" class="btn" id="btn2Month"/>
 		<input type="button" value="3달" class="btn" id="btn3Month"/>
 		
-		<label for="fromDate"></label>
-		<input type="date" id="fromDate" required="" />
-		<label for="toDate">~</label>
-		<input type="date" id="toDate" required="" />
-		<input type="submit" value="검색" id="dateSearch"/>
-		
+			<label for="fromDate"></label>
+			<input type="date" id="fromDate" required=""  name="fromDate"/>
+			<label for="toDate">~</label>
+			<input type="date" id="toDate" required=""  name="toDate"/>
+			<input type="submit" value="검색" id="dateSearch"/>
+		</form>
 	</div>
 	<div style="padding-top: 20px">
 		<div style="float: left">

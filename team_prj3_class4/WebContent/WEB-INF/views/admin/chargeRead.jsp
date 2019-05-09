@@ -64,7 +64,7 @@ $(function () {
 				<ul class="pagination ">
 					<li class="page-item"><a class="page-link" href="chargeReadList.do?lcode=${ param.lcode }">목록으로</a></li>
 					<!-- <li class="page-item"><a class="page-link" href="#" onclick="lessonClosure()">강사경고</a></li> -->
-					<c:if test="${ searchData.status eq 'F' }">
+					<c:if test="${ searchData.status eq 'N' }">
 						<li class="page-item"><a class="page-link" href="#" onclick="chargeRefuse('Y')">신고승인</a></li>
 					</c:if>
 					<li class="page-item"><a class="page-link" href="#" onclick="chargeRefuse('N')">신고반려</a></li>
