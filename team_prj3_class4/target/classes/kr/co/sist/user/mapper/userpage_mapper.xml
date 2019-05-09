@@ -38,6 +38,17 @@
 	set pass = #{password}
 	where client_id = #{client_id}
 </update>
+<update id="memberUpdate" parameterType="kr.co.sist.user.vo.MemberUpdateVO">
+	update client
+	set
+	email = #{email},
+	tel = #{tel}
+	where client_id = #{client_id}
+</update>
+<delete id="favorDelete" parameterType="String">
+	delete favor
+	where client_id = #{client_id}
+</delete>
 </mapper>
 
 

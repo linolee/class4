@@ -55,7 +55,7 @@
 
 <script type="text/javascript">
 $(function(){
-	
+	//////////////////////////////비밀번호 수정//////////////////////////////////////////////
 	$("#changePasswordBtn").click(function (){
 		if (CheckPassword()) {
 			$.ajax({
@@ -100,7 +100,7 @@ $(function(){
 			}	
 		});
 	});
-	
+	//////////////////////////////////문의/////////////////////////////////////////
 	$("#reportSubmitBtn").click(function (){
 		$.ajax({
 			type:"POST",
@@ -121,7 +121,7 @@ $(function(){
 			}	
 		});
 	});
-	
+	////////////////////////////////////////회원정보/////////////////////////////
 	$("#deleteClientInfoBtn").click(function(){
 		location.href = "deleteUserAgreement.do"
 	});
@@ -169,7 +169,7 @@ $(function(){
 			$("#clientInfo").submit();
 		}
 	});
-	
+	////////////////////////////////////////////////////////////////////////////////////////
 	jb("#tabs").tabs();
 	
 	$('#summernote').summernote({
