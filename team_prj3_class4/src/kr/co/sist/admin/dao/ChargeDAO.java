@@ -102,9 +102,9 @@ private SqlSessionFactory ssf=null;
 		return cd;
 	}
 	
-	public int deleteReport(String rcode) {
+	public int updateReportToReject(String rcode) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.delete("deleteReport", rcode);
+		int cnt = ss.delete("updateReportToReject", rcode);
 		ss.commit();
 		ss.close();
 		return cnt;

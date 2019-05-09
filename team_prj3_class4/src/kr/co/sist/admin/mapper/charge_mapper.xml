@@ -8,8 +8,8 @@
 	select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS
 	from(select LCODE, LNAME, TEACHER_NAME, ALL_REPORT, APPLY_REPORT, STATUS, row_number() over(order by L_DATE desc) r_num
 		from(select LCODE, LNAME, TEACHER_NAME,
-				(select count(LCODE) from REPORT where lcode = l.LCODE) as all_REPORT,
-				(select count(*) from REPORT where lcode = l.LCODE and STATUS = 'T') as apply_REPORT, STATUS, L_DATE
+				(select count(LCODE) from REPORT where lcode = l.LCODE and STATUS != 'R') as all_REPORT,
+				(select count(*) from REPORT where lcode = l.LCODE and STATUS = 'Y') as apply_REPORT, STATUS, L_DATE
 			from LESSON l
 			where l.STATUS != 'E' and l.STATUS != 'C')
 		where all_REPORT > 0)
@@ -54,13 +54,15 @@
 	where RCODE = #{ rcode }
 </select>
 
-<delete id="deleteReport" parameterType="String">
-	delete from REPORT where rcode = #{ rcode }
-</delete>
+<update id="updateReportToReject" parameterType="String">
+	update REPORT
+	set STATUS = 'R'
+	where rcode = #{ rcode }
+</update>
 
 <update id="updateReport" parameterType="String">
 	update REPORT
-	set STATUS = 'T'
+	set STATUS = 'Y'
 	where rcode = #{ rcode }
 </update>
 

@@ -193,7 +193,7 @@ public class AdminController {
 		if(refuse.equals("Y")) {
 			cs.applyReport(rcode);
 		}else {
-			cs.removeReport(rcode);
+			cs.rejectReport(rcode);
 		}
 		return "redirect:/admin/charge.do";
 	}
