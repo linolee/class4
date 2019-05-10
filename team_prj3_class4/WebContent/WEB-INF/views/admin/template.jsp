@@ -65,7 +65,7 @@ function addZeros(num, digit) { // 자릿수 맞춰주기
 $(function(){
 	$("#logout").click(function() {
 		if(confirm("로그아웃 하시겠습니까?")){
-			location.href="AdminLogin.do";
+			location.href="AdminLogoutProcess.do";
 		};
 	});
  	$(document).on('click', 'a[href="#"]', function(e){

@@ -20,7 +20,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td width="50px" style="background: #C8CED3">아이디</td>
+								<td width="60px" style="background: #C8CED3">아이디</td>
 								<td width="50px" id="tId"></td>
 							</tr>
 							<tr>
