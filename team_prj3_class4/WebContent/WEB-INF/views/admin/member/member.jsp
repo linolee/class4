@@ -89,15 +89,7 @@ $(function(){
 							},
 							success:function( json ){
 								alert("블랙리스트에 등록되었습니다.");
-								/* $("#addBid").text(json.jid);
-								$("#addBname").text(decodeURIComponent(json.jname));
-								$("#addBbirth").text(json.jbirth);
-								$("#addBgender").text(json.jgender);
-								$("#addBtel").text(json.jtel);
-								$("#addBinputdate").text(json.jinputdate);
-								$("#addBemail").text(json.jemail); */
 							 	$("#addBlackCancle").trigger("click"); // 강제로 실행
-							 	//location.href("/admin/member.do");
 							 	window.location.href="<c:url value='/admin/member.do' />";
 							}
 						});//ajax
@@ -105,13 +97,6 @@ $(function(){
 			};
 		});
 	 	
-/* 	 	$("#searchBtn").click(function(){
-	 		var option=$("#searchOption option:selected").val();
-	 		var search=$("#keyword").val();
-	 	}); */
-	 	
-	 	
-		
 });		
 		
 </script>
@@ -119,8 +104,7 @@ $(function(){
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 회원 조회
-
+		<h5 style="margin-bottom: 0px;"><strong>회원 조회</strong></h5>
 	</div>
 	<div class="card-body">
 	
@@ -133,7 +117,7 @@ $(function(){
             <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-secondary" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>

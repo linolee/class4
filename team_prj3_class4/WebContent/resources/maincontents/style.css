@@ -44,15 +44,15 @@ a {
 }
 .swipe li div, .swipe div div div {
   /* background-color: #FF00FF; */
-  font-weight:bold;
+  /* font-weight:bold; */
   /* color:#fff; */
-  font-size:20px;
-  text-align:center;
-  max-width:80%;
+  /* font-size:20px; */
+  /* text-align:center; */
+  /* max-width:80%; */
   height: 250px;
 }
 .swipe li  img{
-	max-width:80%;
+	max-width:100%;
 }
 .swipe li{
 	margin:10px;

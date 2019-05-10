@@ -241,7 +241,11 @@ public class MemberController {
 	@RequestMapping(value = "user/member/changePassword.do", method = POST)
 	public String changePassword(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
-		System.out.println(request.getAttribute("client_id").toString());
+		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
 		return json.toJSONString();
 	}
 	

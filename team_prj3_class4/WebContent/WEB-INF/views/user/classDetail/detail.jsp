@@ -86,6 +86,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+.trigger{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
+#guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -109,8 +111,14 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	$("#qnaBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
+	$("#guestqnaBtn").click(function(){
+		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
+	});
 	$("#reportBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
+	});
+	$("#joinBtn").click(function(){
+		
 	});
  });//ready
 </script>
@@ -118,6 +126,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 $(function () {
    $('.summernote_contents').summernote({ airMode: true });
    $('.summernote_contents').summernote('disable');
+   $('.summernote_contents2').summernote({ airMode: true });
+   $('.summernote_contents2').summernote('disable');
 });
 </script>
 <!-- summernote 관련 library 끝 -->   
@@ -239,7 +249,7 @@ $(function () {
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">수업 정보</span></div>
                           <div style="margin:20px; font-size: 15px;">
-                           <textarea name="contents" class="summernote_contents" id="summernote" style="width: 90%; margin: 15px;">
+                           <textarea name="contents" class="summernote_contents2" id="summernote" style="width: 90%; margin: 15px;">
                           <c:out value="${detailc.curriculum}"/> 
                           	<%-- <%=dd_vo.getContents()%> --%>	
                           </textarea>
@@ -601,10 +611,19 @@ $(function () {
 						</div> -->
 	                  </div>
 	                  <div>
-	                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
-           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
-	                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
-	                  	<input type="button" class="trigger" id="joinBtn" value="클래스 신청하기 "/>
+	                    <input type="hidden" value="${id}"/>
+	                    <c:choose>
+						<c:when test="${empty id}">
+		                  	<input type="button" class="btn" id="guestqnaBtn" value="강사에게 문의하기"/>
+		                  	<input type="button" class="trigger" value="클래스 신청하기 "/>
+						</c:when>
+						<c:otherwise>
+		                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
+	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
+		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
+		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
+						</c:otherwise>
+						</c:choose>
 	                  
 	                  </div>
 	                  

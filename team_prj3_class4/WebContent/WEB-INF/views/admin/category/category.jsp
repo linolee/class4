@@ -226,13 +226,13 @@ $(function () {
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<ol class="breadcrumb" style="background-color:#f0f3f5; border-bottom:none; margin-bottom:0px; padding-bottom:0px; padding-top:0px;">
-			<li class="breadcrumb-item">
-				<font size="5" face="휴먼편지체">카테고리 관리</font>
-			</li>
+		<ol class="breadcrumb" style="background-color:#f0f3f5;border-bottom:none;margin-bottom:0px;padding-bottom:0px;padding-top:0px;padding-left: 0px;">
+			<!-- <li class="breadcrumb-item"> -->
+				<h5 style="margin-bottom: 0px;"><strong>카테고리</strong></h5>
+			<!-- </li> -->
 			<li class="breadcrumb-menu d-md-down-none">
 				<div>
-					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top:5px; padding-bottom:5px;width:150px;">카테고리 추가</a>
+					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top: 3px;padding-bottom: 5px;width:120px;height:25px;">카테고리 추가</a>
 				</div> 
 			</li>
 		</ol>

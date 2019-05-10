@@ -3,7 +3,7 @@ package kr.co.sist.user.domain;
 import java.sql.Date;
 
 public class Recommend {
-	private String lcode,main_img,lname,teacher_name,address;
+	private String lcode,main_img,lname,teacher_name,si,gu;
 	private Date l_date;
 	private int star;
 	public String getLcode() {
@@ -30,12 +30,6 @@ public class Recommend {
 	public void setTeacher_name(String teacher_name) {
 		this.teacher_name = teacher_name;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public Date getL_date() {
 		return l_date;
 	}
@@ -47,6 +41,18 @@ public class Recommend {
 	}
 	public void setStar(int star) {
 		this.star = star;
+	}
+	public String getSi() {
+		return si;
+	}
+	public void setSi(String si) {
+		this.si = si;
+	}
+	public String getGu() {
+		return gu;
+	}
+	public void setGu(String gu) {
+		this.gu = gu;
 	}
 	
 	

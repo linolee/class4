@@ -3,52 +3,61 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!--  -->
-                <div class="card">
-                  <div class="card-header">
-                    <i class="fa fa-align-justify"></i> 강의 조회</div>
-                  <div class="card-body">
+<div class="card">
+	<div class="card-header">
+		<h5 style="margin-bottom: 0px;"><strong>강의 조회</strong></h5>
+	</div>
+	<div class="card-body">
                		 
-               		 <div class='searchbox'>
-    		<form name="membersearchf" class="form-inline" action="<?php echo $link_url;?>">
-        <input type="hidden" name="orderby" value="<?php echo $xorderby;?>" />
-        <select name="where" class="form-control input-sm">
-            <option value="userNM">강의명</option>
-            <option value="userID">강사명</option>
-        </select>
+		<div class='searchbox'>
+    		<form name="lectureSearch" class="form-inline" action="lecture.do" method="get">
+				<select name="searchOption" id="searchOption" class="form-control input-sm">
+            		<option value="lcode">강의코드</option>
+            		<option value="lname">강의명</option>
+            		<option value="teacher_name">강사명</option>
+				</select>
         <div class="input-group input-group-sm">
-            <input type="text" name="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
+			<input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-secondary" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>
-  	  </form>
-  	  
+			</form>
 		<br/>
-</div>
+		</div>
+		
+		<div>
+			<a href="lecture.do"><input type="button" class="btn btn-brand btn-instagram" value="전체" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=A"><input type="button" class="btn btn-brand btn-vine" value="오픈" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=F"><input type="button" class="btn btn-brand btn-dribbble" value="마감" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=I"><input type="button" class="btn btn-brand btn-github" value="진행중" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=E"><input type="button" class="btn btn-brand btn-twitter" value="종료" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=R"><input type="button" class="btn btn-brand btn-spotify" value="준비중" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=C"><input type="button" class="btn btn-brand btn-youtube" value="취소" id="search" style="margin-bottom: 4px;"/></a>
+		</div>
 
-                    <table class="table table-responsive-sm table-striped" style="text-align:center">
-                      <thead>
-                        <tr>
-                          <th width="100px">강의코드</th>
-                          <th width="100px">카테고리</th>
-                          <th width="500px" align="center">강의명</th>
-                          <th width="200px">강사명</th>
-                          <th width="100px">진행상황</th>
-                          <th width="100px">비고</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      	<c:if test="${empty lectureList }">
-                      	<tr>
-                      		<td colspan="6" align="center">
-                      			<strong>등록된 강의가 없습니다</strong>
-                      		</td>
-                      	</tr>
-                      	</c:if>
+	<table class="table table-responsive-sm table-striped" style="text-align:center">
+		<thead>
+			<tr>
+				<th width="100px">강의코드</th>
+				<th width="100px">카테고리</th>
+				<th width="500px" align="center">강의명</th>
+				<th width="200px">강사명</th>
+				<th width="100px">진행상황</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:if test="${empty lectureList }">
+				<tr>
+					<td colspan="5" align="center">
+						<strong>등록된 강의가 없습니다</strong>
+					</td>
+				</tr>
+			</c:if>
                       	
-                      	<c:forEach var="lecture" items="${lectureList }">
+			<c:forEach var="lecture" items="${lectureList }">
                       	<tr>
                       		<td><c:out value="${lecture.lcode }"/></td>
                       		<td><c:out value="${lecture.category }"/></td>
@@ -88,15 +97,15 @@
 							</c:choose>
 
                       	</tr>
-                      	</c:forEach>
-                      </tbody>
-                    </table>
-                    <div style="text-align: center">
-                    <div style="display: inline-block;">
-                    <ul class="pagination">
-                    	<c:out value="${ indexList }" escapeXml="false"/>
-                    </ul>
-                    </div>
-                    </div>
-                  </div>
+			</c:forEach>
+		</tbody>
+	</table>
+	<div style="text-align: center">
+		<div style="display: inline-block;">
+			<ul class="pagination">
+				<c:out value="${ indexList }" escapeXml="false"/>
+			</ul>
+		</div>
+	</div>
+	</div>
 </div>       
