@@ -115,12 +115,34 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#reportBtn").click(function(){
-		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
+		location.href="http://localhost:8080/team_prj3_class4/user/student/like.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#joinBtn").click(function(){
 		
 	});
  });//ready
+	function jjim(lcode){
+		$.ajax({
+			url : "http://localhost:8080/team_prj3_class4/user/student/jjimHeart.do",
+			data : "lcode="+lcode,
+			dataType : "text",
+			type : "get",
+			error : function( xhr ){
+				alert("잠시 후 다시 시도해주세요.");
+				console.log( xhr.status );
+			},
+			success : function( jjim ){
+				if(jjim=="♥"){
+					alert("찜했습니다~"+jjim);
+					$("#likeBtn").val("찜취소");
+				}//end if
+				if(jjim=="♡"){
+					alert("찜을 취소하셨습니다~"+jjim);
+					$("#likeBtn").val("찜하기");
+				}//end if
+			}
+		});
+	}//jjim
 </script>
 <script type="text/javascript">
 $(function () {
@@ -618,7 +640,7 @@ $(function () {
 		                  	<input type="button" class="trigger" value="클래스 신청하기 "/>
 						</c:when>
 						<c:otherwise>
-		                  	<input type="button" class="btn" id="likeBtn" value="찜하기" />
+		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
 		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
