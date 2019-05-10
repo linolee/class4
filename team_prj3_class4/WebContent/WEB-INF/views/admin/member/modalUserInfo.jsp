@@ -59,7 +59,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">확인</button>
 								</div>

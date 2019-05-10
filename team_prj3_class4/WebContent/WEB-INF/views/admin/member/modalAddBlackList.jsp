@@ -53,7 +53,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<form action="member.do" method="post" name="addFrm">
 										<button type="button" class="btn btn-danger" id="addBlack">확인</button>
 									</form>
