@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +29,16 @@ public class LectureController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/lecture.do",method=GET)
-	public String lecturePage(ListVO lvo, Model model,
+	public String lecturePage(ListVO lvo, Model model, HttpSession session, 
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword,
 			@RequestParam(value="status", required=false)String status) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<LectureListDomain> list=null;
 		
 		int totalCount = ls.totalCount();
@@ -66,14 +74,6 @@ public class LectureController {
 			lsvo.setStartNum(startNum);
 			lsvo.setEndNum(endNum);
 			list=ls.lectureStatusSearch(lsvo);
-			/*LectureDAO ldao=LectureDAO.getInstance();
-			list=ldao.lectureStatusSearch(lsvo);*/
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println(lsvo.getCurrentPage()+" / "+lsvo.getStartNum()+" / "+lsvo.getEndNum()+" / "+lsvo.getStatus());
-			System.out.println(list);
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
 		}
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");

@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -32,13 +34,16 @@ public class TeacherPermitController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/teacherAuthority.do",method=GET)
-	public String teacherAuthorityPage(ListVO lvo, Model model,
+	public String teacherAuthorityPage(ListVO lvo, Model model, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
 		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<TeacherPermitDomain> list=null;
-		/*ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext2.xml");
-		TeacherPermitService tps=ac.getBean(TeacherPermitService.class);*/
 		
 		int totalCount = tps.totalCount();//총 게시물의 수
 		int pageScale = is.pageScale();
@@ -63,12 +68,7 @@ public class TeacherPermitController {
 			list=tps.teacherPermitOptionSearch(osvo);
 		}
 		
-		
-		
-		
-		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "teacherAuthority.do");
-		
 		
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);

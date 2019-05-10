@@ -6,6 +6,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,14 @@ public class BlackListController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/blacklist.do",method={GET,POST})
-	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request,
+	public String blacklistPage(ListVO lvo, Model model, HttpServletRequest request, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 		
 		String id=request.getParameter("hdnBlack");
 		

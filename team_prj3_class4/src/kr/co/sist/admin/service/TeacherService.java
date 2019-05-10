@@ -57,7 +57,8 @@ public class TeacherService {
 			json.put("tTel", tdd.getTel());
 			json.put("tInputdate", tdd.getInputdate());
 			json.put("tEmail", tdd.getEmail());
-			json.put("tIntroduce", URLEncoder.encode(tdd.getIntroduce(),"UTF-8"));		
+			json.put("tIntroduce", URLEncoder.encode(tdd.getIntroduce(),"UTF-8"));
+			json.put("img", tdd.getImg());
 
 			
 			JSONObject json_temp=null;

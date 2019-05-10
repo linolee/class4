@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,14 @@ public class CategoryController {
 	private CategoryService cs;
 	
 	@RequestMapping(value="/admin/category.do",method= {GET,POST})
-	public String categoryPage(ListVO lvo, Model model, HttpServletRequest request) {
+	public String categoryPage(ListVO lvo, Model model, HttpServletRequest request, HttpSession session) {
+		
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		
 		String url="admin/template";
 		List<CategoryDomain> list=null;
@@ -48,37 +56,15 @@ public class CategoryController {
 		
 		list=cs.selectAllCategory(lvo);
 		
-		
-		
-		/////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////
-		///////////////// currentPage test////////////////////////////////////
-		/*String curr="";
-		if(request.getParameter("currentPage")!=null) {
-			String pp=request.getParameter("currentPage");
-			curr="?currentPage="+pp;
-			System.out.println("+--+--+-+---+++-+-+-+-+-"+curr);
-			System.out.println("+--+--+-+---+++-+-+-+-+-"+"category/category"+curr);
-			//url="forward:/admin/category.do"+curr;
-			url="/admin/category.do"+curr;
-		}*/
-		/////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////
-		
 		Map<String, List> map=new HashMap<String, List>();
 		List<String> innerCateList=null;
-		//////////////// 소분류 test
+
 		for(int i=0;i<list.size();i++) {
 			String cate=list.get(i).getCategory();
 			innerCateList=cs.selectInnerCategory(cate);
-			
 			model.addAttribute("inner", innerCateList);
-			// map.put(cate, inCateList);
 		}
-		//System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+map);
-		//System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+inCateList);
-		//model.addAttribute("inCateList", inCateList);
+		
 		model.addAttribute("innerCate", map);
 		
 		String[] innerBtn= {"btn-twitter", "btn-vine"};
@@ -91,20 +77,17 @@ public class CategoryController {
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", lvo.getCurrentPage());
-		/*model.addAttribute("page", "category/category"+curr);*/
 		model.addAttribute("page", "category/category");
-		/*return "admin/template";*/
 		return url;
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/addInnerCate.do",method=GET)
-	public String addInnerCategory(@RequestParam(value="category")String category, @RequestParam(value="innerCategory")String innerCategory
-											) {
+	public String addInnerCategory(@RequestParam(value="category")String category, @RequestParam(value="innerCategory")String innerCategory) {
+		
 		JSONObject json = null;
 		AddInnerCategory aic=new AddInnerCategory(category, innerCategory);
 		json=cs.addInnerCate(aic);
-		//System.out.println("------+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+category+"+-+-+-+-+-+-+-+"+innerCategory);
 		
 		return json.toJSONString();
 	}
@@ -116,7 +99,6 @@ public class CategoryController {
 		
 		try {
 			if(cs.fileUploadProcess(request)) {
-				//url="forward:/admin/category.do";
 				url="redirect:/admin/category.do";
 			}
 		} catch (IOException e) {
@@ -131,7 +113,6 @@ public class CategoryController {
 		
 		try {
 			if(cs.addNewCategory(request)) {
-				/*url="forward:/admin/category.do";*/
 				url="redirect:/admin/category.do"; // 파라미터 없앨때는 redirect 사용
 			}
 		}catch (IOException e) {
