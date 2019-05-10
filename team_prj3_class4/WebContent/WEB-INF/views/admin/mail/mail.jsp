@@ -33,15 +33,13 @@ function findEaddress() {
 					$("#glyphiconBtn").attr("class", "glyphicon glyphicon-minus-sign");
 				}
 				
-				/* $("#mId").text(json.jid);
-				$("#mName").text(decodeURIComponent(json.jname)); */
-	
 			}
 		});//ajax 
  	} // if
 }
 
 $(function(){
+	
 	$("#searchBtn").click(function(){
 		var flag=$("#idSearchFlag").val();
 		if(flag=="false"){
@@ -53,6 +51,12 @@ $(function(){
 			$("#glyphiconBtn").attr("class", "glyphicon glyphicon-plus-sign");
 		} // if
 	}); // function
+	
+	$("#go").click(function(){
+		if(confirm("정말 메일을 전송하시겠습니까?")){
+			$("[name='sendEmail']").submit();
+		}
+	});
 });
 
 
@@ -76,21 +80,22 @@ $(function(){
            	</span>
         </div>
   	  </div>
+	<form name="sendEmail" action="sendEmail.do" method="post">
   	  <div class="form-inline" style="padding-bottom: 10px;">
   	  	<strong style="padding-right: 17px;">이메일</strong>
-  	  	<input type="text" id="email" class="form-control input-search" readonly style="width:30%; height:35px;"/>
+  	  	<input type="text" id="email" name="email" class="form-control input-search" readonly style="width:30%; height:35px;"/>
   	  </div>
 		<div class="form-inline">
-			<input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="제목" maxlength="50" style="width:100%;height:35px;" >
+			<input type="text" name="title" class="form-control input-search" placeholder="제목" maxlength="50" style="width:100%;height:35px;" >
 		</div>
   	  
   	  <br/>
   	  <div>
-  	  	<textarea class="form-control input-search" style="width:100%; height:500px;"></textarea>
+  	  	<textarea name="content" class="form-control input-search" style="width:100%; height:500px;"></textarea>
   	  
   	  </div>
+	  </form>
   	  <br/>
-  	  <input type="button" class="btn btn-brand btn-vine" value="전송"/>
-  	  
+  	  <input type="button" class="btn btn-brand btn-vine" id="go" value="전송"/>
 	</div>
 </div>

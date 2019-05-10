@@ -1,24 +1,26 @@
 package kr.co.sist.admin.controller;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.sist.admin.service.AdminLoginService;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
-import org.json.simple.JSONObject;
+import kr.co.sist.admin.service.MailService;
 
 @Controller
 public class MailController {
 	
 	@Autowired
-	private AdminLoginService als;
+	private MailService ms;
 
-	@RequestMapping(value="/admin/mail.do", method=GET)
+	@RequestMapping(value="/admin/mail.do", method= {GET,POST})
 	public String mailPage(Model model) {
 		
 		model.addAttribute("page", "mail/mail");
@@ -29,7 +31,25 @@ public class MailController {
 	@RequestMapping(value="/admin/findEaddress.do", method=GET)
 	public String findEaddress(String id) {
 		JSONObject json=null;
-		json=als.findEaddress(id);
+		json=ms.findEaddress(id);
 		return json.toJSONString();
+	}
+	
+	@RequestMapping(value="/admin/sendEmail.do", method=POST)
+	public String sendEmail(HttpServletRequest request, String email, String title, String content) {
+		
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		System.out.println(email);
+		System.out.println(title);
+		System.out.println(content);
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
+		
+		ms.sendEmail(request, email, title, content);
+		
+		return "redirect:/admin/mail.do";
 	}
 }

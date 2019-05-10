@@ -1,6 +1,5 @@
 package kr.co.sist.admin.service;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,16 +46,6 @@ public class AdminLoginService {
 		svo.setExitClient(exitClient);
 		
 		return svo;
-	}
-	
-	// 아이디로 메일주소 찾기
-	public JSONObject findEaddress(String id) {
-		String email=al_dao.findEaddress(id);
-		JSONObject json=new JSONObject();
-		if(null!=email) {
-			json.put("email", email);
-		}
-		return json;
 	}
 	
 }
