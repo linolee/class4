@@ -5,7 +5,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">회원정보</h5>
+				<h5 class="modal-title" id="modal"><strong>회원정보</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -14,9 +14,8 @@
 			<div class="modal-body">
 				<form action="./reportAction.jsp" method="post">
 
-					<!-- temp table -->
 
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
@@ -43,8 +42,6 @@
 						</tbody>
 					</table>
 
-					<!-- temp table -->
-
 					<div class="form-group">
 						<label>수강 강의 목록</label>
 
@@ -59,7 +56,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">확인</button>
 								</div>

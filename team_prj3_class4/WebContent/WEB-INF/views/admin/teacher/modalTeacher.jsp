@@ -4,7 +4,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">강사 상세 정보</h5>
+				<h5 class="modal-title" id="modal"><strong>강사 상세 정보</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -12,7 +12,7 @@
 			</div>
 			<div class="modal-body">
 
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td rowspan="5" colspan="2" style="width:55%;">
@@ -54,12 +54,10 @@
 						</tbody>
 					</table>
 
-
 					<div class="form-group">
 						<label>진행중인 강의</label>
 
-						<table class="table table-responsive-sm"
-							style="text-align: center">
+						<table class="table table-responsive-sm" style="text-align: center">
 							<tbody id="lesson">
 							</tbody>
 						</table>
@@ -67,8 +65,7 @@
 					<div class="form-group">
 						<label>경력사항</label>
 
-						<table class="table table-responsive-sm"
-							style="text-align: center">
+						<table class="table table-responsive-sm" style="text-align: center">
 							<tbody id="career">
 							</tbody>
 						</table>

@@ -36,7 +36,8 @@ public class AdminLoginController {
 		
 		if(als.adminLogin(alvo)) {
 			session.setAttribute("loginFlag", "true");
-			url="/admin/template";
+			session.setMaxInactiveInterval(60*60);
+			url="redirect:/admin/template.do";
 		}
 		
 		return url;
@@ -45,7 +46,7 @@ public class AdminLoginController {
 	@RequestMapping(value="/admin/AdminLogoutProcess.do", method=GET)
 	public String adminLogout(HttpSession session) {
 		session.invalidate();
-		return "/admin/AdminLogin";
+		return "redirect:/admin/AdminLogin.do";
 	}
 	
 }

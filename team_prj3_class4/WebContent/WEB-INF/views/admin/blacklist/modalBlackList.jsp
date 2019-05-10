@@ -1,33 +1,27 @@
-<%@page import="kr.co.sist.admin.service.BlackListService"%>
-<%@page import="org.json.simple.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!-- 	testtest -->
 
 <div class="modal fade" id="modalBlackList" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">블랙리스트</h5>
+				<h5 class="modal-title" id="modal"><strong>블랙리스트</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				<!-- <form action="/" method="get"> -->
 
-					<!-- temp table -->
-
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
 								<td width="50px" id="bId"></td>
 								<td width="50px" style="background: #C8CED3">이름</td>
-								<td width="50px" id="bName" name="bName"></td>
+								<td width="50px" id="bName"></td>
 							</tr>
 							<tr>
 								<td style="background: #C8CED3">생년월일</td>	
@@ -47,8 +41,6 @@
 							</tr>
 						</tbody>
 					</table>
-
-					<!-- temp table -->
 
 					<div class="form-group">
 						<label>사유</label>

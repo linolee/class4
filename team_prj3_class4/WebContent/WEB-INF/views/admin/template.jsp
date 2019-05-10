@@ -18,10 +18,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="<c:url value="/resources/admin/js/bootstrap.min.js" />"></script>
 	
-<!-- 구글 태그 매니져  -->	
-<!-- Global site tag (gtag.js) - Google Analytics-->
-<!-- <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script> -->	
-
 <script>
 
 function printClock() {
@@ -124,6 +120,8 @@ $(function(){
                 <i class="nav-icon icon-star"></i> 카테고리</a>
               <a class="nav-link nav-dropdown-toggle" href="title.do">
                 <i class="nav-icon icon-star"></i> 타이틀</a>
+              <a class="nav-link nav-dropdown-toggle" href="mail.do">
+                <i class="nav-icon icon-star"></i> 메일 전송</a>
           </ul>
         </nav>
       </div>

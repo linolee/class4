@@ -20,6 +20,7 @@ public class AdminLoginService {
 		return flag;
 	}
 	
+	// 메인 통계화면
 	public StatsVO templateStats(){
 		StatsVO svo=new StatsVO();
 		
