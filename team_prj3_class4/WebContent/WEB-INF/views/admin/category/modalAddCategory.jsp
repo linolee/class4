@@ -11,7 +11,7 @@
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
 							<tr>
-								<td><h3>카테고리 추가</h3></td>
+								<td><h3><strong>카테고리 추가</strong></h3></td>
 							</tr>
 							<tr>
 								<td style="width:1350px; height:100px">

@@ -5,7 +5,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">블랙리스트 등록</h5>
+				<h5 class="modal-title" id="modal"><strong>블랙리스트 등록</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -13,9 +13,8 @@
 			</div>
 			<div class="modal-body">
 
-					<!-- temp table -->
 
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
@@ -41,8 +40,6 @@
 							</tr>
 						</tbody>
 					</table>
-
-					<!-- temp table -->
 
 					<div class="form-group">
 						<label>사유</label>

@@ -2,56 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <style type="text/css">
-#wrapper {
-	font-family: 'PT Sans', sans-serif;
-}
-
-
-
-/* --*-*-*-*-*--**--*수정해야함*-*-*-*-*--*-**-*--**--* */
-/* #wrap{margin:0px auto; width:1100px; min-height:2500px;}
-#header{width:1100px; height:140px;position: relative; }
-#container2{clear:both; width:1100px; min-height:1500px; } */
-/* --*-*-*-*-*--**--*수정해야함*-*-*-*-*--*-**-*--**--* */
-
-
-
-/* #footer{clear:both;position:static;width:1100px; height: 140px; clear:both }
-#footerTitle{float: right; font-size:15px; padding-top:20px; padding-right:20px; } */
-
- /* 내부 */
-/* table{align : center; text-align: center;}
-td{font-size: 17px;}  */ 
-.contentTitle{font-size: 24px;font-weight: bold;}
-.clear_fix{border-bottom: 1px solid #cdcdcd;height: 30px;}
-
-dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adadad;}
-dd{font-size: 15px; font-color: #adadad; float: right;} 
-#qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
-#joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
-#likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
-#reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
-
+contentTitle{font-size: 24px;font-weight: bold;}
 </style>	
-	
-	
 	
 <div class="modal fade" id="modalLecturePermit" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content" style="width:725px;">
 		
 		<div class="modal-header">
-				<h5 class="modal-title" id="modal">강의 개설 승인</h5>
+				<h5 class="modal-title" id="modal"><strong>강의 개설 승인</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-		<!-- <div id="wrap"> -->
 	<div id="header">
 	</div>
 	<div id="container2">
@@ -101,15 +66,11 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                        <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">클래스를 소개해요</span></div>
                           <div style="margin:20px; font-size: 15px;" id="ls_contents">
-                          <!-- <textarea name="contents" class="summernote_contents"  style="width: 90%; margin: 15px;"id="ls_contents">
-                          </textarea> -->
                           </div>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">수업 정보</span></div>
                           <div style="margin:20px; font-size: 15px;" id="ls_curriculum">
-                           <!-- <textarea name="contents" class="summernote_contents" id="ls_curriculum" style="width: 90%; margin: 15px;">
-                          </textarea> -->
                           </div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
                           
@@ -171,7 +132,6 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 
 
      </div>
-<!-- </div> -->
 		</div>
 	</div>
 </div>

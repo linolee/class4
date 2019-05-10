@@ -10,7 +10,6 @@ function lecturePermitDetail(lcode) {
  	$("#lcodeHdn").val(queryString);
  	$.ajax({
 		url: "lecturePermitDetail.do",
-		/* contentType: 'application/json; charset=utf-8', */
 		data: queryString,
 		type: "get",
 		dataType: "json",
@@ -53,7 +52,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_career *").remove();
 			if(json.career.length != 0){
 				for(var i=0; i<json.career.length;i++){
-					output+=decodeURIComponent(json.career[i])+"<br/>";
+					output+=decodeURIComponent(json.career[i].replace(space," "))+"<br/>";
 					$("#ls_career").append(output);
 					output="";
 				}
