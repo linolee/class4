@@ -38,16 +38,6 @@ public class MailController {
 	@RequestMapping(value="/admin/sendEmail.do", method=POST)
 	public String sendEmail(HttpServletRequest request, String email, String title, String content) {
 		
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		System.out.println(email);
-		System.out.println(title);
-		System.out.println(content);
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++");
-		
 		ms.sendEmail(request, email, title, content);
 		
 		return "redirect:/admin/mail.do";
