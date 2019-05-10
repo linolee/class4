@@ -115,7 +115,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#reportBtn").click(function(){
-		location.href="http://localhost:8080/team_prj3_class4/user/student/like.do?lcode="+$("[name='lcode']").val();	
+		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#joinBtn").click(function(){
 		
