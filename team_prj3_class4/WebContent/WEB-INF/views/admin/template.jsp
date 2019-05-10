@@ -206,7 +206,7 @@ $(function(){
 		
 		<div style="text-align: center">
 			<div style="display: inline-block;">
-				<div style="border:1px solid #dedede; width:600px; height:250px; line-height:250px; color:#666;font-size:100px; text-align:center;" id="clock">
+				<div style="width:600px; height:250px; line-height:250px; color:#666;font-size:100px; text-align:center;" id="clock">
 				</div>
 			</div>
 		</div>
