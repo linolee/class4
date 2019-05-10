@@ -107,7 +107,17 @@ public class mainContentsService {
 		List<LatestReview> latestreview1=null;
 		latestreview1=new ArrayList<LatestReview>();
 		latestreview=mc_dao.selectLatestReview();
+		
+		LatestReview lrv=null;
+		String contents="";
 		for(int i=0; i<3; i++) {
+			lrv=latestreview.get(i);
+			contents=lrv.getContents();
+			if(contents.length()>53) {
+				contents=contents.substring(0, 53)+"...";
+				lrv.setContents(contents);
+			}//end if
+			
 			if(latestreview.size()>i) {
 				latestreview1.add(latestreview.get(i));
 			}else {

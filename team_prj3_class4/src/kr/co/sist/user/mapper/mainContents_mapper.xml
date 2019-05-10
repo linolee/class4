@@ -8,7 +8,6 @@
 	<![CDATA[
 	select category 
 	from category 
-	where rownum <= 11 
 	order by category
 	]]>
 </select>
