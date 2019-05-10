@@ -415,6 +415,7 @@ public class MypageController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
+		System.out.println(clientId);
 		boolean updateJjim = false;
 		ListVO lvo=new ListVO(lcode, clientId);
 		String jjim="";
