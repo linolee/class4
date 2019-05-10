@@ -42,41 +42,44 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	
 <div class="modal fade" id="modalLecturePermit" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
+		<div class="modal-content" style="width:725px;">
 		
-		
+		<div class="modal-header">
+				<h5 class="modal-title" id="modal">강의 개설 승인</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
 		<!-- <div id="wrap"> -->
 	<div id="header">
-		<%-- <c:import url="../header/header.jsp"></c:import> --%>
 	</div>
 	<div id="container2">
-	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
-			강의 개설 승인
-			<div id="classTitleImg" style="height: 400px; border: 1px solid #333; top:20px; ">
+			<div id="classTitleImg" style="height: 400px;">
 				
 				<!-- 대표이미지 -->
-				<img style="width: 100%; height: 400px;" id="ls_bannerImg" src="http://localhost:8080/team_prj3_class4/upload/default.jpg">
+				<img style="width: 100%; height: 400px;" id="ls_bannerImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
 			</div>
             <div id="summary" style="margin: 5px;">
-             <h1 class="c_title" style="line-height: 1.2;" id="ls_lname"></h1>
-             <p class="c_summary" id="ls_lintro"></p>
-            	<table style="margin: 20px;">
+             <h1 class="c_title" style="line-height: 1.2;padding-left: 15px;" id="ls_lname"></h1>
+             <p class="c_summary" id="ls_lintro" style="padding-left: 25px;"></p>
+            	<table style="margin: 20px; border-top:1px solid #cfcfcf;">
             	<tr>
             		<td rowspan="4" style="width: 180px; height: 180px;">
-            			<img style="border: 1px solid #333; width: 50px; height: 50px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/default.jpg">
+            			<img style="width: 100px; height: 100px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
             			<br/>
-						<h3 id="ls_teacher_name"></h3>
+						<h3 id="ls_teacher_name" style="padding-left: 15px;"></h3>
 					</td>
-            		<td width="150px">위치</td>
-            		<td width="150px">시간</td>
-            		<td width="150px">인원수</td>
+            		<td width="150px"><strong>위치</strong></td>
+            		<td width="150px"><strong>시간</strong></td>
+            		<td width="150px"><strong>최대 인원수</strong></td>
             	</tr>
             	<tr>
-            		<td id="ls_address"><c:out value="${summary.address}"/><br/></td>
-            		<td id="ls_class_time"><c:out value="${summary.class_time}"/><br/></td>
-            		<td id="ls_max_member"><c:out value="${summary.max_member}"/>명</td>
+            		<td id="ls_address"><br/></td>
+            		<td id="ls_class_time"><br/></td>
+            		<td id="ls_max_member"></td>
            		</tr>
            		<tr style="align-content: center">
            			<td colspan="3">
@@ -116,14 +119,14 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
                           <div class="detail_info_title"><span class="contentTitle">포함/불포함 사항</span></div>
                           <table style="margin: 20px;">
                           	<tr>
-                          		<th style="width: 150px;font-size: 17px;border-right: 1px solid #cdcdcd; ">포함 사항</th>
-                          		<th style="width: 150px;font-size: 17px;">불포함 사항</th>
+                          		<th style="width: 150px;font-size: 17px; border-right: 1px solid #cdcdcd; ">포함 사항</th>
+                          		<th style="width: 150px;font-size: 17px; padding-left: 30px;">불포함 사항</th>
                           	</tr>
                           	<tr>
                           		<td style="font-size: 15px;border-right: 1px solid #cdcdcd; " id="ls_optlist">
 									
 								</td>
-                          		<td style="font-size: 15px;" id="ls_noptlist">
+                          		<td style="font-size: 15px;padding-left: 30px;" id="ls_noptlist">
                           		</td>
                           	</tr>
                           </table>
@@ -149,8 +152,8 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 									<div style="display: inline-block;">
 										<div class="form-row">
 											<div class="modal-footer" style="border-top:none;">
-												<button type="button" class="btn btn-primary"	data-dismiss="modal" id="lecturePermission">승인</button>
-												<button type="button" class="btn btn-danger"	data-dismiss="modal" id="lectureRefuse">거절</button>
+												<button type="button" class="btn btn-primary"	id="lecturePermission">승인</button>
+												<button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button>
 											</div>
 										</div>
 									</div>

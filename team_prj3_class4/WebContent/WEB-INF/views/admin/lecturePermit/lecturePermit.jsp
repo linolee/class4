@@ -25,7 +25,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
 			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
 			$("#ls_class_time").text(json.class_time);
-			$("#ls_max_member").text(json.max_member);
+			$("#ls_max_member").text(json.max_member+"명");
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," ")));
 			$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
@@ -150,7 +150,7 @@ $(function(){
 			
 		/* function lecturePermission() { */
 		 	var queryString = $("#lcodeHdn").val();
-		 	alert(queryString);
+		 	//alert(queryString);
 		 	$.ajax({
 				url: "lecturePermission.do",
 				data: queryString,

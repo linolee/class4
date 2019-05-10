@@ -9,7 +9,7 @@
 	</div>
 	<div class="card-body">
                		 
-		<div class='searchbox'>
+		<div class='searchbox' style="height: 50px;">
     		<form name="lectureSearch" class="form-inline" action="lecture.do" method="get">
 				<select name="searchOption" id="searchOption" class="form-control input-sm">
             		<option value="lcode">강의코드</option>
@@ -28,14 +28,14 @@
 		<br/>
 		</div>
 		
-		<div>
+		<div style="padding-bottom: 10px;">
 			<a href="lecture.do"><input type="button" class="btn btn-brand btn-instagram" value="전체" id="search" style="margin-bottom: 4px;"/></a>
-			<a href="lecture.do?status=A"><input type="button" class="btn btn-brand btn-vine" value="오픈" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=Y"><input type="button" class="btn btn-brand btn-vine" value="오픈" id="search" style="margin-bottom: 4px;"/></a>
 			<a href="lecture.do?status=F"><input type="button" class="btn btn-brand btn-dribbble" value="마감" id="search" style="margin-bottom: 4px;"/></a>
 			<a href="lecture.do?status=I"><input type="button" class="btn btn-brand btn-github" value="진행중" id="search" style="margin-bottom: 4px;"/></a>
 			<a href="lecture.do?status=E"><input type="button" class="btn btn-brand btn-twitter" value="종료" id="search" style="margin-bottom: 4px;"/></a>
 			<a href="lecture.do?status=R"><input type="button" class="btn btn-brand btn-spotify" value="준비중" id="search" style="margin-bottom: 4px;"/></a>
-			<a href="lecture.do?status=C"><input type="button" class="btn btn-brand btn-youtube" value="취소" id="search" style="margin-bottom: 4px;"/></a>
+			<a href="lecture.do?status=C"><input type="button" class="btn btn-brand btn-youtube" value="취소/거절" id="search" style="margin-bottom: 4px;"/></a>
 		</div>
 
 	<table class="table table-responsive-sm table-striped" style="text-align:center">
