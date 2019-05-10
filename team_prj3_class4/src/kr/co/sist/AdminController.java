@@ -25,7 +25,7 @@ public class AdminController {
 
 		String loginChk=(String)session.getAttribute("loginFlag");
 		if("true"!=loginChk) {
-			return "admin/AdminLogin";
+			return "redirect:/admin/AdminLogin.do";
 		}
 		
 		StatsVO svo=new StatsVO();

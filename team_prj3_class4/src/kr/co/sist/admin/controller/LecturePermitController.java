@@ -58,7 +58,6 @@ public class LecturePermitController {
 			list=lps.memberOptionSearch(osvo);
 		}
 		
-		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecturePermit.do");
 		
 		model.addAttribute("indexList", indexList);

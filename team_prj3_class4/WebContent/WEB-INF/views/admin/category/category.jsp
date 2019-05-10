@@ -140,7 +140,7 @@ $(function () {
 	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
  	$("#addSCate").click(function(){
- 		var input = prompt("추가할 카테고리명을 입력해주세요");
+ 		var input = prompt("추가할 소분류명을 입력해주세요");
  		if(input!=null){
  				var hdn=$("#hdnCate").val();
  				var page=Number($("#currentPage").val())+1-1;

@@ -36,7 +36,7 @@ public class CategoryController {
 		
 		String loginChk=(String)session.getAttribute("loginFlag");
 		if("true"!=loginChk) {
-			return "admin/AdminLogin";
+			return "redirect:/admin/AdminLogin.do";
 		}
 		
 		
@@ -83,12 +83,11 @@ public class CategoryController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/addInnerCate.do",method=GET)
-	public String addInnerCategory(@RequestParam(value="category")String category, @RequestParam(value="innerCategory")String innerCategory
-											) {
+	public String addInnerCategory(@RequestParam(value="category")String category, @RequestParam(value="innerCategory")String innerCategory) {
+		
 		JSONObject json = null;
 		AddInnerCategory aic=new AddInnerCategory(category, innerCategory);
 		json=cs.addInnerCate(aic);
-		//System.out.println("------+-+-+-+-+-+-+-+-+-+-+-+-+-+-"+category+"+-+-+-+-+-+-+-+"+innerCategory);
 		
 		return json.toJSONString();
 	}

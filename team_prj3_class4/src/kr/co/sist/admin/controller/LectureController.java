@@ -66,14 +66,6 @@ public class LectureController {
 			lsvo.setStartNum(startNum);
 			lsvo.setEndNum(endNum);
 			list=ls.lectureStatusSearch(lsvo);
-			/*LectureDAO ldao=LectureDAO.getInstance();
-			list=ldao.lectureStatusSearch(lsvo);*/
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println(lsvo.getCurrentPage()+" / "+lsvo.getStartNum()+" / "+lsvo.getEndNum()+" / "+lsvo.getStatus());
-			System.out.println(list);
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
-			System.out.println("+--+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-");
 		}
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");
