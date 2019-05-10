@@ -128,8 +128,15 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 			}
 			
 			$("#actionForm").submit();
-			
+			alert("작성을 완료하였습니다.");
 		});
+		
+		$("#cancelButton").click(function(){
+			if(confirm("작성을 종료하시겠습니까?")){
+				window.location.href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode="+$("#lcode").val();
+			}//end if
+		});
+		
 	});//ready
 </script>
 </head>

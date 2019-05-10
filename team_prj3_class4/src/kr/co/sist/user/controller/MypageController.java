@@ -708,8 +708,8 @@ public class MypageController {
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
 				if(!(request.getParameter("toDate")==null)) {
-					if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-							&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+					if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+							&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
 						reportList.add(ums.reportList(lvo));
 					}//end if
 				}//end if
@@ -723,10 +723,10 @@ public class MypageController {
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
 				if(request.getParameter("status").equals("Y")) {
-					if(ums.reportList(lvo).get(i).getStatus().equals("Y")) {
+					if(ums.reportList(lvo).get(0).getStatus().equals("Y")) {
 						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
 								reportList.add(ums.reportList(lvo));
 							}//end if
 						}//end if
@@ -736,10 +736,10 @@ public class MypageController {
 					}//end if
 				}//end if
 				if(request.getParameter("status").equals("N")) {
-					if(ums.reportList(lvo).get(i).getStatus().equals("N")) {
+					if(ums.reportList(lvo).get(0).getStatus().equals("N")) {
 						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
 								reportList.add(ums.reportList(lvo));
 							}//end if
 						}//end if
