@@ -159,7 +159,9 @@ $(function () {
 	<div id="header">
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
+	
 	<div id="container">
+	<a href="#review" id="rli"></a>
 	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
@@ -405,7 +407,8 @@ $(function () {
 							}//setMarker
 							</script>
 							<div id="map" style="width:600px;height:400px; margin: 15px;"></div>
-							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
+							
+							<div class="group" id="review" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
 									<span class="contentTitle" style="float: letf">리뷰</span>
 									<!-- <input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/> -->
@@ -453,7 +456,6 @@ $(function () {
 										</tr>
 									</c:if>
 										<!-- style="border-bottom: 1px solid #cdcdcd;" -->
-									</tr>
 								</table>
 							</div>					
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
