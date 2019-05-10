@@ -64,22 +64,22 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			</div>
             <div id="summary" style="margin: 5px;">
              <h1 class="c_title" style="line-height: 1.2;padding-left: 15px;" id="ls_lname"></h1>
-             <p class="c_summary" id="ls_lintro" style="padding-left: 18px;"></p>
-            	<table style="margin: 20px;">
+             <p class="c_summary" id="ls_lintro" style="padding-left: 25px;"></p>
+            	<table style="margin: 20px; border-top:1px solid #cfcfcf;">
             	<tr>
             		<td rowspan="4" style="width: 180px; height: 180px;">
-            			<img style="width: 50px; height: 50px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
+            			<img style="width: 100px; height: 100px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
             			<br/>
-						<h3 id="ls_teacher_name"></h3>
+						<h3 id="ls_teacher_name" style="padding-left: 15px;"></h3>
 					</td>
             		<td width="150px"><strong>위치</strong></td>
             		<td width="150px"><strong>시간</strong></td>
-            		<td width="150px"><strong>인원수</strong></td>
+            		<td width="150px"><strong>최대 인원수</strong></td>
             	</tr>
             	<tr>
-            		<td id="ls_address"><c:out value="${summary.address}"/><br/></td>
-            		<td id="ls_class_time"><c:out value="${summary.class_time}"/><br/></td>
-            		<td id="ls_max_member"><c:out value="${summary.max_member}"/>명</td>
+            		<td id="ls_address"><br/></td>
+            		<td id="ls_class_time"><br/></td>
+            		<td id="ls_max_member"></td>
            		</tr>
            		<tr style="align-content: center">
            			<td colspan="3">
