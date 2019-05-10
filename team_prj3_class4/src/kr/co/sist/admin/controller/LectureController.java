@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,10 +29,16 @@ public class LectureController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/lecture.do",method=GET)
-	public String lecturePage(ListVO lvo, Model model,
+	public String lecturePage(ListVO lvo, Model model, HttpSession session, 
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword,
 			@RequestParam(value="status", required=false)String status) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<LectureListDomain> list=null;
 		
 		int totalCount = ls.totalCount();

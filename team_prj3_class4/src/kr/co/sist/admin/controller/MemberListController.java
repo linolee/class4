@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +32,14 @@ public class MemberListController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(ListVO lvo, Model model, 
+	public String memberPage(ListVO lvo, Model model, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 		
 		List<MemberListDomain> list=null;
 		int totalCount = mls.totalCount();//총 게시물의 수

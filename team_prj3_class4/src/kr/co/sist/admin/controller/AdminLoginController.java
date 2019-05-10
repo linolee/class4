@@ -36,6 +36,7 @@ public class AdminLoginController {
 		
 		if(als.adminLogin(alvo)) {
 			session.setAttribute("loginFlag", "true");
+			session.setMaxInactiveInterval(60*60);
 			url="redirect:/admin/template.do";
 		}
 		
