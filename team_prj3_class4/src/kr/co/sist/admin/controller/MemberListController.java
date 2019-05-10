@@ -56,8 +56,6 @@ public class MemberListController {
 		
 		list=mls.selectAllMember(lvo);
 
-		
-		
 		OptionSearchVO osvo=new OptionSearchVO();
 		if(null!=option && null!=keyword) {
 			osvo.setOption(option);
@@ -67,7 +65,6 @@ public class MemberListController {
 			osvo.setEndNum(endNum);
 			list=mls.memberOptionSearch(osvo);
 		}
-		
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		
@@ -97,19 +94,12 @@ public class MemberListController {
 	@RequestMapping(value="/admin/addBlack.do",method=GET)
 	public String addBlack(@RequestParam(value="id", required=false)String id, @RequestParam(value="reason", required=false)String reason) {
 		JSONObject json = null;
-		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");*/
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		Date date = new Date();
 		String time = format1.format(date);
-		//System.out.println("------------------"+"id="+id+"  reason="+reason);
-		//System.out.println("-------------------"+time);
 		AddBlackVO abvo=new AddBlackVO(id, reason, time);
 		
 		json=mls.addBlack(abvo);
-		
-		// 쿼리스트링으로 값을 받아서 딜리트 쿼리 실행해야함
-		//json = mls.searchMemberDetail(id);
-		//System.out.println(json.toJSONString());
 		
 		return json.toJSONString();
 	}

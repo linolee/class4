@@ -15,6 +15,7 @@
 	where admin_id=#{adminId} and pass=#{pass}
 </select>
 
+<!-- 메인 화면 통계 조회 -->
 <select id="totalClient" resultType="int">
 	select count(*) cnt
 	from client
@@ -63,6 +64,14 @@ from client
 <select id="totalCategory" resultType="int">
 	select count(*) cnt
 	from category
+</select>
+<!-- 메인 화면 통계 조회 -->
+
+<!-- 메일 전송 아이디로 이메일 주소 찾기 -->
+<select id="findEaddress" parameterType="String" resultType="String">
+select email
+from client
+where client_id=#{client_id}
 </select>
 
 

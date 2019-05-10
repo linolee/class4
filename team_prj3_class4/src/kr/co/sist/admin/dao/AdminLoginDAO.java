@@ -123,11 +123,16 @@ private SqlSessionFactory ssf;
 		return cnt;
 	}
 	
+	public String findEaddress(String id) {
+		SqlSession ss=getSessionFactory().openSession();
+		String email=ss.selectOne("findEaddress", id);
+		return email;
+	}
+	
 	public static void main(String[] args) {
 		AdminLoginDAO aldao=new AdminLoginDAO();
 		/*AdminLoginVO alvo=new AdminLoginVO("admin", "1234");
 		aldao.adminLogin(alvo);*/
-		System.out.println(aldao.month());
-		System.out.println(aldao.today());
+		System.out.println(aldao.findEaddress("test2"));
 	}
 }
