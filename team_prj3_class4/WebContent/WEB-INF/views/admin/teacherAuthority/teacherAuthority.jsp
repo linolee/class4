@@ -141,7 +141,7 @@ $(function(){
 			<tbody>
 				<c:if test="${empty teacherPermitList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>승인 대기중인 강사가 없습니다</strong>
 					</td>
 				</tr>

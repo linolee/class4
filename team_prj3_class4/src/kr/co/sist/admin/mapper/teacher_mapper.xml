@@ -24,6 +24,7 @@
 	<result column="inputdate" property="inputdate"/>
 	<result column="email" property="email"/>
 	<result column="introduce" property="introduce"/>
+	<result column="img" property="img"/>
 </resultMap>
 
 <select id="teacherTotalCnt" resultType="int">
@@ -37,7 +38,7 @@ where c.client_id=t.client_id and t.status='Y'
 </select>
 
 <select id="selectDetailTeacher" resultMap="teacherDetailResult" parameterType="String">
-select c.client_id, t.category, c.name, t.teacher_name, c.gender, c.birth, c.tel, c.inputdate, c.email, t.introduce
+select c.client_id, t.category, c.name, t.teacher_name, c.gender, c.birth, c.tel, c.inputdate, c.email, t.introduce, t.img
 from client c left outer join teacher t on c.client_id=t.client_id
 where t.teacher_name=#{teacher_name}
 </select>

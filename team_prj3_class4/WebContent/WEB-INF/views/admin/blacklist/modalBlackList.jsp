@@ -57,17 +57,16 @@
 					</div>
 					<div class="form-group">
 						<label>적용일시</label>
-						<!-- <td id="bBinputdate"></td> -->
-						 <input type="text" readonly="readonly" id="bBinputdate"/>
+						 <input type="text" readonly="readonly" id="bBinputdate" style="border:none;"/>
 					</div>
 
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 								<form action="blacklist.do" method="post" name="delFrm">
 									<input type="hidden" name="hdnBlack"  id="hdnBlack" value=""/>
-									<button type="button" class="btn btn-danger" id="deleteBlack">블랙리스트 해제</button>
+									<button type="button" class="btn btn-danger" id="deleteBlack" >블랙리스트 해제</button>
 									<button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
 								</form>
 								</div>
