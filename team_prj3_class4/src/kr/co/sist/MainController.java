@@ -31,6 +31,7 @@ public class MainController {
 		List<Recommend> recommend3=null;
 		List<LatestReview> latestreview1=null;
 		List<LatestReview> latestreview2=null;
+		List<LatestReview> latestreview3=null;
 		
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		mainContentsService mcs=ac.getBean(mainContentsService.class);
@@ -44,6 +45,7 @@ public class MainController {
 		recommend3=mcs.selectRecommend3();
 		latestreview1=mcs.selectLatestReview1();
 		latestreview2=mcs.selectLatestReview2();
+		latestreview3=mcs.selectLatestReview3();
 		
 		model.addAttribute("clist",categoryList);
 		model.addAttribute("imgCate",imgCate);
@@ -55,6 +57,7 @@ public class MainController {
 		model.addAttribute("recommend3",recommend3);
 		model.addAttribute("latestreview1",latestreview1);
 		model.addAttribute("latestreview2",latestreview2);
+		model.addAttribute("latestreview3",latestreview3);
 		
 		return "user/mainContents/mainContents";
 	}//showContentsForm

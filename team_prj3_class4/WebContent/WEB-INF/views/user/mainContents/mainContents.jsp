@@ -46,13 +46,14 @@
 			<ul id='slider4'>
 			    <li style='display:block; width: 1100px;height: 500px;'>
 			    <div id="TitleImg1">
-			    	<img src="http://localhost:8080/team_prj3_class4/resources/img/headerImg1.jpg" width="100%" height="100%" />
+			    	<!-- <img src="http://localhost:8080/team_prj3_class4/resources/img/headerImg1.jpg" width="100%" height="100%" /> -->
+			    	<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg01.jpg" width="100%" height="100%" />
 				</div></li>
 			    <li style="width: 1100px;"><div id="TitleImg2">
-					2번 이미지
+			    	<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg02.jpg" width="100%" height="100%" />
 				</div></li>
 			    <li style="width: 1100px;"><div id="TitleImg3">
-					3번 이미지
+			    	<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg03.jpg" width="100%" height="100%" />
 				</div></li>
 			  </ul>
 		</div>
@@ -251,6 +252,7 @@
 		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
 		    					<c:out value="${latestreview1.lname}"/>
+		    					<%-- -<c:out value="${latestreview1.}"/> --%>
 		    				</div>
 		    				<div style="margin:5px;height:25px;font-size: 12px;">
 		    				<div style="float: left">
@@ -271,14 +273,58 @@
 			    	</c:forEach>
 				</li>
 			    <li><div>
-					<div id="rv04"></div>
-					<div id="rv05"></div>
-					<div id="rv06"></div>
+			    	<c:forEach var="latestreview2" items="${ requestScope.latestreview2}">
+		    		<c:set var="j" value="${j + 1 }"/>
+		    		<div id="rv0${j}" class="recommend" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview2.lcode}#review'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${latestreview2.main_img}">
+		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
+		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
+		    					<c:out value="${latestreview2.lname}"/>
+		    				</div>
+		    				<div style="margin:5px;height:25px;font-size: 12px;">
+		    				<div style="float: left">
+		    					<c:out value="${latestreview2.client_id}"/>
+		    				</div>
+		    				<div style="float: right;">
+		    					<c:out value="${latestreview2.r_date}"/>
+		    				</div>
+		    				<br/>
+		    				<div style="margin:4px;height:36px;float: left;position:absolute;font-size: 13px;">
+		    					<span >
+		    						<c:out value="${latestreview2.contents}"/>
+		    					</span>
+	    					</div>
+		    				</div>
+		    			</div>
+			    		</div>
+			    	</c:forEach>
 				</div></li>
 			    <li><div>
-					<div id="rv07"></div>
-					<div id="rv08"></div>
-					<div id="rv09"></div>
+			    	<c:forEach var="latestreview3" items="${ requestScope.latestreview3}">
+		    		<c:set var="j" value="${j + 1 }"/>
+		    		<div id="rv0${j}" class="recommend" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview3.lcode}#review'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://localhost:8080/team_prj3_class4/upload/lessonMain/${latestreview3.main_img}">
+		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
+		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
+		    					<c:out value="${latestreview3.lname}"/>
+		    				</div>
+		    				<div style="margin:5px;height:25px;font-size: 12px;">
+		    				<div style="float: left">
+		    					<c:out value="${latestreview3.client_id}"/>
+		    				</div>
+		    				<div style="float: right;">
+		    					<c:out value="${latestreview3.r_date}"/>
+		    				</div>
+		    				<br/>
+		    				<div style="margin:4px;height:36px;float: left;position:absolute;font-size: 13px;">
+		    					<span >
+		    						<c:out value="${latestreview3.contents}"/>
+		    					</span>
+	    					</div>
+		    				</div>
+		    			</div>
+			    		</div>
+			    	</c:forEach>
 				</div></li>
 			  </ul>
 			</div>

@@ -64,7 +64,7 @@
 	from review r, lesson l
 	where l.lcode=r.lcode)
 	where score>=4
-	and rownum<=6
+	and rownum<=9
 	and rank=1
 	order by r_date desc,score
 	]]>
