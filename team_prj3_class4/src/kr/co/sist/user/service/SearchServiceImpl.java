@@ -2,11 +2,9 @@ package kr.co.sist.user.service;
 
 import java.util.List;
 
-import kr.co.sist.admin.domain.QnaDetail;
-import kr.co.sist.admin.domain.QnaQuestionList;
-import kr.co.sist.admin.vo.ListVO;
-import kr.co.sist.admin.vo.QnaAnswerVO;
 import kr.co.sist.user.dao.SearchDAO;
+import kr.co.sist.user.domain.SearchClassList;
+import kr.co.sist.user.vo.SearchListVO;
 
 public class SearchServiceImpl implements SearchService {
 	SearchDAO s_dao;
@@ -14,19 +12,22 @@ public class SearchServiceImpl implements SearchService {
 		this.s_dao = s_dao;
 	}
 	
-	public int totalCount() {
+	@Override
+	public int totalCount(String keyword) {
 		int cnt = 0;
-		cnt = s_dao.selectTotalCount();
+		cnt = s_dao.selectTotalCount(keyword);
 		return cnt;
 	}
-
+	
+	@Override
 	// 2. 한 화면에 보여질 게시물의 수
 	public int pageScale() {
-		int pageScale = 10;
+		int pageScale = 6;
 
 		return pageScale;
 	}
-
+	
+	@Override
 	// 3. 총 페이지 수 구하기
 	public int totalPage(int totalCount) {
 		int totalPage = totalCount / pageScale();
@@ -37,6 +38,7 @@ public class SearchServiceImpl implements SearchService {
 		return totalPage;
 	}
 
+	@Override
 	// 4. 시작 페이지 번호 구하기
 	// current_page에 따라 시작 번호는 달라진다. 1-> 1, 2->11, 3->21 ,,,
 	public int startNum(int currentPage) {
@@ -45,6 +47,7 @@ public class SearchServiceImpl implements SearchService {
 		return startNum;
 	}
 
+	@Override
 	// 5. 끝번호 얻기
 	public int endNum(int startNum) {
 		int endNum = startNum + pageScale() - 1;
@@ -60,6 +63,7 @@ public class SearchServiceImpl implements SearchService {
 	 * @param list_url
 	 * @return
 	 */
+	@Override
 	// 현재 게시판의 페이지 인덱스 설정
 	public String indexList(int current_page, int total_page, String list_url) {
 		int pagenumber; // 화면에 보여질 페이지 인덱스 수
@@ -118,20 +122,8 @@ public class SearchServiceImpl implements SearchService {
 		return strList;
 	}// indexList
 
-	
-	public List<QnaQuestionList> searchQnAQuestionList(ListVO lvo) {
-		List<QnaQuestionList> list = null;
-		list = s_dao.selectQnAQuestionList(lvo);
-		return list;
-	}
-	
-	public QnaDetail searchQnaDetail(String qnum) {
-		QnaDetail qd = s_dao.selectQnaDetail(qnum);
-		return qd;
-	}
-	
-	public int addQnaAnswer(QnaAnswerVO qavo) {
-		int cnt = s_dao.updateQnaAnswer(qavo);
-		return cnt;
+	@Override
+	public List<SearchClassList> searchClassList(SearchListVO slvo) {
+		return s_dao.selectClassList(slvo);
 	}
 }

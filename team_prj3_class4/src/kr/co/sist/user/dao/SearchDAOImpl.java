@@ -13,6 +13,8 @@ import kr.co.sist.admin.domain.QnaDetail;
 import kr.co.sist.admin.domain.QnaQuestionList;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.QnaAnswerVO;
+import kr.co.sist.user.domain.SearchClassList;
+import kr.co.sist.user.vo.SearchListVO;
 
 public class SearchDAOImpl implements SearchDAO {
 	
@@ -38,36 +40,27 @@ public class SearchDAOImpl implements SearchDAO {
 		return ssf;
 	}//getSqlSessionFactory
 	
-	public List<QnaQuestionList> selectQnAQuestionList(ListVO lvo){
-		List<QnaQuestionList> list = null;
+	@Override
+	public List<SearchClassList> selectClassList(SearchListVO slvo) {
+		List<SearchClassList> list = null;
 		
 		SqlSession ss = getSessionFactory().openSession();
-		list = ss.selectList("selectQnaQuestionList", lvo);
+		list = ss.selectList("selectClassList", slvo);
 		ss.close();
 		return list;
 	}
 	
-	public int selectTotalCount() {
+	@Override
+	public int selectTotalCount(String keyword) {
 		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.selectOne("qnaTotalCnt");
+		int cnt = ss.selectOne("searchTotalCnt", keyword);
 		ss.close();
 		return cnt;
 	}
 	
-	public QnaDetail selectQnaDetail(String qnum){
-		QnaDetail qd = null;
-		SqlSession ss = getSessionFactory().openSession();
-		qd = ss.selectOne("qnaDetail", qnum);
-		ss.close();
-		return qd;
-	}
 	
-	public int updateQnaAnswer(QnaAnswerVO qavo){
-		SqlSession ss = getSessionFactory().openSession();
-		int cnt = ss.update("updateQnaAcontent", qavo);
-		ss.commit();
-		ss.close();
-		return cnt;
+	public static void main(String[] args) {
+		SearchDAOImpl sdi = new SearchDAOImpl();
+		sdi.selectTotalCount("ทั");
 	}
-	
 }

@@ -1,0 +1,71 @@
+package kr.co.sist.user.domain;
+
+public class SearchClassList {
+	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date;
+
+	public String getLcode() {
+		return lcode;
+	}
+
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
+	}
+
+	public String getTeacher_name() {
+		return teacher_name;
+	}
+
+	public void setTeacher_name(String teacher_name) {
+		this.teacher_name = teacher_name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getInner_category() {
+		return inner_category;
+	}
+
+	public void setInner_category(String inner_category) {
+		this.inner_category = inner_category;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getStart_date() {
+		return start_date;
+	}
+
+	public void setStart_date(String start_date) {
+		this.start_date = start_date;
+	}
+
+	public String getEnd_date() {
+		return end_date;
+	}
+
+	public void setEnd_date(String end_date) {
+		this.end_date = end_date;
+	}
+	
+	
+}
