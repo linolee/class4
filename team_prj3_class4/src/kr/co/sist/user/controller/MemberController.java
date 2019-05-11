@@ -280,12 +280,13 @@ public class MemberController {
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		String client_id = session.getAttribute("client_id").toString();
-		System.out.println(client_id);
 		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
-		System.out.println(mu_vo);
-		System.out.println("업데이트 수"+ups.memberUpdate(mu_vo));
-		String[] favors = request.getParameterValues("favor");
-		System.out.println("관심목록 업데이트 수"+ups.favorUpdate(client_id, favors));
+		ups.memberUpdate(mu_vo);
+		String[] favors= {}; 
+		if (request.getParameterValues("favor") != null) {
+			favors =request.getParameterValues("favor");
+		}
+		ups.favorUpdate(client_id, favors);
 		return userPage(request ,response, session, model);
 	}
 	
@@ -334,11 +335,6 @@ public class MemberController {
 		return "redirect:"+referer;
 	}// logout
 
-	
-	@RequestMapping(value = "user/search.do", method = GET)
-	public String searchResult() {
-		return "user/member/searchResult";
-	}
-	
+
 
 }

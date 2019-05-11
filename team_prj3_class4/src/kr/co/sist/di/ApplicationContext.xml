@@ -25,5 +25,11 @@
 	<bean class="kr.co.sist.user.dao.UserReportDAOImpl" id="UserReportDAO" scope="singleton"/>
 	
 	
+	<bean class="kr.co.sist.user.service.SearchServiceImpl" id="SearchService" scope="singleton">
+		<constructor-arg ref="SearchDAO"/>
+	</bean>	
+	<bean class="kr.co.sist.user.dao.SearchDAOImpl" id="SearchDAO" scope="singleton"/>
+	
+	
 
 </beans>

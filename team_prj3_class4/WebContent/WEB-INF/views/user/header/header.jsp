@@ -28,7 +28,7 @@
 				<form action="<%= serverDomain %>/team_prj3_class4/user/search.do">
 					<a href="<%= serverDomain %>/team_prj3_class4/user/main.do"><img alt="로고" src="<c:url value="/resources/img/logo.png" />" id="logoImg"></a>
 					<span id="searchWindow">
-						<input type='text' class='input_text' />
+						<input type='text' name="keyword" class='input_text' />
 						<button type='submit' class='sch_smit'>검색</button>
 					</span>
 				</form>
