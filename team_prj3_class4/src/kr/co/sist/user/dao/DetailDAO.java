@@ -13,12 +13,14 @@ import org.springframework.stereotype.Component;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.Join;
 import kr.co.sist.user.domain.JoinCount;
 import kr.co.sist.user.domain.QnA;
 import kr.co.sist.user.domain.ReviewDomain;
 import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
 import kr.co.sist.user.domain.TClass;
+import kr.co.sist.user.vo.ListVO;
 
 @Component
 public class DetailDAO {
@@ -188,6 +190,41 @@ public class DetailDAO {
 		ss.close();
 		return addr;
 	}//selectBar
+	
+	public Join joinStatus(ListVO lvo) {
+		Join status=null;
+		SqlSession ss=getSessionFactory().openSession();
+		status=ss.selectOne("selectID",lvo);
+		ss.close();
+		return status;
+	}//joinStatus
+	
+	public boolean insertJoin(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("insertJoin", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//insertJoin
+	
+	public boolean cancelJoin(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.delete("updateJoin", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//cancelJoin
+	
 	
 /*	public static void main(String[] args) {
 		DetailDAO d_dao=new DetailDAO();

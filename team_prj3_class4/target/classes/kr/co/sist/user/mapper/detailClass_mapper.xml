@@ -84,11 +84,12 @@ select count(*) cnt from review
 	<result column="qcode" property="qcode"/>
 	<result column="id" property="id"/>
 	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
 	<result column="inputdate" property="inputdate"/>
 	<result column="status" property="status"/>
 </resultMap>
 <select id="selectQnaList" resultMap="qna" parameterType="String">
-	select qcode,client_id id, subject,q_date inputdate,status
+	select qcode,client_id id, subject,contents,q_date inputdate,status
 	from lesson_qna
 	where lcode=#{lcode}
 </select>
@@ -140,6 +141,7 @@ select count(*) cnt from lesson_qna
 	from lesson l inner join students s
 	on l.lcode=s.lcode
 	where l.lcode=#{lcode}
+	and s.status='Y'
 	group by max_member
 </select>
 
@@ -158,6 +160,29 @@ select count(*) cnt from lesson_qna
 	from lesson l inner join teacher t
 	on t.teacher_name=l.teacher_name
 	where lcode=#{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.Join" id="join">
+	<result column="lcode" property="lcode"/>
+	<result column="clientId" property="clientId"/>
+	<result column="status" property="status"/>
+</resultMap>
+<select id="selectID" resultMap="join" parameterType="kr.co.sist.user.vo.ListVO">
+select lcode, client_id as clientId,status 
+from students
+where lcode=#{lcode} 
+and client_id=#{clientId}
+</select>
+
+<select id="insertJoin" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
+	insert into students(client_id,lcode,status,join_date) 
+	values(#{clientId}, #{lcode},'Y',sysdate)	
+</select>
+
+<select id="updateJoin" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
+	update students
+	set status='C', cancel_date=sysdate 
+	where lcode=#{lcode} and client_ID=#{clientId}
 </select>
 
 

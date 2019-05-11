@@ -88,6 +88,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
 .trigger{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 #guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
+.contents{display:none;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -106,9 +107,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	$("#reportBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
 	});
-	$("#joinBtn").click(function(){
-		
-	});
+	$(".qnaContents").click(function(){
+        //var txt=$(".qnaContents").text();
+        //$(".qnaContents").text(txt);
+        $(".contents").toggle();
+	  });//click
+        
  });//ready
 	function jjim(lcode){
 		$.ajax({
@@ -122,9 +126,10 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			},
 			success : function( jjim ){
 				if(jjim=="♥"){
-					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+					//location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 					alert("찜했습니다~"+jjim);
 					$("#likeBtn").val("찜취소");
+					//새로고침하거나 페이지를 나갔다 들어오면 찜하기임
 				}//end if
 				if(jjim=="♡"){
 					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
@@ -134,6 +139,30 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			}
 		});
 	}//jjim
+	function classJoin(lcode){
+		$.ajax({
+			url : "http://localhost:8080/team_prj3_class4/user/student/classJoin.do",
+			data : "lcode="+lcode,
+			dataType : "text",
+			type : "get",
+			error : function( xhr ){
+				alert("잠시 후 다시 시도해주세요."+xhr.status+xhr.statusText);
+				console.log( xhr.status );
+			},
+			success : function( sendjs ){
+				if(sendjs=="신청"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+					alert("해당 클래스를 신청했습니다^^");
+					$("#joinBtn").val("클래스 신청취소");
+				}//end if
+				if(sendjs=="취소"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+					alert("신청을 취소하셨습니다ㅜㅜ");
+					$("#joinBtn").val("클래스 신청하기");
+				}//end if
+			}
+		});
+	}//classJoin
 </script>
 <script type="text/javascript">
 $(function () {
@@ -153,6 +182,7 @@ $(function () {
 	
 	<div id="container">
 	<a href="#review" id="rli"></a>
+	<a href="#loginBtn" id="rli3"></a>
 	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
@@ -456,12 +486,15 @@ $(function () {
 								</div>
 								<table width="640" style="margin-left: 10px;">
 									<c:forEach var="qnalist" items="${ requestScope.qnalist }">
+									<input type="hidden" value="${qnalist.qcode}"/>
 										<tr>
 											<td><c:out value="${qnalist.id}"/></td>
-											<td><c:out value="${qnalist.subject}"/></td>
-											<td><c:out value="${qnalist.inputdate}"/>
-											</td>
+											<td><a href="#void" class="qnaContents"><c:out value="${qnalist.subject}"/></a></td>
+											<td><c:out value="${qnalist.inputdate}"/></td>
 										</tr>
+										<tr>
+										<td colspan="3"><div class="contents"><c:out value="${qnalist.contents}"/></div></td>
+										</tr> 
 									</c:forEach> 
 									<c:if test="${empty qnalist}">
 										<tr>
@@ -487,7 +520,7 @@ $(function () {
 									</span>
 								</div>
 								<c:forEach var="tclist" items="${requestScope.tclist}">
-								<div style="width: 150px; height: 200px; float: left; margin: 7px;">
+								<div style="width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
 									<div style="width: 150px; height: 100px;">
 										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
@@ -630,13 +663,13 @@ $(function () {
 	                    <c:choose>
 						<c:when test="${empty id}">
 		                  	<input type="button" class="btn" id="guestqnaBtn" value="강사에게 문의하기"/>
-		                  	<input type="button" class="trigger" value="클래스 신청하기 "/>
+		                  	<input type="button" class="trigger" id="loginBtn" value="클래스 신청하기 "/>
 						</c:when>
 						<c:otherwise>
 		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
-		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "/>
+		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
 						</c:otherwise>
 						</c:choose>
 	                  
@@ -656,32 +689,77 @@ $(function () {
 	          </aside>            
 		</div>
 		
-		<div class="modal" style="font-size: 20px; margin: 15px;"> 
+		<div class="modal" id="modal" style="font-size: 20px;"> 
          <div class="modal-content"> 
              <span class="close-button">&times;</span> 
              <img style="margin-left: 140px;" src="http://localhost:8080/team_prj3_class4/resources/img/logo.png"/>
              <!-- <h1 class="title" style="text-align: center;">Class4</h1> --> 
-             <form action="#post.php" method="POST"> 
-				<form id="FrmLogin" method="post">
+<!--              <form action="#post.php" method="POST"> 
+				<form id="FrmLogin" method="post"> -->
+                <form action="../member/popuplogin.do?" name="poploginFrm" method="post">
                 <fieldset style="text-align: center">
                     <label class="screen_out">로그인</label>
-                    <div class="input_box">
+<!--                     <div class="input_box">
                         <input type="text" id="login_mb_id" name="login_mb_id" placeholder="이메일을 입력해주세요."
                             style="width: 60%;">
                     </div>
                     <div class="input_box">
                         <input type="password" id="login_mb_pw" name="login_mb_pw" placeholder="비밀번호를 입력해주세요."
                         	style="width: 60%;">
-                    </div>
+                    </div> -->
+                    <div class="input-group mb-3 col-lg-3 mx-auto">
+						<input type="text" class="form-control"
+							aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-default" placeholder="아이디"
+							name="id" style="width: 60%;">
+					</div>
+					<div class="input-group mb-3 col-lg-3 mx-auto">
+						<input type="password" class="form-control"
+							aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-default" placeholder="비밀번호"
+							name="pass" style="width: 60%;">
+					</div>
+                    
+                    <div class="card-header">
+					<c:choose>
+						<c:when test="${param.result eq null }">
+							<label>아이디와 비밀번호를 입력해주세요.</label>
+						</c:when>
+						<c:when test="${param.result eq 'black' }">
+							<label style="color: red;">차단 된 아이디입니다.</label>
+
+						</c:when>
+						<c:when test="${param.result eq 'deleted' }">
+							<label style="color: red;">삭제 된 아이디입니다.</label>
+
+						</c:when>
+						<c:when test="${param.result eq 'fail' }">
+						<!-- PrintWriter out;
+						out = response.getWriter();
+						out.println("<script>alert('다시확인');history.back();</script>");
+						out.println("<script>alert("아이디와 비밀번호를 다시 한 번 확인해주세요.");</script>"); -->
+							<script type="text/javascript">
+								alert("<c:out value='아이디와 비밀번호를 다시 한 번 확인해주세요.'/>");
+							</script>
+							<!-- out.println("<script>alert("아이디와 비밀번호를 다시 한 번 확인해주세요.");</script>"); -->
+							<label style="color: red;">아이디와 비밀번호를 다시 한 번 확인해주세요.</label>
+
+						</c:when>
+					</c:choose>
+				</div>
                     <br/>
+                    <input type="hidden" name="lcode" id="lcode" value="${param.lcode}"/>
                     <div class="btns">
-                        <a style="width: 200px;" href="javascript:;" class="btn white" onclick="$('#FrmLogin').submit()">로그인</a>
-                        <br/>
+                    	<input type="submit" value="로그인"/> 
+<!--                     	<button type="submit" class="btn btn-secondary btn-lg">로그인</button>
+                        <a style="width: 200px;" class="btn white" onclick="$('#FrmLogin').submit()">로그인</a>
+                        <br/> -->
                         <a style="width: 200px;" onclick="location.href='../member/joinAgreement.do'" class="btn red">회원가입</a>
                     </div>
                 </fieldset>
-             </form> 
-             </form> 
+                </form>
+             <!-- </form> 
+             </form>  -->
           </div> 
 	     </div>
 	     <script type="text/javascript"> 
