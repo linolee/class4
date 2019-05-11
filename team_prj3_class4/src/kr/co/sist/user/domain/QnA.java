@@ -3,7 +3,7 @@ package kr.co.sist.user.domain;
 import java.sql.Date;
 
 public class QnA {
-	private String qcode,id,subject,status;
+	private String qcode,id,subject,contents,status;
 	private Date inputdate;
 	
 	public String getQcode() {
@@ -35,6 +35,12 @@ public class QnA {
 	}
 	public void setInputdate(Date inputdate) {
 		this.inputdate = inputdate;
+	}
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 	
 }
