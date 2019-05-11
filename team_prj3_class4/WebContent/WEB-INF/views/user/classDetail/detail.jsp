@@ -97,17 +97,6 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 <script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
  $(function(){
-/*   	// 주메뉴 스크롤링
-	 $(window).on('scroll', function(){
-	 scrollTop = $(window).scrollTop();
-	 if(scrollTop >= 2000){
-		 $("#other").addClass('scroll');
-		 $("#other").stop(true).css({'position' : 'fixed'});
-	 }else{
-		 $("#other").removeClass('scroll');
-		 $("#other").stop(true).css({'position' : 'relative'});
-	 }//end else
-	 });  */
 	$("#qnaBtn").click(function(){
 		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
@@ -133,10 +122,12 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			},
 			success : function( jjim ){
 				if(jjim=="♥"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 					alert("찜했습니다~"+jjim);
 					$("#likeBtn").val("찜취소");
 				}//end if
 				if(jjim=="♡"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 					alert("찜을 취소하셨습니다~"+jjim);
 					$("#likeBtn").val("찜하기");
 				}//end if
@@ -159,7 +150,9 @@ $(function () {
 	<div id="header">
 		<c:import url="../header/header.jsp"></c:import>
 	</div>
+	
 	<div id="container">
+	<a href="#review" id="rli"></a>
 	<input type="hidden" name="lcode" value="${param.lcode}"/>
 	<div id="detailContent" style="clear:both; position:relative; width: 700px; float: left; margin: 10px;">
 		<div id="detail">
@@ -405,7 +398,8 @@ $(function () {
 							}//setMarker
 							</script>
 							<div id="map" style="width:600px;height:400px; margin: 15px;"></div>
-							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
+							
+							<div class="group" id="review" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
 									<span class="contentTitle" style="float: letf">리뷰</span>
 									<!-- <input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/> -->
@@ -453,7 +447,6 @@ $(function () {
 										</tr>
 									</c:if>
 										<!-- style="border-bottom: 1px solid #cdcdcd;" -->
-									</tr>
 								</table>
 							</div>					
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
