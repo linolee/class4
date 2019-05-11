@@ -3,6 +3,17 @@ package kr.co.sist.user.vo;
 public class SearchListVO {
 	private int startNum, endNum, currentPage;
 	private String keyword;
+	
+	public SearchListVO() {
+	}
+	
+	public SearchListVO(int startNum, int endNum, int currentPage, String keyword) {
+		super();
+		this.startNum = startNum;
+		this.endNum = endNum;
+		this.currentPage = currentPage;
+		this.keyword = keyword;
+	}
 
 	public String getKeyword() {
 		return keyword;

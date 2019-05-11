@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.user.domain.SearchClassList;
 import kr.co.sist.user.service.SearchService;
 import kr.co.sist.user.vo.SearchListVO;
@@ -48,12 +47,13 @@ public class SearchController {
 
 		list = ss.searchClassList(slvo);// 리스트 목록 조회
 
-		String indexList = ss.indexList(slvo.getCurrentPage(), totalPage, "search.do");
+		String indexList = ss.indexList(slvo.getCurrentPage(), totalPage, "search.do", slvo.getKeyword());
 		model.addAttribute("list", list);// @@
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("currentPage", slvo.getCurrentPage());
+		model.addAttribute("keyword", slvo.getKeyword());
 
 		model.addAttribute("page", "question");// @@
 		return "user/member/searchResult";

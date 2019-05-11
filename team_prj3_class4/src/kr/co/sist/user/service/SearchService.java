@@ -11,6 +11,6 @@ public interface SearchService {
 	public int totalPage(int totalCount);
 	public int startNum(int currentPage);
 	public int endNum(int startNum);
-	public String indexList(int current_page, int total_page, String list_url);
+	public String indexList(int current_page, int total_page, String list_url, String keyword);
 	public List<SearchClassList> searchClassList(SearchListVO slvo);
 }

@@ -65,7 +65,7 @@ public class SearchServiceImpl implements SearchService {
 	 */
 	@Override
 	// 현재 게시판의 페이지 인덱스 설정
-	public String indexList(int current_page, int total_page, String list_url) {
+	public String indexList(int current_page, int total_page, String list_url, String keyword) {
 		int pagenumber; // 화면에 보여질 페이지 인덱스 수
 		int startpage; // 화면에 보여질 시작페이지 번호
 		int endpage; // 화면에 보여질 마지막페이지 번호
@@ -92,7 +92,7 @@ public class SearchServiceImpl implements SearchService {
 		// 첫번째 페이지 인덱스 화면이 아닌경우
 		if (current_page > pagenumber) {
 			curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
+			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + "&keyword="+ keyword + ">Prev</a></li>";
 		} else {
 			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 			
@@ -105,7 +105,7 @@ public class SearchServiceImpl implements SearchService {
 			if (curpage == current_page) {
 				strList = strList + "<li class='page-item active'><a class='page-link' href='#'>"+current_page+"</a>";
 			} else {
-				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="+curpage+">"+curpage+"</a></li>";
+				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="+curpage + "&keyword=" + keyword+">"+curpage+"</a></li>";
 			} // end else
 
 			curpage++;
