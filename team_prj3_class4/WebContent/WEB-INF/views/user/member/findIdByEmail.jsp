@@ -52,20 +52,31 @@ body {padding-top: 0px;}
 
 			<div class="card text-center">
 				<div class="card-header">
-					아이디 조회 방법 선택
+					이메일로 ID 조회
 				</div>
-					<div class="card-body text-center">
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findIdByEmail.do'"><i class="material-icons" style="font-size:50px">mail_outline</i><br>메일 주소로 찾기</button>
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findID.do'"><i class="material-icons" style="font-size:50px">phonelink_ring</i><br>휴대폰 번호로 찾기</button>
-						
+				<div class="card-body text-center">
+					<div class="input-group mb-3 col-lg-5 mx-auto">
+						<input type="text" class="form-control"
+							aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-default" placeholder="이메일"
+							name="email">
+						<button type="button" class="btn btn-secondary" onclick="location.href='loginPage.do'">인증 메일 보내기</button>
 					</div>
-					<div class="card-footer text-muted">
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='loginPage.do'">로그인 화면으로</button>
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findPass.do'">비밀번호
-							찾기</button>
-						<button type="button" class="btn btn-outline-primary" onclick="location.href='joinAgreement.do'">회원
-							가입</button>
+					<div class="input-group mb-3 col-lg-5 mx-auto">
+						<input type="text" class="form-control"
+							aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-default" placeholder="인증번호 입력"
+							name="authority">
+						<button type="button" class="btn btn-secondary" onclick="location.href='loginPage.do'">인증 번호 입력</button>
 					</div>
+				</div>
+				<div class="card-footer text-center">
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='loginPage.do'">로그인 화면으로</button>
+					<button type="button" class="btn btn-outline-secondary" onclick="location.href='findPass.do'">비밀번호
+						찾기</button>
+					<button type="button" class="btn btn-outline-primary" onclick="location.href='joinAgreement.do'">회원
+						가입</button>
+				</div>
 			</div>
 
 			<!-- /.row -->

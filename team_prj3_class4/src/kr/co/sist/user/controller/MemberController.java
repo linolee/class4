@@ -113,6 +113,11 @@ public class MemberController {
 		}
 	}// teacherPage
 	
+	@RequestMapping(value = "user/member/findIdByEmail.do", method = GET)
+	public String findIdByEmailPage() {
+		
+		return "user/member/findIdByEmail";
+	}// reportPage
 	/////////////////////////////////¹®ÀÇ////////////////////////////////////////
 	
 	@ResponseBody
