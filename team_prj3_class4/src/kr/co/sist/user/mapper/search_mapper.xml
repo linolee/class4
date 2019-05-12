@@ -12,12 +12,13 @@
 		<result column="status" property="status"/>
 		<result column="start_date" property="start_date"/>
 		<result column="end_date" property="end_date"/>
+		<result column="main_img" property="main_img"/>
 	</resultMap>
 	
 	<select id="selectClassList" resultMap="SearchClassList" parameterType="kr.co.sist.user.vo.SearchListVO" >
-		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date
+		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img
 		from(
-		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, row_number() over(order by lcode desc) r_num
+		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, row_number() over(order by lcode desc) r_num
 		from lesson
 		where lname like '%'||#{keyword}||'%'
 		)

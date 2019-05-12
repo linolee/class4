@@ -77,9 +77,8 @@ body {
 				<div class="col-lg-4 col-sm-6 portfolio-item">
 					<div class="card h-100">
 						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">
-						
 						<img class="card-img-top"
-							src="<c:url value="/upload/lessonMain/${listItem.lcode }.JPG"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png'"/>"></a>
+							src="<c:url value="/upload/lessonMain/${listItem.main_img }"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png"/>'"></a>
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">${listItem.lname }</a>
