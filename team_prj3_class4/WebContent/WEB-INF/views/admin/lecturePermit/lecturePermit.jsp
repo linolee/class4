@@ -40,7 +40,7 @@ function lecturePermitDetail(lcode) {
 			if(null!=json.detailCurriculum){
 				$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
 			} else{
-				$("#ls_contents").text("입력되지 않았습니다");
+				$("#ls_curriculum").text("입력되지 않았습니다");
 			}
 			
 			if(null!=json.detailOthers){
@@ -76,7 +76,7 @@ function lecturePermitDetail(lcode) {
 					output="";
 				}
  			} else{
-				$("#ls_career").append("경력사항이 없습니다");
+				$("#ls_career").text("경력사항이 없습니다");
 			}
 			
 			
@@ -88,7 +88,7 @@ function lecturePermitDetail(lcode) {
 					output="";
 				}
  			} else{
-				$("#ls_optlist").append("포함사항이 없습니다");
+				$("#ls_optlist").text("포함사항이 없습니다");
 			}
 			
 			$("#ls_noptlist *").remove();
