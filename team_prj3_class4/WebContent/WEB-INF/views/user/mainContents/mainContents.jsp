@@ -41,7 +41,7 @@
 	</div>
 	<div id="container">
 	
-	<div id="headImg" style="width:1100px;height:500px;border:1px solid #333;margin-top: 15px;margin-bottom: 25px;position: relative;">
+	<div id="headImg" style="width:1100px;height:500px;border:1px solid #333;margin-bottom: 25px;position: relative;">
 		<div class='swipe'>
 			<ul id='slider4'>
 			    <li style='display:block; width: 1100px;height: 500px;'>

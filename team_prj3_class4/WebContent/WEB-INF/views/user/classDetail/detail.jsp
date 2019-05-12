@@ -89,6 +89,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 .trigger{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 #guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 .contents{display:none;}
+#loginBtn{cursor: pointer;}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -434,10 +435,10 @@ $(function () {
 									<span class="contentTitle" style="float: letf">리뷰</span>
 									<!-- <input style="float: right;" type="button" name="reviewBtn" id="reviewBtn" class="btn" value="리뷰 작성"/> -->
 								</div>
-								<table width="640" style="margin-left: 10px;">
-									<c:forEach var="rvlist" items="${ requestScope.rvlist }">
+								<c:forEach var="rvlist" items="${ requestScope.rvlist }">
+								<table style="margin-left: 10px; width: 640px; border-bottom: 1px solid #ccc; padding:10px;">
 										<tr>
-											<td rowspan="2">
+											<td rowspan="3" style="width: 100px;">
 												<c:out value="${rvlist.client_id}"/><br/>
 												<input type="hidden" value="${rvlist.score}" id="rvScore"/>
 												<c:choose>
@@ -462,22 +463,34 @@ $(function () {
 												</c:choose>
 												<%-- <c:out value="${rvlist.score}"/> --%>
 											</td>
-											<td><c:out value="${rvlist.subject}"/></td>
-										</tr>
-										<tr>
-											<td>
-												<c:out value="${rvlist.contents}"/><br/>
-												<c:out value="${rvlist.r_date}"/>
+											<td style="text-align: left;margin-left: 5px;">
+											<div style="margin-left:8px;">
+											<c:out value="${rvlist.subject}"/>
+											</div>
 											</td>
 										</tr>
-									</c:forEach> 
+										<tr>
+										<td style="text-align: left; font-size:15px;margin-left: 5px;">
+											<div style="margin-left:8px;">
+											<c:out value="${rvlist.contents}"/>
+											</div>
+										</td>
+										</tr>
+										<tr style="border-bottom: 1px solid #ccc;">
+										<td style="text-align: left; font-size: 12px; color: #ccc;">
+											<span style="margin-left:8px;"><c:out value="${rvlist.r_date}"/></span>
+										</td>
+										</tr>
+									</table>
+									</c:forEach>
 									<c:if test="${empty rvlist}">
+									<table style="margin-left: 10px; width: 640px; ">
 										<tr>
 											<td>등록된 후기정보가 없습니다.</td>
 										</tr>
+									</table>
 									</c:if>
 										<!-- style="border-bottom: 1px solid #cdcdcd;" -->
-								</table>
 							</div>					
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
 								<div class="detail_info_title" style="border-bottom: 2px solid #adadad;">
@@ -520,7 +533,7 @@ $(function () {
 									</span>
 								</div>
 								<c:forEach var="tclist" items="${requestScope.tclist}">
-								<div style="width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
+								<div style="cursor:pointer;width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
 									<div style="width: 150px; height: 100px;">
 										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>

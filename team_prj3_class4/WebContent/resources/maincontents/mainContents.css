@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 #wrap{margin:0px auto;width:1100px; min-height:860px;}
-#container{width:1100px; height:1710px; }
+#container{width:1100px; height:1730px; }
 #footer{width:1100px; height: 140px; }
 #footerTitle{float: right; font-size:15px; padding-top:20px; padding-right:20px; }
 
@@ -9,24 +9,24 @@
 #category{clear:both; height:350px; position: relative;margin-top: 30px;}
 #recomnend{height:350px; position: relative;}
 #review{height:350px; position: relative;}
-#cg01{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:140px;}
-#cg02{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:435px;}
-#cg03{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:730px;}
-#cg04{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1240px;}
-#cg05{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1530px;}
-#cg06{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1825px; }
-#cg07{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2340px; }
-#cg08{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2630px;}
-#cg09{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2930px;}
-#rc01,#rv01{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:140px;}
-#rc02,#rv02{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:435px;}
-#rc03,#rv03{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:730px;}
-#rc04,#rv04{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1240px;}
-#rc05,#rv05{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1530px;}
-#rc06,#rv06{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1825px; }
-#rc07,#rv07{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2340px; }
-#rc08,#rv08{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2630px;}
-#rc09,#rv09{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2930px;}
+#cg01{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:140px;cursor: pointer;}
+#cg02{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:435px;cursor: pointer;}
+#cg03{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:730px;cursor: pointer;}
+#cg04{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1240px;cursor: pointer;}
+#cg05{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1530px;cursor: pointer;}
+#cg06{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1825px;cursor: pointer;}
+#cg07{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2340px;cursor: pointer;}
+#cg08{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2630px;cursor: pointer;}
+#cg09{float: left; width:240px;height:250px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2930px;cursor: pointer;}
+#rc01,#rv01{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:140px;cursor: pointer;}
+#rc02,#rv02{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:435px;cursor: pointer;}
+#rc03,#rv03{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:730px;cursor: pointer;}
+#rc04,#rv04{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1240px;cursor: pointer;}
+#rc05,#rv05{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1530px;cursor: pointer;}
+#rc06,#rv06{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:1825px;cursor: pointer;}
+#rc07,#rv07{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2340px;cursor: pointer;}
+#rc08,#rv08{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2630px;cursor: pointer;}
+#rc09,#rv09{float: left; width:260px;height:260px; border:1px solid #bbbbbb; position:absolute; top:10px; left:2930px;cursor: pointer;}
 #cglbtn,#rvlbtn,#rclbtn{float: left; position:absolute; top:155px; left:85px; background: url('/team_prj3_class4/resources/img/btn_prev.png') no-repeat;
 				 border:none; background-size: 50px 30px; width: 30px; height: 50px;cursor: pointer; font-size: 30px;font-weight: bold;}
 #cgrbtn,#rvrbtn,#rcrbtn{float: left; position:absolute; top:155px; left: 1028px;background: url('/team_prj3_class4/resources/img/btn_next.png') no-repeat;
