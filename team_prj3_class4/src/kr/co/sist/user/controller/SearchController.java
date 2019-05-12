@@ -32,7 +32,6 @@ public class SearchController {
 	@RequestMapping(value = "user/search.do", method = GET)
 	public String searchPage(HttpServletRequest request, SearchListVO slvo, Model model) {
 		List<SearchClassList> list = null;
-		System.out.println(request.getParameter("keyword").toString()+"ㅇㅅㅇ");
 		int totalCount = ss.totalCount(request.getParameter("keyword").toString());// 총 게시물의 수//
 		int pageScale = ss.pageScale();
 		int totalPage = ss.totalPage(totalCount);// 전체 게시물을 보여주기 위한 총 페이지 수

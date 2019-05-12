@@ -44,6 +44,12 @@ body {
 	padding-top: 0px;
 }
 </style>
+<script type="text/javascript">
+	$(function() {
+		$("[name=keyword]").val("${keyword}");
+	});
+</script>
+
 <body>
 	<div id="wrapper">
 		<div id="header">
@@ -55,15 +61,25 @@ body {
 
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
-				검색결과 <small>Search Result</small>
+				"${keyword}" 검색결과
 			</h1>
-
+			<c:if test="${empty list }">
+			<div class="container my-5">
+				<div class="card text-center">
+					<div class="card-header">
+						검색 결과가 없습니다.
+					</div>
+				</div>
+			</div>
+			</c:if>
 			<div class="row">
 			<c:forEach var="listItem" items="${list }">
 				<div class="col-lg-4 col-sm-6 portfolio-item">
 					<div class="card h-100">
-						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
+						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">
+						
+						<img class="card-img-top"
+							src="<c:url value="/upload/lessonMain/${listItem.lcode }.JPG"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png'"/>"></a>
 						<div class="card-body">
 							<h4 class="card-title">
 								<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">${listItem.lname }</a>

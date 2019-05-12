@@ -114,7 +114,7 @@ public class SearchServiceImpl implements SearchService {
 		// 뒤에 페이지가 더 있는경우
 		if (total_page > endpage) {
 			curpage = endpage + 1;
-			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
+			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+ "&keyword=" + keyword+">Next</a></li>";
 		} else {
 			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
 		} // end else

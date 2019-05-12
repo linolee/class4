@@ -306,13 +306,13 @@ public class MemberController {
 			loginPath = "/team_prj3_class4/user/main.do";
 			break;
 		case UserLoginService.login_blacklist:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_deletedUser:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_fail:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
 			break;
 
 		}
