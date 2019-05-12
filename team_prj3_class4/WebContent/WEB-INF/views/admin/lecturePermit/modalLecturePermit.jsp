@@ -114,7 +114,13 @@ contentTitle{font-size: 24px;font-weight: bold;}
 										<div class="form-row">
 											<div class="modal-footer" style="border-top:none;">
 												<button type="button" class="btn btn-primary"	id="lecturePermission">승인</button>
-												<button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button>
+												<!-- <button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button> -->
+												
+												
+												<a data-toggle="modal" class="btn btn-danger" href="#modalLectureRefuse" >거절</a>
+												
+												
+												
 											</div>
 										</div>
 									</div>

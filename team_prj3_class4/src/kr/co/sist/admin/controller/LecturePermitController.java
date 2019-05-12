@@ -20,6 +20,7 @@ import kr.co.sist.admin.domain.LecturePermitDomain;
 import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.LecturePermitService;
 import kr.co.sist.admin.service.QnaService;
+import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 
@@ -95,8 +96,13 @@ public class LecturePermitController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/lectureRefuse.do", method=GET)
-	public void lectureRefuse(String lcode) {
+	public void lectureRefuse(String lcode, String reason) {
 		lps.lectureRefuse(lcode);
+		
+		LectureRefuseReasonVO lrrvo=new LectureRefuseReasonVO();
+		lrrvo.setLcode(lcode);
+		lrrvo.setReason(reason);
+		lps.lectureRefuseReason(lrrvo);
 	}
 		
 	

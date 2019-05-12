@@ -122,7 +122,6 @@ function lecturePermitDetail(lcode) {
 	});//ready
 	
 	function setMarker(addr,dong){
-		//alert(detailAddress);
 		// 지도를 생성합니다    
 		var map = new daum.maps.Map(mapContainer, mapOption); 
 		
@@ -174,7 +173,7 @@ $(function(){
 			
 		/* function lecturePermission() { */
 		 	var queryString = $("#lcodeHdn").val();
-		 	//alert(queryString);
+		 	alert(queryString);
 		 	$.ajax({
 				url: "lecturePermission.do",
 				data: queryString,
@@ -186,7 +185,7 @@ $(function(){
 				},
 				success:function( json ){
 					alert("승인되었습니다.");
-				 	window.location.href="<c:url value='/admin/lecturePermit.do' />";
+				 	window.location.href="<c:url value='/admin/lecturePermit.do'/>";
 				}
 			});//ajax 
 	
@@ -196,29 +195,34 @@ $(function(){
 
 $(function(){
 	$("#lectureRefuse").click(function(){
-		if(confirm("정말 거절하시겠습니까?")){
-			
-		/* function lecturePermission() { */
-		 	var queryString = $("#lcodeHdn").val();
-		 	//alert(queryString);
-		 	$.ajax({
-				url: "lectureRefuse.do",
-				data: queryString,
-				type: "get",
-				//dataType: "json",
-				error: function(xhr) {
-					alert("실패");
-					console.log(xhr.status + "/" + xhr.statusText);
-				},
-				success:function( json ){
-					alert("거절되었습니다.");
-				 	window.location.href="<c:url value='/admin/lecturePermit.do' />";
-				}
-			});//ajax 
-	
-		} // if
+		var refuseReason=$("[name='lectureRefuseContent']").val();
+		if(""!=refuseReason){
+			if(confirm("정말 거절하시겠습니까?")){
+				
+			 	var queryString = $("#lcodeHdn").val()+"&reason="+refuseReason;
+			 	//alert(queryString);
+			 	$.ajax({
+					url: "lectureRefuse.do",
+					data: queryString,
+					type: "get",
+					//dataType: "json",
+					error: function(xhr) {
+						alert("실패");
+						console.log(xhr.status + "/" + xhr.statusText);
+					},
+					success:function( json ){
+						alert("거절되었습니다.");
+					 	window.location.href="<c:url value='/admin/lecturePermit.do'/>";
+					}
+				});//ajax 
+		
+			} // if
+		} else{
+			alert("사유를 입력해주세요");
+		}
+		
 	});// click
-});	
+}); 
 
 </script>
 
@@ -297,4 +301,5 @@ $(function(){
 <input type="hidden" id="addressHdn" value=""/>
 <input type="hidden" id="lcodeHdn" value=""/>
 <!--  -->
-<c:import url="lecturePermit/modalLecturePermit.jsp"/> 
+<c:import url="lecturePermit/modalLecturePermit.jsp"/>
+<c:import url="lecturePermit/modalLectureRefuse.jsp"/>

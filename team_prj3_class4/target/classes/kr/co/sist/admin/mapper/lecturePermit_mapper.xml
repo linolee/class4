@@ -42,5 +42,11 @@ from lesson where status='A' and ${option} like '%'||#{keyword}||'%')
 where r_num between #{ startNum } and #{ endNum }
 </select>
 
+<update id="lectureRefuseReason" parameterType="String">
+update lesson
+set reject_reason=#{reason}
+where lcode=#{lcode}
+</update>
+
 
 </mapper>
