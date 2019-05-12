@@ -1,7 +1,15 @@
 package kr.co.sist.user.domain;
 
 public class SearchClassList {
-	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date;
+	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img;
+
+	public String getMain_img() {
+		return main_img;
+	}
+
+	public void setMain_img(String main_img) {
+		this.main_img = main_img;
+	}
 
 	public String getLcode() {
 		return lcode;
