@@ -53,6 +53,28 @@ $(function(){
 	}); // function
 	
 	$("#go").click(function(){
+		
+		var emailFlag=$("[name='email']").val();
+		var titleFlag=$("[name='title']").val();
+		var contentFlag=$("[name='content']").val();
+		alert(contentFlag);
+		
+		if(""==emailFlag){
+			alert("이메일을 입력해주세요");
+			$("#userId").focus();
+			return;
+		}
+		if(""==titleFlag){
+			alert("제목을 입력해주세요");
+			$("[name='title']").focus();
+			return;
+		}
+		if(""==contentFlag){
+			alert("내용을 입력해주세요");
+			$("[name='content']").focus();
+			return;
+		}
+		
 		if(confirm("정말 메일을 전송하시겠습니까?")){
 			$("[name='sendEmail']").submit();
 		}

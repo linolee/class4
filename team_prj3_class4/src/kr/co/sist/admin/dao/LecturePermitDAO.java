@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.domain.LecturePermitDomain;
+import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 
@@ -99,5 +100,17 @@ private static LecturePermitDAO lp_dao;
 		list=ss.selectList("lecturePermitOptionSearch", osvo);
 		ss.close();
 		return list;
+	}
+	
+	public boolean lectureRefuseReason(LectureRefuseReasonVO lrrvo) {
+		boolean flag=false;
+		SqlSession ss=getSessionFactory().openSession();
+		int cnt=ss.update("lectureRefuseReason", lrrvo);
+		if(cnt==1) {
+			flag=true;
+			ss.commit();
+		}
+		ss.close();
+		return flag;
 	}
 }

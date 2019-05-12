@@ -30,10 +30,10 @@ contentTitle{font-size: 24px;font-weight: bold;}
             <div id="summary" style="margin: 5px;">
              <h1 class="c_title" style="line-height: 1.2;padding-left: 15px;" id="ls_lname"></h1>
              <p class="c_summary" id="ls_lintro" style="padding-left: 25px;"></p>
-            	<table style="margin: 20px; border-top:1px solid #cfcfcf;">
+            	<table style="border-top:1px solid #cfcfcf;margin-left: 20px;margin-top: 20px;margin-right: 20px;margin-bottom: 0px;">
             	<tr>
-            		<td rowspan="4" style="width: 180px; height: 180px;">
-            			<img style="width: 100px; height: 100px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
+            		<td rowspan="4" style="width: 180px; height: 160px;">
+            			<img style="width: 100px;height: 100px;padding-top: 0px;margin-top: 25px;margin-bottom: 10px;" id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
             			<br/>
 						<h3 id="ls_teacher_name" style="padding-left: 15px;"></h3>
 					</td>
@@ -46,11 +46,6 @@ contentTitle{font-size: 24px;font-weight: bold;}
             		<td id="ls_class_time"><br/></td>
             		<td id="ls_max_member"></td>
            		</tr>
-           		<tr style="align-content: center">
-           			<td colspan="3">
-           			</td>
-           			
-           		</tr>
             	</table>
 			</div>	
         	<div class="class_detail">
@@ -59,17 +54,17 @@ contentTitle{font-size: 24px;font-weight: bold;}
 
                    <div class="default" style="padding:20px; ">
                   	<div class="group" style="margin-bottom: 15px; border-top: 1px solid #cfcfcf;">
-                  		<span class="contentTitle">강사 프로필</span>
+                  		<span class="contentTitle"><strong>강사 프로필</strong></span>
                   		<div style="background-color: transparent; margin:20px; font-size: 15px;" id="ls_career">
                       	</div>
                   	</div>
                        <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle">클래스를 소개해요</span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>클래스를 소개해요</strong></span></div>
                           <div style="margin:20px; font-size: 15px;" id="ls_contents">
                           </div>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle">수업 정보</span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>수업 정보</strong></span></div>
                           <div style="margin:20px; font-size: 15px;" id="ls_curriculum">
                           </div>
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
@@ -77,7 +72,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
                           </span>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle">포함/불포함 사항</span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>포함/불포함 사항</strong></span></div>
                           <table style="margin: 20px;">
                           	<tr>
                           		<th style="width: 150px;font-size: 17px; border-right: 1px solid #cdcdcd; ">포함 사항</th>
@@ -93,14 +88,14 @@ contentTitle{font-size: 24px;font-weight: bold;}
                           </table>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle">기타 사항</span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>기타 사항</strong></span></div>
                           <div style="margin: 20px; font-size:15px;" id="ls_others">
                           </div>
                       </div>
 
 
                        <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle">클래스 위치</span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>클래스 위치</strong></span></div>
                           <p class="detail editor_st" style="margin: 15px;font-size: 15px;" id="ls_detailAddress">
                           </p>
 							<div id="kakaoMap">
@@ -114,7 +109,13 @@ contentTitle{font-size: 24px;font-weight: bold;}
 										<div class="form-row">
 											<div class="modal-footer" style="border-top:none;">
 												<button type="button" class="btn btn-primary"	id="lecturePermission">승인</button>
-												<button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button>
+												<!-- <button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button> -->
+												
+												
+												<a data-toggle="modal" class="btn btn-danger" href="#modalLectureRefuse" >거절</a>
+												
+												
+												
 											</div>
 										</div>
 									</div>
