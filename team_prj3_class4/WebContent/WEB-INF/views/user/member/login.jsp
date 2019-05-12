@@ -33,6 +33,11 @@
 <link
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
 	rel="stylesheet">
+<script type="text/javascript">
+$(function() {
+	$("[name=id]").val("${param.id}");
+});
+</script>
 </head>
 <style type="text/css">
 body {padding-top: 0px;}
