@@ -21,14 +21,33 @@ function lecturePermitDetail(lcode) {
 			var space = /\+/g;
 			
 			$("#ls_lname").text(decodeURIComponent(json.lname));
-			$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
+			if(null!=json.lintro){
+				$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
+			} else{
+				$("#ls_intro").text("입력되지 않았습니다");
+			}
 			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
 			$("#ls_class_time").text(json.class_time);
 			$("#ls_max_member").text(json.max_member+"명");
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
-			$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," ")));
-			$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
-			$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
+			
+			if(null!=json.detailContents){
+				$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," ")));
+			} else{
+				$("#ls_contents").text("입력되지 않았습니다");
+			}
+			
+			if(null!=json.detailCurriculum){
+				$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
+			} else{
+				$("#ls_contents").text("입력되지 않았습니다");
+			}
+			
+			if(null!=json.detailOthers){
+				$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
+			} else{
+				$("#ls_others").text("입력되지 않았습니다");
+			}
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
@@ -87,11 +106,9 @@ function lecturePermitDetail(lcode) {
 		        center: new daum.maps.LatLng(37.499490, 127.033167), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };  
-			
-			setMarker(detailAddress,"클래스 위치");
-				/* else{
-				$("#ls_optlist").append("불포함사항이 없습니다");
-			} */
+			//alert(detailAddress);
+			//setMarker(detailAddress,"클래스 위치");
+			setMarker(detailAddress,"테스트");
 			
 		}
 	});//ajax 
@@ -99,9 +116,9 @@ function lecturePermitDetail(lcode) {
 	/* 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 */
 	
 	$(function (){
-		
+		//alert(detailAddress);
 		/* setMarker("서울시 송파구 오륜동","클래스 위치"); */
-		/* setMarker(detailAddress,"클래스 위치"); */
+		//setMarker(detailAddress,"클래스 위치");
 	});//ready
 	
 	function setMarker(addr,dong){
@@ -114,6 +131,11 @@ function lecturePermitDetail(lcode) {
 		
 		// 주소로 좌표를 검색합니다
 		geocoder.addressSearch(addr, function(result, status) {
+			
+		/* alert(addr);
+		alert(result);			
+		alert(status);
+		alert(daum.maps.services.Status.OK); */
 		
 	    // 정상적으로 검색이 완료됐으면 
 	     if (status === daum.maps.services.Status.OK) {
@@ -128,13 +150,16 @@ function lecturePermitDetail(lcode) {
 	
 	        // 인포윈도우로 장소에 대한 설명을 표시합니다
 	        var infowindow = new daum.maps.InfoWindow({
-	            content: '<div style="width:150px;text-align:center;padding:6px 0;">클래스 위치</div>'
+	            content: '<div style="width:150px;text-align:center;padding:3px 0;">클래스 위치</div>'
 	        });
 	        infowindow.open(map, marker);
 	
 	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	        map.setCenter(coords);
 	    }//end if 
+	    if(status != daum.maps.services.Status.OK){
+	    	alert("잘못된 위치정보로 인해 위치를 표시할 수 없습니다");
+	    }
 		}); //end addressSerch
 	}//setMarker	
 

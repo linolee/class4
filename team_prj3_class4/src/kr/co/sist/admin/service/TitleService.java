@@ -28,23 +28,23 @@ public class TitleService {
 		 String fileName = mr.getFilesystemName("file");
 		 String titleImageNumber = mr.getParameter("titleNumber");
 		 
-		    int i = -1;
-		    i = fileName.lastIndexOf("."); // 파일 확장자 위치
-		    String realFileName = "titleImg"+titleImageNumber+fileName.substring(i, fileName.length());  // 확장자 합치기
+	    int i = -1;
+	    i = fileName.lastIndexOf("."); // 파일 확장자 위치
+	    String realFileName = "titleImg"+titleImageNumber+fileName.substring(i, fileName.length());  // 확장자 합치기
 
-		    File tempFile=new File(savePath+"titleImg"+titleImageNumber+fileName.substring(i, fileName.length()));
-		    
-		    // 기존 파일이 존재한다면 삭제
-		    if(tempFile.exists()) {
-		    	tempFile.delete();
-		    }
-		    
-		    File newFile = new File(savePath + realFileName);
-		    File oldFile = new File(savePath + fileName);
-		    
-		    oldFile.renameTo(newFile); // 파일명 변경
-		    
-		    flag=true;
+	    File tempFile=new File(savePath+"titleImg"+titleImageNumber+fileName.substring(i, fileName.length()));
+	    
+	    // 기존 파일이 존재한다면 삭제
+	    if(tempFile.exists()) {
+	    	tempFile.delete();
+	    }
+	    
+	    File newFile = new File(savePath + realFileName);
+	    File oldFile = new File(savePath + fileName);
+	    
+	    oldFile.renameTo(newFile); // 파일명 변경
+	    
+	    flag=true;
 		    
 		return flag;
 	}//fileUploadProcess
