@@ -28,6 +28,7 @@ public class CategorySearchController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		categorySearchService css=ac.getBean(categorySearchService.class);
 		
+		categoryList = css.searchCateogory();
 		int totalCount = css.totalCount(request.getParameter("keyword").toString());// 총 게시물의 수//
 		int pageScale = css.pageScale();
 		int totalPage = css.totalPage(totalCount);// 전체 게시물을 보여주기 위한 총 페이지 수
