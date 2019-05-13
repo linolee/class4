@@ -50,6 +50,9 @@ public class UserMypageDAO {
 	public List<ClassList> selectClass(ListVO lvo){
 		List<ClassList> list=null;
 		SqlSession ss=getSessionFactory().openSession();
+		ss.update("endStatus1");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
+		ss.update("endStatus2");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
+		ss.commit();///
 		list=ss.selectList("classList", lvo);
 		ss.close();
 		return list;

@@ -38,6 +38,6 @@
      <mapper resource="kr/co/sist/user/mapper/search_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/categorySearch_mapper.xml"/> 
 
-
+	<mapper resource="kr/co/sist/mapper/update_mapper.xml"/>
   </mappers>
 </configuration>
