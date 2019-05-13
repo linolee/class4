@@ -60,9 +60,24 @@ body {
 		<div class="container">
 
 			<!-- Page Heading/Breadcrumbs -->
-			<h1 class="mt-4 mb-3">
-				"${keyword}" 검색결과
-			</h1>
+			<h3 class="mt-4 mb-3">
+				"${keyword}" 카테고리 검색결과
+			</h3>
+			<div class="container my-5">
+				<div class="card text-center">
+					<div class="card-header">
+						<c:if test="${empty categoryList }">
+							검색 결과가 없습니다.
+						</c:if>
+						<c:forEach var="category" items="${categoryList }">
+						<input type="button" class="btn btn-secondary my-1" value="${category }">
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+			<h3 class="mt-4 mb-3">
+				"${keyword}" 클래스명 검색결과
+			</h3>
 			<c:if test="${empty list }">
 			<div class="container my-5">
 				<div class="card text-center">

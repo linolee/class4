@@ -30,4 +30,9 @@
 		where lname like '%'||#{keyword}||'%'
 	</select>
 
+	<select id="searchCategory" resultType="String">
+		select category from category
+		where category like '%'||#{keyword}||'%'
+	</select>
+
 </mapper>
