@@ -3,7 +3,6 @@ package kr.co.sist.user.domain;
 public class Summary {
 	private String banner_img,lname,lintro,teacher_name,address,img;
 	private int max_member, class_time, class_time2;
-	
 	public String getBanner_img() {
 		return banner_img;
 	}
@@ -58,5 +57,6 @@ public class Summary {
 	public void setClass_time2(int class_time2) {
 		this.class_time2 = class_time2;
 	}
-
+	
+	
 }
