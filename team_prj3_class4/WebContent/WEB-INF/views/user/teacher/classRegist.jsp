@@ -123,9 +123,9 @@ function addClass() {
        $("#maxPerson").focus();
        return;
     }
-
-    if(maxPerson < minPerson){
-       alert("최소인원은 최대인원보다 많을 수 없습니다.");
+    	
+    if( parseInt(maxPerson) < parseInt(minPerson)){
+       alert("최소인원은 최대인원보다 많을 수 없습니다.\n최소인원 : "+minPerson+"최대인원 : "+maxPerson);
        $("#minPerson").focus();
        return;
     }
@@ -356,8 +356,8 @@ function setSubCategory() {
                   <option value="${ time }"><c:out value="${ time }"/></option>
                   </c:forEach>
                </select>분
-               <input type="text" id="minPerson" name="minPerson" class="inputPerson" placeholder="최소        명">
-               <input type="text" id="maxPerson" name="maxPerson" class="inputPerson" placeholder="최대        명">
+               <input type="number" id="minPerson" name="minPerson" class="inputPerson" placeholder="최소        명">
+               <input type="number" id="maxPerson" name="maxPerson" class="inputPerson" placeholder="최대        명">
             </td>
          </tr>
          <tr>

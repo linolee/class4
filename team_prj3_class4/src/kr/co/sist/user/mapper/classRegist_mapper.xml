@@ -14,7 +14,7 @@
 </select>
 
 <select id="selectTeacherNames" resultType="String" parameterType="String">
-	select TEACHER_NAME from TEACHER where CLIENT_ID = #{ id }
+	select TEACHER_NAME from TEACHER where CLIENT_ID = #{ id } and STATUS = 'Y'
 </select>
 
 <insert id="insertLesson" parameterType="kr.co.sist.user.vo.ClassRegistVO">
