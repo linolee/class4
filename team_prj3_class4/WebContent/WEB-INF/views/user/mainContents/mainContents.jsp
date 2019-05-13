@@ -7,13 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Class4-Main</title>
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/jsp_prj/common/main_v190130.css"/>
+<link href="<c:url value="/resources/common/main_v190130.css"/>"rel="stylesheet">
 <link href="<c:url value="/resources/maincontents/mainContents.css"/>"rel="stylesheet">
 <link href="<c:url value="/resources/maincontents/style.css"/>"rel="stylesheet">
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/login.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 <style type="text/css">

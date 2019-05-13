@@ -53,14 +53,6 @@ public class MemberController {
 	}
 
 	/////////////////////////////////////화면이동/////////////////////////////////////////////
-	
-	@RequestMapping(value = "user/main.do", method = GET)
-	public String mainPage() {
-
-		return "main";
-	}// mainPage
-
-
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
 		return "user/member/login";

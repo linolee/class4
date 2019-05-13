@@ -4,16 +4,16 @@
 
 <!-- smartmenu 시작 -->
    <!-- SmartMenus core CSS (required) -->
-   <link href="http://localhost:8080/team_prj3_class4/resources/smartmenu/css/sm-core-css.css" rel="stylesheet" type="text/css" />
+   <link href="<c:url value="/resources/smartmenu/css/sm-core-css.css"/>"rel="stylesheet">
    
    <!-- "sm-blue" menu theme (optional, you can use your own CSS, too) -->
-   <link href="http://localhost:8080/team_prj3_class4/resources/smartmenu/css/sm-simple/sm-simple.css" rel="stylesheet" type="text/css" />
+   <link href="<c:url value="/resources/smartmenu/css/sm-simple/sm-simple.css"/>"rel="stylesheet">
    
    <!-- jQuery -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
 
     <!-- SmartMenus jQuery plugin -->
-    <script type="text/javascript" src="http://localhost:8080/team_prj3_class4/resources/smartmenu/jquery.smartmenus.js"></script>
+    <script type="text/javascript" src="<c:url value="/resources/smartmenu/jquery.smartmenus.js"/>"></script>
 
     <!-- SmartMenus jQuery init -->
     <script type="text/javascript">
