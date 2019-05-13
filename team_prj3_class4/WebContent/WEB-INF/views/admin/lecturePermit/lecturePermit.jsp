@@ -26,14 +26,14 @@ function lecturePermitDetail(lcode) {
 		success:function( json ){
 			var space = /\+/g;
 			
-			$("#ls_lname").text(decodeURIComponent(json.lname));
+			$("#ls_lname").text(decodeURIComponent(json.lname.replace(space," ")));
 			if(null!=json.lintro){
 				$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
 			} else{
 				$("#ls_intro").text("입력되지 않았습니다");
 			}
 			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
-			$("#ls_class_time").text(json.class_time);
+			$("#ls_class_time").text(json.class_time+"시간");
 			$("#ls_max_member").text(json.max_member+"명");
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			
