@@ -132,4 +132,9 @@ public class SearchServiceImpl implements SearchService {
 		}
 		return list;
 	}
+
+	@Override
+	public List<String> searchCateogory(String keyword) {
+		return s_dao.selectCategoryList(keyword);
+	}
 }

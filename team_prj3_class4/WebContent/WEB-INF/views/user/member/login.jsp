@@ -36,6 +36,10 @@
 <script type="text/javascript">
 $(function() {
 	$("[name=id]").val("${param.id}");
+	if ("${param.result}" == 'success') {
+		history.back();
+	}
+	
 });
 </script>
 </head>

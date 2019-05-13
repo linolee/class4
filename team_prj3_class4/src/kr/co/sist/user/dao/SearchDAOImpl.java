@@ -9,10 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import kr.co.sist.admin.domain.QnaDetail;
-import kr.co.sist.admin.domain.QnaQuestionList;
-import kr.co.sist.admin.vo.ListVO;
-import kr.co.sist.admin.vo.QnaAnswerVO;
 import kr.co.sist.user.domain.SearchClassList;
 import kr.co.sist.user.vo.SearchListVO;
 
@@ -58,6 +54,14 @@ public class SearchDAOImpl implements SearchDAO {
 		return cnt;
 	}
 	
+	@Override
+	public List<String> selectCategoryList(String keyword) {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		List<String> categoryList=ss.selectList("searchCategory", keyword);
+		ss.close();
+		return categoryList;
+	}
 	
 	public static void main(String[] args) {
 		SearchDAOImpl sdi = new SearchDAOImpl();
