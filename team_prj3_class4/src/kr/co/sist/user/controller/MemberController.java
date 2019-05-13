@@ -27,7 +27,6 @@ import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
-import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -64,14 +63,13 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
-
 		return "user/member/login";
 	}// loginPage
 
 	@RequestMapping(value = "user/member/findID.do", method = GET)
 	public String findIDPage() {
 
-		return "user/member/findID";
+		return "user/member/findID";//
 	}// findIDPage
 
 	@RequestMapping(value = "user/member/findPass.do", method = GET)
@@ -112,6 +110,12 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}// teacherPage
+	
+	@RequestMapping(value = "user/member/findIdByEmail.do", method = GET)
+	public String findIdByEmailPage() {
+		
+		return "user/member/findIdByEmail";
+	}// reportPage
 	
 	/////////////////////////////////문의////////////////////////////////////////
 	
@@ -193,7 +197,7 @@ public class MemberController {
 		//넘겨진 parameter 값으로 VO를 생성
 		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
-				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],
+				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[1],
 				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
 		ujs.memberJoin(mjvo, request.getParameterValues("favors"));
 		return "main";
@@ -280,23 +284,31 @@ public class MemberController {
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		String client_id = session.getAttribute("client_id").toString();
-		System.out.println(client_id);
 		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
-		System.out.println(mu_vo);
-		System.out.println("업데이트 수"+ups.memberUpdate(mu_vo));
-		String[] favors = request.getParameterValues("favor");
-		System.out.println("관심목록 업데이트 수"+ups.favorUpdate(client_id, favors));
+		ups.memberUpdate(mu_vo);
+		String[] favors= {}; 
+		if (request.getParameterValues("favor") != null) {
+			favors =request.getParameterValues("favor");
+		}
+		ups.favorUpdate(client_id, favors);
 		return userPage(request ,response, session, model);
 	}
 	
 
-///////////////////////////////////////////로그인//////////////////////////////////////////////////////////
+///////////////////////////////////////////로그인///////////////////////////////////////////////////////////
 	
+	@RequestMapping(value = "user/teacher/login.do", method = POST)
+	public String loginTeacher() {
+		return "forward:/user/member/login.do";
+	}
+	@RequestMapping(value = "user/student/login.do", method = POST)
+	public String loginStudent() {
+		return "forward:/user/member/login.do";
+	}
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
 		UserLoginVO ulvo = new UserLoginVO(request.getParameter("id"), request.getParameter("pass"));
-
 		// 생성된 vo로 login method를 실행
 		int loginResult = uls.login(ulvo, session);
 		String loginPath = "";
@@ -305,19 +317,16 @@ public class MemberController {
 			loginPath = "/team_prj3_class4/user/main.do";
 			break;
 		case UserLoginService.login_blacklist:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_deletedUser:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_fail:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
 			break;
-
 		}
 		
-		System.out.println(uls.login(ulvo, session));
-		System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);
@@ -334,11 +343,6 @@ public class MemberController {
 		return "redirect:"+referer;
 	}// logout
 
-	
-	@RequestMapping(value = "user/search.do", method = GET)
-	public String searchResult() {
-		return "user/member/searchResult";
-	}
-	
+
 
 }

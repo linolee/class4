@@ -2,7 +2,7 @@ package kr.co.sist.user.domain;
 
 public class Summary {
 	private String banner_img,lname,lintro,teacher_name,address,img;
-	private int max_member, class_time;
+	private int max_member, class_time, class_time2;
 	public String getBanner_img() {
 		return banner_img;
 	}
@@ -51,11 +51,11 @@ public class Summary {
 	public void setClass_time(int class_time) {
 		this.class_time = class_time;
 	}
-	@Override
-	public String toString() {
-		return "Summary [banner_img=" + banner_img + ", lname=" + lname + ", lintro=" + lintro + ", teacher_name="
-				+ teacher_name + ", address=" + address + ", img=" + img + ", max_member=" + max_member
-				+ ", class_time=" + class_time + "]";
+	public int getClass_time2() {
+		return class_time2;
+	}
+	public void setClass_time2(int class_time2) {
+		this.class_time2 = class_time2;
 	}
 	
 	

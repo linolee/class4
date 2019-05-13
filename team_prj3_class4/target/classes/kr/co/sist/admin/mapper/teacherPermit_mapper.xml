@@ -26,21 +26,23 @@ where t.client_id=c.client_id and t.status='N')
 where r_num between #{ startNum } AND #{ endNum }
 </select>
 
-<delete id="delTeacherPermit" parameterType="String">
-delete from teacher 
-where client_id=#{client_id} and status='N'
+<delete id="updateTeacherPermit" parameterType="String">
+update teacher
+set status='R'
+where teacher_name=#{teacher_name} 
+
 </delete>
 
-<update id="updateTeacherPermitStat" parameterType="String">
+<!-- <update id="updateTeacherPermitStat" parameterType="String">
 update client
 set status='X'
 where client_id=#{client_id}
-</update>
+</update> -->
 
 <update id="teacherPermission" parameterType="String">
 update teacher
 set status='Y'
-where client_id=#{client_id}
+where teacher_name=#{teacher_name}
 </update>
 
 <select id="teacherPermitOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="TeacherPermitDomain">

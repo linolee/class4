@@ -10,17 +10,11 @@
 
 $(function () {
 
-	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
-	
 	// 버튼 대체
 	$('#btn-upload').click(function (e) {
 		e.preventDefault();
 	$('#file').click();
 			});
-
-///////////////////////// 서브밋하면 파일네임에 시간정보를 추가하여 서버에 저장 /////////////////////////
-///////////////////////// 본문 사진, 메인화면에 사진 변경 /////////////////////////
-///////////////////////// 이미지 크기, 용량 제한 /////////////////////////
 
    	var ext=["jpg","png"];
    	var flag=null;
@@ -28,7 +22,6 @@ $(function () {
 		 flag=false;
 	   	 alert("클릭");
 	   	 if($("#file").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file").val().split("\\");
 		   	var fileValue2 = $("#file").val(); // path
 		   	var fileValue3 = $("#file").val().split("."); // path
@@ -61,10 +54,8 @@ $(function () {
 			        readURL(this);
 		   	}
 		   	
-			/* $("#uploadImg").submit(); */
    		 } // if
  	});//change
-	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
 	$("#small").click(function(){
 		$("#textCate").val($("#small").val());
@@ -85,8 +76,6 @@ $(function () {
 
 $(function () {
 
-	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
-	
 	// 버튼 대체
 	$('#btn-upload2').click(function (e) {
 		e.preventDefault();
@@ -97,17 +86,13 @@ $(function () {
    	var flag=null;
     $("#file2").change(function(){
 		 flag=false;
-	   	 alert("클릭");
 	   	 if($("#file2").val()!=""){
-	   		 alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file2").val().split("\\");
 		   	var fileValue2 = $("#file2").val(); // path
 		   	var fileValue3 = $("#file2").val().split("."); // path
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	/* alert("path : "+fileValue2);
-		   	alert("ext : "+inputExt);*/
 		   	alert("filename : "+fileName); 
 	   	 	
 		   	for(var i=0; i<ext.length; i++){
@@ -134,13 +119,12 @@ $(function () {
 			        readURL(this);
 		   	}
 		   	
-			/* $("#uploadImg").submit(); */
    		 } // if
  	});//change
 	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
  	$("#addSCate").click(function(){
- 		var input = prompt("추가할 카테고리명을 입력해주세요");
+ 		var input = prompt("추가할 소분류명을 입력해주세요");
  		if(input!=null){
  				var hdn=$("#hdnCate").val();
  				var page=Number($("#currentPage").val())+1-1;
@@ -217,8 +201,6 @@ $(function () {
  		} 
  	});
  	
- 	
- 	
 });
 
 </script>
@@ -227,9 +209,7 @@ $(function () {
 <div class="card">
 	<div class="card-header">
 		<ol class="breadcrumb" style="background-color:#f0f3f5;border-bottom:none;margin-bottom:0px;padding-bottom:0px;padding-top:0px;padding-left: 0px;">
-			<!-- <li class="breadcrumb-item"> -->
 				<h5 style="margin-bottom: 0px;"><strong>카테고리</strong></h5>
-			<!-- </li> -->
 			<li class="breadcrumb-menu d-md-down-none">
 				<div>
 					<a data-toggle="modal" class="btn btn-pill btn-block btn-light active" href="#modalAddCategory" style="padding-top: 3px;padding-bottom: 5px;width:120px;height:25px;">카테고리 추가</a>
@@ -253,19 +233,12 @@ $(function () {
 								<td style="width:1350px; height:100px">
 									<h3>${cate.category }</h3>
 									<input type="hidden" id="hdnCate" value="${cate.category }"/>
-									<%-- <c:forEach var="inner" items="${innerCate }"> --%>
-									<%-- <c:forEach var="inner" items="${inCateList }"> --%>
-									<%-- <c:if test="${not empty 운동 }"> --%>
 									<c:forEach var="inner" items="${inner}">
-										 <%-- <c:forEach var="btn" items="${btn }"> --%>
 										
-											<%-- <button class="btn btn-brand ${btn }" type="button" style="margin-bottom: 4px"> --%>
 											<button class="btn btn-brand btn-twitter" type="button" style="margin-bottom: 4px">
 												<span>${inner }</span>
 											</button>
-										<%-- </c:forEach> --%>
 									</c:forEach>
-									<%-- </c:if> --%>
 									
 									<input type="button" class="btn btn-brand btn-vine" value="소분류 추가" id="addSCate" style="margin-bottom: 4px;"/>
 								</td>
@@ -274,7 +247,6 @@ $(function () {
 								<td>
 									<a data-toggle="modal" href="#modalCategory" style="width:150px;">
 										<img src="http://localhost:8080/team_prj3_class4/upload/category/${cate.img }" class="categoryImg">
-										<!-- <img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="categoryImg"> -->
 									</a>
 								</td>
 							</tr>
@@ -294,8 +266,6 @@ $(function () {
 		</div>	            
 	</div>
 </div>
-                
 
 <c:import url="category/modalCategory.jsp"/>
 <c:import url="category/modalAddCategory.jsp"/>
-

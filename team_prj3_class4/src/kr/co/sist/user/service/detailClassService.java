@@ -9,12 +9,14 @@ import kr.co.sist.user.dao.DetailDAO;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.Join;
 import kr.co.sist.user.domain.JoinCount;
 import kr.co.sist.user.domain.QnA;
 import kr.co.sist.user.domain.ReviewDomain;
 import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
 import kr.co.sist.user.domain.TClass;
+import kr.co.sist.user.vo.ListVO;
 
 @Component
 public class detailClassService {
@@ -136,7 +138,7 @@ public class detailClassService {
 
 		String strList = ""; // 리턴될 페이지 인덱스 리스트
 
-		pagenumber = 10; // 한 화면의 페이지 인덱스 수
+		pagenumber = 5; // 한 화면의 페이지 인덱스 수
 
 		// 시작 페이지번호 구하기
 		startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
@@ -247,7 +249,7 @@ public class detailClassService {
 
 		String qstrList = ""; // 리턴될 페이지 인덱스 리스트
 
-		qpagenumber = 10; // 한 화면의 페이지 인덱스 수
+		qpagenumber = 5; // 한 화면의 페이지 인덱스 수
 
 		// 시작 페이지번호 구하기
 		qstartpage = ((qcurrent_page - 1) / qpagenumber) * qpagenumber + 1;
@@ -331,6 +333,24 @@ public class detailClassService {
  		addr=d_dao.selectBar(lcode);
  		return addr;
  	}//searchAddr
+ 	
+ 	public Join joinStatus(ListVO lvo) {
+ 		Join joinStatus=null;
+ 		joinStatus=d_dao.joinStatus(lvo);
+ 		return joinStatus;
+ 	}//joinStatus
+ 	
+	public boolean insertJoin(ListVO lvo) {
+		boolean flag=false;
+		flag=d_dao.insertJoin(lvo);
+		return flag;
+	}//insertJoin
+	
+	public boolean cancelJoin(ListVO lvo) {
+		boolean flag=false;
+		flag=d_dao.cancelJoin(lvo);
+		return flag;
+	}//cancelJoin
 
 	
 }//class

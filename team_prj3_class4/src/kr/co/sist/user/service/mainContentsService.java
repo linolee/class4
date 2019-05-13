@@ -107,7 +107,17 @@ public class mainContentsService {
 		List<LatestReview> latestreview1=null;
 		latestreview1=new ArrayList<LatestReview>();
 		latestreview=mc_dao.selectLatestReview();
+		
+		LatestReview lrv=null;
+		String contents="";
 		for(int i=0; i<3; i++) {
+			lrv=latestreview.get(i);
+			contents=lrv.getContents();
+			if(contents.length()>53) {
+				contents=contents.substring(0, 53)+"...";
+				lrv.setContents(contents);
+			}//end if
+			
 			if(latestreview.size()>i) {
 				latestreview1.add(latestreview.get(i));
 			}else {
@@ -122,15 +132,50 @@ public class mainContentsService {
 		List<LatestReview> latestreview2=null;
 		latestreview2=new ArrayList<LatestReview>();
 		latestreview=mc_dao.selectLatestReview();
+		
+		LatestReview lrv=null;
+		String contents="";
 		for(int i=3; i<6; i++) {
+			lrv=latestreview.get(i);
+			contents=lrv.getContents();
+			if(contents.length()>53) {
+				contents=contents.substring(0, 53)+"...";
+				lrv.setContents(contents);
+			}//end if
+			
 			if(latestreview.size()>i) {
 				latestreview2.add(latestreview.get(i));
-			}else if(latestreview.size()<=i) {
+			}else {
 				latestreview2.add(latestreview.get(1));
 			}
 		}//end for
 		return latestreview2;
 	}//selectLatestReview2
+	
+	public List<LatestReview> selectLatestReview3(){
+		List<LatestReview> latestreview=null;
+		List<LatestReview> latestreview3=null;
+		latestreview3=new ArrayList<LatestReview>();
+		latestreview=mc_dao.selectLatestReview();
+		
+		LatestReview lrv=null;
+		String contents="";
+		for(int i=6; i<9; i++) {
+			lrv=latestreview.get(i);
+			contents=lrv.getContents();
+			if(contents.length()>53) {
+				contents=contents.substring(0, 53)+"...";
+				lrv.setContents(contents);
+			}//end if
+			
+			if(latestreview.size()>i) {
+				latestreview3.add(latestreview.get(i));
+			}else {
+				latestreview3.add(latestreview.get(1));
+			}
+		}//end for
+		return latestreview3;
+	}//selectLatestReview3
 
 	
 	

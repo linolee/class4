@@ -4,6 +4,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -18,6 +20,7 @@ import kr.co.sist.admin.domain.LecturePermitDomain;
 import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.LecturePermitService;
 import kr.co.sist.admin.service.QnaService;
+import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 
@@ -30,9 +33,15 @@ public class LecturePermitController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/lecturePermit.do",method=GET)
-	public String lecturePermitPage(ListVO lvo, Model model,
+	public String lecturePermitPage(ListVO lvo, Model model, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<LecturePermitDomain> list=null;
 		
 		int totalCount = lps.totalCount();//총 게시물의 수
@@ -57,7 +66,6 @@ public class LecturePermitController {
 			osvo.setEndNum(endNum);
 			list=lps.memberOptionSearch(osvo);
 		}
-		
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecturePermit.do");
 		
@@ -88,8 +96,13 @@ public class LecturePermitController {
 	
 	@ResponseBody
 	@RequestMapping(value="/admin/lectureRefuse.do", method=GET)
-	public void lectureRefuse(String lcode) {
+	public void lectureRefuse(String lcode, String reason) {
 		lps.lectureRefuse(lcode);
+		
+		LectureRefuseReasonVO lrrvo=new LectureRefuseReasonVO();
+		lrrvo.setLcode(lcode);
+		lrrvo.setReason(reason);
+		lps.lectureRefuseReason(lrrvo);
 	}
 		
 	

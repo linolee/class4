@@ -49,11 +49,7 @@ function teacherPermitInfo(id, tName) {
 $(function(){		
  	$("#permission").click(function(){
 		if(confirm("정말 강사 권한을 승인하시겠습니까?")){
-			//$("#reportReason").val("");
-			//$("[name='addFrm']").submit();
-			
-				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherPermission.do",
 						data: queryString,
@@ -80,7 +76,7 @@ $(function(){
 			//$("[name='addFrm']").submit();
 			
 				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherRefuse.do",
 						data: queryString,
@@ -141,7 +137,7 @@ $(function(){
 			<tbody>
 				<c:if test="${empty teacherPermitList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>승인 대기중인 강사가 없습니다</strong>
 					</td>
 				</tr>
