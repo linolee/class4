@@ -147,6 +147,8 @@ public class MypageController {
 		List<String> lcodeList=null;
 		int toDate=0;
 		int fromDate=0;
+		System.out.println(request.getParameter("toDate"));
+		System.out.println(request.getParameter("fromDate"));
 		if(!(request.getParameter("toDate")==null)) {
 			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
 		}
@@ -271,17 +273,17 @@ public class MypageController {
 			}//end if
 			if(!(request.getParameter("toDate")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
-												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		if( !(request.getParameter("toDate")==null) ) {
 			if(request.getParameter("status")==null) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?toDate="+request.getParameter("toDate")
-											+"&fromDate"+request.getParameter("fromDate")+"&");
+											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 			if(!(request.getParameter("status")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
-				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		
@@ -394,7 +396,7 @@ public class MypageController {
 		if(!(request.getParameter("toDate")==null)) {
 			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?toDate="
 										+request.getParameter("toDate")
-										+"&fromDate"+request.getParameter("fromDate")+"&");
+										+"&fromDate="+request.getParameter("fromDate")+"&");
 		}//end if
 		
 		model.addAttribute("indexList",indexList);
@@ -500,7 +502,7 @@ public class MypageController {
 		if(!(request.getParameter("toDate")==null)) {
 			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?toDate="
 										+request.getParameter("toDate")
-										+"&fromDate"+request.getParameter("fromDate")+"&");
+										+"&fromDate="+request.getParameter("fromDate")+"&");
 		}//end if
 		
 		model.addAttribute("indexList",indexList);
@@ -621,24 +623,23 @@ public class MypageController {
 			}//end if
 			if(!(request.getParameter("toDate")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
-												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		if( !(request.getParameter("toDate")==null) ) {
 			if(request.getParameter("status")==null) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?toDate="+request.getParameter("toDate")
-											+"&fromDate"+request.getParameter("fromDate")+"&");
+											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 			if(!(request.getParameter("status")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
-				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		
 		if(!(request.getParameter("status")==null)) {
 			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status"+request.getParameter("status")+"&");
 		}//end if
-		
 		model.addAttribute("indexList",indexList);
 		model.addAttribute("pageScale",pageScale);
 		model.addAttribute("totalCount",totalCount);
@@ -760,17 +761,17 @@ public class MypageController {
 			}//end if
 			if(!(request.getParameter("toDate")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
-												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		if( !(request.getParameter("toDate")==null) ) {
 			if(request.getParameter("status")==null) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?toDate="+request.getParameter("toDate")
-											+"&fromDate"+request.getParameter("fromDate")+"&");
+											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 			if(!(request.getParameter("status")==null)) {
 				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
-				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 		}//end if
 		

@@ -214,9 +214,9 @@ public class UserMypageDAO {
 		return list;
 	}//qnaList
 	
-	public String selectAnswer(ListVO lvo) {
+	public String selectAnswer(String qcode) {
 		SqlSession ss=getSessionFactory().openSession();
-		String answer=ss.selectOne("selectAnswer", lvo);
+		String answer=ss.selectOne("selectAnswer", qcode);
 		ss.close();
 		return answer;
 	}//qnaList
