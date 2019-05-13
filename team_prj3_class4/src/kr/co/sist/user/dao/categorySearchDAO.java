@@ -54,6 +54,14 @@ public class categorySearchDAO {
 		ss.close();
 		return cnt;
 	}
-
+	
+	public List<String> selectCategory() {
+		SqlSession ss=getSessionFactory().openSession();
+		
+		List<String> categoryList=ss.selectList("selectCategoryTotal");
+		ss.close();
+		return categoryList;
+	}
+	
 	
 }

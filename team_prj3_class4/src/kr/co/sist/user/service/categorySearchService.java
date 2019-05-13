@@ -127,6 +127,10 @@ public class categorySearchService {
 		}
 		return list;
 	}
+	
+	public List<String> searchCateogory() {
+		return cs_dao.selectCategory();
+	}
 
 
 }

@@ -59,6 +59,21 @@ body {
 		<!-- Page Content -->
 		<div class="container">
 
+			<div class="card">
+				<div class="card-header">
+					<h3>
+						카테고리
+					</h3>
+				</div>
+				<div class="card-body">
+					<c:if test="${empty categoryList }">
+						검색 결과가 없습니다.
+					</c:if>
+					<c:forEach var="categoryList" items="${categoryList }">
+						<input type="button" class="btn btn-info my-1" value="${categoryList}" onclick="location.href='../user/categorySearch.do?keyword=${categoryList}'">
+					</c:forEach>
+				</div>
+			</div>
 			<!-- Page Heading/Breadcrumbs -->
 			<h3 class="mt-4 mb-3">
 				"${keyword}" 카테고리 검색결과
@@ -74,7 +89,7 @@ body {
 				<div class="col-lg-4 col-sm-6 portfolio-item">
 					<div class="card h-100">
 						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">
-						<img class="card-img-top" style="width: 350px; height: 220px;"
+						<img class="card-img-top" style="width: 100%; height: 220px;"
 							src="<c:url value="/upload/lessonMain/${listItem.main_img }"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png"/>'"></a>
 						<div class="card-body">
 							<h4 class="card-title">
@@ -94,9 +109,9 @@ body {
 				</div>
 			</c:forEach>
 			</div>
-						<c:forEach var="category" items="${categoryList }">
+						<%-- <c:forEach var="category" items="${categoryList }">
 						<input type="button" class="btn btn-secondary my-1" value="${category }">
-						</c:forEach>
+						</c:forEach> --%>
 					</div>
 				</div>
 			</div>

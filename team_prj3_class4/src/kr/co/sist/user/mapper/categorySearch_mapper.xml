@@ -32,5 +32,8 @@
 		or inner_category like '%'||#{keyword}||'%'
 	</select>
 
+	<select id="selectCategoryTotal" resultType="String">
+		select category from category
+	</select>
 
 </mapper>
