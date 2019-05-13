@@ -69,7 +69,7 @@ public class MemberController {
 	@RequestMapping(value = "user/member/findID.do", method = GET)
 	public String findIDPage() {
 
-		return "user/member/findID";
+		return "user/member/findID";//
 	}// findIDPage
 
 	@RequestMapping(value = "user/member/findPass.do", method = GET)

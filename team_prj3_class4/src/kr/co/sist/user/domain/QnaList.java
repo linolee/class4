@@ -2,7 +2,7 @@ package kr.co.sist.user.domain;
 
 public class QnaList {
 
-	private String qDate, lname, status;
+	private String qDate, lname, status, lcode,qcode;
 
 	public String getqDate() {
 		return qDate;
@@ -26,6 +26,22 @@ public class QnaList {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getLcode() {
+		return lcode;
+	}
+
+	public void setLcode(String lcode) {
+		this.lcode = lcode;
+	}
+
+	public String getQcode() {
+		return qcode;
+	}
+
+	public void setQcode(String qcode) {
+		this.qcode = qcode;
 	}
 	
 }

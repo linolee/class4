@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>class4-신고하기</title>
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/spring_mvc_prj/common/main_v190130.css">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
@@ -103,6 +103,18 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 .reportContent{background-color: #F4F4F4; padding-left: 100px;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<!-- summernote 관련 library 시작 -->
+<!-- include libraries(jQuery, bootstrap) -->
+<!-- <link href="http://localhost:8080/javaee_termprj3/common/summernote/bootstrap.css" rel="stylesheet"> -->
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/summernote/bootstrap.css"/>" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/bootstrap.js"></script>
+
+<!-- include summernote css/js -->
+<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#writeButton").click(function(){
@@ -122,7 +134,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 				alert("내용을 입력해 주세요.");
 				return;
 			}
-			if(count==0){
+			if(count==1){
 				alert("정보수집에 동의해 주세요.");
 				return;
 			}
@@ -138,7 +150,18 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 			}//end if
 		});
 	});//ready
+	$(function() {
+	      $('.summernote').summernote({
+	         placeholder: '이벤트를 작성해 주세요', 
+	           tabsize: 2,
+	           height: 280,
+	           width: 700,
+	           lang: 'ko-KR'
+	      });
+	 });
 </script>
+<!-- summernote 관련 library 끝 -->
+
 </head>
 <body>
 <div id="wrap">
@@ -185,30 +208,10 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 					<tr class="t6">
 						<th ><span>내용</span></th>
 
-						<td colspan="3"><textarea name='contents' id="contents" placeholder="" onfocus="javascript:setBlank();" >신고 내용을 상세히 적어 주시면 감사하겠습니다.
+						<td colspan="3"><textarea name="contents" class="summernote" id="contents" >신고 내용을 상세히 적어 주시면 감사하겠습니다.<br/>
 
 ※ 개인정보 보호를 위해 신분증과 같은 개인정보 항목을 첨부하실 경우,
     주민등록번호 뒷자리가 노출 되지 않도록 첨부 해 주시기 바랍니다.</textarea></td>
-					</tr>
-					<tr class="t7">
-						<th><span>첨부파일</span></th>
-						<td colspan="3">
-							<input type="hidden" id="enableFileExtension" name="enableFileExtension" value="jpg;jpeg;gif;doc;zip;docx;xls;pdf;png;bmp;txt" />
-							<div class="input_filewrap">
-								<input type="text"  id="file_route" class="file_text" readonly="readonly" title="첨부된 파일경로" />
-								<em class="file_wrap">
-									<input type="file" id="btnAddAttach" class="file_add" name="Attach" onChange="javascript:autoUpload(document.attachForm.Attach.value);"/>
-								</em>
-							</div>
-							<div class="fadd_info">
-							<em class="info">10M 이상 첨부파일은 jacob729@naver.com 로 첨부해서 접수 해주시기 바랍니다.</em>
-							<span class="filedelete"><a href="#n" id="deleteBtn" name="deleteBtn" >파일삭제</a></span>
-							</div>
-							<div class="fadd">
-								<select size="4" id="attachList" name="attachList" id="attachList" ></select>
-							</div>
-							<iframe id="mnHiddenFrame" name="mnHiddenFrame" style="display:none;" ></iframe>
-						</td>
 					</tr>
 				</table>
 				<dl class="a_info">
