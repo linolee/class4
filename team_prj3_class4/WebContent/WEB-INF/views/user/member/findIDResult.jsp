@@ -45,22 +45,7 @@ body {
 }
 </style>
 <script type="text/javascript">
-	function findId() {
-		var name = $("#name").val();
-		var email = $("#email").val();
-
-		if (name == null || name == '') {
-			alert("이름을 입력해주세요.");
-			$("#name").focus();
-			return;
-		}
-		if (email == null || email == '') {
-			alert("이메일을 입력해주세요.");
-			$("#email").focus();
-			return;
-		}
-		$("#frm").submit();
-	}
+	
 </script>
 
 <body>
@@ -71,7 +56,7 @@ body {
 		<div class="container my-5">
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
-				아이디 찾기 <small>Find ID</small>
+				아이디 찾기 결과
 			</h1>
 
 			<div class="card text-center">
@@ -80,20 +65,14 @@ body {
 				<form action="findIDResult.do" method="post" id="frm">
 					<div class="card-body text-center">
 						<div class="input-group mb-3 col-lg-5 mx-auto">
- 							<input type="text" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-default" placeholder="이름"
-								name="name" id="name">
-						</div>
-						<div class="input-group mb-3 col-lg-5 mx-auto">
-							<input type="text" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-default" placeholder="이메일"
-								name="email" id="email">
-						</div>
-						<div class="input-group mb-3 col-lg-5 mx-auto">
-							<button type="button" class="btn btn-secondary"
-								style="margin: 0px auto;" onclick="findId()">아이디 찾기</button>
+							<c:choose>
+								<c:when test="${ id eq null }">
+									<strong>입력된 정보로 검색된 아이디가 없습니다.</strong>
+								</c:when>
+								<c:otherwise>
+									입력된 정보로 검색된 아이디는 <strong><c:out value="${ id }"/></strong> 입니다.
+								</c:otherwise>
+							</c:choose> 
 						</div>
 					</div>
 				</form>
@@ -101,8 +80,16 @@ body {
 				<div class="card-footer text-center">
 					<button type="button" class="btn btn-outline-secondary"
 						onclick="location.href='loginPage.do'">로그인 화면으로</button>
-					<button type="button" class="btn btn-outline-secondary"
+					<c:choose>
+						<c:when test="${ id eq null }">
+							<button type="button" class="btn btn-outline-secondary"
 						onclick="location.href='findPass.do'">비밀번호 찾기</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-outline-secondary"
+						onclick="location.href='findPass.do?id=${ id }&name=${ name }&email=${ email }'">비밀번호 찾기</button>
+						</c:otherwise>
+					</c:choose> 
 					<button type="button" class="btn btn-outline-primary"
 						onclick="location.href='joinAgreement.do'">회원 가입</button>
 				</div>

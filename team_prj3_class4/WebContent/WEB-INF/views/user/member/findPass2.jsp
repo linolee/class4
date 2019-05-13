@@ -45,10 +45,16 @@ body {
 }
 </style>
 <script type="text/javascript">
-	function findId() {
+	function findPass() {
+		var id = $("#id").val();
 		var name = $("#name").val();
 		var email = $("#email").val();
 
+		if (id == null || id == '') {
+			alert("아이디를 입력해주세요.");
+			$("#id").focus();
+			return;
+		}
 		if (name == null || name == '') {
 			alert("이름을 입력해주세요.");
 			$("#name").focus();
@@ -71,29 +77,65 @@ body {
 		<div class="container my-5">
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
-				아이디 찾기 <small>Find ID</small>
+				비밀번호 찾기 <small>Find Password</small>
 			</h1>
 
 			<div class="card text-center">
 				<div class="card-header"></div>
 
-				<form action="findIDResult.do" method="post" id="frm">
+				<form action="findPassResult.do" method="post" id="frm">
 					<div class="card-body text-center">
 						<div class="input-group mb-3 col-lg-5 mx-auto">
- 							<input type="text" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-default" placeholder="이름"
-								name="name" id="name">
+							<c:choose>
+								<c:when test="${ param.id eq null }">
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="아이디"
+										name="id" id="id">
+								</c:when>
+								<c:otherwise>
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="아이디"
+										name="id" id="id" value="${ param.id }">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="input-group mb-3 col-lg-5 mx-auto">
-							<input type="text" class="form-control"
-								aria-label="Sizing example input"
-								aria-describedby="inputGroup-sizing-default" placeholder="이메일"
-								name="email" id="email">
+							<c:choose>
+								<c:when test="${ param.name eq null }">
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="이름"
+										name="name" id="name">
+								</c:when>
+								<c:otherwise>
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="이름"
+										name="name" id="name" value="${ param.name }">
+								</c:otherwise>
+							</c:choose>
+						</div>
+						<div class="input-group mb-3 col-lg-5 mx-auto">
+							<c:choose>
+								<c:when test="${ param.email eq null }">
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="이메일"
+										name="email" id="email">
+								</c:when>
+								<c:otherwise>
+									<input type="text" class="form-control"
+										aria-label="Sizing example input"
+										aria-describedby="inputGroup-sizing-default" placeholder="이메일"
+										name="email" id="email" value="${ param.email }">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="input-group mb-3 col-lg-5 mx-auto">
 							<button type="button" class="btn btn-secondary"
-								style="margin: 0px auto;" onclick="findId()">아이디 찾기</button>
+								style="margin: 0px auto;" onclick="findPass()">비밀번호 찾기</button>
 						</div>
 					</div>
 				</form>
@@ -102,7 +144,7 @@ body {
 					<button type="button" class="btn btn-outline-secondary"
 						onclick="location.href='loginPage.do'">로그인 화면으로</button>
 					<button type="button" class="btn btn-outline-secondary"
-						onclick="location.href='findPass.do'">비밀번호 찾기</button>
+						onclick="location.href='findID.do'">아이디 찾기</button>
 					<button type="button" class="btn btn-outline-primary"
 						onclick="location.href='joinAgreement.do'">회원 가입</button>
 				</div>
