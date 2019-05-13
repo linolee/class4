@@ -84,9 +84,12 @@ dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adad
 dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#cancelBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#closeBtn{width: 50%; height:40px; background-color:#5F6368; float: left; color: #ffffff; font-weight: bold;cursor: default}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
 .trigger{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
+#closeBtn2{width: 100%; height:40px; background-color:#5F6368; color: #ffffff; font-weight: bold;cursor:default}
 #guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 .contents{display:none;}
 #loginBtn{cursor: pointer;}
@@ -504,6 +507,15 @@ $(function () {
 										</tr>
 									</table>
 									</c:if>
+									<div style="text-align: center; width: 100%">
+										<div style="display: inline-block;">
+											<ul class="pagination ">
+												<c:out value="${ indexList }" escapeXml="false" />
+												<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
+											</ul>
+										</div>
+									</div>
+									
 										<!-- style="border-bottom: 1px solid #cdcdcd;" -->
 							</div>					
 							<div class="group" style="border-top: 1px solid #cfcfcf; margin-bottom: 15px;">
@@ -652,7 +664,7 @@ $(function () {
 	                      <dl class="clear_fix">
 	                          <dt>수강인원</dt>
 	                          <dd><span class="mark" id="lec_count_now">
-	                          <c:out value="${joinCount.now_member}"/>
+	                          <c:out value="${joinCount.now_member} "/>
 	                          <c:if test="${empty joinCount.now_member}">0
 	                          </c:if>
 	                          </span>
@@ -687,16 +699,59 @@ $(function () {
 	                  </div>
 	                  <div>
 	                    <input type="hidden" value="${id}"/>
+	                   <%--  <c:out value="${detailc.status eq 'F'}"/> --%>
 	                    <c:choose>
-						<c:when test="${empty id}">
+						<c:when test="${empty id}"> <!-- 비회원 로그인 -->
 		                  	<input type="button" class="btn" id="guestqnaBtn" value="강사에게 문의하기"/>
-		                  	<input type="button" class="trigger" id="loginBtn" value="클래스 신청하기 "/>
+		                  	<c:set var="now" value="${joinCount.now_member}"/>
+		                  	<c:if test="${ joinCount.now_member eq null }">
+		                  		<c:set var="now" value="0"/>
+		                  	</c:if>
+		                  	<c:set var="max" value="${summary.max_member}"/>
+		                  	<c:set var="status" value="${detailc.status}"/>
+		                  	<%-- <div><c:out value="${ now }"/> <c:out value="${ max }"/> <c:out value="${ status }"/></div> --%>
+		                  	<c:choose>
+								<c:when test="${ now lt max && status ne 'E' && status ne 'F'}">
+				                  	<input type="button" class="trigger" id="loginBtn" value="클래스 신청하기 "/>
+			                  	</c:when>
+								<c:when test="${status eq 'F'}">
+				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 마감 "/>
+			                  	</c:when>
+								<c:when test="${status eq 'E'}">
+				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 종료 "/>
+			                  	</c:when>
+<%-- 			                  	<c:when test="${now ge max}">
+				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 정원초괴"/>
+			                  	</c:when> --%>
+ 			                  	<c:otherwise>
+				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 정원초괴"/>
+			                  	</c:otherwise> 
+		                  	</c:choose>
 						</c:when>
-						<c:otherwise>
+						<c:otherwise>  <!-- 회원은 신청 -->
 		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
-		                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
+		                  	<c:choose>
+								<c:when test="${joinStatus2.status eq Y}"> <!-- true면 신청한상태 -->
+									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
+			                  	</c:when>
+								<c:when test="${'joinCount.now_member' eq 'joinCount.max_member'}">
+				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>
+			                  	</c:when>
+			                  	<c:when test="${detailc.status eq F}">
+				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>
+			                  	</c:when>
+			                  	<c:when test="${detailc.status eq E}">
+				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
+			                  	</c:when>
+								<%-- <c:when test="${'joinStatus' eq 'false'}"> <!-- true면 신청한상태 -->
+									<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
+								</c:when> --%>
+ 			                  	<c:otherwise>
+				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
+			                  	</c:otherwise> 
+		                  	</c:choose>
 						</c:otherwise>
 						</c:choose>
 	                  
@@ -754,25 +809,22 @@ $(function () {
 						</c:when>
 						<c:when test="${param.result eq 'black' }">
 							<label style="color: red;">차단 된 아이디입니다.</label>
-
 						</c:when>
 						<c:when test="${param.result eq 'deleted' }">
 							<label style="color: red;">삭제 된 아이디입니다.</label>
-
 						</c:when>
 						<c:when test="${param.result eq 'fail' }">
+							<label style="color: red;">아이디와 비밀번호를 다시 한 번 확인해주세요.</label>
+						</c:when>
+					</c:choose>
 						<!-- PrintWriter out;
 						out = response.getWriter();
 						out.println("<script>alert('다시확인');history.back();</script>");
+						out.println("<script>alert("아이디와 비밀번호를 다시 한 번 확인해주세요.");</script>"); 
+						<script type="text/javascript">
+						alert("<c:out value='아이디와 비밀번호를 다시 한 번 확인해주세요.'/>");
+						</script>
 						out.println("<script>alert("아이디와 비밀번호를 다시 한 번 확인해주세요.");</script>"); -->
-							<script type="text/javascript">
-								alert("<c:out value='아이디와 비밀번호를 다시 한 번 확인해주세요.'/>");
-							</script>
-							<!-- out.println("<script>alert("아이디와 비밀번호를 다시 한 번 확인해주세요.");</script>"); -->
-							<label style="color: red;">아이디와 비밀번호를 다시 한 번 확인해주세요.</label>
-
-						</c:when>
-					</c:choose>
 				</div>
                     <br/>
                     <input type="hidden" name="lcode" id="lcode" value="${param.lcode}"/>
