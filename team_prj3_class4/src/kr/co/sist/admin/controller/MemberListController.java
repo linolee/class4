@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,9 +32,14 @@ public class MemberListController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/member.do",method=GET)
-	public String memberPage(ListVO lvo, Model model, 
+	public String memberPage(ListVO lvo, Model model, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 		
 		List<MemberListDomain> list=null;
 		int totalCount = mls.totalCount();//총 게시물의 수
@@ -49,8 +56,6 @@ public class MemberListController {
 		
 		list=mls.selectAllMember(lvo);
 
-		
-		
 		OptionSearchVO osvo=new OptionSearchVO();
 		if(null!=option && null!=keyword) {
 			osvo.setOption(option);
@@ -60,7 +65,6 @@ public class MemberListController {
 			osvo.setEndNum(endNum);
 			list=mls.memberOptionSearch(osvo);
 		}
-		
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "member.do");
 		
@@ -90,19 +94,12 @@ public class MemberListController {
 	@RequestMapping(value="/admin/addBlack.do",method=GET)
 	public String addBlack(@RequestParam(value="id", required=false)String id, @RequestParam(value="reason", required=false)String reason) {
 		JSONObject json = null;
-		/*SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");*/
 		SimpleDateFormat format1 = new SimpleDateFormat ("yyyy-MM-dd");
 		Date date = new Date();
 		String time = format1.format(date);
-		//System.out.println("------------------"+"id="+id+"  reason="+reason);
-		//System.out.println("-------------------"+time);
 		AddBlackVO abvo=new AddBlackVO(id, reason, time);
 		
 		json=mls.addBlack(abvo);
-		
-		// 쿼리스트링으로 값을 받아서 딜리트 쿼리 실행해야함
-		//json = mls.searchMemberDetail(id);
-		//System.out.println(json.toJSONString());
 		
 		return json.toJSONString();
 	}

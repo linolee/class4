@@ -27,7 +27,9 @@ import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
+import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberJoinVO;
+import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
 import kr.co.sist.user.vo.memberReportVO;
 
@@ -111,6 +113,11 @@ public class MemberController {
 		}
 	}// teacherPage
 	
+	@RequestMapping(value = "user/member/findIdByEmail.do", method = GET)
+	public String findIdByEmailPage() {
+		
+		return "user/member/findIdByEmail";
+	}// reportPage
 	/////////////////////////////////문의////////////////////////////////////////
 	
 	@ResponseBody
@@ -200,7 +207,7 @@ public class MemberController {
 	/////////////////////////////////회원정보/////////////////////////////////////////////////////////
 	
 	
-	@RequestMapping(value = "user/member/userPage.do", method = GET)
+	@RequestMapping(value = "user/member/userPage.do")
 	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
@@ -239,7 +246,11 @@ public class MemberController {
 	@RequestMapping(value = "user/member/changePassword.do", method = POST)
 	public String changePassword(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
-		System.out.println(request.getAttribute("client_id").toString());
+		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+			json.put("resultFlag", true);
+		}else {
+			json.put("resultFlag", false);
+		}
 		return json.toJSONString();
 	}
 	
@@ -273,9 +284,14 @@ public class MemberController {
 	
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
-		System.out.println(request.getAttribute("favor"));
-		
-		
+		String client_id = session.getAttribute("client_id").toString();
+		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
+		ups.memberUpdate(mu_vo);
+		String[] favors= {}; 
+		if (request.getParameterValues("favor") != null) {
+			favors =request.getParameterValues("favor");
+		}
+		ups.favorUpdate(client_id, favors);
 		return userPage(request ,response, session, model);
 	}
 	
@@ -295,13 +311,13 @@ public class MemberController {
 			loginPath = "/team_prj3_class4/user/main.do";
 			break;
 		case UserLoginService.login_blacklist:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_deletedUser:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
 			break;
 		case UserLoginService.login_fail:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
 			break;
 
 		}
@@ -324,11 +340,6 @@ public class MemberController {
 		return "redirect:"+referer;
 	}// logout
 
-	
-	@RequestMapping(value = "user/search.do", method = GET)
-	public String searchResult() {
-		return "user/member/searchResult";
-	}
-	
+
 
 }

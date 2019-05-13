@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -31,9 +33,14 @@ public class TteacherController {
 	private IndexService is;
 	
 	@RequestMapping(value="/admin/teacher.do",method=GET)
-	public String teacherPage(Model model, ListVO lvo, 
+	public String teacherPage(Model model, ListVO lvo, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 
 		List<TeacherDomain> list=null;
 		

@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.LecturePermitDAO;
 import kr.co.sist.admin.domain.LecturePermitDomain;
+import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
@@ -72,7 +74,7 @@ public class LecturePermitService {
 				json.put("lintro", URLEncoder.encode(summary.getLintro(), "UTF-8"));
 			}
 			if(null!=summary.getImg()) {
-				json.put("img", URLEncoder.encode(summary.getImg(), "UTF-8"));
+				json.put("teacher_img", URLEncoder.encode(summary.getImg(), "UTF-8"));
 			}
 			json.put("teacher_name", URLEncoder.encode(summary.getTeacher_name(), "UTF-8"));
 			json.put("address", URLEncoder.encode(summary.getAddress(), "UTF-8"));
@@ -128,6 +130,34 @@ public class LecturePermitService {
 		} // catch
 		
 		return json;
+	}
+	
+	public void lecturePermission(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lecturePermission(lcode);
+	}
+	
+	public void lectureRefuse(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lectureRefuse(lcode);
+	}
+	
+	public List<LecturePermitDomain> memberOptionSearch(OptionSearchVO osvo){
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		List<LecturePermitDomain> list=null;
+		list=lpdao.lecturePermitOptionSearch(osvo);
+		return list;
+	}
+	
+	public void lectureRefuseReason(LectureRefuseReasonVO lrrvo){
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lectureRefuseReason(lrrvo);
+	}
+	
+	
+	public static void main(String[] args) {
+		LecturePermitService lps=new LecturePermitService();
+		lps.lectureRefuse("in11202");
 	}
 	
 }

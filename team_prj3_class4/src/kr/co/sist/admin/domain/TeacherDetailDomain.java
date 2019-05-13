@@ -1,7 +1,7 @@
 package kr.co.sist.admin.domain;
 
 public class TeacherDetailDomain {
-	private String clientId, category, name, teacherName, gender, birth, tel, inputdate, email, introduce;
+	private String clientId, category, name, teacherName, gender, birth, tel, inputdate, email, introduce, img;
 
 	public String getClientId() {
 		return clientId;
@@ -82,7 +82,13 @@ public class TeacherDetailDomain {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	
-	
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 	
 }

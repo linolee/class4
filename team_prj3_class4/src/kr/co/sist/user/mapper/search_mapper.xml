@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.search_mapper">
+	<resultMap type="kr.co.sist.user.domain.SearchClassList" id="SearchClassList">
+		<result column="lcode" property="lcode"/>
+		<result column="teacher_name" property="teacher_name"/>
+		<result column="category" property="category"/>
+		<result column="inner_category" property="inner_category"/>
+		<result column="lname" property="lname"/>
+		<result column="status" property="status"/>
+		<result column="start_date" property="start_date"/>
+		<result column="end_date" property="end_date"/>
+		<result column="main_img" property="main_img"/>
+	</resultMap>
+	
+	<select id="selectClassList" resultMap="SearchClassList" parameterType="kr.co.sist.user.vo.SearchListVO" >
+		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img
+		from(
+		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, row_number() over(order by lcode desc) r_num
+		from lesson
+		where lname like '%'||#{keyword}||'%'
+		)
+		where r_num between #{ startNum } and #{ endNum }
+	</select>
+
+	<select id="searchTotalCnt" resultType="int">
+		select count(*) cnt from lesson
+		where lname like '%'||#{keyword}||'%'
+	</select>
+
+</mapper>

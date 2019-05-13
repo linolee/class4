@@ -37,7 +37,7 @@ where r_num between #{ startNum } and #{ endNum }
 </select>
 
 <select id="selectDetailBlackList" resultMap="detailBlackListResult" parameterType="String">
-select c.client_id client_id, c.name name, c.birth birth, c.gender gender, c.tel tel, c.inputdate inputdate, c.email email, b.reason reason, b.b_date b_date
+select c.client_id client_id, c.name name, c.birth birth, c.gender gender, c.tel tel, to_char(c.inputdate, 'YYYY-MM-DD') inputdate, c.email email, b.reason reason, to_char(b.b_date, 'yyyy-mm-dd') b_date
 from client c, blacklist b
 where c.client_id=b.client_id and c.client_id=#{ id } 
 </select>
@@ -51,7 +51,7 @@ where client_id=#{id}
 select client_id, name, birth, gender, email
 from(select b.client_id, c.name, c.birth, c.gender, c.email, row_number() over(order by b_date desc) r_num
 from blacklist b, client c
-where b.client_id=c.client_id and ${option}=#{keyword})
+where b.client_id=c.client_id and ${option} like '%'||#{keyword}||'%')
 where r_num between #{startNum} and #{endNum}
 </select>
 

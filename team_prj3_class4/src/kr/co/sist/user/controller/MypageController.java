@@ -145,11 +145,20 @@ public class MypageController {
 		List<List<ClassList>> reviewList=new ArrayList<List<ClassList>>();
 		List<String> reviewStatus=new ArrayList<String>();
 		List<String> lcodeList=null;
+		int toDate=0;
+		int fromDate=0;
+		if(!(request.getParameter("toDate")==null)) {
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+		}
+		if(!(request.getParameter("fromDate")==null)) {
+			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+		}
 		
 		int allTotalCount=0;
 		int readyTotalCount=0;
 		int endTotalCount=0;
 		int totalCount=0;
+		
 		
 		lcodeList=ums.lcodeList(clientId);
 		if(!(request.getParameter("status")==null)) {
@@ -199,10 +208,19 @@ public class MypageController {
 				for(int i=startNum-1; i<lcodeList.size(); i++) {
 					lvo.setLcode(lcodeList.get(i));
 					if(!(reviewList.size()>4)) {
-					if(ums.reviewStatus(lvo)==null) {
-							reviewList.add(ums.classList(lvo));
-							reviewStatus.add(ums.reviewStatus(lvo));
-					}//end if
+						if(ums.reviewStatus(lvo)==null) {
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
+										&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
+									reviewList.add(ums.classList(lvo));
+									reviewStatus.add(ums.reviewStatus(lvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								reviewList.add(ums.classList(lvo));
+								reviewStatus.add(ums.reviewStatus(lvo));
+							}//end if
+						}//end if
 					}//end if
 				}//end for
 			}//end if
@@ -211,8 +229,17 @@ public class MypageController {
 					lvo.setLcode(lcodeList.get(i));
 					if(!(ums.reviewStatus(lvo)==null)) {
 						if(!(reviewList.size()>4)) {
-							reviewList.add(ums.classList(lvo));
-							reviewStatus.add(ums.reviewStatus(lvo));
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
+										&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
+									reviewList.add(ums.classList(lvo));
+									reviewStatus.add(ums.reviewStatus(lvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								reviewList.add(ums.classList(lvo));
+								reviewStatus.add(ums.reviewStatus(lvo));
+							}//end if
 						}//end if
 					}//end if
 				}//end for
@@ -222,16 +249,40 @@ public class MypageController {
 			for(int i=startNum-1; i<lcodeList.size(); i++) {
 				lvo.setLcode(lcodeList.get(i));
 				if(!(reviewList.size()>4)) {
-					reviewList.add(ums.classList(lvo));
-					reviewStatus.add(ums.reviewStatus(lvo));
+					if(!(request.getParameter("toDate")==null)) {
+						if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+								&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+							reviewList.add(ums.classList(lvo));
+							reviewStatus.add(ums.reviewStatus(lvo));
+						}//end if
+					}//end if
+					if(request.getParameter("toDate")==null) {
+						reviewList.add(ums.classList(lvo));
+						reviewStatus.add(ums.reviewStatus(lvo));
+					}//end if
 				}//end if
 			}//end for
 		}//end if
 		
 		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?");
 		if( !(request.getParameter("status")==null) ) {
-			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")+"&");
-			
+			if(request.getParameter("toDate")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")+"&");
+			}//end if
+			if(!(request.getParameter("toDate")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
+												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
+		}//end if
+		if( !(request.getParameter("toDate")==null) ) {
+			if(request.getParameter("status")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?toDate="+request.getParameter("toDate")
+											+"&fromDate"+request.getParameter("fromDate")+"&");
+			}//end if
+			if(!(request.getParameter("status")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
+				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
 		}//end if
 		
 		model.addAttribute("indexList",indexList);
@@ -279,7 +330,27 @@ public class MypageController {
 		List<String> lcodeList=null;
 		lcodeList=ums.jjimLcodeList(clientId);
 		
+		int toDate=0;
+		int fromDate=0;
+		if(!(request.getParameter("toDate")==null)) {
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+		}
+		if(!(request.getParameter("fromDate")==null)) {
+			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+		}
+		
+		
 		int totalCount=ums.jjimTotalCnt(clientId);
+		if(!(request.getParameter("toDate")==null)) {
+			totalCount=0;
+			for(int i=0; i<lcodeList.size(); i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+					totalCount++;
+				}//end if
+			}//end if
+		}//end if
 		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
 		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
 		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
@@ -295,7 +366,6 @@ public class MypageController {
 		
 		lpvo.setStartNum(startNum);
 		lpvo.setEndNum(endNum);
-		
 		if(!(request.getParameter("addJjim")==null)) {
 			lvo.setLcode(request.getParameter("addJjim"));
 			updateJjim=ums.insertJjim(lvo);
@@ -306,12 +376,26 @@ public class MypageController {
 		}//end if
 		for(int i=startNum-1; i<endNum; i++) {
 			lvo.setLcode(lcodeList.get(i));
-			jjimList.add(ums.classList(lvo));
-			jjimStatus.add(ums.jjimStatus(lvo));
+			if(!(request.getParameter("toDate")==null)) {
+				if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+					jjimList.add(ums.classList(lvo));
+					jjimStatus.add(ums.jjimStatus(lvo));
+				}//end if
+			}//end if
+			if(request.getParameter("toDate")==null) {
+				jjimList.add(ums.classList(lvo));
+				jjimStatus.add(ums.jjimStatus(lvo));
+			}//end if
 		}//end for
 		
 		
 		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?");
+		if(!(request.getParameter("toDate")==null)) {
+			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?toDate="
+										+request.getParameter("toDate")
+										+"&fromDate"+request.getParameter("fromDate")+"&");
+		}//end if
 		
 		model.addAttribute("indexList",indexList);
 		model.addAttribute("pageScale",pageScale);
@@ -331,6 +415,7 @@ public class MypageController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
+		System.out.println(clientId);
 		boolean updateJjim = false;
 		ListVO lvo=new ListVO(lcode, clientId);
 		String jjim="";
@@ -350,7 +435,7 @@ public class MypageController {
 		return jjim;
 	}//searchDetail
 	@RequestMapping(value="user/student/mypage_cancel.do", method=GET)
-	public String mypageCancel(Model model, HttpSession session, ListPageVO lpvo) {
+	public String mypageCancel(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
@@ -360,7 +445,27 @@ public class MypageController {
 		List<String> lcodeList=null;
 		lcodeList=ums.cancelLcodeList(clientId);
 		
+		int toDate=0;
+		int fromDate=0;
+		if(!(request.getParameter("toDate")==null)) {
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+		}//end if
+		if(!(request.getParameter("fromDate")==null)) {
+			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+		}//end if
+		
 		int totalCount=ums.cancelTotalCnt(clientId);
+		if(!(request.getParameter("toDate")==null)) {
+			totalCount=0;
+			for(int i=0; i<lcodeList.size(); i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+					totalCount++;
+				}//end if
+			}//end if
+		}//end if
+		
 		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
 		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
 		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
@@ -379,10 +484,24 @@ public class MypageController {
 		
 		for(int i=startNum-1; i<endNum; i++) {
 			lvo.setLcode(lcodeList.get(i));
-			cancelList.add(ums.cancelList(lvo));
+			if(!(request.getParameter("toDate")==null)) {
+				if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+					cancelList.add(ums.cancelList(lvo));
+				}//end if
+			}//end if
+			if(request.getParameter("toDate")==null) {
+				cancelList.add(ums.cancelList(lvo));
+			}//end if
 		}//end for
 		
 		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?");
+		
+		if(!(request.getParameter("toDate")==null)) {
+			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?toDate="
+										+request.getParameter("toDate")
+										+"&fromDate"+request.getParameter("fromDate")+"&");
+		}//end if
 		
 		model.addAttribute("indexList",indexList);
 		model.addAttribute("pageScale",pageScale);
@@ -406,8 +525,27 @@ public class MypageController {
 		List<String> lcodeList=null;
 		lcodeList=ums.qnaLcodeList(clientId);
 		
+		int toDate=0;
+		int fromDate=0;
+		if(!(request.getParameter("toDate")==null)) {
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+		}//end if
+		if(!(request.getParameter("fromDate")==null)) {
+			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+		}//end if
+		
 		QnaStatusVO qsvo=new QnaStatusVO(clientId, "");
 		int totalCount=ums.qnaTotalCnt(clientId);
+		if(!(request.getParameter("toDate")==null)) {
+			totalCount=0;
+			for(int i=0; i<lcodeList.size(); i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+						&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+					totalCount++;
+				}//end if
+			}//end if
+		}//end if
 		if(!(request.getParameter("status")==null)) {
 			qsvo.setStatus(request.getParameter("status"));
 			totalCount=ums.qnaStatusCnt(qsvo);
@@ -432,27 +570,71 @@ public class MypageController {
 		if(request.getParameter("status")==null){
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
-				qnaList.add(ums.qnaList(lvo));
+				if(!(request.getParameter("toDate")==null)) {
+					if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+							&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+						qnaList.add(ums.qnaList(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("toDate")==null) {
+					qnaList.add(ums.qnaList(lvo));
+				}//end if
 			}//end for
 		}//end if
 		if(!(request.getParameter("status")==null)) {
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
 				if(request.getParameter("status").equals("Y")) {
-					System.out.println("------"+ums.qnaList(lvo).get(i).getStatus());
 					if(ums.qnaList(lvo).get(i).getStatus().equals("Y")) {
-						qnaList.add(ums.qnaList(lvo));
+						if(!(request.getParameter("toDate")==null)) {
+							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								qnaList.add(ums.qnaList(lvo));
+							}//end if
+						}//end if
+						if(request.getParameter("toDate")==null) {
+							qnaList.add(ums.qnaList(lvo));
+						}//end if
 					}//end if
 				}//end if
 				if(request.getParameter("status").equals("N")) {
 					if(ums.qnaList(lvo).get(i).getStatus().equals("N")) {
-						qnaList.add(ums.qnaList(lvo));
+						if(!(request.getParameter("toDate")==null)) {
+							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								qnaList.add(ums.qnaList(lvo));
+							}//end if
+						}//end if
+						if(request.getParameter("toDate")==null) {
+							qnaList.add(ums.qnaList(lvo));
+						}//end if
 					}//end if
 				}//end if
 			}//end for
 		}//end if
 		
 		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?");
+		
+		if( !(request.getParameter("status")==null) ) {
+			if(request.getParameter("toDate")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")+"&");
+			}//end if
+			if(!(request.getParameter("toDate")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
+												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
+		}//end if
+		if( !(request.getParameter("toDate")==null) ) {
+			if(request.getParameter("status")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?toDate="+request.getParameter("toDate")
+											+"&fromDate"+request.getParameter("fromDate")+"&");
+			}//end if
+			if(!(request.getParameter("status")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
+				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
+		}//end if
+		
 		if(!(request.getParameter("status")==null)) {
 			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status"+request.getParameter("status")+"&");
 		}//end if
@@ -478,8 +660,29 @@ public class MypageController {
 		List<String> lcodeList=null;
 		lcodeList=ums.reportLcodeList(clientId);
 		
+		int toDate=0;
+		int fromDate=0;
+		if(!(request.getParameter("toDate")==null)) {
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+		}//end if
+		if(!(request.getParameter("fromDate")==null)) {
+			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+		}//end if
+		
 		ReportStatusVO rsvo=new ReportStatusVO(clientId, "");
 		int totalCount=ums.reportTotalCnt(clientId);
+		
+		if(!(request.getParameter("toDate")==null)) {
+			totalCount=0;
+			for(int i=0; i<lcodeList.size(); i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+						&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+					totalCount++;
+				}//end if
+			}//end if
+		}//end if
+		
 		if(!(request.getParameter("status")==null)) {
 			rsvo.setStatus(request.getParameter("status"));
 			totalCount=ums.reportStatusCnt(rsvo);
@@ -505,7 +708,15 @@ public class MypageController {
 		if(request.getParameter("status")==null){
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
-				reportList.add(ums.reportList(lvo));
+				if(!(request.getParameter("toDate")==null)) {
+					if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+							&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+						reportList.add(ums.reportList(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("toDate")==null) {
+					reportList.add(ums.reportList(lvo));
+				}//end if
 			}//end for
 		}//end if
 		
@@ -513,19 +724,56 @@ public class MypageController {
 			for(int i=startNum-1; i<endNum; i++) {
 				lvo.setLcode(lcodeList.get(i));
 				if(request.getParameter("status").equals("Y")) {
-					if(ums.reportList(lvo).get(i).getStatus().equals("Y")) {
-						reportList.add(ums.reportList(lvo));
+					if(ums.reportList(lvo).get(0).getStatus().equals("Y")) {
+						if(!(request.getParameter("toDate")==null)) {
+							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								reportList.add(ums.reportList(lvo));
+							}//end if
+						}//end if
+						if(request.getParameter("toDate")==null) {
+							reportList.add(ums.reportList(lvo));
+						}//end if
 					}//end if
 				}//end if
 				if(request.getParameter("status").equals("N")) {
-					if(ums.reportList(lvo).get(i).getStatus().equals("N")) {
-						reportList.add(ums.reportList(lvo));
+					if(ums.reportList(lvo).get(0).getStatus().equals("N")) {
+						if(!(request.getParameter("toDate")==null)) {
+							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								reportList.add(ums.reportList(lvo));
+							}//end if
+						}//end if
+						if(request.getParameter("toDate")==null) {
+							reportList.add(ums.reportList(lvo));
+						}//end if
 					}//end if
 				}//end if
 			}//end for
 		}//end if
 		
 		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?");
+		
+		if( !(request.getParameter("status")==null) ) {
+			if(request.getParameter("toDate")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")+"&");
+			}//end if
+			if(!(request.getParameter("toDate")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
+												+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
+		}//end if
+		if( !(request.getParameter("toDate")==null) ) {
+			if(request.getParameter("status")==null) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?toDate="+request.getParameter("toDate")
+											+"&fromDate"+request.getParameter("fromDate")+"&");
+			}//end if
+			if(!(request.getParameter("status")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
+				+"&toDate="+toDate+"&fromDate="+fromDate+"&");
+			}//end if
+		}//end if
+		
 		if(!(request.getParameter("status")==null)) {
 			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status"+request.getParameter("status")+"&");
 		}//end if

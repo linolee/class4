@@ -130,24 +130,4 @@ public class MemberListDAO {
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		MemberListDAO adao=new MemberListDAO();
-		OptionSearchVO osvo=new OptionSearchVO();
-		//osvo.setCurrentPage(1);
-		osvo.setEndNum(5);
-		osvo.setStartNum(1);
-		osvo.setOption("name");
-		osvo.setKeyword("πÈ¿Œ¿Á");
-		
-		
-		adao.memberOptionSearch(osvo);
-		
-		/*ListVO lvo=new ListVO();
-		lvo.setCurrentPage(1);
-		lvo.setStartNum(1);
-		lvo.setEndNum(10);
-		adao.selectAllMember(lvo);*/
-	}
-
-	
 } // class

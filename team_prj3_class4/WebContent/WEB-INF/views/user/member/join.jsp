@@ -194,7 +194,7 @@ body {padding-top: 0px;}
 							<li>
 								<label>생년월일</label><br>
 								<div class="input-group">
-								  <input type="text" aria-label="Year" placeholder="Year" class="form-control" name="birth" id="input_year">
+								  <input type="text" aria-label="Year" placeholder="Year" class="form-control" name="birth" id="input_year" maxlength="4">
 								  <div class="input-group-append">
 								    <span class="input-group-text">년</span>
 								  </div>
