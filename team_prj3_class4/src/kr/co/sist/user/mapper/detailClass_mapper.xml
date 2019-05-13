@@ -12,10 +12,13 @@
 	<result column="address" property="address"/>
 	<result column="max_member" property="max_member"/>
 	<result column="class_time" property="class_time"/>
+	<result column="class_time2" property="class_time2"/>
 	<result column="img" property="img"/>
 </resultMap>
 <select id="selectSummary" resultMap="summary" parameterType="String">
-	select l.banner_img,l.lname,l.lintro,l.teacher_name,substr(l.address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) address,l.max_member,l.end_time-l.start_time class_time,t.img
+	select l.banner_img,l.lname,l.lintro,l.teacher_name,
+			substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) address,
+			l.max_member,((l.end_time-l.start_time)/60) class_time,mod(l.end_time-l.start_time,60) class_time2,t.img
 	from lesson l ,teacher t
 	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
 </select>
@@ -45,9 +48,11 @@
 	<result column="curriculum" property="curriculum"/>
 	<result column="others" property="others"/>
 	<result column="address" property="address"/>
+	<result column="address2" property="address2"/>
+	<result column="together" property="together"/>
 </resultMap>
 <select id="selectDeContents" resultMap="detailContents" parameterType="String">
-	select contents,curriculum,others,address
+	select contents,curriculum,others,address,address2,together
 	from lesson
 	where lcode= #{lcode}
 </select>
@@ -124,10 +129,12 @@ select count(*) cnt from lesson_qna
 	<result column="start_date" property="start_date"/>
 	<result column="end_date" property="end_date"/>
 	<result column="start_time" property="start_time"/>
+	<result column="start_time2" property="start_time2"/>
 	<result column="end_time" property="end_time"/>
+	<result column="end_time2" property="end_time2"/>
 </resultMap>
 <select id="selectClassTime" resultMap="time" parameterType="String">
-	select start_date,end_date,start_time, end_time
+	select start_date,end_date,start_time/60 start_time, mod(start_time,60) start_time2, end_time/60 end_time, mod(end_time,60) end_time2
 	from lesson
 	where lcode=#{lcode}
 </select>
@@ -156,7 +163,8 @@ select count(*) cnt from lesson_qna
 	<result column="introduce" property="introduce"/>
 </resultMap>
 <select id="selectAddr" resultMap="Addr" parameterType="String">
-	select l.due_date, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) gu,t.introduce
+	select l.due_date, substr(address,1,instr(address,' ')-1) si, 
+			substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) gu,t.introduce
 	from lesson l inner join teacher t
 	on t.teacher_name=l.teacher_name
 	where lcode=#{lcode}
@@ -184,6 +192,20 @@ and client_id=#{clientId}
 	set status='C', cancel_date=sysdate 
 	where lcode=#{lcode} and client_ID=#{clientId}
 </select>
+
+<resultMap type="kr.co.sist.user.vo.ListVO" id="jjim_Status">
+	<result column="clientId" property="clientId"/>
+	<result column="lcode" property="lcode"/>
+</resultMap>
+<select id="jjimStatus" resultMap="jjim_Status" parameterType="kr.co.sist.user.vo.ListVO">
+select client_id clientId,lcode
+from  lesson_like
+where client_id=#{clientId}
+and lcode=#{lcode}
+</select>
+
+
+
 
 
 </mapper>

@@ -90,6 +90,9 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 #guestqnaBtn{width: 100%; height:40px; background-color:#4944A0; color: #ffffff; font-weight: bold;}
 .contents{display:none;}
 #loginBtn{cursor: pointer;}
+#loginHoverbtn:hover {
+	color:#FF0000;
+}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -171,6 +174,8 @@ $(function () {
    $('.summernote_contents').summernote('disable');
    $('.summernote_contents2').summernote({ airMode: true });
    $('.summernote_contents2').summernote('disable');
+   $('.summernote_contents3').summernote({ airMode: true });
+   $('.summernote_contents3').summernote('disable');
 });
 </script>
 <!-- summernote 관련 library 끝 -->   
@@ -213,7 +218,7 @@ $(function () {
             	</tr>
             	<tr>
             		<td><c:out value="${summary.address}"/><br/></td>
-            		<td><c:out value="${summary.class_time}"/><br/></td>
+            		<td><c:out value="${summary.class_time}"/>시간 <c:out value="${summary.class_time2}"/>분</td>
             		<td><c:out value="${summary.max_member}"/>명</td>
            		</tr>
            		<tr style="align-content: center">
@@ -316,6 +321,15 @@ $(function () {
                               <p><span style="font-size: 12pt;"><strong>* 소요 시간은 보통 1시간 내외로&nbsp;</strong><strong>소요됩니다.</strong></span></p><p><br></p><p><br></p> -->                            
                           </span>
                       </div>
+                      <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
+                          <div class="detail_info_title"><span class="contentTitle">함께해요</span></div>
+                          <div style="margin:20px; font-size: 15px;">
+                          <textarea name="contents" class="summernote_contents3" id="summernote" style="width: 90%; margin: 15px;">
+                          <c:out value="${detailc.together}"/> 
+                          	<%-- <%=dd_vo.getContents()%> --%>	
+                          </textarea>
+                          </div>
+                         </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle">포함/불포함 사항</span></div>
                           <table style="margin: 20px;">
@@ -379,7 +393,7 @@ $(function () {
                           <div class="detail_info_title"><span class="contentTitle">클래스 위치</span></div>
                           <p class="detail editor_st" style="margin: 15px;font-size: 15px;">
                           		<!-- 서울 용산구 동빙고동 262-6 B1 -->
-                          		 <c:out value="${detailc.address}"/>
+                          		 <c:out value="${detailc.address}"/><c:out value="${detailc.address2}"/>
                           		</p>
 							<div id="kakaoMap">
 							</div>
@@ -392,7 +406,7 @@ $(function () {
 							        center: new daum.maps.LatLng(37.499490, 127.033167), // 지도의 중심좌표
 							        level: 3 // 지도의 확대 레벨
 							    };  
- 							setMarker("<c:out value="${detailc.address}"/>","클래스 위치");
+ 							setMarker("<c:out value="${detailc.address}"/><c:out value="${detailc.address2}"/>","클래스 위치");
 							});//ready
 							
 							function setMarker(addr,dong){	
@@ -599,7 +613,7 @@ $(function () {
 	                           <c:forEach var="day" items="${requestScope.day}">
                                   <c:out value="${day}"/>,
                                 </c:forEach>
-                                 <c:out value="${classTime.start_time}"/>시 ~ <c:out value="${classTime.end_time}"/>시
+                                 <c:out value="${classTime.start_time}"/>시 <c:out value="${classTime.start_time2}"/>분 ~ <c:out value="${classTime.end_time}"/>시 <c:out value="${classTime.end_time2}"/>분
                                   &nbsp; &nbsp; &nbsp; &nbsp; 
                                   <c:out value="${joinCount.now_member}"/>
                                   <c:if test="${empty joinCount.now_member}">0</c:if>
@@ -763,12 +777,12 @@ $(function () {
                     <br/>
                     <input type="hidden" name="lcode" id="lcode" value="${param.lcode}"/>
                     <div class="btns">
-                    	<input type="submit" value="로그인"/> 
+                    	<input type="submit" class="btn red" id="loginHoverbtn" value="로그인" style="width: 88px;height: 35px; font-size: 20px;"/> 
+                        <a  onclick="location.href='../member/joinAgreement.do'" class="btn red">회원가입</a>
+                    </div>
 <!--                     	<button type="submit" class="btn btn-secondary btn-lg">로그인</button>
                         <a style="width: 200px;" class="btn white" onclick="$('#FrmLogin').submit()">로그인</a>
                         <br/> -->
-                        <a style="width: 200px;" onclick="location.href='../member/joinAgreement.do'" class="btn red">회원가입</a>
-                    </div>
                 </fieldset>
                 </form>
              <!-- </form> 
