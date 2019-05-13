@@ -13,4 +13,5 @@ public interface SearchService {
 	public int endNum(int startNum);
 	public String indexList(int current_page, int total_page, String list_url, String keyword);
 	public List<SearchClassList> searchClassList(SearchListVO slvo);
+	public List<String> searchCateogory(String keyword);
 }

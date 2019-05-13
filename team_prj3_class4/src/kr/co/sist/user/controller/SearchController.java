@@ -32,6 +32,8 @@ public class SearchController {
 	@RequestMapping(value = "user/search.do", method = GET)
 	public String searchPage(HttpServletRequest request, SearchListVO slvo, Model model) {
 		List<SearchClassList> list = null;
+		List<String> categoryList = null;
+		categoryList = ss.searchCateogory(request.getParameter("keyword").toString());
 		int totalCount = ss.totalCount(request.getParameter("keyword").toString());// 총 게시물의 수//
 		int pageScale = ss.pageScale();
 		int totalPage = ss.totalPage(totalCount);// 전체 게시물을 보여주기 위한 총 페이지 수
@@ -47,6 +49,7 @@ public class SearchController {
 		list = ss.searchClassList(slvo);// 리스트 목록 조회
 
 		String indexList = ss.indexList(slvo.getCurrentPage(), totalPage, "search.do", slvo.getKeyword());
+		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("list", list);// @@
 		model.addAttribute("indexList", indexList);
 		model.addAttribute("pageScale", pageScale);

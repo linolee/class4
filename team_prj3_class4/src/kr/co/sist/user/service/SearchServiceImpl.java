@@ -1,5 +1,6 @@
 package kr.co.sist.user.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import kr.co.sist.user.dao.SearchDAO;
@@ -124,6 +125,16 @@ public class SearchServiceImpl implements SearchService {
 
 	@Override
 	public List<SearchClassList> searchClassList(SearchListVO slvo) {
-		return s_dao.selectClassList(slvo);
+		List<SearchClassList> list = s_dao.selectClassList(slvo);
+		for (SearchClassList searchClassList : list) {
+			searchClassList.setStart_date(searchClassList.getStart_date().substring(0, 10));
+			searchClassList.setEnd_date(searchClassList.getEnd_date().substring(0, 10));
+		}
+		return list;
+	}
+
+	@Override
+	public List<String> searchCateogory(String keyword) {
+		return s_dao.selectCategoryList(keyword);
 	}
 }

@@ -55,9 +55,10 @@
 
 <script type="text/javascript">
 $(function(){
+	var checkCurPass = false;
 	//////////////////////////////비밀번호 수정//////////////////////////////////////////////
 	$("#changePasswordBtn").click(function (){
-		if (CheckPassword()) {
+		if (CheckPassword()&&checkCurPass) {
 			$.ajax({
 				type:"POST",
 				url:"changePassword.do",
@@ -91,8 +92,10 @@ $(function(){
 			success: function(json){
 				if (json.resultFlag) {
 					$('#passwordWarning0').text('');
+					checkCurPass = true;
 				}else{
 					$('#passwordWarning0').text('비밀번호가 일치하지 않습니다.').css("color", "red");
+					checkCurPass = false;
 				}
 			},
 			error: function(xhr) {
