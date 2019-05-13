@@ -41,8 +41,74 @@
 td{ border-bottom: 1px solid #EEEEEE; }
 .searchDetail:hover { background-color: #F3F3F3 }
 </style>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%
+	DecimalFormat df = new DecimalFormat("00");
+	Calendar currentCalendar = Calendar.getInstance();
+	//현재 날짜 구하기
+	String strYear = Integer.toString(currentCalendar.get(Calendar.YEAR));
+	String strMonth = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	String strDay = df.format(currentCalendar.get(Calendar.DATE));
+	String strDate = strYear+"-"+strMonth+"-"+strDay;
+	//일주일 전 날짜 구하기
+	currentCalendar.add(currentCalendar.DATE, -7);
+	String strYear7 = Integer.toString(currentCalendar.get(Calendar.YEAR));
+	String strMonth7 = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	String strDay7 = df.format(currentCalendar.get(Calendar.DATE));
+	String strDate7 =strYear7+"-"+strMonth7+"-"+strDay7;
+	//한달 전 날짜 구하기
+	currentCalendar.add(currentCalendar.DATE, -24);
+	String strYear31 = Integer.toString(currentCalendar.get(Calendar.YEAR));
+	String strMonth31 = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	String strDay31 = df.format(currentCalendar.get(Calendar.DATE));
+	String strDate31 = strYear31 +"-"+ strMonth31 +"-"+ strDay31;
+	//두달전
+	currentCalendar.add(currentCalendar.DATE, -30);
+	String str2Year31 = Integer.toString(currentCalendar.get(Calendar.YEAR));
+	String str2Month31 = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	String str2Day31 = df.format(currentCalendar.get(Calendar.DATE));
+	String str2Date31 = str2Year31 +"-"+ str2Month31 +"-"+ str2Day31;
+	//세달전
+	currentCalendar.add(currentCalendar.DATE, -28);
+	String str3Year31 = Integer.toString(currentCalendar.get(Calendar.YEAR));
+	String str3Month31 = df.format(currentCalendar.get(Calendar.MONTH) + 1);
+	String str3Day31 = df.format(currentCalendar.get(Calendar.DATE));
+	String str3Date31 = str3Year31 +"-"+ str3Month31 +"-"+ str3Day31;
+%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
+	$(function(){
+		$("#btnAll").click(function(){
+			$("[name='fromDate']").val("1900-01-01");
+			$("[name='toDate']").val("5000-12-30");
+			$("[name='dateFrm']").submit();
+		})
+		$("#btnWeek").click(function(){
+			$("[name='fromDate']").val('<%=strDate7%>');
+			$("[name='toDate']").val("5000-12-30");
+			$("[name='dateFrm']").submit();
+		})
+		
+		$("#btn1Month").click(function(){
+			$("[name='fromDate']").val('<%=strDate31%>');
+			$("[name='toDate']").val("5000-12-30");
+			$("[name='dateFrm']").submit();
+		})
+		
+		$("#btn2Month").click(function(){
+			$("[name='fromDate']").val('<%=str2Date31%>');
+			$("[name='toDate']").val("5000-12-30");
+			$("[name='dateFrm']").submit();
+		})
+		
+		$("#btn3Month").click(function(){
+			$("[name='fromDate']").val('<%=str3Date31%>');
+			$("[name='toDate']").val("5000-12-30");
+			$("[name='dateFrm']").submit();
+		})	
+	});//ready
 	function jjim(lcode){
 		$.ajax({
 			url : "jjimHeart.do",

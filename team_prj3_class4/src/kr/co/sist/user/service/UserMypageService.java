@@ -143,8 +143,8 @@ public class UserMypageService {
 		return list;
 	}//qnaList
 	
-	public String selectAnswer(ListVO lvo){
-		String answer=um_dao.selectAnswer(lvo);
+	public String selectAnswer(String qcode){
+		String answer=um_dao.selectAnswer(qcode);
 		return answer;
 	}//qnaList
 	

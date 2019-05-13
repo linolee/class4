@@ -105,9 +105,11 @@
 	<result column="q_date" property="qDate"/>
 	<result column="lname" property="lname"/>
 	<result column="status" property="status"/>
+	<result column="lcode" property="lcode"/>
+	<result column="qcode" property="qcode"/>
 </resultMap>
 <select id="qnaList" parameterType="kr.co.sist.user.vo.ListVO" resultMap="qnaListResult">
-	select		q.q_date, l.lname, q.status
+	select		q.q_date, l.lname, q.status, q.lcode, qcode
 	from		lesson_qna q, lesson l
 	where	l.lcode=#{lcode} and q.lcode=#{lcode} and q.client_id=#{clientId}
 </select>
@@ -130,10 +132,10 @@
 	where	client_id=#{clientId} and status=#{status}
 </select>
 
-<select id="selectAnswer" parameterType="kr.co.sist.user.vo.ListVO" resultType="String">
+<select id="selectAnswer" parameterType="String" resultType="String">
 	select a_contents
 	from lesson_qna
-	where client_id=#{clientId} and lcode=#{lcode}
+	where qcode=#{qcode}
 </select>
 
 <resultMap type="kr.co.sist.user.domain.ReportList" id="reportListResult">
