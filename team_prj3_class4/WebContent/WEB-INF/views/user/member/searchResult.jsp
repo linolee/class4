@@ -98,18 +98,28 @@ body {
 							<h4 class="card-title">
 								<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">${listItem.lname }</a>
 							</h4>
-							<p class="card-text">
-								${listItem.teacher_name}<br>
-							</p>
-							<p class="card-text">
-								${listItem.category}>${listItem.inner_category}<br>
-							</p>
-							<p class="card-text">
-								${listItem.start_date}~${listItem.end_date}
-							</p>
-							<p class="card-text">
-								${listItem.cur_member}/${listItem.max_member}
-							</p>
+								<table class="table">
+									<tr>
+										<th>강사명</th>
+										<td>${listItem.teacher_name}</td>
+									</tr>
+									<tr>
+										<th>카테고리</th>
+										<td>${listItem.category}>${listItem.inner_category}</td>
+									</tr>
+									<tr>
+										<th>강의 기간</th>
+										<td>${listItem.start_date}~${listItem.end_date}</td>
+									</tr>
+									<tr>
+										<th>신청 마감일</th>
+										<td>${listItem.due_date}</td>
+									</tr>
+									<tr>
+										<th>수강 인원</th>
+										<td>${listItem.cur_member}/${listItem.max_member}</td>
+									</tr>
+								</table>
 						</div>
 					</div>
 				</div>

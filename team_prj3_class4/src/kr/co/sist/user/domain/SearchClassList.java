@@ -1,12 +1,24 @@
 package kr.co.sist.user.domain;
 
 public class SearchClassList {
-	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img;
+	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, due_date;
 	private int max_member, cur_member;
 	
 	public int getMax_member() {
 		return max_member;
 	}
+
+	public String getDue_date() {
+		return due_date;
+	}
+
+
+
+	public void setDue_date(String due_date) {
+		this.due_date = due_date;
+	}
+
+
 
 	public void setMax_member(int max_member) {
 		this.max_member = max_member;

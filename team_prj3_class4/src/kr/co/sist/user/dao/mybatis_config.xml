@@ -36,7 +36,8 @@
      <mapper resource="kr/co/sist/user/mapper/report_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/classRegist_mapper.xml"/> 
      <mapper resource="kr/co/sist/user/mapper/search_mapper.xml"/> 
-     <mapper resource="kr/co/sist/user/mapper/categorySearch_mapper.xml"/> 
+     <mapper resource="kr/co/sist/user/mapper/categorySearch_mapper.xml"/>
+     <mapper resource="kr/co/sist/mapper/update_mapper.xml"/> 
 
 	<mapper resource="kr/co/sist/mapper/update_mapper.xml"/>
   </mappers>
