@@ -197,7 +197,7 @@ public class MemberController {
 		//넘겨진 parameter 값으로 VO를 생성
 		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
-				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[0],
+				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[1],
 				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
 		ujs.memberJoin(mjvo, request.getParameterValues("favors"));
 		return "main";
