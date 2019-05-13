@@ -71,7 +71,7 @@ body {
 							검색 결과가 없습니다.
 						</c:if>
 						<c:forEach var="category" items="${categoryList }">
-						<input type="button" class="btn btn-info my-1" value="${category }">
+						<input type="button" class="btn btn-info my-1" value="${category }" onclick="location.href = 'categorySearch.do?keyword=${category }'">
 						</c:forEach>
 					</div>
 				</div>
