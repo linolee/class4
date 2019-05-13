@@ -25,7 +25,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
 			<div id="classTitleImg" style="height: 400px;">
 				
 				<!-- 대표이미지 -->
-				<img style="width: 100%; height: 400px;" id="ls_bannerImg" onerror="this.src='<c:url value="/upload/common/default.jpg"/>">
+				<img style="width: 100%; height: 400px;" id="ls_bannerImg" onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
 			</div>
             <div id="summary" style="margin: 5px;">
              <h1 class="c_title" style="line-height: 1.2;padding-left: 15px;" id="ls_lname"></h1>
@@ -34,7 +34,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
             	<tr>
             		<td rowspan="4" style="width: 180px; height: 160px;">
             			<img style="width: 100px;height: 100px;padding-top: 0px;margin-top: 25px;margin-bottom: 10px;" 
-            				id="ls_teacherImg" onerror="this.src='<c:url value="/upload/common/default.jpg"/>'">
+            				id="ls_teacherImg" onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
             				<!-- id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg"> -->
             			<br/>
 						<h3 id="ls_teacher_name" style="padding-left: 15px;"></h3>

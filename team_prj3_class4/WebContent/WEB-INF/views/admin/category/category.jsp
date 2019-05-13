@@ -1,7 +1,3 @@
-<%@page import="java.util.Enumeration"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.List"%>
-<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -20,7 +16,6 @@ $(function () {
    	var flag=null;
     $("#file").change(function(){
 		 flag=false;
-	   	 alert("클릭");
 	   	 if($("#file").val()!=""){
 			var fileValue = $("#file").val().split("\\");
 		   	var fileValue2 = $("#file").val(); // path
@@ -28,7 +23,7 @@ $(function () {
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	alert("filename : "+fileName); 
+		   	//alert("filename : "+fileName); 
 	   	 	
 		   	for(var i=0; i<ext.length; i++){
 		   		if(ext[i] ==inputExt){
@@ -57,7 +52,7 @@ $(function () {
    		 } // if
  	});//change
 	
-	$("#small").click(function(){
+/* 	$("#small").click(function(){
 		$("#textCate").val($("#small").val());
 		return;
 	});
@@ -70,7 +65,7 @@ $(function () {
  	$("#delCate").click(function(){
  		var varCate=$("#textCate").val();
  		alert(varCate+"삭제");
- 	});
+ 	}); */
  	
 });
 
@@ -93,7 +88,7 @@ $(function () {
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	alert("filename : "+fileName); 
+		   	//alert("filename : "+fileName); 
 	   	 	
 		   	for(var i=0; i<ext.length; i++){
 		   		if(ext[i] ==inputExt){
@@ -246,7 +241,7 @@ $(function () {
 							<tr>
 								<td>
 									<a data-toggle="modal" href="#modalCategory" style="width:150px;">
-										<img src="http://localhost:8080/team_prj3_class4/upload/category/${cate.img }" class="categoryImg">
+										<img src="http://localhost:8080/team_prj3_class4/upload/category/${cate.img }" class="categoryImg" onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
 									</a>
 								</td>
 							</tr>
