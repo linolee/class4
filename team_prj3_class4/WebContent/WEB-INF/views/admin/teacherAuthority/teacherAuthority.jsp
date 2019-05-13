@@ -76,7 +76,7 @@ $(function(){
 			//$("[name='addFrm']").submit();
 			
 				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherRefuse.do",
 						data: queryString,
