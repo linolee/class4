@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>class4-질문/문의하기</title>
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/spring_mvc_prj/common/main_v190130.css">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
