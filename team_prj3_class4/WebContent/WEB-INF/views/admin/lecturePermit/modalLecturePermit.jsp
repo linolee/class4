@@ -62,16 +62,30 @@ contentTitle{font-size: 24px;font-weight: bold;}
                   	</div>
                        <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>클래스를 소개해요</strong></span></div>
-                          <div style="margin:20px; font-size: 15px;" id="ls_contents">
-                          </div>
-                         <!-- <div > 
-                         	<textarea class="summernote_q"  id="ls_contents"></textarea>
-                         </div> -->
+                          
+                         <div id="ls_contents"> 
+                         	<textarea class="summernote_q"  ></textarea>
+                         </div>
+                         
+                         
+                         
+                         
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>수업 정보</strong></span></div>
-                          <div style="margin:20px; font-size: 15px;" id="ls_curriculum">
-                          </div>
+                          
+                          
+                          
+                          <!-- <div style="margin:20px; font-size: 15px;" id="ls_curriculum">
+                          </div> -->
+                          
+                          
+                          <div  id="ls_curriculum"> 
+                         	<textarea class="summernote_q" ></textarea>
+                         </div>
+                          
+                          
+                          
                           <span style="line-height: 1.5;font-size: 12pt; font-family: NanumGothic, sans-serif;">
                           
                           </span>
@@ -94,8 +108,11 @@ contentTitle{font-size: 24px;font-weight: bold;}
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>기타 사항</strong></span></div>
-                          <div style="margin: 20px; font-size:15px;" id="ls_others">
-                          </div>
+                          <!-- <div style="margin: 20px; font-size:15px;" id="ls_others">
+                          </div> -->
+                          <div  id="ls_others"> 
+                         	<textarea class="summernote_q" ></textarea>
+                         </div>
                       </div>
 
 

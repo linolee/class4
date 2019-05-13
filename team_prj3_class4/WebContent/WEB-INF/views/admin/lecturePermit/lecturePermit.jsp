@@ -38,10 +38,11 @@ function lecturePermitDetail(lcode) {
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			
 			if(null!=json.detailContents){
-				$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); 
+				/* $("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); */ 
+				$("#ls_contents .note-editable").html(decodeURIComponent(json.detailContents.replace(space," "))); 
 				/* $("#ls_contents").append('<textarea class="summernote_q" >'+json.detailContents+'</textarea>'); */
 			} else{
-				$("#ls_contents").text("입력되지 않았습니다");
+				$("#ls_contents .note-editable").text("입력되지 않았습니다");
 			}
 /* 			if(null!=json.detailContents){
 				$("#ls_contents").val(decodeURIComponent(json.detailContents.replace(space," ")));
@@ -50,15 +51,16 @@ function lecturePermitDetail(lcode) {
 			} */
 			
 			if(null!=json.detailCurriculum){
-				$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
+				/* $("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," "))); */
+				$("#ls_curriculum .note-editable").html(decodeURIComponent(json.detailCurriculum.replace(space," ")));
 			} else{
-				$("#ls_curriculum").text("입력되지 않았습니다");
+				$("#ls_curriculum .note-editable").text("입력되지 않았습니다");
 			}
 			
 			if(null!=json.detailOthers){
-				$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
+				$("#ls_others .note-editable").html(decodeURIComponent(json.detailOthers.replace(space," ")));
 			} else{
-				$("#ls_others").text("입력되지 않았습니다");
+				$("#ls_others .note-editable").text("입력되지 않았습니다");
 			}
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
