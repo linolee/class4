@@ -2,8 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
+<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
-
+$(function () {
+	$('.summernote_q').summernote({ airMode: true });
+	$('.summernote_q').summernote('disable');
+})
 function lecturePermitDetail(lcode) {
 	var detailAddress="";
  	var queryString="lcode="+lcode;
@@ -32,10 +38,16 @@ function lecturePermitDetail(lcode) {
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			
 			if(null!=json.detailContents){
-				$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," ")));
+				$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); 
+				/* $("#ls_contents").append('<textarea class="summernote_q" >'+json.detailContents+'</textarea>'); */
 			} else{
 				$("#ls_contents").text("입력되지 않았습니다");
 			}
+/* 			if(null!=json.detailContents){
+				$("#ls_contents").val(decodeURIComponent(json.detailContents.replace(space," ")));
+			} else{
+				$("#ls_contents").val("입력되지 않았습니다");
+			} */
 			
 			if(null!=json.detailCurriculum){
 				$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
@@ -71,6 +83,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_career *").remove();
 			if(json.career.length != 0){
 				for(var i=0; i<json.career.length;i++){
+					$("#ls_career").text("");
 					output+=decodeURIComponent(json.career[i].replace(space," "))+"<br/>";
 					$("#ls_career").append(output);
 					output="";
@@ -83,6 +96,7 @@ function lecturePermitDetail(lcode) {
 			$("#ls_optlist *").remove();
 			if(json.optList.length != 0){
 				for(var i=0; i<json.optList.length;i++){
+					$("#ls_optlist").text("");
 					output+=decodeURIComponent(json.optList[i])+"<br/>";
 					$("#ls_optlist").append(output);
 					output="";
@@ -95,6 +109,7 @@ function lecturePermitDetail(lcode) {
 			if(json.noptList.length != 0){
 				for(var i=0; i<json.noptList.length;i++){
 					output+=decodeURIComponent(json.noptList[i])+"<br/>";
+					$("#ls_noptlist").text("");
 					$("#ls_noptlist").append(output);
 					output="";
 				}

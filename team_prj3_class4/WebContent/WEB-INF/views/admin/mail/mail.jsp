@@ -113,7 +113,7 @@ $(function(){
   	  
   	  <br/>
   	  <div>
-  	  	<textarea name="content" class="form-control input-search" style="width:100%; height:500px;"></textarea>
+  	  	<textarea name="content" class="form-control input-search" style="width:100%; height:500px;" placeholder="내용"></textarea>
   	  
   	  </div>
 	  </form>
