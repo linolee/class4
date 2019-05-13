@@ -18,6 +18,11 @@ import kr.co.sist.user.service.mainContentsService;
 
 @Controller
 public class MainController {
+	
+	@RequestMapping(value = "user/main.do", method = GET)
+	public String mainPage() {
+		return "forward:/user/mainContents/mainContents.do";
+	}// mainPage
 		
 	@RequestMapping(value="/user/mainContents/mainContents.do", method = GET)
 	public String showContentsForm(Model model) {

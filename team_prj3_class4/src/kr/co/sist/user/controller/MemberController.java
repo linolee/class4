@@ -59,14 +59,8 @@ public class MemberController {
 		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
-	///////////////////////////////////// 화면이동/////////////////////////////////////////////
 
-	@RequestMapping(value = "user/main.do", method = GET)
-	public String mainPage() {
-
-		return "main";
-	}// mainPage
-
+	/////////////////////////////////////화면이동/////////////////////////////////////////////
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
 		return "user/member/login";
@@ -234,16 +228,17 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
-		// 넘겨진 parameter 값으로 VO를 생성
-		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"),
-				request.getParameter("name"),
-				request.getParameterValues("birth")[0] + request.getParameterValues("birth")[1]
-						+ request.getParameterValues("birth")[2],
-				request.getParameter("gender"),
-				request.getParameterValues("email")[0] + "@" + request.getParameterValues("email")[1], "N",
-				request.getParameterValues("tel")[0] + "-" + request.getParameterValues("tel")[1] + "-"
-						+ request.getParameterValues("tel")[2]);
-		ujs.memberJoin(mjvo, request.getParameterValues("favors"));
+		//넘겨진 parameter 값으로 VO를 생성
+		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
+				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
+				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[1],
+				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
+		String[] favors= {}; 
+		if (request.getParameterValues("favors") != null) {
+			favors =request.getParameterValues("favors");
+		}
+		ujs.memberJoin(mjvo, favors);
+
 		return "main";
 	}// joinPage
 
@@ -309,7 +304,6 @@ public class MemberController {
 			}
 		}
 		json.put("favorList", jsonArray);
-		System.out.println(json.toJSONString());
 		return json.toJSONString();
 	}
 

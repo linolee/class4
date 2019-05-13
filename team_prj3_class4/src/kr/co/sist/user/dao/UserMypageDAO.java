@@ -50,6 +50,9 @@ public class UserMypageDAO {
 	public List<ClassList> selectClass(ListVO lvo){
 		List<ClassList> list=null;
 		SqlSession ss=getSessionFactory().openSession();
+		ss.update("endStatus1");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
+		ss.update("endStatus2");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
+		ss.commit();///
 		list=ss.selectList("classList", lvo);
 		ss.close();
 		return list;
@@ -103,7 +106,7 @@ public class UserMypageDAO {
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
 		SqlSession ss=getSessionFactory().openSession();
-		lcode=ss.selectOne("jjimStatus", lvo);
+		lcode=ss.selectOne("jjimStatus1", lvo);
 		ss.close();
 		return lcode;
 	}//reviewList
@@ -214,9 +217,9 @@ public class UserMypageDAO {
 		return list;
 	}//qnaList
 	
-	public String selectAnswer(ListVO lvo) {
+	public String selectAnswer(String qcode) {
 		SqlSession ss=getSessionFactory().openSession();
-		String answer=ss.selectOne("selectAnswer", lvo);
+		String answer=ss.selectOne("selectAnswer", qcode);
 		ss.close();
 		return answer;
 	}//qnaList

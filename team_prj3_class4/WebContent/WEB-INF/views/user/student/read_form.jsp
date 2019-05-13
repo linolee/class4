@@ -1,10 +1,19 @@
+<%@page import="kr.co.sist.user.vo.ListVO"%>
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="kr.co.sist.user.service.UserMypageService"%>
+<%@page import="kr.co.sist.user.dao.UserMypageDAO"%>
 <%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%
 	session.setAttribute("writeFlag", false);
+	ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+	UserMypageService ums = ac.getBean(UserMypageService.class);
+	String contents=ums.selectAnswer(request.getParameter("qcode"));
 %>
+<div id="readFrm">
 <table id="writeTab">
 	<tr>
 		<th colspan="2" style="text-align: left">
@@ -17,7 +26,7 @@
 	<tr>
 		<td style="width: 100px; height: 30px; " valign="top">내용</td>
 		<td style="width: 600px">
-			<textarea rows="10" cols="45" id="review"></textarea>
+			<textarea rows="10" cols="45" id="review" readonly="readonly"><%= contents %></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -33,3 +42,4 @@
 		</td>
 	</tr>
 </table>
+</div>

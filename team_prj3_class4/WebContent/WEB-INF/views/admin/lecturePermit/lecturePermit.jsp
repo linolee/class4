@@ -26,22 +26,23 @@ function lecturePermitDetail(lcode) {
 		success:function( json ){
 			var space = /\+/g;
 			
-			$("#ls_lname").text(decodeURIComponent(json.lname));
+			$("#ls_lname").text(decodeURIComponent(json.lname.replace(space," ")));
 			if(null!=json.lintro){
 				$("#ls_lintro").text(decodeURIComponent(json.lintro.replace(space," ")));
 			} else{
 				$("#ls_intro").text("입력되지 않았습니다");
 			}
 			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
-			$("#ls_class_time").text(json.class_time);
+			$("#ls_class_time").text(json.class_time+"시간");
 			$("#ls_max_member").text(json.max_member+"명");
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			
 			if(null!=json.detailContents){
-				$("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); 
+				/* $("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); */ 
+				$("#ls_contents .note-editable").html(decodeURIComponent(json.detailContents.replace(space," "))); 
 				/* $("#ls_contents").append('<textarea class="summernote_q" >'+json.detailContents+'</textarea>'); */
 			} else{
-				$("#ls_contents").text("입력되지 않았습니다");
+				$("#ls_contents .note-editable").text("입력되지 않았습니다");
 			}
 /* 			if(null!=json.detailContents){
 				$("#ls_contents").val(decodeURIComponent(json.detailContents.replace(space," ")));
@@ -50,15 +51,16 @@ function lecturePermitDetail(lcode) {
 			} */
 			
 			if(null!=json.detailCurriculum){
-				$("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," ")));
+				/* $("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," "))); */
+				$("#ls_curriculum .note-editable").html(decodeURIComponent(json.detailCurriculum.replace(space," ")));
 			} else{
-				$("#ls_curriculum").text("입력되지 않았습니다");
+				$("#ls_curriculum .note-editable").text("입력되지 않았습니다");
 			}
 			
 			if(null!=json.detailOthers){
-				$("#ls_others").text(decodeURIComponent(json.detailOthers.replace(space," ")));
+				$("#ls_others .note-editable").html(decodeURIComponent(json.detailOthers.replace(space," ")));
 			} else{
-				$("#ls_others").text("입력되지 않았습니다");
+				$("#ls_others .note-editable").text("입력되지 않았습니다");
 			}
 			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));

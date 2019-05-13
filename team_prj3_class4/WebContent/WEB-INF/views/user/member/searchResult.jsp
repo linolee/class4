@@ -18,14 +18,6 @@
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
-<!-- Bootstrap core CSS -->
-<link
-	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
-	rel="stylesheet">
-<!-- Custom styles for this template -->
-<link
-	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
-	rel="stylesheet">
 <!-- CSS -->
 <!-- Bootstrap core CSS -->
 <link
@@ -71,7 +63,7 @@ body {
 							검색 결과가 없습니다.
 						</c:if>
 						<c:forEach var="category" items="${categoryList }">
-						<input type="button" class="btn btn-info my-1" value="${category }">
+						<input type="button" class="btn btn-info my-1" value="${category }" onclick="location.href = 'categorySearch.do?keyword=${category }'">
 						</c:forEach>
 					</div>
 				</div>
@@ -98,15 +90,28 @@ body {
 							<h4 class="card-title">
 								<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">${listItem.lname }</a>
 							</h4>
-							<p class="card-text">
-								${listItem.teacher_name}<br>
-							</p>
-							<p class="card-text">
-								${listItem.category}>${listItem.inner_category}<br>
-							</p>
-							<p class="card-text">
-								${listItem.start_date}~${listItem.end_date}
-							</p>
+								<table class="table">
+									<tr>
+										<th>강사명</th>
+										<td>${listItem.teacher_name}</td>
+									</tr>
+									<tr>
+										<th>카테고리</th>
+										<td>${listItem.category}>${listItem.inner_category}</td>
+									</tr>
+									<tr>
+										<th>강의 기간</th>
+										<td>${listItem.start_date}~${listItem.end_date}</td>
+									</tr>
+									<tr>
+										<th>신청 마감일</th>
+										<td>${listItem.due_date}</td>
+									</tr>
+									<tr>
+										<th>수강 인원</th>
+										<td>${listItem.cur_member}/${listItem.max_member}</td>
+									</tr>
+								</table>
 						</div>
 					</div>
 				</div>
