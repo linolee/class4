@@ -40,7 +40,7 @@ where client_id=#{client_id}
 <update id="teacherPermission" parameterType="String">
 update teacher
 set status='Y'
-where client_id=#{client_id}
+where teacher_name=#{teacher_name}
 </update>
 
 <select id="teacherPermitOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="TeacherPermitDomain">

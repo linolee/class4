@@ -49,11 +49,7 @@ function teacherPermitInfo(id, tName) {
 $(function(){		
  	$("#permission").click(function(){
 		if(confirm("정말 강사 권한을 승인하시겠습니까?")){
-			//$("#reportReason").val("");
-			//$("[name='addFrm']").submit();
-			
-				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherPermission.do",
 						data: queryString,
