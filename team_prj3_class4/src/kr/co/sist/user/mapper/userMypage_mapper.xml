@@ -88,7 +88,7 @@
 	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId} and s.status=#{pageStatus}
 </select>
 
-<select id="jjimStatus" parameterType="kr.co.sist.user.vo.ListVO" resultType="String">
+<select id="jjimStatus1" parameterType="kr.co.sist.user.vo.ListVO" resultType="String">
 	select		lcode
 	from		lesson_like
 	where	client_id=#{clientId} and lcode=#{lcode}

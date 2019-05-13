@@ -103,7 +103,7 @@ public class UserMypageDAO {
 	public String jjimStatus(ListVO lvo) {
 		String lcode="";
 		SqlSession ss=getSessionFactory().openSession();
-		lcode=ss.selectOne("jjimStatus", lvo);
+		lcode=ss.selectOne("jjimStatus1", lvo);
 		ss.close();
 		return lcode;
 	}//reviewList
