@@ -77,7 +77,7 @@ body {
 				<div class="col-lg-4 col-sm-6 portfolio-item">
 					<div class="card h-100">
 						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">
-						<img class="card-img-top"
+						<img class="card-img-top" style="width: 350px; height: 220px;"
 							src="<c:url value="/upload/lessonMain/${listItem.main_img }"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png"/>'"></a>
 						<div class="card-body">
 							<h4 class="card-title">
