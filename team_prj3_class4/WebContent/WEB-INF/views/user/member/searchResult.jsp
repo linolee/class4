@@ -107,6 +107,9 @@ body {
 							<p class="card-text">
 								${listItem.start_date}~${listItem.end_date}
 							</p>
+							<p class="card-text">
+								${listItem.cur_member}/${listItem.max_member}
+							</p>
 						</div>
 					</div>
 				</div>
