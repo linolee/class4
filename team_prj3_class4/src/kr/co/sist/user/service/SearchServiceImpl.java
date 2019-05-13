@@ -129,6 +129,7 @@ public class SearchServiceImpl implements SearchService {
 		for (SearchClassList searchClassList : list) {
 			searchClassList.setStart_date(searchClassList.getStart_date().substring(0, 10));
 			searchClassList.setEnd_date(searchClassList.getEnd_date().substring(0, 10));
+			searchClassList.setDue_date(searchClassList.getDue_date().substring(0, 10));
 		}
 		return list;
 	}
