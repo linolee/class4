@@ -2,6 +2,23 @@ package kr.co.sist.user.domain;
 
 public class SearchClassList {
 	private String lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img;
+	private int max_member, cur_member;
+	
+	public int getMax_member() {
+		return max_member;
+	}
+
+	public void setMax_member(int max_member) {
+		this.max_member = max_member;
+	}
+
+	public int getCur_member() {
+		return cur_member;
+	}
+
+	public void setCur_member(int cur_member) {
+		this.cur_member = cur_member;
+	}
 
 	public String getMain_img() {
 		return main_img;
