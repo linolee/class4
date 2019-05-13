@@ -32,7 +32,7 @@ function lecturePermitDetail(lcode) {
 			} else{
 				$("#ls_intro").text("입력되지 않았습니다");
 			}
-			$("#ls_address").text(decodeURIComponent(json.address.replace(space," ")));
+			$("#ls_address").text(decodeURIComponent(json.detailAddress.replace(space," ")));
 			$("#ls_class_time").text(json.class_time+"시간");
 			$("#ls_max_member").text(json.max_member+"명");
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
@@ -62,7 +62,7 @@ function lecturePermitDetail(lcode) {
 			} else{
 				$("#ls_others .note-editable").text("입력되지 않았습니다");
 			}
-			$("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," ")));
+			/* $("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," "))); */
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
 			

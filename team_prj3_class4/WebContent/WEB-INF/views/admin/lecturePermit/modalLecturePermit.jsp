@@ -61,7 +61,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
                       	</div>
                   	</div>
                        <div class="group" style="margin-bottom: 15px;border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle"><strong>클래스를 소개해요</strong></span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>클래스를 소개해요</strong></span></div><br/>
                           
                          <div id="ls_contents"> 
                          	<textarea class="summernote_q"  ></textarea>
@@ -72,7 +72,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
                          
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle"><strong>수업 정보</strong></span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>수업 정보</strong></span></div><br/>
                           
                           
                           
@@ -107,7 +107,7 @@ contentTitle{font-size: 24px;font-weight: bold;}
                           </table>
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
-                          <div class="detail_info_title"><span class="contentTitle"><strong>기타 사항</strong></span></div>
+                          <div class="detail_info_title"><span class="contentTitle"><strong>기타 사항</strong></span></div><br/>
                           <!-- <div style="margin: 20px; font-size:15px;" id="ls_others">
                           </div> -->
                           <div  id="ls_others"> 
@@ -118,8 +118,8 @@ contentTitle{font-size: 24px;font-weight: bold;}
 
                        <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>클래스 위치</strong></span></div>
-                          <p class="detail editor_st" style="margin: 15px;font-size: 15px;" id="ls_detailAddress">
-                          </p>
+                          <!-- <p class="detail editor_st" style="margin: 15px;font-size: 15px;" id="ls_detailAddress">
+                          </p> -->
 							<div id="kakaoMap">
 							</div>
 
