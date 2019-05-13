@@ -27,7 +27,6 @@ import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
-import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
 import kr.co.sist.user.vo.UserLoginVO;
@@ -64,7 +63,6 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
-
 		return "user/member/login";
 	}// loginPage
 
@@ -118,6 +116,7 @@ public class MemberController {
 		
 		return "user/member/findIdByEmail";
 	}// reportPage
+	
 	/////////////////////////////////문의////////////////////////////////////////
 	
 	@ResponseBody
@@ -298,11 +297,18 @@ public class MemberController {
 
 ///////////////////////////////////////////로그인//////////////////////////////////////////////////////////
 	
+	@RequestMapping(value = "user/teacher/login.do", method = POST)
+	public String loginTeacher() {
+		return "forward:/user/member/login.do";
+	}
+	@RequestMapping(value = "user/student/login.do", method = POST)
+	public String loginStudent() {
+		return "forward:/user/member/login.do";
+	}
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
 		UserLoginVO ulvo = new UserLoginVO(request.getParameter("id"), request.getParameter("pass"));
-
 		// 생성된 vo로 login method를 실행
 		int loginResult = uls.login(ulvo, session);
 		String loginPath = "";
@@ -319,11 +325,8 @@ public class MemberController {
 		case UserLoginService.login_fail:
 			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
 			break;
-
 		}
 		
-		System.out.println(uls.login(ulvo, session));
-		System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);
