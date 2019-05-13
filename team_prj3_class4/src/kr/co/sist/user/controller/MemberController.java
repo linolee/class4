@@ -242,7 +242,7 @@ public class MemberController {
 		return "main";
 	}// joinPage
 
-	///////////////////////////////// 회원정보/////////////////////////////////////////////////////////
+	///////////////////////////////// 회원정보///////////////////////////////////////////////////////
 
 	@RequestMapping(value = "user/member/userPage.do")
 	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
