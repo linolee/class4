@@ -122,7 +122,7 @@ public class TeacherController {
 		ClassRegistService crs = ac.getBean(ClassRegistService.class);
 		
 		try {
-			crs.addLesson(request);
+			crs.addLesson(request);//
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
