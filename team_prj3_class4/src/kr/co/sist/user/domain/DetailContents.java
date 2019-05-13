@@ -1,7 +1,7 @@
 package kr.co.sist.user.domain;
 
 public class DetailContents {
-	private String contents,curriculum,others,address,address2,together;
+	private String contents,curriculum,others,address,address2,together,status;
 
 	public String getContents() {
 		return contents;
@@ -49,6 +49,14 @@ public class DetailContents {
 
 	public void setTogether(String together) {
 		this.together = together;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 
