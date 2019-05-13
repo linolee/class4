@@ -37,7 +37,7 @@
 <select id="selectRecommend" resultMap="recommend">
 	<![CDATA[
 	select * from(
-	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) gu,l_date, avg(nvl(r.score,0)) star
+	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
 	from lesson l left join review r
 	on l.lcode=r.lcode
 	group by   l_date,l.lcode,main_img, banner_img, lname, teacher_name, address
