@@ -50,5 +50,6 @@ public class DetailContents {
 	public void setTogether(String together) {
 		this.together = together;
 	}
+	
 
 }
