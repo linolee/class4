@@ -118,6 +118,7 @@ public class MemberController {
 		
 		return "user/member/findIdByEmail";
 	}// reportPage
+	
 	/////////////////////////////////문의////////////////////////////////////////
 	
 	@ResponseBody
@@ -298,6 +299,14 @@ public class MemberController {
 
 ///////////////////////////////////////////로그인//////////////////////////////////////////////////////////
 	
+	@RequestMapping(value = "user/teacher/login.do", method = POST)
+	public String loginTeacher() {
+		return "forward:/user/member/login.do";
+	}
+	@RequestMapping(value = "user/student/login.do", method = POST)
+	public String loginStudent() {
+		return "forward:/user/member/login.do";
+	}
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
