@@ -134,7 +134,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 				alert("내용을 입력해 주세요.");
 				return;
 			}
-			if(count==0){
+			if(count==1){
 				alert("정보수집에 동의해 주세요.");
 				return;
 			}
