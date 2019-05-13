@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.classRegist_mapper">
+
+<select id="selectCategorys" resultType="String">
+	select CATEGORY from CATEGORY 
+</select>
+
+<select id="selectSubCategorys" resultType="String" parameterType="String">
+	select INNER_CATEGORY from INNERCATEGORY
+	where CATEGORY = #{ category }
+</select>
+
+<select id="selectTeacherNames" resultType="String" parameterType="String">
+	select TEACHER_NAME from TEACHER where CLIENT_ID = #{ id }
+</select>
+
+<insert id="insertLesson" parameterType="kr.co.sist.user.vo.ClassRegistVO">
+	insert into LESSON(LCODE, TEACHER_NAME, CATEGORY, INNER_CATEGORY, LNAME, 
+					LINTRO, CONTENTS, CURRICULUM, OTHERS, MAIN_IMG, 
+					BANNER_IMG, STATUS, START_DATE, END_DATE, START_TIME, 
+					END_TIME, DUE_DATE, MAX_MEMBER, MIN_MEMBER, AUTHORITY, 
+					ADDRESS, ADDRESS2, TOGETHER)
+values(lesson_code, #{ teacher_name }, #{ category }, #{ inner_category }, #{ lname }, 
+		#{ lintro }, #{ contents }, #{ curriculum }, #{ others }, #{ main_img }, 
+		#{ banner_img }, 'A', #{ start_date }, #{ end_date }, #{ start_time },
+		#{ end_time }, #{ due_date }, #{ max_member }, #{ min_member }, 'N',
+		#{ address }, #{ address2 }, #{ together })
+</insert>
+
+<select id="selectNowLessonCode2" resultType="String">
+	select now_lesson_code
+	from dual
+</select>
+
+<select id="selectNowLessonCode" resultType="String">
+	select lcode
+	from(select lcode, row_number() over(order by L_DATE desc) r_num
+		from LESSON)
+	where r_num = 1
+</select>
+
+<insert id="insertLopt" parameterType="kr.co.sist.user.vo.LoptVO">
+	insert into L_OPT (OPT, LCODE) values (#{ opt }, #{ lcode })
+</insert>
+
+<insert id="insertLessonDow" parameterType="kr.co.sist.user.vo.LessonDowVO">
+	insert into LESSON_DOW (LCODE, DOW) values (#{ lcode }, #{ dow })
+</insert>
+
+
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,14 +1,18 @@
 package kr.co.sist.user.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -17,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.sist.user.domain.LectureView;
 import kr.co.sist.user.domain.Question;
 import kr.co.sist.user.domain.Review;
 import kr.co.sist.user.domain.StatusCnt;
+import kr.co.sist.user.service.ClassRegistService;
 import kr.co.sist.user.service.UserLectureService;
 import kr.co.sist.user.service.UserQuestionService;
 import kr.co.sist.user.service.UserReviewService;
@@ -78,10 +84,52 @@ public class TeacherController {
 	}
 	
 	@RequestMapping(value="user/teacher/classRegist.do", method=GET)
-	public String classRegistForm() {
+	public String classRegistForm( HttpSession session, Model model ) {
+		String id = (String)session.getAttribute("client_id");
+		
+		//autowired
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		ClassRegistService crs = ac.getBean(ClassRegistService.class);
+		
+		List<String> c_list = crs.searchCategorys();
+		List<String> t_list = crs.searchTeacherName(id);
+		
+		model.addAttribute("c_list", c_list);
+		model.addAttribute("t_list", t_list);
 
 		return "user/teacher/classRegist";
 	}
+	
+	//ajax로 회원상세보기
+	@ResponseBody
+	@RequestMapping(value="user/teacher/subCategorys.do",method=POST)
+	public String memberDetailPage(String category) {
+		JSONObject json = null;
+		
+		//autowired
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		ClassRegistService crs = ac.getBean(ClassRegistService.class);
+		json = crs.searchSubCategorys(category);
+		//System.out.println(json.toJSONString());
+			
+		return json.toJSONString();
+	}
+	
+	@RequestMapping(value="user/teacher/addClass_process.do", method=POST)
+	public String addClassProcess( HttpServletRequest request ) {
+		//autowired
+		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		ClassRegistService crs = ac.getBean(ClassRegistService.class);
+		
+		try {
+			crs.addLesson(request);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:classStatus.do";
+	}
+	
 	
 	@RequestMapping(value="user/teacher/teacherProfile.do", method=GET)
 	public String teacherProfileForm() {
