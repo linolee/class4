@@ -199,7 +199,11 @@ public class MemberController {
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
 				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[1],
 				"N", request.getParameterValues("tel")[0]+"-"+request.getParameterValues("tel")[1]+"-"+request.getParameterValues("tel")[2]);
-		ujs.memberJoin(mjvo, request.getParameterValues("favors"));
+		String[] favors= {}; 
+		if (request.getParameterValues("favors") != null) {
+			favors =request.getParameterValues("favors");
+		}
+		ujs.memberJoin(mjvo, favors);
 		return "main";
 	}// joinPage
 
@@ -265,7 +269,6 @@ public class MemberController {
 			}
 		}
 		json.put("favorList", jsonArray);
-		System.out.println(json.toJSONString());
 		return json.toJSONString();
 	}
 	
