@@ -90,26 +90,32 @@ public class TeacherController {
 			if (status == null) {
 				status = "All";
 			}
-			// 게시글 구하기
-			List<LectureView> list = uls.searchLectureInfo(id, status, lpvo);
-			int totalCount = uls.totalCount(id, status, lpvo);	//전체 게시글 수
-			int pageScale  = uls.pageScale();			//한 페이지당 보여질 게시글 수
-			int totalPage  = uls.totalPage(totalCount);	//총 페이지 수
-			String indexList = uls.indexList(lpvo.getCurrentPage(), totalPage, "classStatus.do?status="+status);
 			
-			//신청 인원 구하기
-			List<LectureView> applyCnt = uls.selectClassApplyCnt();
+			System.out.println("@@@@@@@@@@@@@@"+tn_list.toString());
+			if(!tn_list.isEmpty()) {
+				// 게시글 구하기
+				List<LectureView> list = uls.searchLectureInfo(id, status, lpvo);
+				int totalCount = uls.totalCount(id, status, lpvo);	//전체 게시글 수
+				int pageScale  = uls.pageScale();			//한 페이지당 보여질 게시글 수
+				int totalPage  = uls.totalPage(totalCount);	//총 페이지 수
+				String indexList = uls.indexList(lpvo.getCurrentPage(), totalPage, "classStatus.do?status="+status);
+				
+				//신청 인원 구하기
+				List<LectureView> applyCnt = uls.selectClassApplyCnt();
+				
+				// 상태값 별 게시글 카운트 구하기
+				Map<String, Object> r_cnt_list = uls.searchStatusCnt(tn_list);
+				
+				model.addAttribute("l_list", list);
+				model.addAttribute("applyCnt", applyCnt);
+				model.addAttribute("cntList", r_cnt_list);
+				model.addAttribute("indexList", indexList);
+				model.addAttribute("pageScale", pageScale);
+				model.addAttribute("totalCount", totalCount);
+				model.addAttribute("currentPage", lpvo.getCurrentPage());
+				
+			}
 			
-			// 상태값 별 게시글 카운트 구하기
-			Map<String, Object> r_cnt_list = uls.searchStatusCnt(tn_list);
-
-			model.addAttribute("l_list", list);
-			model.addAttribute("applyCnt", applyCnt);
-			model.addAttribute("cntList", r_cnt_list);
-			model.addAttribute("indexList", indexList);
-			model.addAttribute("pageScale", pageScale);
-			model.addAttribute("totalCount", totalCount);
-			model.addAttribute("currentPage", lpvo.getCurrentPage());
 
 			return "user/teacher/classStatus";
 			
@@ -346,33 +352,37 @@ public class TeacherController {
 		lpvo.setStartNum(startNum);
 		lpvo.setEndNum(endNum);
 //////////////////////////////////////////////////////////////////////////페이징/////////////////////////////////////////////////////////////////////////////////
-
-		int totalCount = urs.totalCount(id, lpvo, fromDate, toDate);	//전체 게시글 수
-		int pageScale  = urs.pageScale();			//한 페이지당 보여질 게시글 수
-		int totalPage  = urs.totalPage(totalCount);	//총 페이지 수
 		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("fromDate", fromDate);
-		param.put("toDate", toDate);
-		param.put("nameList", tn_list);
-		param.put("lpvo", lpvo);
-		
-		// 게시글 구하기
-		List<Review> list = urs.searchReview(param);
-		String paramStr = "classReview.do";
-		if (fromDate != null || toDate != null) {
-			paramStr += "?fromDate="+fromDate+"&toDate="+toDate;
+		if(!tn_list.isEmpty()) {
+			int totalCount = urs.totalCount(id, lpvo, fromDate, toDate);	//전체 게시글 수
+			int pageScale  = urs.pageScale();			//한 페이지당 보여질 게시글 수
+			int totalPage  = urs.totalPage(totalCount);	//총 페이지 수
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("fromDate", fromDate);
+			param.put("toDate", toDate);
+			param.put("nameList", tn_list);
+			param.put("lpvo", lpvo);
+			
+			// 게시글 구하기
+			List<Review> list = urs.searchReview(param);
+			String paramStr = "classReview.do";
+			if (fromDate != null || toDate != null) {
+				paramStr += "?fromDate="+fromDate+"&toDate="+toDate;
+			}
+			
+			String indexList = urs.indexList(lpvo.getCurrentPage(), totalPage, paramStr);
+			
+			map.put("r_list", list);
+			map.put("indexList", indexList);
+			map.put("pageScale", pageScale);
+			map.put("totalCount", totalCount);
+			map.put("currentPage", lpvo.getCurrentPage());
+			
 		}
 		
-		String indexList = urs.indexList(lpvo.getCurrentPage(), totalPage, paramStr);
-		
-		map.put("r_list", list);
-		map.put("indexList", indexList);
-		map.put("pageScale", pageScale);
-		map.put("totalCount", totalCount);
-		map.put("currentPage", lpvo.getCurrentPage());
-
 		return map;
+
 	} // classReviewForm
 
 	@ResponseBody
@@ -415,38 +425,40 @@ public class TeacherController {
 		lpvo.setEndNum(endNum);
 		//////////////////////////////////////////////////////////////////////////페이징/////////////////////////////////////////////////////////////////////////////////
 		
-		int totalCount = uqs.totalCount(id, lpvo, fromDate, toDate);	//전체 게시글 수
-		int pageScale  = uqs.pageScale();			//한 페이지당 보여질 게시글 수
-		int totalPage  = uqs.totalPage(totalCount);	//총 페이지 수
-		
-		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("fromDate", fromDate);
-		param.put("toDate", toDate);
-		param.put("nameList", tn_list);
-		param.put("lpvo", lpvo);
-		
-		System.out.println("totalCount : " + totalCount);
-		System.out.println("pageScale : " + pageScale);
-		System.out.println("totalPage : " + totalPage);
-		System.out.println("startNum : " + startNum);
-		System.out.println("endNum : " + endNum);
-		
-		
-		// 게시글 구하기
-		List<Question> list = uqs.searchQuestion(param);
-		String paramStr = "qna.do";
-		if (fromDate != null || toDate != null) {
-			paramStr += "?fromDate="+fromDate+"&toDate="+toDate;
+		if(!tn_list.isEmpty()) {
+			int totalCount = uqs.totalCount(id, lpvo, fromDate, toDate);	//전체 게시글 수
+			int pageScale  = uqs.pageScale();			//한 페이지당 보여질 게시글 수
+			int totalPage  = uqs.totalPage(totalCount);	//총 페이지 수
+			
+			Map<String, Object> param = new HashMap<String, Object>();
+			param.put("fromDate", fromDate);
+			param.put("toDate", toDate);
+			param.put("nameList", tn_list);
+			param.put("lpvo", lpvo);
+			
+			System.out.println("totalCount : " + totalCount);
+			System.out.println("pageScale : " + pageScale);
+			System.out.println("totalPage : " + totalPage);
+			System.out.println("startNum : " + startNum);
+			System.out.println("endNum : " + endNum);
+			
+			
+			// 게시글 구하기
+			List<Question> list = uqs.searchQuestion(param);
+			String paramStr = "qna.do";
+			if (fromDate != null || toDate != null) {
+				paramStr += "?fromDate="+fromDate+"&toDate="+toDate;
+			}
+			
+			String indexList = uqs.indexList(lpvo.getCurrentPage(), totalPage, paramStr);
+			
+			map.put("r_list", list);
+			map.put("indexList", indexList);
+			map.put("pageScale", pageScale);
+			map.put("totalCount", totalCount);
+			map.put("currentPage", lpvo.getCurrentPage());
+			map.put("q_list", list);
 		}
-		
-		String indexList = uqs.indexList(lpvo.getCurrentPage(), totalPage, paramStr);
-		
-		map.put("r_list", list);
-		map.put("indexList", indexList);
-		map.put("pageScale", pageScale);
-		map.put("totalCount", totalCount);
-		map.put("currentPage", lpvo.getCurrentPage());
-		map.put("q_list", list);
 
 		return map;
 	} // qnaForm

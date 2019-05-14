@@ -157,14 +157,28 @@ $(function(){
 				</thead>	
 				<tbody>
 					<tr class="content-list">
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')"><c:out value="${cntList.totalCnt}"/></a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">${cntList.A}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">${cntList.R}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">${cntList.Y}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">${cntList.F}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">${cntList.I}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">${cntList.E}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">${cntList.C}</a></td>
+						<c:choose>
+							<c:when test="${empty cntList.A}">
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">0</a></td>
+							</c:when>
+							<c:otherwise>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')"><c:out value="${cntList.totalCnt}"/></a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">${cntList.A}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">${cntList.R}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">${cntList.Y}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">${cntList.F}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">${cntList.I}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">${cntList.E}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">${cntList.C}</a></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</tbody>
 			</table>
