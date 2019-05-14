@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!--  -->
+
 <script type="text/javascript">
 
 function teacherInfo(teacherName) {
@@ -60,8 +59,6 @@ function teacherInfo(teacherName) {
  					
  					
 					output += "<tr><td style='width:350px;'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
-					/* output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>"; */
-					/* output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>"; */
 					output += "<td>"+status+"</span></td></tr>";
 					$("#lesson").append(output);
 					output = "";
@@ -91,7 +88,6 @@ function teacherInfo(teacherName) {
 	});//ajax 
 	
 }
-
 
 </script>
 <div class="card">
@@ -149,9 +145,7 @@ function teacherInfo(teacherName) {
 					<td><c:out value="${teacher.birth }"/></td>
 					<td><c:out value="${teacher.email }"/></td>
 					<td>
-						<!-- <form method="get" action="./member.jsp" class="form-inline"> -->
 							<a data-toggle="modal" href="#modalTeacher" onclick="teacherInfo('${ teacher.teacherName }')"><span class="badge badge-primary">상세정보</span></a>
-						<!-- </form> -->
 					</td>
 				</tr>
 				</c:forEach>
@@ -166,8 +160,5 @@ function teacherInfo(teacherName) {
 		</div>
 	</div>
 </div>
-
-
-<!--  -->
 
 <c:import url="teacher/modalTeacher.jsp"/>
