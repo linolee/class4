@@ -124,7 +124,7 @@ public class ClassRegistService {
 				mr.getParameter("etc"), //
 				mainBannerImgName, //
 				topBannerImgName, //
-				mr.getParameter("startDate"), ////
+				mr.getParameter("startDate"), //
 				mr.getParameter("endDate"), //
 				mr.getParameter("finDate"), //
 				mr.getParameter("classAddr1"), //
