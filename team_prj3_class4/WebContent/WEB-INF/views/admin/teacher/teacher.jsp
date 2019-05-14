@@ -32,7 +32,7 @@ function teacherInfo(teacherName) {
 			
 			var tImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
 			if(null!=json.img){
-				tImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+json.img;
+				tImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+decodeURIComponent(json.img);
 			}
 			$("#tImg").attr("src", tImg);
 
@@ -40,8 +40,29 @@ function teacherInfo(teacherName) {
 	 		$("#lesson *").remove();
 			if( json.lessonList.length != 0){
  				for(var i=0; i<json.lessonList.length; i++){
-					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
-					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
+ 					var jsonStatus=json.lessonList[i].lessonStatus;
+ 					var status="";
+ 					if(jsonStatus=="A"){
+ 						status="<span class='btn btn-brand btn-sm btn-secondary'>승인 대기 중";
+ 					} else if(jsonStatus=="R"){
+ 						status="<span class='btn btn-brand btn-sm btn-spotify'>준비 중";
+ 					} else if(jsonStatus=="Y"){
+ 						status="<span class='btn btn-brand btn-sm btn-vine'>오픈";
+ 					} else if(jsonStatus=="F"){
+ 						status="<span class='btn btn-brand btn-sm btn-dribble'>마감";
+ 					} else if(jsonStatus=="I"){
+ 						status="<span class='btn btn-brand btn-sm btn-github'>진행 중";
+ 					} else if(jsonStatus=="E"){
+ 						status="<span class='btn btn-brand btn-sm btn-twitter'>종료";
+ 					} else if(jsonStatus=="C"){
+ 						status="<span class='btn btn-brand btn-sm btn-danger'>취소/거절";
+ 					}
+ 					
+ 					
+					output += "<tr><td style='width:350px;'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
+					/* output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>"; */
+					/* output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>"; */
+					output += "<td>"+status+"</span></td></tr>";
 					$("#lesson").append(output);
 					output = "";
 				} 
