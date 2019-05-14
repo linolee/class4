@@ -219,7 +219,7 @@ public class MemberController {
 
 			list = ups.searchQnaList(slvo);// 리스트 목록 조회
 
-			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "search.do#report", slvo.getKeyword());
+			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "userPage.do", slvo.getKeyword());
 			model.addAttribute("list", list);// @@
 			model.addAttribute("indexList", indexList);
 			model.addAttribute("pageScale", pageScale);
@@ -333,7 +333,7 @@ public class MemberController {
 		String loginPath = "";
 		switch (loginResult) {
 		case UserLoginService.login_success:
-			loginPath = "/team_prj3_class4/user/main.do";
+			loginPath = "forward:/user/mainContents/mainContents.do";
 			break;
 		case UserLoginService.login_blacklist:
 			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id=" + request.getParameter("id");
