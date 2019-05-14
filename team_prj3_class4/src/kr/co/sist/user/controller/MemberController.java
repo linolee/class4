@@ -219,7 +219,7 @@ public class MemberController {
 
 			list = ups.searchQnaList(slvo);// 리스트 목록 조회
 
-			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "search.do#report", slvo.getKeyword());
+			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "userPage.do", slvo.getKeyword());
 			model.addAttribute("list", list);// @@
 			model.addAttribute("indexList", indexList);
 			model.addAttribute("pageScale", pageScale);
