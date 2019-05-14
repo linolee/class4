@@ -19,10 +19,18 @@ function userInfo(userId) {
 			$("#mId").text(json.jid);
 			$("#mName").text(decodeURIComponent(json.jname));
 			$("#mBirth").text(json.jbirth);
-			$("#mGender").text(json.jgender);
 			$("#mTel").text(json.jtel);
 			$("#mInputdate").text(json.jinputdate);
 			$("#mEmail").text(json.jemail);
+			
+			var jsonGender=json.jgender;
+			var gender="";
+			if(jsonGender=="M"){
+				gender="남자";
+			} else{
+				gender="여자";
+			}
+			$("#mGender").text(gender);
 
 			var output;
 	 		$("#lessons *").remove();
@@ -171,7 +179,7 @@ $(function(){
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
-					<td><c:out value="${ member.gender }"/></td>
+					<td><c:out value="${ member.gender=='M'?'남자':'여자' }"/></td>
 					<td><c:out value="${ member.email }"/></td>
 					
 					<td>
