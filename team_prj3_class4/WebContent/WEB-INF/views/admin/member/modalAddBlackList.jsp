@@ -42,7 +42,7 @@
 					</table>
 
 					<div class="form-group">
-						<label>사유</label>
+						<label><strong>사유</strong></label>
 						<textarea id="reportReason" name="reportContent" class="form-control" maxlength="2048"
 								style="height:180px; resize: none;"></textarea>
 					</div>
