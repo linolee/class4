@@ -84,7 +84,7 @@ dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adad
 dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
-#cancelBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#cancelBtn{width: 50%; height:40px; background-color:#DC4E41; float: left; color: #ffffff; font-weight: bold;}
 #closeBtn{width: 50%; height:40px; background-color:#5F6368; float: left; color: #ffffff; font-weight: bold;cursor: default}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
