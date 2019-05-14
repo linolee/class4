@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sist.user.mapper.userTeacher_mapper">
+<resultMap type="kr.co.sist.user.domain.TeacherInfo" id="TeacherInfo">
+	<result column="teacher_name" property="teacherName"/>
+	<result column="category" property="category"/>
+	<result column="status" property="status"/>
+	<result column="introduce" property="introduce"/>
+	<result column="img" property="img"/>
+	<result column="client_id" property="clientId"/>
+</resultMap>
+
+<!-- 강사프로필 페이징 -->
+<select id="teacherProfile">
+
+</select>
+
+<select id="selectCheckTeacherName" resultType="int" parameterType="String">
+		select count(*)
+		from TEACHER
+		where teacher_name = #{value}
+</select>
+
+<select id="selectTeacherCategory" resultType="String">
+	select CATEGORY from CATEGORY
+</select>
+
+<insert id="insertTeacher" parameterType="kr.co.sist.user.vo.AddTeacherVO">
+	insert into TEACHER
+		(teacher_name, client_id, category, introduce, status, img)
+	values
+		(#{teacherName}, #{clientId}, #{category}, #{introduce}, #{status}, #{img})
+</insert>
+
+<update id="updateTeacher" parameterType="kr.co.sist.user.vo.AddTeacherVO">
+	update TEACHER set
+		client_id = #{clientId},
+		introduce = #{introduce},
+		status = #{status}
+		<if test="img != null">
+			, img = #{img}
+		</if>
+		where teacher_name = #{teacherName}
+</update>
+
+<select id="teacherProfileTotalCnt" resultType="int" parameterType="map">
+	select count(*)
+		from TEACHER T
+		where client_id = #{userId} and not status = 'X'
+		order by teacher_name
+</select>
+
+<select id="selectTeacherList" resultMap="TeacherInfo" parameterType="map" >
+	select A.*
+		from
+		    (
+			select T.*, row_number() over(order by T.teacher_name) r_num
+				from TEACHER T
+				where client_id = #{userId} and not status = 'X'
+				order by teacher_name
+			) A
+		where
+			r_num between #{lpvo.startNum} and #{lpvo.endNum}
+		
+<!-- 	select * -->
+<!-- 	from TEACHER -->
+<!-- 	where client_id = #{value} and not status = 'X' -->
+<!-- 	order by teacher_name -->
+</select>
+
+<select id="selectTeacherDetail" resultMap="TeacherInfo" parameterType="String">
+ 	select *
+ 	from TEACHER
+ 	where teacher_name = #{value}
+</select>
+
+<!-- lesson 상태가 마감이거나, 진행중이면 강사프로필 삭제 불가 -->
+<select id="selectLessonStatus" resultType="int" parameterType="String">
+	select count(*) 
+	from lesson 
+	where teacher_name = #{value} and status in('F', 'I', 'Y')
+</select>
+
+<update id="updateTeacherStatus" parameterType="String">
+	update TEACHER
+	set status = 'X'
+	where teacher_name = #{value}
+</update>
+
+<insert id="insertCareer" parameterType="kr.co.sist.user.vo.CareerVO">
+	insert into CAREER 
+		(teacher_name, career, status) 
+	values (#{teacherName},#{career}, 'Y')
+</insert>
+
+<select id="selectCareer" resultType="String" parameterType="String">
+	select career
+	from CAREER
+	where teacher_name = #{value} and status = 'Y'
+</select>
+
+<update id="updateCareer" parameterType="String">
+	update CAREER
+		set status = 'N'
+		where teacher_name = #{value}
+</update>
+
+</mapper>
+
+
+
+
+
+

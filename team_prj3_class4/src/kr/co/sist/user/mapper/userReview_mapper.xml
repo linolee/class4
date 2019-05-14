@@ -11,11 +11,44 @@
 	<result column="client_id" property="clientId"/>
 	<result column="contents" property="contents"/>
 	<result column="name" property="name"/>
+	<result column="score" property="score"/>
 	<result column="r_date" property="rDate"/>
 	<result column="teacher_name" property="teacherName"/>
 </resultMap>
-<select id="selectReview" resultMap="ReviewInfo" parameterType="hashMap">
-	select B.lname, B.lcode, B.subject, C.client_id, C.name, to_char(B.r_date,'yyyy-mm-dd') r_date
+
+<select id="selectReview" resultMap="ReviewInfo" parameterType="map">
+select T.*
+    from
+		(select B.lname, B.lcode, B.subject, C.client_id, C.name, to_char(B.r_date,'yyyy-mm-dd') r_date,
+					row_number() over(order by r_date desc) r_num
+				from CLIENT C
+				join
+					(select R.client_id, R.lcode, A.lname, R.subject, R.contents, R.r_date
+						from REVIEW R
+					 	 join
+						 		(select lcode, lname
+									from LESSON
+									where TEACHER_NAME in 
+								        <foreach collection="nameList" item="name"  open="(" close=")" separator=",">
+								            #{name}
+								        </foreach>
+								 ) A
+						on A.lcode = R.lcode
+						
+						<if test="fromDate != null and !fromDate.equals('') and toDate != null and !toDate.equals('')">
+						where R.r_date between TO_DATE(#{fromDate}, 'yyyy-mm-dd') and TO_DATE(#{toDate}, 'yyyy-mm-dd') + 0.99999 
+						</if>
+				
+						) B
+				on B.client_id = C.client_id
+
+				order by B.r_date desc
+		) T
+	where
+		r_num between #{lpvo.startNum} and #{lpvo.endNum}
+
+
+<!-- 	select B.lname, B.lcode, B.subject, C.client_id, C.name, to_char(B.r_date,'yyyy-mm-dd') r_date
 		from CLIENT C
 		join
 			(select R.client_id, R.lcode, A.lname, R.subject, R.contents, R.r_date
@@ -32,10 +65,10 @@
 				) B
 		on B.client_id = C.client_id
 		
-		order by B.r_date desc
+		order by B.r_date desc -->
 </select>
 
-<select id="selectReviewCnt" resultType="int" parameterType="hashMap">
+<select id="reviewTotalCnt" resultType="int" parameterType="map">
 	select count(*)
 		from CLIENT C
 		join
@@ -44,7 +77,10 @@
 			 	 join
 				 		(select lcode, lname
 							from LESSON
-							where TEACHER_NAME = #{tn_list}
+							where TEACHER_NAME in
+							<foreach collection="nameList" item="name"  open="(" close=")" separator=",">
+					            #{name}
+					        </foreach>
 						 ) A
 				on A.lcode = R.lcode
 				<if test="(fromDate != null and !fromDate.equals('')) and (toDate != null and !toDate.equals(''))">
@@ -63,7 +99,7 @@
 select L.lname, A.*
 	from lesson L
     join
-	(select R.lcode, R.client_id, R.subject, R.contents, R.r_date, C.name
+	(select R.lcode, R.client_id, R.subject, R.contents, R.r_date, R.score, C.name
 			from review R
 			join client C
 			on C.client_id = R.client_id
@@ -74,6 +110,7 @@ select L.lname, A.*
 	on A.lcode = L.lcode
 
 </select>
+
 
 </mapper>
 
