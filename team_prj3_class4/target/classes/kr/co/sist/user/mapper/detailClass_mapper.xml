@@ -17,7 +17,7 @@
 </resultMap>
 <select id="selectSummary" resultMap="summary" parameterType="String">
 	select l.banner_img,l.lname,l.lintro,l.teacher_name,
-			substr(l.address,instr(address,' ')+1,instr(address,'구',6,1)-instr(address,' ')-1) address,
+			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) address,
 			l.max_member,((l.end_time-l.start_time)/60) class_time,mod(l.end_time-l.start_time,60) class_time2,t.img
 	from lesson l ,teacher t
 	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
@@ -167,7 +167,7 @@ select count(*) cnt from lesson_qna
 </resultMap>
 <select id="selectAddr" resultMap="Addr" parameterType="String">
 	select l.due_date, substr(address,1,instr(address,' ')-1) si, 
-			substr(l.address,instr(address,' ')+1,instr(address,'구',6,1)-instr(address,' ')-1) gu,t.introduce
+			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) gu,t.introduce
 	from lesson l inner join teacher t
 	on t.teacher_name=l.teacher_name
 	where lcode=#{lcode}
