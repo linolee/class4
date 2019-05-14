@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
 <script type="text/javascript">
 
@@ -20,13 +18,11 @@ $(function () {
 	$('#file3').click();
 			});
 	
-   	/* var ext=["jpg","png"]; */
    	var ext=["jpg"];
    	var flag=null;
     $("#file").change(function(){
 		 flag=false;
 	   	 if($("#file").val()!=""){
-	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file").val().split("\\");
 		   	var fileValue2 = $("#file").val(); // path
 		   	var fileValue3 = $("#file").val().split("."); // path
@@ -62,7 +58,6 @@ $(function () {
     $("#file2").change(function(){
 		 flag=false;
 	   	 if($("#file2").val()!=""){
-	   		 //alert("파일이 빈칸이 아닐때");
 			var fileValue = $("#file2").val().split("\\");
 		   	var fileValue2 = $("#file2").val(); // path
 		   	var fileValue3 = $("#file2").val().split("."); // path
@@ -159,8 +154,6 @@ $(function () {
 
 </script>
 
-
-<!--  -->
 <div class="card">
 	<div class="card-header">
 		<h5 style="margin-bottom: 0px;"><strong>타이틀</strong></h5>
@@ -172,7 +165,6 @@ $(function () {
 				<table class="table table-responsive-sm">
 						
 					<tbody style="border-bottom: 1px solid #c8ced3;">
-						<!-- <td> -->
 							<tr>
 								<td>
 									<h3>첫번째 이미지</h3>
@@ -197,13 +189,9 @@ $(function () {
 							           		</span>
 							            </span>
 										
-										
-										
 									</div>
 								</td>
 							</tr>
-						<!-- </td> -->
-						<!-- <td> -->
 							<tr>
 								<td>
 									<h3>두번째 이미지</h3>
@@ -254,7 +242,6 @@ $(function () {
 									</div>
 								</td>
 							</tr>
-						<!-- </td> -->
 					</tbody>
 				</table>
 		</div>

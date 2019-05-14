@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
 function teacherPermitInfo(id, tName) {
@@ -72,10 +71,6 @@ $(function(){
 $(function(){		
  	$("#refuse").click(function(){
 		if(confirm("정말 강사 권한을 거절하시겠습니까?")){
-			//$("#reportReason").val("");
-			//$("[name='addFrm']").submit();
-			
-				//function addBlack(userId) {
 				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherRefuse.do",
@@ -88,8 +83,6 @@ $(function(){
 						},
 						success:function( json ){
 							alert("거절되었습니다.");
-						 	//$("#addBlackCancle").trigger("click"); // 강제로 실행
-						 	//location.href("/admin/member.do");
 						 	window.location.href="<c:url value='/admin/teacherAuthority.do' />";
 						}
 					});//ajax
@@ -153,10 +146,8 @@ $(function(){
 					<td><c:out value="${teacherPermit.gender }"/></td>
 					<td><c:out value="${teacherPermit.email }"/></td>
 					<td>
-						<!-- <form method="get" action="./member.jsp" class="form-inline"> -->
 							<a data-toggle="modal" href="#modalTAuthority" onclick="teacherPermitInfo('${ teacherPermit.client_id }','${teacherPermit.teacher_name }')"><span
 								class="badge badge-primary">상세정보</span></a>
-						<!-- </form> -->
 					</td>
 				</tr>
 				</c:forEach>
@@ -171,6 +162,5 @@ $(function(){
 		</div>
 	</div>
 </div>
-
 
 <c:import url="teacherAuthority/modalTAuthority.jsp"/>
