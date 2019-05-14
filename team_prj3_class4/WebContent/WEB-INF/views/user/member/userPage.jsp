@@ -300,7 +300,7 @@ body {padding-top: 0px;}
 			  </div>
 			  <div class="tab-pane" id="report" role="tabpanel" aria-labelledby="report-tab">
 			  	<div class="mb-10 col-lg-10 mx-auto">
-					<c:forEach var="listItem" items="${list }" varStatus="i" begin="1" step="1">
+					<c:forEach var="listItem" items="${list }" varStatus="i" begin="0" step="1">
 					  <div class="card">
 					    <div class="card-header" id="heading${i.index }">
 					    	<table class="table">

@@ -321,6 +321,7 @@ public class MypageController {
 			aa="¼º°ø";
 		}//end if
 		
+		
 		return aa;
 	}//searchDetail
 	
