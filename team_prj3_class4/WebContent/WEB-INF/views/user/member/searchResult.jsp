@@ -119,13 +119,13 @@ body {
 			</div>
 
 			<div style="text-align: center">
-			<div style="display: inline-block;">
-				<ul class="pagination ">
-					<c:out value="${ indexList }" escapeXml="false" />
-					<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
-				</ul>
+				<div style="display: inline-block;">
+					<ul class="pagination ">
+						<c:out value="${ indexList }" escapeXml="false" />
+						<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
+					</ul>
+				</div>
 			</div>
-		</div>
 
 		</div>
 		<!-- /.container -->
