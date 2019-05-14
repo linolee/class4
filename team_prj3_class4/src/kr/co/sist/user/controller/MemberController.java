@@ -20,7 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.sist.user.domain.AdminQnA;
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.domain.SearchClassList;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
@@ -29,6 +31,7 @@ import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
+import kr.co.sist.user.vo.SearchListVO;
 import kr.co.sist.user.vo.UserLoginVO;
 import kr.co.sist.user.vo.memberReportVO;
 
@@ -101,7 +104,7 @@ public class MemberController {
 	}// reportPage
 
 	///////////////////////////////// 문의////////////////////////////////////////
-
+	
 	@ResponseBody
 	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
 	public String guestReportSubmint(HttpServletRequest request) {
@@ -193,13 +196,39 @@ public class MemberController {
 	///////////////////////////////// 회원정보///////////////////////////////////////////////////////
 
 	@RequestMapping(value = "user/member/userPage.do")
-	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model, SearchListVO slvo) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			ClientPageInfo clientInfo = ups.clientInfo(client_id);
 			model.addAttribute("clientInfo", clientInfo);
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
+			///////////////////////////////////////////////////////
+			List<AdminQnA> list = null;
+			int totalCount = ups.totalCount(client_id);// 총 게시물의 수//
+			int pageScale = ups.pageScale();
+			int totalPage = ups.totalPage(totalCount);// 전체 게시물을 보여주기 위한 총 페이지 수
+			if (slvo.getCurrentPage() == 0) { // web parameter에 값이 없을 때
+				slvo.setCurrentPage(1);
+			}
+			int startNum = ups.startNum(slvo.getCurrentPage());
+			int endNum = ups.endNum(startNum);
+			slvo.setStartNum(startNum);
+			slvo.setEndNum(endNum);
+			slvo.setKeyword(client_id);
+
+			list = ups.searchQnaList(slvo);// 리스트 목록 조회
+
+			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "search.do#report", slvo.getKeyword());
+			model.addAttribute("list", list);// @@
+			model.addAttribute("indexList", indexList);
+			model.addAttribute("pageScale", pageScale);
+			model.addAttribute("totalCount", totalCount);
+			model.addAttribute("currentPage", slvo.getCurrentPage());
+
+			model.addAttribute("page", "question");// @@
+
+			
 			return "user/member/userPage";
 		} else {
 			return "user/member/login";
@@ -270,7 +299,7 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			Model model) {
+			Model model, SearchListVO slvo) {
 		String client_id = session.getAttribute("client_id").toString();
 		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"),
 				request.getParameter("tel"));
@@ -280,7 +309,7 @@ public class MemberController {
 			favors = request.getParameterValues("favor");
 		}
 		ups.favorUpdate(client_id, favors);
-		return userPage(request, response, session, model);
+		return userPage(request, response, session, model, slvo);
 	}
 
 ///////////////////////////////////////////로그인///////////////////////////////////////////////////////////
