@@ -84,7 +84,7 @@ dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adad
 dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
-#cancelBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#cancelBtn{width: 50%; height:40px; background-color:#DC4E41; float: left; color: #ffffff; font-weight: bold;}
 #closeBtn{width: 50%; height:40px; background-color:#5F6368; float: left; color: #ffffff; font-weight: bold;cursor: default}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
@@ -464,7 +464,7 @@ $(function () {
 								<c:forEach var="rvlist" items="${ requestScope.rvlist }">
 								<table style="margin-left: 10px; width: 640px; border-bottom: 1px solid #ccc; padding:10px;">
 										<tr>
-											<td rowspan="3" style="width: 100px;">
+											<td rowspan="2" style="width: 100px;">
 												<c:out value="${rvlist.client_id}"/><br/>
 												<input type="hidden" value="${rvlist.score}" id="rvScore"/>
 												<c:choose>
@@ -489,23 +489,21 @@ $(function () {
 												</c:choose>
 												<%-- <c:out value="${rvlist.score}"/> --%>
 											</td>
-											<td style="text-align: left;margin-left: 5px;">
+											<%-- <td style="text-align: left;margin-left: 5px;">
 											<div style="margin-left:8px;">
 											<c:out value="${rvlist.subject}"/>
 											</div>
+											<td style="text-align: left; font-size:15px;margin-left: 5px;">
+												<div style="margin-left:8px;">
+												<c:out value="${rvlist.contents}"/>
+												</div>
 											</td>
-										</tr>
-										<tr>
-										<td style="text-align: left; font-size:15px;margin-left: 5px;">
-											<div style="margin-left:8px;">
-											<c:out value="${rvlist.contents}"/>
-											</div>
-										</td>
+											</td> --%>
 										</tr>
 										<tr style="border-bottom: 1px solid #ccc;">
-										<td style="text-align: left; font-size: 12px; color: #ccc;">
-											<span style="margin-left:8px;"><c:out value="${rvlist.r_date}"/></span>
-										</td>
+											<td style="text-align: left; font-size: 12px; color: #ccc;">
+												<span style="margin-left:8px;"><c:out value="${rvlist.r_date}"/></span>
+											</td>
 										</tr>
 									</table>
 									</c:forEach>
