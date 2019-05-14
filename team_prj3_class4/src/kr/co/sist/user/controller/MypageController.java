@@ -29,6 +29,7 @@ import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
 import kr.co.sist.user.vo.TotalVO;
+import kr.co.sist.user.vo.qnaListVO;
 
 @Controller
 public class MypageController {
@@ -347,8 +348,8 @@ public class MypageController {
 			totalCount=0;
 			for(int i=0; i<lcodeList.size(); i++) {
 				lvo.setLcode(lcodeList.get(i));
-				if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+				if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
 					totalCount++;
 				}//end if
 			}//end if
@@ -379,14 +380,14 @@ public class MypageController {
 		for(int i=startNum-1; i<endNum; i++) {
 			lvo.setLcode(lcodeList.get(i));
 			if(!(request.getParameter("toDate")==null)) {
-				if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
-					jjimList.add(ums.classList(lvo));
+				if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+						&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+					jjimList.add(ums.jjimList(lcodeList.get(i)));
 					jjimStatus.add(ums.jjimStatus(lvo));
 				}//end if
 			}//end if
 			if(request.getParameter("toDate")==null) {
-				jjimList.add(ums.classList(lvo));
+				jjimList.add(ums.jjimList(lcodeList.get(i)));
 				jjimStatus.add(ums.jjimStatus(lvo));
 			}//end if
 		}//end for
@@ -522,11 +523,13 @@ public class MypageController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
-		ListVO lvo=new ListVO("", clientId);
+		qnaListVO qlvo=new qnaListVO("", "", clientId);
 		List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
 		List<String> lcodeList=null;
+		List<String> qcodeList=null;
 		lcodeList=ums.qnaLcodeList(clientId);
-		
+		qcodeList=ums.qnaQcodeList(clientId);
+		System.out.println("fndjkfndkjfnekwl");
 		int toDate=0;
 		int fromDate=0;
 		if(!(request.getParameter("toDate")==null)) {
@@ -541,9 +544,10 @@ public class MypageController {
 		if(!(request.getParameter("toDate")==null)) {
 			totalCount=0;
 			for(int i=0; i<lcodeList.size(); i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-						&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+				qlvo.setLcode(lcodeList.get(i));
+				qlvo.setQcode(qcodeList.get(i));
+				if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+						&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
 					totalCount++;
 				}//end if
 			}//end if
@@ -571,44 +575,46 @@ public class MypageController {
 		
 		if(request.getParameter("status")==null){
 			for(int i=startNum-1; i<endNum; i++) {
-				lvo.setLcode(lcodeList.get(i));
+				qlvo.setLcode(lcodeList.get(i));
+				qlvo.setQcode(qcodeList.get(i));
 				if(!(request.getParameter("toDate")==null)) {
-					if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-							&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-						qnaList.add(ums.qnaList(lvo));
+					if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+							&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+						qnaList.add(ums.qnaList(qlvo));
 					}//end if
 				}//end if
 				if(request.getParameter("toDate")==null) {
-					qnaList.add(ums.qnaList(lvo));
+					qnaList.add(ums.qnaList(qlvo));
 				}//end if
 			}//end for
 		}//end if
 		if(!(request.getParameter("status")==null)) {
 			for(int i=startNum-1; i<endNum; i++) {
-				lvo.setLcode(lcodeList.get(i));
+				qlvo.setLcode(lcodeList.get(i));
+				qlvo.setQcode(qcodeList.get(i));
 				if(request.getParameter("status").equals("Y")) {
-					if(ums.qnaList(lvo).get(i).getStatus().equals("Y")) {
+					if(ums.qnaList(qlvo).get(i).getStatus().equals("Y")) {
 						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								qnaList.add(ums.qnaList(lvo));
+							if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								qnaList.add(ums.qnaList(qlvo));
 							}//end if
 						}//end if
 						if(request.getParameter("toDate")==null) {
-							qnaList.add(ums.qnaList(lvo));
+							qnaList.add(ums.qnaList(qlvo));
 						}//end if
 					}//end if
 				}//end if
 				if(request.getParameter("status").equals("N")) {
-					if(ums.qnaList(lvo).get(i).getStatus().equals("N")) {
+					if(ums.qnaList(qlvo).get(i).getStatus().equals("N")) {
 						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(lvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								qnaList.add(ums.qnaList(lvo));
+							if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+									&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+								qnaList.add(ums.qnaList(qlvo));
 							}//end if
 						}//end if
 						if(request.getParameter("toDate")==null) {
-							qnaList.add(ums.qnaList(lvo));
+							qnaList.add(ums.qnaList(qlvo));
 						}//end if
 					}//end if
 				}//end if
