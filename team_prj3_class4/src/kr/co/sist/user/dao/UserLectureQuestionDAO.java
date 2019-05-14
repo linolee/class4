@@ -40,9 +40,29 @@ public class UserLectureQuestionDAO {
 		return ssf;
 	}// getSqlSessionFactory
 	
-	public List<Question> selectQuestion (Map<String, String> map){
+///////////////////////////////////////////////////////////////페이징//////////////////////////////////////////////////////////////	
+	public int questionTotalCnt(Map<String, Object> map) {
 		SqlSession ss = getSessionFactory().openSession();
-		List<Question> list = ss.selectList("selectQuestion",map);
+
+		int cnt = ss.selectOne("questionTotalCnt", map);
+		ss.close();
+	
+	return cnt;
+	} // questionTotalCnt
+///////////////////////////////////////////////////////////////페이징//////////////////////////////////////////////////////////////		
+	
+	public List<Question> selectQuestion (Map<String, Object> map){
+		SqlSession ss = getSessionFactory().openSession();
+		
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		System.out.println(map.toString());
+		List<Question> list = ss.selectList("selectQuestion", map);
 		ss.close();
 		
 		return list;
@@ -63,7 +83,7 @@ public class UserLectureQuestionDAO {
 		cnt = ss.selectOne("selectQusetionCnt", map);
 		
 		return cnt;
-	} // selectReviewCnt
+	} // selectQusetionCnt
 	
 	public Question selectQuestionDetail(String qcode) {
 		SqlSession ss = getSessionFactory().openSession();
@@ -79,7 +99,6 @@ public class UserLectureQuestionDAO {
 			ss.commit();
 		}
 		ss.close();		
-		System.out.println(cnt);
 		return cnt;
 	} // updateQuestionReply
 	

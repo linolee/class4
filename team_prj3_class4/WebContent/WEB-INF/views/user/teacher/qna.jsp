@@ -182,7 +182,7 @@ jQuery(function($) {
 				
 				<!-- total_cnt -->
 				<div class="total_cnt">
-					총 <strong>${cntList}</strong>개의 게시글이 있습니다.
+					총 <strong>${totalCount}</strong>개의 게시글이 있습니다.
 				</div>
 				<!--// total_cnt -->
 				
@@ -207,9 +207,10 @@ jQuery(function($) {
 						</thead>
 						<tbody>
 						<c:if test="${not empty requestScope.q_list}">
-						<c:forEach var="List" items="${ requestScope.q_list }" varStatus="status">						
+						<c:forEach var="List" items="${ requestScope.q_list }" varStatus="status">		
+						<c:set var="i" value="${i+1}"/>				
 							<tr class="content-list">
-								<td><c:out value="${ status.index+1 }"/></td>
+								<td>${ (totalCount-(currentPage-1)*pageScale-i)+1 }</td>				
 								<td><c:out value="${ List.lname }"/></td>
 								<td><a href="#" onclick="viewDetail('${List.qcode}')"><c:out value="${ List.subject }"/></a></td>
 								<td><c:out value="${ List.name }"/></td>
@@ -227,16 +228,14 @@ jQuery(function($) {
 				</div>
 				<!--// listContents -->
 				
-				<!-- prev & next btn -->
-				<div class="paging" align="center">
-					<nav class="pagenate purple">
-						<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_first.gif" alt="처음으로"></a>
-						<a href="#" class="btn prev"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_prev.gif" alt="이전"></a>
-						<a href="#" class="btn last"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_next.gif" alt="다음"></a>
-						<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_last.gif" alt="마지막으로"></a>	
-					</nav>
-				</div>
-				<!--// prev & next btn -->
+				<div style="text-align: center">
+					<div style="display: inline-block;">
+						<ul class="pagination ">
+							<c:out value="${ indexList }" escapeXml="false"/>
+						</ul>
+					</div>
+				</div>	
+				
 			</div>
 			<!--//row -->
 		</div>

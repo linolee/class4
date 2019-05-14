@@ -31,7 +31,7 @@
 	        <li><a href="classStatus.do">클래스 현황</a></li>
 	        <li><a href="classRegist.do">클래스 등록</a></li>
 	        <li><a href="classReview.do">후기/문의</a></li>
-	        <li><a href="adminQuestion.do">관리자 문의</a></li>
+<!-- 	        <li><a href="adminQuestion.do">관리자 문의</a></li> -->
 	        <li><a href="teacherProfile.do">강사 프로필 관리</a></li>
 	      </ul>
         </nav>

@@ -9,13 +9,134 @@ import org.springframework.stereotype.Component;
 
 import kr.co.sist.user.dao.UserLectureReviewDAO;
 import kr.co.sist.user.domain.Review;
+import kr.co.sist.user.vo.ListPageVO;
 
 @Component
 public class UserReviewService {
 	@Autowired
 	private UserLectureReviewDAO ultr_dao;
 	
-	public List<Review> searchReview(Map<String, String> map) {
+//////////////////////////////////////////////////////////////////////////í˜ì´ì§•/////////////////////////////////////////////////////////////////	
+	// 1. ì´ ê²Œì‹œê¸€ ìˆ˜ ê°€ì ¸ì˜¤ê¸°
+	public int totalCount(String userId, ListPageVO lpvo, String fromDate, String toDate) {
+		int cnt = 0;
+		
+		//idë¡œ ì´ë¦„ì„ ê°€ì ¸ì˜¨ë‹¤
+		List<String> tnlist = searchTeacherName(userId); 
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("nameList", tnlist);
+		param.put("lpvo", lpvo);
+		param.put("fromDate", fromDate);
+		param.put("toDate", toDate);
+					
+		cnt = ultr_dao.reviewTotalCnt(param);
+		return cnt;
+	} // totalCount
+	
+	// 2. í˜ì´ì§€ ë‹¹ ë³´ì—¬ì§ˆ ê²Œì‹œê¸€ ìˆ˜
+	public int pageScale() {
+		int pageScale = 10;
+
+		return pageScale;
+	}
+
+	// 3. ì´ í˜ì´ì§€ êµ¬í•˜ê¸°
+	public int totalPage(int totalCount) {
+		int totalPage = totalCount / pageScale();
+		if (totalCount % pageScale() != 0) {
+			totalPage++;
+		}
+
+		return totalPage;
+	}
+
+	// 4. ì‹œì‘ í˜ì´ì§€ ê³„ì‚°
+	// +1ì€ ì²«í˜ì´ì§€ê°€ 0ì´ë‚˜ 10ì´ ì•„ë‹ˆë¼ 1ì´ë‚˜ 11ë¡œ í•˜ê¸° ìœ„í•¨ì„ 1-> 1, 2->11, 3->21 ,,,
+	public int startNum(int currentPage) {
+		int startNum = 1;
+		startNum = currentPage * pageScale() - pageScale() + 1;
+		return startNum;
+	}
+	
+	// 5. ë í˜ì´ì§€ ê³„ì‚°
+	// -1ì€ ì²«í˜ì´ì§€ê°€ 1ì´ë‚˜ 11 ë“±ê³¼ ê°™ì„ë•Œ 1~10, 11~20ìœ¼ë¡œ ì§€ì •í•˜ê¸° ìœ„í•¨ì„
+	public int endNum(int startNum) {
+		int endNum = startNum + pageScale() - 1;
+		return endNum;
+	}
+	
+	/**
+	 * ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® [ << ] ... [1][2][3] ... [ >> ]
+	 * 
+	 * @param current_page
+	 * @param total_page
+	 * @param list_url
+	 * @return
+	 */
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	public String indexList(int current_page, int total_page, String list_url) {
+		int pagenumber; // í˜ì´ì§€ ë²ˆí˜¸
+		int startpage;  // ì‹œì‘ í˜ì´ì§€
+		int endpage;    // ë§ˆì§€ë§‰ í˜ì´ì§€
+		int curpage;    // í˜„ì¬ í˜ì´ì§€
+
+		String strList = "";
+
+		pagenumber = 10; // í˜ì´ì§€ë‹¹ ë³´ì¼ ê²Œì‹œê¸€ ìˆ˜
+
+		// ì‹œì‘ í˜ì´ì§€ ê³„ì‚°
+		startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
+
+		// ë§ˆì§€ë§‰ í˜ì´ì§€ ê³„ì‚°
+		endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
+
+		//ì´ í˜ì´ì§€ê°€ ë§ˆì§€ë§‰í˜ì´ì§€ë³´ë‹¤ ì‘ê±°ë‚˜ ê°™ì„ ê²½ìš°,
+		//ë í˜ì´ì§€ëŠ” ë§ˆì§€ë§‰ í˜ì´ì§€
+		if (total_page <= endpage) {
+			endpage = total_page;
+		} // end if
+
+		String currentPageStr = "?";
+		if (list_url.contains("Date")) {
+			//Dateë€ ë‹¨ì–´ê°€ í¬í•¨ë˜ì–´ìˆìœ¼ë©´...
+			currentPageStr = "&";
+		}
+		//í˜„ì¬ í˜ì´ì§€ê°€ ê²Œì‹œê¸€ ìˆ˜ë³´ë‹¤ í´ ê²½ìš°
+		if (current_page > pagenumber) {
+			curpage = startpage - 1;
+			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + currentPageStr + "currentPage=" + curpage + ">Prev</a></li>";
+		} else {
+			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
+			
+		}
+
+		curpage = startpage;
+
+		while (curpage <= endpage) {
+			if (curpage == current_page) {
+				strList = strList + "<li class='page-item active'><a class='page-link' href='#'>"+current_page+"</a>";
+			} else {
+				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + currentPageStr + "currentPage="+curpage+">"+curpage+"</a></li>";
+			} // end else
+
+			curpage++;
+		} // end while
+
+		// ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´Â°ï¿½ï¿½
+		if (total_page > endpage) {
+			curpage = endpage + 1;
+			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
+		} else {
+			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
+		} // end else
+
+		return strList;
+	}// indexList	
+	
+//////////////////////////////////////////////////////////////////////////í˜ì´ì§•/////////////////////////////////////////////////////////////////	
+	
+	public List<Review> searchReview(Map<String, Object> map) {
 		List<Review> list = ultr_dao.selectReview(map);
 		
 		return list;
@@ -41,118 +162,7 @@ public class UserReviewService {
 		Review review = ultr_dao.selectReviewDetail(map);
 		
 		return review;
-	}
-	
-	/**
-	 * ÇÑÆäÀÌÁö¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
-	 * @return
-	 */
-	public int pageScale() {
-		int pageScale=10;
-		return pageScale;
-	}//pageScale
-	
-	/**
-	 * ¸ğµç °Ô½Ã¹°À» º¸¿©ÁÖ±âÀ§ÇÑ ÆäÀÌÁö ¼ö
-	 * @param totalCount
-	 * @return
-	 */
-	public int totalPage(int totalCount) {
-		int totalPage=totalCount/pageScale();
-		if(totalCount % pageScale() !=0){
-			totalPage++;
-		}//end if
-		return totalPage;
-	}//totalPage
-	
-	/**
-	 * ¼±ÅÃÇÑ ÀÎµ¦½º ¸®½ºÆ®¿¡¼­ Á¶È¸ÇÒ ½ÃÀÛ ¹øÈ£
-	 * @param currentPage
-	 * @return
-	 */
-	public int startNum(int currentPage) {
-		int startNum=1;
-		startNum=currentPage*pageScale()-pageScale()+1;
-		return startNum;
-	}//startNum
-	
-	/**
-	 * ¼±ÅÃÇÑ ÀÎµ¦½º ¸®½ºÆ®¿¡¼­ Á¶È¸ÇÒ ³¡ ¹øÈ£
-	 * @param startNum
-	 * @return
-	 */
-	public int endNum(int startNum) {
-		int endNum=startNum+pageScale()-1;
-		return endNum;
-	}//endNum
-	
-	/**
-	 * ÀÎµ¦½º ¸®½ºÆ® [<<] ... [1] [2] [3] ... [>>]
-	 * @param current_page
-	 * @param total_page
-	 * @param list_url
-	 * @return
-	 */
-	public String indexList(int current_page, int total_page, String list_url) {
-		int pagenumber; // È­¸é¿¡ º¸¿©Áú ÆäÀÌÁö ÀÎµ¦½º ¼ö
-		int startpage;  // È­¸é¿¡ º¸¿©Áú ½ÃÀÛÆäÀÌÁö ¹øÈ£
-		int endpage;    // È­¸é¿¡ º¸¿©Áú ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£
-		int curpage; 	// ÀÌµ¿ÇÏ°íÀÚ ÇÏ´Â ÆäÀÌÁö ¹øÈ£
+	} // searchReviewDetail
 
-		String strList = ""; // ¸®ÅÏµÉ ÆäÀÌÁö ÀÎµ¦½º ¸®½ºÆ®
-
-		pagenumber = 10; // ÇÑ È­¸éÀÇ ÆäÀÌÁö ÀÎµ¦½º ¼ö
-
-		// ½ÃÀÛ ÆäÀÌÁö¹øÈ£ ±¸ÇÏ±â
-		startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
-
-		// ¸¶Áö¸· ÆäÀÌÁö¹øÈ£ ±¸ÇÏ±â
-		endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
-
-		// ÃÑ ÆäÀÌÁö ¼ö°¡ °è»êµÈ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£º¸´Ù ÀÛÀ»°æ¿ì
-
-		// ÃÑ ÆäÀÌÁö ¼ö°¡ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£°¡ µÊ
-
-		if (total_page <= endpage) {
-			endpage = total_page;
-		} // end if
-
-		// Ã¹¹øÂ° ÆäÀÌÁö ÀÎµ¦½º È­¸éÀÌ ¾Æ´Ñ°æ¿ì
-		if (current_page > pagenumber) {
-			curpage = startpage - 1; // ½ÃÀÛÆäÀÌÁö ¹øÈ£º¸´Ù 1 ÀûÀº ÆäÀÌÁö·Î ÀÌµ¿
-			strList = strList + "[ <a href=" + list_url + "?currentPage=" + curpage + ">&lt;&lt;</a> ]";
-		} else {
-			strList = strList
-					+ "<img src='http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_prev.gif'/>";
-		}
-
-		strList = strList + " ... ";
-
-		// ½ÃÀÛÆäÀÌÁö ¹øÈ£ºÎÅÍ ¸¶Áö¸·ÆäÀÌÁö ¹øÈ£±îÁö È­¸é¿¡ Ç¥½Ã
-		curpage = startpage;
-
-		while (curpage <= endpage) {
-			if (curpage == current_page) {
-				strList = strList + "[" + current_page + "]";
-			} else {
-				strList = strList + "[ <a href=" + list_url + "?currentPage=" + curpage + ">" + curpage + "</a> ]";
-			} // end else
-
-			curpage++;
-		} // end while
-
-		strList = strList + " ... ";
-
-		// µÚ¿¡ ÆäÀÌÁö°¡ ´õ ÀÖ´Â°æ¿ì
-		if (total_page > endpage) {
-			curpage = endpage + 1;
-			strList = strList + "[ <a href=" + list_url + "?currentPage=" + curpage + ">&gt;&gt;</a> ]";
-		} else {
-			strList = strList
-					+ "<img src='http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_next.gif'/>";
-		} // end else
-
-		return strList;
-	}//indexList
 	
 } // class

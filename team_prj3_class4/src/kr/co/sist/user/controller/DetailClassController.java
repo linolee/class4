@@ -4,8 +4,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.sist.admin.domain.QnaQuestionList;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
@@ -58,10 +55,7 @@ public class DetailClassController {
 		JoinCount joinCount=null;
 		String like=null;
 		Addr addr=null;
-		boolean joinStatus=false;
 
-		//String lcodetest="2";
-		
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		detailClassService dcs=ac.getBean(detailClassService.class);
 		
@@ -78,7 +72,7 @@ public class DetailClassController {
 		rvlistvlo.setLcode(lcode);
 		
 		rvlist = dcs.searchRvList(rvlistvlo);
-		String indexList = dcs.RindexList(rvlistvlo.getCurrentPage(), rtotalPage, "categorySearch.do", rvlistvlo.getLcode());
+		String indexList = dcs.RindexList(rvlistvlo.getCurrentPage(), rtotalPage, "detail.do?lcode="+lcode, rvlistvlo.getLcode());
 		
 		summary=dcs.searchSummary(lcode);
 		star=dcs.searchStar(lcode);
@@ -117,8 +111,13 @@ public class DetailClassController {
 		model.addAttribute("joinCount",joinCount);
 		model.addAttribute("like",like);
 		model.addAttribute("addr",addr);
+		
 		model.addAttribute("indexList",indexList);
-		//model.addAttribute("joinStatus",joinStatus);
+		model.addAttribute("rpageScale",rpageScale);
+		model.addAttribute("totalCount", rtotalCount);
+		model.addAttribute("currentPage", rvlistvlo.getCurrentPage());
+		model.addAttribute("keyword", rvlistvlo.getLcode());
+		model.addAttribute("page", "question");// @@
 		
 		System.out.println(summary);
 		

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,6 @@
 #title4 {/* font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; */ color:#757575; }			
 			
 #container{ margin: 0px auto; width: 1100px; min-height: 600px;}
-#listTab{ border-top: 1px solid #333; border-spacing: 0px;}
 .status{margin:0px auto;}
 .tableHeader{ background-color: #F7F7F7}
 </style>
@@ -54,7 +54,7 @@ function viewImport( code ) {
 		success : function (msg) {
 			var str = "";
 			for(var i=0; i < msg.length; i++){
-				str += "<tr>";
+				str += "<tr class=\"apply-tr\">";
 				str += 		"<td>"+msg[i].clientId+"</td>";
 				str += 		"<td>"+msg[i].name+"</td>";
 				str += 		"<td>"+msg[i].tel+"</td>";
@@ -78,6 +78,29 @@ function viewImport( code ) {
 function viewClassStatus(status) {
 	location.href="classStatus.do?status="+status;
 } // viewClassStatus//
+
+function changeOpenClass(lcode) {
+	var check = confirm("오픈으로 상태를 변경하시겠습니까?");
+	if(check){
+		$.ajax({
+			url: "<c:url value='/user/teacher/changeOpenClass.do' />",
+			type: "GET",
+			data: {"lcode":lcode},
+			dataType: "text",
+			success : function (msg) {
+				if (msg == 1) {
+					alert("변경되었습니다");
+				} else {
+					alert("변경에 실패했습니다");
+				}
+				location.href="";
+			},
+			error : function (msg) {
+				console.log(msg);
+			}
+		}); // ajax
+	}
+}
 
 $(function(){
 	$("[name='btnClose']").click(function() {
@@ -134,14 +157,28 @@ $(function(){
 				</thead>	
 				<tbody>
 					<tr class="content-list">
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')"><c:out value="${cntList.totalCnt}"/></a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">${cntList.A}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">${cntList.R}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">${cntList.Y}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">${cntList.F}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">${cntList.I}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">${cntList.E}</a></td>
-						<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">${cntList.C}</a></td>
+						<c:choose>
+							<c:when test="${empty cntList.A}">
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">0</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">0</a></td>
+							</c:when>
+							<c:otherwise>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('All')"><c:out value="${cntList.totalCnt}"/></a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('A')">${cntList.A}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('R')">${cntList.R}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('Y')">${cntList.Y}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('F')">${cntList.F}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('I')">${cntList.I}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('E')">${cntList.E}</a></td>
+								<td class="tdHeight"><a href="#" onclick="viewClassStatus('C')">${cntList.C}</a></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</tbody>
 			</table>
@@ -180,14 +217,59 @@ $(function(){
 				<tbody>
 				<c:if test="${not empty requestScope.l_list}">
 				<c:forEach var="List" items="${ requestScope.l_list }">
-
+					<c:choose>
+						<c:when test="${ List.status eq 'A'}">
+							<c:set var="css" value="ac"/>
+							<c:set var="txt" value="승인대기"/>
+						</c:when>
+						<c:when test="${ List.status eq 'R'}">
+							<c:set var="css" value="rd"/>
+							<c:set var="txt" value="준비중"/>
+						</c:when>
+						<c:when test="${ List.status eq 'Y'}">
+							<c:set var="css" value="ys"/>
+							<c:set var="txt" value="오픈"/>
+						</c:when>
+						<c:when test="${ List.status eq 'F'}">
+							<c:set var="css" value="fn"/>
+							<c:set var="txt" value="마감"/>
+						</c:when>
+						<c:when test="${ List.status eq 'I'}">
+							<c:set var="css" value="in"/>
+							<c:set var="txt" value="진행중"/>
+						</c:when>
+						<c:when test="${ List.status eq 'E'}">
+							<c:set var="css" value="ed"/>
+							<c:set var="txt" value="종료"/>
+						</c:when>
+						<c:when test="${ List.status eq 'C'}">
+							<c:set var="css" value="cc"/>
+							<c:set var="txt" value="취소"/>
+						</c:when>
+					</c:choose>
+					
 					<tr class="class-list">
-						<td><strong><c:out value="${ List.status }"/></strong></td>
+						<td>
+							<c:choose>
+								<c:when test="${ List.status eq 'R'}">
+									<a href="#" onclick="changeOpenClass('${List.lcode}')"><span class="ico ${css}"><c:out value="${txt}"/></span></a>
+								</c:when>
+								<c:otherwise>
+									<span class="ico ${css}"><c:out value="${txt}"/></span>
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td><c:out value="${ List.lname }"/></td>
 						<td><c:out value="${ List.startDate }"/> ~ <c:out value="${ List.endDate }"/></td>
-						<td><a href="#void" onclick="viewImport('${List.lcode}')">(<c:out value="${ List.nowMember }"/>/<c:out value="${ List.maxMember }"/>)</a></td>
+						<td>
+							<a href="#void" onclick="viewImport('${List.lcode}')">
+								<strong>
+									(<c:out value="${List.nowMember}"/>/<c:out value="${ List.maxMember }"/>)
+								</strong>
+							</a>
+						</td>
 						<td><c:out value="${ List.teacherName }"/></td>
-						<td><input type="button" class="btn btn-warning" name="btnDetail" value="상세보기"></td>
+						<td><a href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${List.lcode}" target="_blank"><input type="button" class="btn btn-warning" name="btnDetail" value="상세보기"></a></td>
 					</tr>
           
 				</c:forEach>
@@ -199,18 +281,27 @@ $(function(){
 				</c:if> 
 			</table>
 		</div>
+		
+		<div style="text-align: center">
+			<div style="display: inline-block;">
+				<ul class="pagination ">
+					<c:out value="${ indexList }" escapeXml="false"/>
+				</ul>
+			</div>
+		</div>		
+		
 		<div id="applyPeoples" class="applyPeoples" style="display: none;">
 			<h2>신청인원</h2>
 			<table id="applyTr" border="1" style="border-spacing: 0; margin: 0px auto;">
 				<tr id="panel-tr" style="background-color: #BBBBBB;">
-				<th width="100">아이디</th>
-					<th width="80">이름</th>
-					<th width="150">휴대전화</th>
+					<th class="apply-th" width="100">아이디</th>
+					<th class="apply-th" width="80">이름</th>
+					<th class="apply-th" width="150">휴대전화</th>
 				</tr>
 				<!-- append 영역 -->
 				</tbody>
 			</table><br>
-			<input type="button" value="닫기" class="btn" name="btnClose" style="margin-left: 45%;">
+			<input type="button" value="닫기" class="btn btn-warning" name="btnClose">
 		</div>
 	</div>
 	

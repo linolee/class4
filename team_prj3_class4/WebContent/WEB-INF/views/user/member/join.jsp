@@ -168,7 +168,7 @@ body {padding-top: 0px;}
 			<c:import url="../header/header.jsp"/>
 		</div>
 
-			<div class="areaFix">
+			<div class="areaFix" id="container">
 				<div id="joinDiv">
 					<form action="memberJoin.do" id="joinFrm" method="post">
 					<div id="memberJoinInputDiv">
