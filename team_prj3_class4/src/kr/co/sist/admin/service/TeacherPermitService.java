@@ -17,11 +17,11 @@ public class TeacherPermitService {
 	private TeacherPermitDAO tp_dao;
 	
 	// 1. 전체 게시물 수 얻기
-		public int totalCount() {
-			int cnt = 0;
-			cnt = tp_dao.selectTotalCount();
-			return cnt;
-		}
+	public int totalCount() {
+		int cnt = 0;
+		cnt = tp_dao.selectTotalCount();
+		return cnt;
+	}
 
 	public List<TeacherPermitDomain> selectTeacherPermit(ListVO lvo){
 		List<TeacherPermitDomain> list=null;

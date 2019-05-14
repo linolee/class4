@@ -27,6 +27,12 @@ function teacherPermitInfo(id, tName) {
 			// 공백 변환처리
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
 
+			var tImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			if(null!=json.img){
+				tImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+decodeURIComponent(json.img);
+			}
+			$("#tImg").attr("src", tImg);
+
 			var output2;
 	 		$("#career *").remove();
 			if( json.careerList.length != 0){
