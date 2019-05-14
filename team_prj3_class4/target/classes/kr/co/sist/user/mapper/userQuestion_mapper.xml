@@ -114,7 +114,7 @@ select L.lname, A.*
 
 <update id="updateQuestionReply" parameterType="kr.co.sist.user.vo.QuestionReplyVO">
 	update LESSON_QNA
-	set A_CONTENTS = TO_CLOB(#{aContents}), a_date = sysdate 
+	set A_CONTENTS = TO_CLOB(#{aContents}), a_date = sysdate, status = 'Y' 
 	where QCODE = #{qcode}
 </update> 
  
