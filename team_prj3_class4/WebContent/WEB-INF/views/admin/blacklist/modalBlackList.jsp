@@ -42,12 +42,12 @@
 					</table>
 
 					<div class="form-group">
-						<label>사유</label>
+						<label><strong>사유</strong></label>
 						<textarea name="reportContent" class="form-control" maxlength="2048"
 								style="height:180px; resize: none;" readonly="readonly" id="bReason"></textarea>
 					</div>
 					<div class="form-group">
-						<label>적용일시 : </label>
+						<label><strong>적용일시 : <strong></label>
 						 <input type="text" readonly="readonly" id="bBinputdate" style="border:none;"/>
 					</div>
 
