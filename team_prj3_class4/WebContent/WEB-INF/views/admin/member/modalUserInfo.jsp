@@ -43,7 +43,7 @@
 					</table>
 
 					<div class="form-group">
-						<label>수강 강의 목록</label>
+						<label><strong>수강 강의 목록</strong></label>
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">
