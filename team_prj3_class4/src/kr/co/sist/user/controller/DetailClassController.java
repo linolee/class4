@@ -74,10 +74,8 @@ public class DetailClassController {
 		rvlist = dcs.searchRvList(rvlistvlo);
 		String indexList = dcs.RindexList(rvlistvlo.getCurrentPage(), rtotalPage, "detail.do?lcode="+lcode, rvlistvlo.getLcode());
 		
-		ListVO lvo=new ListVO(lcode, id);
 		
-		Join joinStatus3=null;
-		joinStatus3=dcs.joinStatus(lvo);
+		
 		
 		summary=dcs.searchSummary(lcode);
 		star=dcs.searchStar(lcode);
@@ -93,7 +91,7 @@ public class DetailClassController {
 		joinCount=dcs.searchJoinCount(lcode);
 		like=dcs.searchLike(lcode);
 		addr=dcs.searchAddr(lcode);
-		
+
 		
 		/*String clientId="";
 		clientId = session.getAttribute("client_id").toString();
@@ -125,9 +123,15 @@ public class DetailClassController {
 		model.addAttribute("keyword", rvlistvlo.getLcode());
 		model.addAttribute("page", "question");// @@
 		
-		model.addAttribute("joinStatus3",joinStatus3);
+		if(id != null) {
+			ListVO lvo=new ListVO(lcode, id);
+			Join joinStatus3=null;
+			joinStatus3=dcs.joinStatus(lvo);
+			model.addAttribute("joinStatus3",joinStatus3);
+		}
 		
-		System.out.println(summary);
+		
+		//System.out.println(summary);
 		
 		return "user/classDetail/detail";
 	}//mvRecommendCalss
