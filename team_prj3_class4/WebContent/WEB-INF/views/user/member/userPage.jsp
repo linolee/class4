@@ -92,24 +92,29 @@ $(function(){
 	});
 	//////////////////////////////////문의/////////////////////////////////////////
 	$("#reportSubmitBtn").click(function (){
-		$.ajax({
-			type:"POST",
-			url:"memberReportSubmit.do",
-			data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
-			dataType : "json",
-			success: function(json){
-				if (json.resultFlag) {
-					$('#reportSubject').val("");
-					$('#summernote').summernote('code', "");
-					alert('문의가 정상적으로 제출되었습니다.');
-				}else{
-					alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
-				}
-			},
-			error: function(xhr) {
-				console.log(xhr.status);
-			}	
-		});
+		if ($('#reportSubject').val() == "" || $('#summernote').summernote('code') == "") {
+			alert("문의 제목과 내용을 모두 작성해주세요.");
+		}else{
+			$.ajax({
+				type:"POST",
+				url:"memberReportSubmit.do",
+				data : {q_subject : $('#reportSubject').val(), q_contents : $('#summernote').summernote('code')},
+				dataType : "json",
+				success: function(json){
+					if (json.resultFlag) {
+						$('#reportSubject').val("");
+						$('#summernote').summernote('code', "");
+						alert('문의가 정상적으로 제출되었습니다.');
+						location.href = "userPage.do?currentPage=1";
+					}else{
+						alert('문의가 제출되지 않았습니다. 잠시 후에 다시 시도해주세요.');
+					}
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		}
 	});
 	////////////////////////////////////////회원정보/////////////////////////////
 	$("#deleteClientInfoBtn").click(function(){
@@ -162,7 +167,7 @@ $(function(){
 	////////////////////////////////////////////////////////////////////////////////////////
 	
 	$('#summernote').summernote({
-		placeholder : '신고 내용을 입력해주세요.',
+		placeholder : '문의 내용을 입력해주세요.',
 		tabsize : 2,
 		height : 300
 	});
