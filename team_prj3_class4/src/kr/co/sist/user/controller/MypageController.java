@@ -606,7 +606,7 @@ public class MypageController {
 					qlvo.setLcode(lcodeList.get(i));
 					qlvo.setQcode(qcodeList.get(i));
 					if(request.getParameter("status").equals("Y")) {
-						if(ums.qnaList(qlvo).get(i).getStatus().equals("Y")) {
+						if(ums.qnaList(qlvo).get(0).getStatus().equals("Y")) {
 							if(!(request.getParameter("toDate")==null)) {
 								if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
 										&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
@@ -619,7 +619,7 @@ public class MypageController {
 						}//end if
 					}//end if
 					if(request.getParameter("status").equals("N")) {
-						if(ums.qnaList(qlvo).get(i).getStatus().equals("N")) {
+						if(ums.qnaList(qlvo).get(0).getStatus().equals("N")) {
 							if(!(request.getParameter("toDate")==null)) {
 								if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
 										&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
