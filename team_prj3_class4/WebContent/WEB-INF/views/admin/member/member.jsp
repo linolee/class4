@@ -28,9 +28,28 @@ function userInfo(userId) {
 			var output;
 	 		$("#lessons *").remove();
 			if( json.lessonList.length != 0){
+				
  				for(var i=0; i<json.lessonList.length; i++){
-					output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
-					output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>";
+					var jsonStatus=json.lessonList[i].lessonStatus;
+					var status="";
+					if(jsonStatus=="A"){
+							status="<span class='btn btn-brand btn-sm btn-secondary'>승인 대기 중";
+						} else if(jsonStatus=="R"){
+							status="<span class='btn btn-brand btn-sm btn-spotify'>준비 중";
+						} else if(jsonStatus=="Y"){
+							status="<span class='btn btn-brand btn-sm btn-vine'>오픈";
+						} else if(jsonStatus=="F"){
+							status="<span class='btn btn-brand btn-sm btn-dribble'>마감";
+						} else if(jsonStatus=="I"){
+							status="<span class='btn btn-brand btn-sm btn-github'>진행 중";
+						} else if(jsonStatus=="E"){
+							status="<span class='btn btn-brand btn-sm btn-twitter'>종료";
+						} else if(jsonStatus=="C"){
+							status="<span class='btn btn-brand btn-sm btn-danger'>취소/거절";
+						}
+					
+					output += "<tr><td style='width:350px'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
+					output += "<td>"+status+"</span></td></tr>";
 					$("#lessons").append(output);
 					output = "";
 				} 
@@ -149,7 +168,7 @@ $(function(){
 				<c:forEach var="member" items="${ requestScope.memberList }">
 				<c:set var="i" value="${i+1}"/>
 				<tr>		
-					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
+					<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1}"/></td>
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>

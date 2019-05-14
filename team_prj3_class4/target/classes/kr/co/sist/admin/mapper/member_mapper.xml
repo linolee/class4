@@ -15,12 +15,13 @@
 <select id="clientTotalCnt" resultType="int">
 	select count(*) cnt 
 	from client
+	where deleted='N'
 </select>
 
 <select id="selectClient" resultMap="MemberListDomain" parameterType="kr.co.sist.admin.vo.ListVO">
 select c.client_id, c.name, c.birth, c.gender, c.email, b.reason
 from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
-from client) c left outer join blacklist b on c.client_id=b.client_id
+from client where deleted='N') c left outer join blacklist b on c.client_id=b.client_id
 where r_num between #{ startNum } and #{ endNum }
 </select>
 
@@ -61,7 +62,7 @@ where r_num between #{ startNum } and #{ endNum }
 <select id="memberOptionSearch" parameterType="kr.co.sist.admin.vo.OptionSearchVO" resultMap="MemberListDomain">
 select c.client_id, c.name, c.birth, c.gender, c.email
 from(select client_id, name, birth, gender, email, row_number() over(order by inputdate desc) r_num
-from client where ${option} like '%'||#{keyword}||'%') c left outer join blacklist b on c.client_id=b.client_id
+from client where ${option} like '%'||#{keyword}||'%' and deleted='N') c left outer join blacklist b on c.client_id=b.client_id
 where r_num between #{startNum} and #{endNum}
 </select>
 

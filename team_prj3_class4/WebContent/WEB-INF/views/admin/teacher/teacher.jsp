@@ -59,8 +59,6 @@ function teacherInfo(teacherName) {
  					
  					
 					output += "<tr><td style='width:350px;'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>";
-					/* output += "<tr><td width='50px' class='col-10'>"+ decodeURIComponent(json.lessonList[i].lessonName.replace(space," "))+"</td>"; */
-					/* output += "<td><span class='badge badge-secondary'>"+json.lessonList[i].lessonStatus+"</span></td></tr>"; */
 					output += "<td>"+status+"</span></td></tr>";
 					$("#lesson").append(output);
 					output = "";
