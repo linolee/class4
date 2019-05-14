@@ -14,11 +14,12 @@
 	<result column="class_time" property="class_time"/>
 	<result column="class_time2" property="class_time2"/>
 	<result column="img" property="img"/>
+	<result column="tId" property="tId"/>
 </resultMap>
 <select id="selectSummary" resultMap="summary" parameterType="String">
 	select l.banner_img,l.lname,l.lintro,l.teacher_name,
 			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) address,
-			l.max_member,((l.end_time-l.start_time)/60) class_time,mod(l.end_time-l.start_time,60) class_time2,t.img
+			l.max_member,((l.end_time-l.start_time)/60) class_time,mod(l.end_time-l.start_time,60) class_time2,t.img,t.client_id tId
 	from lesson l ,teacher t
 	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
 </select>
@@ -193,6 +194,12 @@ and client_id=#{clientId}
 <select id="updateJoin" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
 	update students
 	set status='C', cancel_date=sysdate 
+	where lcode=#{lcode} and client_ID=#{clientId}
+</select>
+
+<select id="updateJoin2" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
+	update students
+	set status='Y', cancel_date='', join_date=sysdate
 	where lcode=#{lcode} and client_ID=#{clientId}
 </select>
 

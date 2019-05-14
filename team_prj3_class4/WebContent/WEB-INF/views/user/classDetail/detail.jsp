@@ -159,13 +159,18 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			success : function( sendjs ){
 				if(sendjs=="신청"){
 					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
-					alert("해당 클래스를 신청했습니다^^");
-					$("#joinBtn").val("클래스 신청취소");
+					alert("해당 클래스를 신청하셨습니다^^");
+					$("#joinBtn").val("클래스 취소하기");
 				}//end if
 				if(sendjs=="취소"){
 					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 					alert("신청을 취소하셨습니다ㅜㅜ");
 					$("#joinBtn").val("클래스 신청하기");
+				}//end if
+				if(sendjs=="다시신청"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+					alert("해당 클래스를 신청하셨습니다");
+					$("#joinBtn").val("클래스 취소하기");
 				}//end if
 			}
 		});
@@ -535,9 +540,9 @@ $(function () {
 											<td><a href="#void" class="qnaContents"><c:out value="${qnalist.subject}"/></a></td>
 											<td><c:out value="${qnalist.inputdate}"/></td>
 										</tr>
-										<tr>
+										<%-- <tr>
 										<td colspan="3"><div class="contents"><c:out value="${qnalist.contents}"/></div></td>
-										</tr> 
+										</tr> --%> 
 									</c:forEach> 
 									<c:if test="${empty qnalist}">
 										<tr>
@@ -734,6 +739,8 @@ $(function () {
 		                  	</c:choose>
 						</c:when>
 						<c:otherwise>  <!-- 회원은 신청 -->
+						<c:if test="${summary.tId ne id}">
+							
 		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
@@ -742,14 +749,15 @@ $(function () {
 		                  	<c:if test="${ joinCount.now_member eq null }">
 		                  		<c:set var="now" value="0"/>
 		                  	</c:if>
+		                  	<%-- joinStatus3.status : <c:out value="${ joinStatus3.status }"/> --%>
 		                  	<c:choose>
-								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F'}">
+								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F' && (joinStatus3.status eq 'C'||empty joinStatus3.status) }">
 				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
 								</c:when>
 			                  	<c:when test="${detailc.status eq 'E'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
 			                  	</c:when>
-								<c:when test="${joinStatus2.status eq 'Y'}"> <!-- true면 신청한상태 -->
+								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F' && joinStatus3.status eq 'Y'}"> <!-- true면 신청한상태 -->
 									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
 			                  	</c:when>
 			                  	<c:when test="${detailc.status eq 'F'}">
@@ -762,6 +770,8 @@ $(function () {
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 정원초과 "/>
 			                  	</c:otherwise> 
 		                  	</c:choose>
+		                  	
+		                  </c:if>
 						</c:otherwise>
 						</c:choose>
 	                  

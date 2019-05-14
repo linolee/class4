@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
@@ -23,8 +22,6 @@ $(function () {
 		   	var inputExt=fileValue3[fileValue3.length-1].toLowerCase();
 		   	var fileName = fileValue[fileValue.length-1]; // 파일명
 	
-		   	//alert("filename : "+fileName); 
-	   	 	
 		   	for(var i=0; i<ext.length; i++){
 		   		if(ext[i] ==inputExt){
 		   			flag=true;
@@ -52,21 +49,6 @@ $(function () {
    		 } // if
  	});//change
 	
-/* 	$("#small").click(function(){
-		$("#textCate").val($("#small").val());
-		return;
-	});
- 	
- 	$("#addCate").click(function(){
- 		var varCate=$("#textCate").val();
- 		alert(varCate+"추가");
- 		
- 	});
- 	$("#delCate").click(function(){
- 		var varCate=$("#textCate").val();
- 		alert(varCate+"삭제");
- 	}); */
- 	
 });
 
 $(function () {
@@ -116,7 +98,6 @@ $(function () {
 		   	
    		 } // if
  	});//change
-	///////////////////////////////////////////////////////////////////* 모달  */////////////////////////////////////////////////////////////////////////
 	
  	$("#addSCate").click(function(){
  		var input = prompt("추가할 소분류명을 입력해주세요");

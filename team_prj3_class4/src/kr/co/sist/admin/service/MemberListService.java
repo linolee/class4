@@ -14,8 +14,6 @@ import kr.co.sist.admin.dao.MemberListDAO;
 import kr.co.sist.admin.domain.MemberDetail;
 import kr.co.sist.admin.domain.MemberLesson;
 import kr.co.sist.admin.domain.MemberListDomain;
-import kr.co.sist.admin.domain.TeacherCareer;
-import kr.co.sist.admin.domain.TeacherIntro;
 import kr.co.sist.admin.vo.AddBlackVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
@@ -111,7 +109,5 @@ public class MemberListService {
 		list=a_dao.memberOptionSearch(osvo);
 		return list;
 	}
-	
-	
 
 }

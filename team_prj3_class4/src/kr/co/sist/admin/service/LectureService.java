@@ -37,21 +37,9 @@ public class LectureService {
 	
 	public List<LectureListDomain> lectureStatusSearch(LectureStatusVO lsvo){
 		List<LectureListDomain> list=null;
-		//LectureDAO ldao=LectureDAO.getInstance();
 		LectureDAO ldao=new LectureDAO();
 		list=ldao.lectureStatusSearch(lsvo);
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		LectureService ls=new LectureService();
-		LectureStatusVO lsvo=new LectureStatusVO();
-		lsvo.setCurrentPage(1);
-		lsvo.setStartNum(1);
-		lsvo.setEndNum(10);
-		lsvo.setStatus("F");
-		System.out.println("-**-*-*--**-*--**-**-*--**--**-");
-		System.out.println(ls.lectureStatusSearch(lsvo));
-		System.out.println("-**-*-*--**-*--**-**-*--**--**-");
-	}
 }

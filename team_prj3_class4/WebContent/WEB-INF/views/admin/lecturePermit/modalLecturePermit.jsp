@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	
 <style type="text/css">
@@ -35,7 +34,6 @@ contentTitle{font-size: 24px;font-weight: bold;}
             		<td rowspan="4" style="width: 180px; height: 160px;">
             			<img style="width: 100px;height: 100px;padding-top: 0px;margin-top: 25px;margin-bottom: 10px;" 
             				id="ls_teacherImg" onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
-            				<!-- id="ls_teacherImg" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg"> -->
             			<br/>
 						<h3 id="ls_teacher_name" style="padding-left: 15px;"></h3>
 					</td>
@@ -74,12 +72,6 @@ contentTitle{font-size: 24px;font-weight: bold;}
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>수업 정보</strong></span></div><br/>
                           
-                          
-                          
-                          <!-- <div style="margin:20px; font-size: 15px;" id="ls_curriculum">
-                          </div> -->
-                          
-                          
                           <div  id="ls_curriculum"> 
                          	<textarea class="summernote_q" ></textarea>
                          </div>
@@ -108,8 +100,6 @@ contentTitle{font-size: 24px;font-weight: bold;}
                       </div>
                       <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>기타 사항</strong></span></div><br/>
-                          <!-- <div style="margin: 20px; font-size:15px;" id="ls_others">
-                          </div> -->
                           <div  id="ls_others"> 
                          	<textarea class="summernote_q" ></textarea>
                          </div>
@@ -118,8 +108,6 @@ contentTitle{font-size: 24px;font-weight: bold;}
 
                        <div class="group" style="border-top: 1px solid #cfcfcf;">
                           <div class="detail_info_title"><span class="contentTitle"><strong>클래스 위치</strong></span></div>
-                          <!-- <p class="detail editor_st" style="margin: 15px;font-size: 15px;" id="ls_detailAddress">
-                          </p> -->
 							<div id="kakaoMap">
 							</div>
 
@@ -131,12 +119,8 @@ contentTitle{font-size: 24px;font-weight: bold;}
 										<div class="form-row">
 											<div class="modal-footer" style="border-top:none;">
 												<button type="button" class="btn btn-primary"	id="lecturePermission">승인</button>
-												<!-- <button type="button" class="btn btn-danger"	id="lectureRefuse">거절</button> -->
-												
 												
 												<a data-toggle="modal" class="btn btn-danger" href="#modalLectureRefuse" >거절</a>
-												
-												
 												
 											</div>
 										</div>
