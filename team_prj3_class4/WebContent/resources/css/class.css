@@ -72,7 +72,7 @@ a {color: #4b4783;}
 #qnaTxtArea {width: 100%; height: 200px; padding: 5px; border: 1px solid #d1d1d1; resize: none;}
 
 /* 강사 프로필 관리 */
-#profileForm {height: auto; width: 400px; position: absolute; top:10%; left: 35%; background: #fff; z-index: 9999;}
+#profileForm {height: auto; width: 400px; position: absolute; top:10%; left: 35%; background: #fff; z-index: 9999; position: absolute;}
 #addProfileFrm {padding: 10px;}
 #updateProfileFrm {padding: 10px;}
 .picture-area {height: 170px;}
@@ -103,4 +103,4 @@ a {color: #4b4783;}
 .profileBtn input {margin-right: 5px;}
 
 /* 림처리 */
-
+.backLayer {display:none; background-color:black; position:absolute; left:0px; top:0px;} 
