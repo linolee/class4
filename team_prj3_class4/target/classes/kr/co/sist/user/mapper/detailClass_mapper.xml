@@ -12,10 +12,13 @@
 	<result column="address" property="address"/>
 	<result column="max_member" property="max_member"/>
 	<result column="class_time" property="class_time"/>
+	<result column="class_time2" property="class_time2"/>
 	<result column="img" property="img"/>
 </resultMap>
 <select id="selectSummary" resultMap="summary" parameterType="String">
-	select l.banner_img,l.lname,l.lintro,l.teacher_name,substr(l.address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) address,l.max_member,l.end_time-l.start_time class_time,t.img
+	select l.banner_img,l.lname,l.lintro,l.teacher_name,
+			substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) address,
+			l.max_member,((l.end_time-l.start_time)/60) class_time,mod(l.end_time-l.start_time,60) class_time2,t.img
 	from lesson l ,teacher t
 	where  t.teacher_name=l.teacher_name and lcode = #{lcode}
 </select>
@@ -45,9 +48,12 @@
 	<result column="curriculum" property="curriculum"/>
 	<result column="others" property="others"/>
 	<result column="address" property="address"/>
+	<result column="address2" property="address2"/>
+	<result column="together" property="together"/>
+	<result column="status" property="status"/>
 </resultMap>
 <select id="selectDeContents" resultMap="detailContents" parameterType="String">
-	select contents,curriculum,others,address
+	select contents,curriculum,others,address,address2,together,status
 	from lesson
 	where lcode= #{lcode}
 </select>
@@ -70,25 +76,28 @@
 	<result column="score" property="score"/>
 	<result column="r_date" property="r_date"/>
 </resultMap>
-<select id="selectReviewList" resultMap="Review" parameterType="String">
-	select   client_id, subject, contents, score, r_date
+<select id="selectReviewList" resultMap="Review" parameterType="kr.co.sist.user.vo.ReviewListVO">
+	select *
+	from(select   client_id, subject, contents, score, r_date, row_number() over(order by lcode desc) r_num
 	from review
-	where lcode = #{lcode}
+	where lcode = #{lcode})
+	where r_num between #{ startNum } and #{ endNum }
 </select>
 
-<select id="selectReviewTotalCnt" resultType="int">
-select count(*) cnt from review
+<select id="selectReviewTotalCnt" resultType="int" parameterType="String">
+select count(*) cnt from review where lcode=#{lcode}
 </select>
 
 <resultMap type="kr.co.sist.user.domain.QnA" id="qna">
 	<result column="qcode" property="qcode"/>
 	<result column="id" property="id"/>
 	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
 	<result column="inputdate" property="inputdate"/>
 	<result column="status" property="status"/>
 </resultMap>
 <select id="selectQnaList" resultMap="qna" parameterType="String">
-	select qcode,client_id id, subject,q_date inputdate,status
+	select qcode,client_id id, subject,contents,q_date inputdate,status
 	from lesson_qna
 	where lcode=#{lcode}
 </select>
@@ -103,10 +112,14 @@ select count(*) cnt from lesson_qna
 	<result column="lcode" property="lcode"/>
 </resultMap>
 <select id="selectTclass" resultMap="Tclass" parameterType="String">
+	<![CDATA[
+	select * from(
 	select main_img,lname,lcode
 	from lesson
 	where teacher_name=(select teacher_name from lesson where lcode=#{lcode})
 	and lcode!=#{lcode}
+	)where rownum <= 3 
+	]]>
 </select>
 
  <select id="selectDay" resultType="String" parameterType="String">
@@ -119,10 +132,12 @@ select count(*) cnt from lesson_qna
 	<result column="start_date" property="start_date"/>
 	<result column="end_date" property="end_date"/>
 	<result column="start_time" property="start_time"/>
+	<result column="start_time2" property="start_time2"/>
 	<result column="end_time" property="end_time"/>
+	<result column="end_time2" property="end_time2"/>
 </resultMap>
 <select id="selectClassTime" resultMap="time" parameterType="String">
-	select start_date,end_date,start_time, end_time
+	select start_date,end_date,start_time/60 start_time, mod(start_time,60) start_time2, end_time/60 end_time, mod(end_time,60) end_time2
 	from lesson
 	where lcode=#{lcode}
 </select>
@@ -136,6 +151,7 @@ select count(*) cnt from lesson_qna
 	from lesson l inner join students s
 	on l.lcode=s.lcode
 	where l.lcode=#{lcode}
+	and s.status='Y'
 	group by max_member
 </select>
 
@@ -150,10 +166,53 @@ select count(*) cnt from lesson_qna
 	<result column="introduce" property="introduce"/>
 </resultMap>
 <select id="selectAddr" resultMap="Addr" parameterType="String">
-	select l.due_date, substr(address,1,instr(address,'시')-1) si, substr(address,instr(address,'시')+2,instr(address,'구')-instr(address,'시')-2) gu,t.introduce
+	select l.due_date, substr(address,1,instr(address,' ')-1) si, 
+			substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) gu,t.introduce
 	from lesson l inner join teacher t
 	on t.teacher_name=l.teacher_name
 	where lcode=#{lcode}
+</select>
+
+<resultMap type="kr.co.sist.user.domain.Join" id="join">
+	<result column="lcode" property="lcode"/>
+	<result column="clientId" property="clientId"/>
+	<result column="status" property="status"/>
+</resultMap>
+<select id="selectID" resultMap="join" parameterType="kr.co.sist.user.vo.ListVO">
+select lcode, client_id as clientId,status 
+from students
+where lcode=#{lcode} 
+and client_id=#{clientId}
+</select>
+
+<select id="insertJoin" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
+	insert into students(client_id,lcode,status,join_date) 
+	values(#{clientId}, #{lcode},'Y',sysdate)	
+</select>
+
+<select id="updateJoin" parameterType="kr.co.sist.user.vo.ListVO" resultType="boolean">
+	update students
+	set status='C', cancel_date=sysdate 
+	where lcode=#{lcode} and client_ID=#{clientId}
+</select>
+
+<resultMap type="kr.co.sist.user.vo.ListVO" id="jjim_Status">
+	<result column="clientId" property="clientId"/>
+	<result column="lcode" property="lcode"/>
+</resultMap>
+<select id="jjimStatus" resultMap="jjim_Status" parameterType="kr.co.sist.user.vo.ListVO">
+select client_id clientId,lcode
+from  lesson_like
+where client_id=#{clientId}
+and lcode=#{lcode}
+</select>
+
+<select id="joinStatus" resultType="String" parameterType="kr.co.sist.user.vo.ListVO">
+select status
+from students
+where client_id=#{clientId}
+and lcode=#{lcode}
+and status='Y'
 </select>
 
 

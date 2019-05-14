@@ -5,7 +5,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">블랙리스트 등록</h5>
+				<h5 class="modal-title" id="modal"><strong>블랙리스트 등록</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -13,9 +13,8 @@
 			</div>
 			<div class="modal-body">
 
-					<!-- temp table -->
 
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
@@ -42,8 +41,6 @@
 						</tbody>
 					</table>
 
-					<!-- temp table -->
-
 					<div class="form-group">
 						<label>사유</label>
 						<textarea id="reportReason" name="reportContent" class="form-control" maxlength="2048"
@@ -53,7 +50,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<form action="member.do" method="post" name="addFrm">
 										<button type="button" class="btn btn-danger" id="addBlack">확인</button>
 									</form>

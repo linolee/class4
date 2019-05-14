@@ -44,7 +44,7 @@ body {padding-top: 0px;}
 		<div id="header">
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
-		<div class="container my-5">
+		<div class="container my-5" id="container">
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
 				아이디 찾기 <small>Find ID</small>
@@ -55,7 +55,7 @@ body {padding-top: 0px;}
 					아이디 조회 방법 선택
 				</div>
 					<div class="card-body text-center">
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findID.do'"><i class="material-icons" style="font-size:50px">mail_outline</i><br>메일 주소로 찾기</button>
+						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findIdByEmail.do'"><i class="material-icons" style="font-size:50px">mail_outline</i><br>메일 주소로 찾기</button>
 						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findID.do'"><i class="material-icons" style="font-size:50px">phonelink_ring</i><br>휴대폰 번호로 찾기</button>
 						
 					</div>

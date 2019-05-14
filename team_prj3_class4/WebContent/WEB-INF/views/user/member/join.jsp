@@ -134,8 +134,12 @@ body {padding-top: 0px;}
 					$('#emailWarning').text("이미 사용 중인 이메일입니다.").css("color", "red");
 					emailFlag = false;
 				}else{
-					$('#emailWarning').text("사용 가능한 이메일입니다.").css("color", "green");
-					emailFlag = true;
+					if ($("#input_email").val().trim() != "" && $("#input_domain").val().trim() != "") {
+						$('#emailWarning').text("사용 가능한 이메일입니다.").css("color", "green");
+						emailFlag = true;
+					}else{
+						$('#emailWarning').text("이메일을 입력해주세요.").css("color", "red");
+					}
 				}
 			},
 			error: function(xhr) {
@@ -164,7 +168,7 @@ body {padding-top: 0px;}
 			<c:import url="../header/header.jsp"/>
 		</div>
 
-			<div class="areaFix">
+			<div class="areaFix" id="container">
 				<div id="joinDiv">
 					<form action="memberJoin.do" id="joinFrm" method="post">
 					<div id="memberJoinInputDiv">
@@ -194,7 +198,7 @@ body {padding-top: 0px;}
 							<li>
 								<label>생년월일</label><br>
 								<div class="input-group">
-								  <input type="text" aria-label="Year" placeholder="Year" class="form-control" name="birth" id="input_year">
+								  <input type="number" aria-label="Year" placeholder="Year" class="form-control" name="birth" id="input_year" maxlength="4">
 								  <div class="input-group-append">
 								    <span class="input-group-text">년</span>
 								  </div>
@@ -232,8 +236,8 @@ body {padding-top: 0px;}
 									<option>018</option>
 									<option>019</option>
 								</select>-
-								<input type="text" name="tel" class="form-control d-inline" id="input_tel2" maxlength="4" onchange="CheckTel()">-
-								<input type="text" name="tel" class="form-control d-inline" id="input_tel3" maxlength="4" onchange="CheckTel()">
+								<input type="number" name="tel" class="form-control d-inline" id="input_tel2" maxlength="4" onchange="CheckTel()">-
+								<input type="number" name="tel" class="form-control d-inline" id="input_tel3" maxlength="4" onchange="CheckTel()">
 							</li>
 							<li>
 								<label class="warning" id="telWarning"></label>

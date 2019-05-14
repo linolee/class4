@@ -18,14 +18,6 @@
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
-<!-- Bootstrap core CSS -->
-<link
-	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
-	rel="stylesheet">
-<!-- Custom styles for this template -->
-<link
-	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
-	rel="stylesheet">
 <!-- CSS -->
 <!-- Bootstrap core CSS -->
 <link
@@ -44,6 +36,12 @@ body {
 	padding-top: 0px;
 }
 </style>
+<script type="text/javascript">
+	$(function() {
+		$("[name=keyword]").val("${keyword}");
+	});
+</script>
+
 <body>
 	<div id="wrapper">
 		<div id="header">
@@ -51,117 +49,83 @@ body {
 		</div>
 
 		<!-- Page Content -->
-		<div class="container">
+		<div class="container" id="container">
 
 			<!-- Page Heading/Breadcrumbs -->
-			<h1 class="mt-4 mb-3">
-				검색결과 <small>Search Result</small>
-			</h1>
-
-			<div class="row">
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project One</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Amet numquam aspernatur eum quasi sapiente
-								nesciunt? Voluptatibus sit, repellat sequi itaque deserunt,
-								dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
-						</div>
+				<div class="card">
+					<div class="card-header">
+						<h3>
+							"${keyword}" 카테고리 검색결과
+						</h3>
+					</div>
+					<div class="card-body">
+						<c:if test="${empty categoryList }">
+							검색 결과가 없습니다.
+						</c:if>
+						<c:forEach var="category" items="${categoryList }">
+						<input type="button" class="btn btn-info my-1" value="${category }" onclick="location.href = 'categorySearch.do?keyword=${category }'">
+						</c:forEach>
 					</div>
 				</div>
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project Two</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-								urna varius vitae.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project Three</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Quos quisquam, error quod sed cumque, odio
-								distinctio velit nostrum temporibus necessitatibus et facere
-								atque iure perspiciatis mollitia recusandae vero vel quam!</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project Four</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-								urna varius vitae.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project Five</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Nam viverra euismod odio, gravida pellentesque
-								urna varius vitae.</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 portfolio-item">
-					<div class="card h-100">
-						<a href="#"><img class="card-img-top"
-							src="http://placehold.it/700x400" alt=""></a>
-						<div class="card-body">
-							<h4 class="card-title">
-								<a href="#">Project Six</a>
-							</h4>
-							<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-								adipisicing elit. Itaque earum nostrum suscipit ducimus nihil
-								provident, perferendis rem illo, voluptate atque, sit eius in
-								voluptates, nemo repellat fugiat excepturi! Nemo, esse.</p>
-						</div>
+			<h3 class="mt-4 mb-3">
+				"${keyword}" 클래스명 검색결과
+			</h3>
+			<c:if test="${empty list }">
+			<div class="container my-5">
+				<div class="card text-center">
+					<div class="card-header">
+						검색 결과가 없습니다.
 					</div>
 				</div>
 			</div>
+			</c:if>
+			<div class="row">
+			<c:forEach var="listItem" items="${list }">
+				<div class="col-lg-4 col-sm-6 portfolio-item">
+					<div class="card h-100">
+						<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">
+						<img class="card-img-top text-center" style="width: 348px; height: 220px;"
+							src="<c:url value="/upload/lessonMain/${listItem.main_img }"/>" onerror="this.src='<c:url value="/upload/lessonMain/noImage.png"/>'"></a>
+						<div class="card-body">
+							<h4 class="card-title">
+								<a href="/team_prj3_class4/user/classDetail/detail.do?lcode=${listItem.lcode }">${listItem.lname }</a>
+							</h4>
+								<table class="table">
+									<tr>
+										<th>강사명</th>
+										<td>${listItem.teacher_name}</td>
+									</tr>
+									<tr>
+										<th>카테고리</th>
+										<td>${listItem.category}>${listItem.inner_category}</td>
+									</tr>
+									<tr>
+										<th>강의 기간</th>
+										<td>${listItem.start_date}~${listItem.end_date}</td>
+									</tr>
+									<tr>
+										<th>신청 마감일</th>
+										<td>${listItem.due_date}</td>
+									</tr>
+									<tr>
+										<th>수강 인원</th>
+										<td>${listItem.cur_member}/${listItem.max_member}</td>
+									</tr>
+								</table>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+			</div>
 
-			<!-- Pagination -->
-			<ul class="pagination justify-content-center">
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-						<span class="sr-only">Previous</span>
-				</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#"
-					aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span
-						class="sr-only">Next</span>
-				</a></li>
-			</ul>
+			<div style="text-align: center">
+			<div style="display: inline-block;">
+				<ul class="pagination ">
+					<c:out value="${ indexList }" escapeXml="false" />
+					<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
+				</ul>
+			</div>
+		</div>
 
 		</div>
 		<!-- /.container -->
@@ -169,10 +133,7 @@ body {
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
 		</div>
-
-
 	</div>
-
 </body>
 </html>
 

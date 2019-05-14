@@ -69,10 +69,12 @@ public class TeacherPermitDAO {
 	
 	public void teacherRefuse(String id) {
 		SqlSession ss = getSessionFactory().openSession();
-		// 승인 거절시에 강사신청테이블의 데이터를 삭제한다
-		ss.delete("delTeacherPermit", id);
+		// 승인 거절시에 강사신청테이블의 스테이터스를 R로 변경
+		ss.update("updateTeacherPermit", id);
+		
+		
 		// 승인 거절시에 client테이블의 status를 Y로 변경한다
-		ss.update("updateTeacherPermitStat", id);
+		//ss.update("updateTeacherPermitStat", id);
 		ss.commit();
 		ss.close();
 	}

@@ -5,12 +5,11 @@
 <mapper namespace="kr.co.sist.user.mainC">
 
 <select id="selectCategoryList" resultType="String">
-	 <![CDATA[
+	<![CDATA[
 	select category 
 	from category 
-	where rownum <= 11 
 	order by category
-	 ]]>
+	]]>
 </select>
 
 <resultMap type="kr.co.sist.user.domain.Category" id="category">
@@ -18,11 +17,57 @@
 	<result column="img" property="img"/>
 </resultMap>
 <select id="selectCategoryImgList" resultMap="category">
-	 <![CDATA[
+	<![CDATA[
 	select category,img 
 	from category 
 	where rownum <= 9 
-	 ]]>
+	]]>
+</select>
+ 
+<resultMap type="kr.co.sist.user.domain.Recommend" id="recommend">
+	<result column="lcode" property="lcode"/>
+	<result column="main_img" property="main_img"/>
+	<result column="lname" property="lname"/>
+	<result column="teacher_name" property="teacher_name"/>
+	<result column="si" property="si"/>
+	<result column="gu" property="gu"/>
+	<result column="l_date" property="l_date"/>
+	<result column="star" property="star"/>
+</resultMap>
+<select id="selectRecommend" resultMap="recommend">
+	<![CDATA[
+	select * from(
+	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
+	from lesson l left join review r
+	on l.lcode=r.lcode
+	group by   l_date,l.lcode,main_img, banner_img, lname, teacher_name, address
+	order by star desc,l_date
+	)where rownum<=9
+	]]>
+</select>
+
+<resultMap type="kr.co.sist.user.domain.LatestReview" id="latestreview">
+	<result column="client_id" property="client_id"/>
+	<result column="lcode" property="lcode"/>
+	<result column="subject" property="subject"/>
+	<result column="contents" property="contents"/>
+	<result column="main_img" property="main_img"/>
+	<result column="lname" property="lname"/>
+	<result column="r_date" property="r_date"/>
+	<result column="score" property="score"/>
+	<result column="rank" property="rank"/>
+</resultMap>
+<select id="selectLatestReview" resultMap="latestreview">
+	<![CDATA[
+	select * from
+	(select client_id, r.lcode, subject,r.contents, score, r_date, rank() over(partition by r.lcode order by r_date desc) rank, l.main_img, lname
+	from review r, lesson l
+	where l.lcode=r.lcode)
+	where score>=4
+	and rownum<=9
+	and rank=1
+	order by r_date desc,score
+	]]>
 </select>
 
 </mapper>

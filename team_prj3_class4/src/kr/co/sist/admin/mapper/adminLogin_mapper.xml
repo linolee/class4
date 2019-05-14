@@ -10,9 +10,69 @@
 </resultMap>
 
 <select id="selectAdminLogin" parameterType="kr.co.sist.admin.vo.AdminLoginVO" resultMap="adminLogin">
-select admin_id, pass
-from admin
-where admin_id=#{adminId} and pass=#{pass}
+	select admin_id, pass
+	from admin
+	where admin_id=#{adminId} and pass=#{pass}
 </select>
+
+<!-- 메인 화면 통계 조회 -->
+<select id="totalClient" resultType="int">
+	select count(*) cnt
+	from client
+</select>
+	
+<select id="today" resultType="int">
+	select to_char(sysdate, 'DD')
+	from dual
+</select>
+
+<select id="month" resultType="int">
+	select to_char(sysdate, 'MM')
+	from dual
+</select>
+
+<select id="todayClient" resultType="int" parameterType="int">
+select count(case when to_char(inputdate, 'DD')=#{today} then 1 end) cnt
+from client
+</select>
+
+<select id="monthClient" resultType="int">
+select count(case when to_char(inputdate, 'MM')=#{month} then 1 end) cnt
+from client
+</select>
+
+<select id="exitClient" resultType="int">
+	select count(*) cnt
+	from deleted_user
+</select>
+
+<select id="totalTeacher" resultType="int">
+	select count(distinct client_id) cnt
+	from teacher
+</select>
+
+<select id="totalLecture" resultType="int">
+	select count(*) cnt
+	from lesson
+</select>
+
+<select id="ingLecture" resultType="int">
+	select count(case when status='I' then 1 end) cnt
+	from lesson
+</select>
+
+<select id="totalCategory" resultType="int">
+	select count(*) cnt
+	from category
+</select>
+<!-- 메인 화면 통계 조회 -->
+
+<!-- 메일 전송 아이디로 이메일 주소 찾기 -->
+<select id="findEaddress" parameterType="String" resultType="String">
+select email
+from client
+where client_id=#{client_id}
+</select>
+
 
 </mapper>

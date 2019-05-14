@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.admin.domain.TeacherDomain;
+import kr.co.sist.admin.service.IndexService;
 import kr.co.sist.admin.service.TeacherService;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
@@ -26,22 +29,29 @@ public class TteacherController {
 
 	@Autowired
 	private TeacherService ts;
+	@Autowired
+	private IndexService is;
 	
 	@RequestMapping(value="/admin/teacher.do",method=GET)
-	public String teacherPage(Model model, ListVO lvo, 
+	public String teacherPage(Model model, ListVO lvo, HttpSession session,
 			@RequestParam(value="searchOption", required=false)String option, 
 			@RequestParam(value="keyword", required=false)String keyword) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 
 		List<TeacherDomain> list=null;
 		
 		int totalCount = ts.totalCount();//총 게시물의 수
-		int pageScale = ts.pageScale();
-		int totalPage = ts.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
+		int pageScale = is.pageScale();
+		int totalPage = is.totalPage(totalCount);//전체 게시물을 보여주기 위한 총 페이지 수 
 		if(lvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
 			lvo.setCurrentPage(1);
 		}
-		int startNum = ts.startNum(lvo.getCurrentPage());
-		int endNum = ts.endNum(startNum);
+		int startNum = is.startNum(lvo.getCurrentPage());
+		int endNum = is.endNum(startNum);
 		
 		lvo.setStartNum(startNum);
 		lvo.setEndNum(endNum);
@@ -56,13 +66,9 @@ public class TteacherController {
 			osvo.setStartNum(startNum);
 			osvo.setEndNum(endNum);
 			list=ts.teacherOptionSearch(osvo);
-			System.out.println("-+-+-+-+--+-++-+-+-+-+-+-+-++-+++-+-+-+-+-+-+-+-");
-			System.out.println("option:"+option+"  keyword:"+keyword);
-			System.out.println(list);
-			System.out.println("-+-+-+-+--+-++-+-+-+-+-+-+-++-+++-+-+-+-+-+-+-+-");
 		}
 		
-		String indexList = ts.indexList(lvo.getCurrentPage(), totalPage, "teacher.do");
+		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "teacher.do");
 		
 		model.addAttribute("teacherList", list);
 		model.addAttribute("indexList", indexList);

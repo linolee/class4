@@ -225,8 +225,8 @@ public class ChargeService {
 		return cd;
 	}
 
-	public int removeReport(String rcode) {
-		int cnt = c_dao.deleteReport(rcode);
+	public int rejectReport(String rcode) {
+		int cnt = c_dao.updateReportToReject(rcode);
 		return cnt;
 	}
 	

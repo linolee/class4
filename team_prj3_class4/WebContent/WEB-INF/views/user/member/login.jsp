@@ -33,6 +33,15 @@
 <link
 	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
 	rel="stylesheet">
+<script type="text/javascript">
+$(function() {
+	$("[name=id]").val("${param.id}");
+	if ("${param.result}" == 'success') {
+		history.back();
+	}
+	
+});
+</script>
 </head>
 <style type="text/css">
 body {padding-top: 0px;}
@@ -42,7 +51,7 @@ body {padding-top: 0px;}
 		<div id="header">
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
-		<div class="container my-5">
+		<div class="container my-5" id="container">
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
 				회원 로그인 <small>Login</small>

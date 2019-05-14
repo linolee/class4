@@ -6,6 +6,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,7 +22,13 @@ public class TitleController {
 	private TitleService ts;
 	
 	@RequestMapping(value="/admin/title.do",method=GET)
-	public String titlePage(Model model) {
+	public String titlePage(Model model, HttpSession session) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		model.addAttribute("page", "title/title");
 		return "admin/template";
 	}

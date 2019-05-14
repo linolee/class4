@@ -1,19 +1,38 @@
 package kr.co.sist.admin.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kr.co.sist.admin.dao.LecturePermitDAO;
 import kr.co.sist.admin.domain.LecturePermitDomain;
+import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
+import kr.co.sist.admin.vo.OptionSearchVO;
+import kr.co.sist.user.domain.Addr;
+import kr.co.sist.user.domain.ClassTime;
+import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.JoinCount;
+import kr.co.sist.user.domain.QnA;
+import kr.co.sist.user.domain.ReviewDomain;
+import kr.co.sist.user.domain.Star;
+import kr.co.sist.user.domain.Summary;
+import kr.co.sist.user.domain.TClass;
+import kr.co.sist.user.service.detailClassService;
 
 @Component
 public class LecturePermitService {
 
 	@Autowired
 	private LecturePermitDAO lp_dao;
+	@Autowired
+	private detailClassService dcs;
 	
 	// 1. 전체 게시물 수 얻기
 		public int totalCount() {
@@ -22,107 +41,123 @@ public class LecturePermitService {
 			return cnt;
 		}
 
-		// 2. 한 화면에 보여질 게시물의 수
-		public int pageScale() {
-			int pageScale = 10;
-
-			return pageScale;
-		}
-
-		// 3. 총 페이지 수 구하기
-		public int totalPage(int totalCount) {
-			int totalPage = totalCount / pageScale();
-			if (totalCount % pageScale() != 0) {
-				totalPage++;
-			}
-
-			return totalPage;
-		}
-
-		// 4. 시작 페이지 번호 구하기
-		// current_page에 따라 시작 번호는 달라진다. 1-> 1, 2->11, 3->21 ,,,
-		public int startNum(int currentPage) {
-			int startNum = 1;
-			startNum = currentPage * pageScale() - pageScale() + 1;
-			return startNum;
-		}
-
-		// 5. 끝번호 얻기
-		public int endNum(int startNum) {
-			int endNum = startNum + pageScale() - 1;
-
-			return endNum;
-		}
-		
-		/**
-		 * 인덱스 리스트 [ << ] ... [1][2][3] ... [ >> ]
-		 * 
-		 * @param current_page
-		 * @param total_page
-		 * @param list_url
-		 * @return
-		 */
-		// 현재 게시판의 페이지 인덱스 설정
-		public String indexList(int current_page, int total_page, String list_url) {
-			int pagenumber; // 화면에 보여질 페이지 인덱스 수
-			int startpage; // 화면에 보여질 시작페이지 번호
-			int endpage; // 화면에 보여질 마지막페이지 번호
-			int curpage; // 이동하고자 하는 페이지 번호
-
-			String strList = ""; // 리턴될 페이지 인덱스 리스트
-
-			pagenumber = 10; // 한 화면의 페이지 인덱스 수
-
-			// 시작 페이지번호 구하기
-			startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
-
-			// 마지막 페이지번호 구하기
-			endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
-
-			// 총 페이지 수가 계산된 마지막페이지 번호보다 작을경우
-
-			// 총 페이지 수가 마지막페이지 번호가 됨
-
-			if (total_page <= endpage) {
-				endpage = total_page;
-			} // end if
-
-			// 첫번째 페이지 인덱스 화면이 아닌경우
-			if (current_page > pagenumber) {
-				curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
-			} else {
-				strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
-				
-			}
-
-			// 시작페이지 번호부터 마지막페이지 번호까지 화면에 표시
-			curpage = startpage;
-
-			while (curpage <= endpage) {
-				if (curpage == current_page) {
-					strList = strList + "<li class='page-item active'><a class='page-link' href='#'>"+current_page+"</a>";
-				} else {
-					strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="+curpage+">"+curpage+"</a></li>";
-				} // end else
-
-				curpage++;
-			} // end while
-
-			// 뒤에 페이지가 더 있는경우
-			if (total_page > endpage) {
-				curpage = endpage + 1;
-				strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
-			} else {
-				strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
-			} // end else
-
-			return strList;
-		}// indexList
-	
 	public List<LecturePermitDomain> selectLecturePermit(ListVO lvo){
 		List<LecturePermitDomain> list=null;
 		list=lp_dao.selectLecturePermit(lvo);
 		return list;
 	}
+	
+	public JSONObject lecturePermitDetail(String lcode) {
+		JSONObject json=new JSONObject();
+		
+		Summary summary=null;
+		Star star=null;
+		List<String> career,optlist,noptlist=null;
+		DetailContents detailc=null;
+		Addr addr=null;
+		
+		summary=dcs.searchSummary(lcode);
+		star=dcs.searchStar(lcode);
+		career=dcs.searchCareer(lcode);
+		optlist=dcs.searchOpt(lcode);
+		noptlist=dcs.searchNoOpt();
+		detailc=dcs.searchDeContents(lcode);
+		
+		addr=dcs.searchAddr(lcode);
+		
+		
+		////// -/-**-*--**-*/--*//**/*/*/*/*/*/*/*/*------ //////
+		try {
+			
+			json.put("lname", URLEncoder.encode(summary.getLname(), "UTF-8"));
+			if(null!=summary.getLintro()) {
+				json.put("lintro", URLEncoder.encode(summary.getLintro(), "UTF-8"));
+			}
+			if(null!=summary.getImg()) {
+				json.put("teacher_img", URLEncoder.encode(summary.getImg(), "UTF-8"));
+			}
+			json.put("teacher_name", URLEncoder.encode(summary.getTeacher_name(), "UTF-8"));
+			json.put("address", URLEncoder.encode(summary.getAddress(), "UTF-8"));
+			json.put("class_time", summary.getClass_time());
+			json.put("max_member", summary.getMax_member());
+			if(null!=summary.getBanner_img()) {
+				json.put("banner_img", summary.getBanner_img());
+			}
+			
+			// 경력사항
+			JSONArray careerArray=new JSONArray();
+			if(!career.isEmpty()) {
+				for(int i=0;i<career.size();i++) {
+					careerArray.add(URLEncoder.encode(career.get(i), "UTF-8"));
+				}
+			}
+			json.put("career", careerArray);
+			
+			// 포함사항
+			JSONArray optListArray=new JSONArray();
+			if(!optlist.isEmpty()) {
+				for(int i=0;i<optlist.size();i++) {
+					optListArray.add(URLEncoder.encode(optlist.get(i), "UTF-8"));
+				} // for
+			} // if
+			json.put("optList", optListArray);
+			
+			// 불포함사항
+			JSONArray noptListArray=new JSONArray();
+			if(!noptlist.isEmpty()) {
+				for(int i=0;i<noptlist.size();i++) {
+					noptListArray.add(URLEncoder.encode(noptlist.get(i), "UTF-8"));
+				}
+			}
+			json.put("noptList", noptListArray);
+			
+			json.put("detailAddress", URLEncoder.encode(detailc.getAddress(), "UTF-8"));
+			
+			if(null!=detailc.getContents()) {
+				json.put("detailContents", URLEncoder.encode(detailc.getContents(), "UTF-8"));
+			}
+			
+			if(null!=detailc.getCurriculum()) {
+				json.put("detailCurriculum", URLEncoder.encode(detailc.getCurriculum(), "UTF-8"));
+			}
+			
+			if(null!=detailc.getOthers()) {
+				json.put("detailOthers",  URLEncoder.encode(detailc.getOthers(), "UTF-8"));
+			}
+		
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} // catch
+		
+		return json;
+	}
+	
+	public void lecturePermission(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lecturePermission(lcode);
+	}
+	
+	public void lectureRefuse(String lcode) {
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lectureRefuse(lcode);
+	}
+	
+	public List<LecturePermitDomain> memberOptionSearch(OptionSearchVO osvo){
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		List<LecturePermitDomain> list=null;
+		list=lpdao.lecturePermitOptionSearch(osvo);
+		return list;
+	}
+	
+	public void lectureRefuseReason(LectureRefuseReasonVO lrrvo){
+		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
+		lpdao.lectureRefuseReason(lrrvo);
+	}
+	
+	
+	public static void main(String[] args) {
+		LecturePermitService lps=new LecturePermitService();
+		lps.lectureRefuse("in11202");
+	}
+	
 }
