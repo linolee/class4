@@ -529,7 +529,6 @@ public class MypageController {
 		List<String> qcodeList=null;
 		lcodeList=ums.qnaLcodeList(clientId);
 		qcodeList=ums.qnaQcodeList(clientId);
-		System.out.println("fndjkfndkjfnekwl");
 		int toDate=0;
 		int fromDate=0;
 		if(!(request.getParameter("toDate")==null)) {
