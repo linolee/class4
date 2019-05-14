@@ -16,7 +16,8 @@
 						<tbody>
 							<tr>
 								<td rowspan="5" colspan="2" style="width:55%;">
-									<img id="tImg" style="width:100%; height:50%;" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
+									<img id="tImg" style="width:100%; height:50%;"  onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
+									
 								</td>
 							</tr>
 							<tr>

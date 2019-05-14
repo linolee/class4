@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,13 @@ public class ChargeController {
 	private ChargeService cs;
 
 	@RequestMapping(value = "/admin/charge.do", method = GET)
-	public String chargePage(ListVO lvo, Model model) {
+	public String chargePage(ListVO lvo, Model model, HttpSession session) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<ChargeAllList> list = null;
 
 		int totalCount = cs.totalCount();// 총 게시물의 수//

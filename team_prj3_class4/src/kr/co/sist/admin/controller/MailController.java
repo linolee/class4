@@ -4,6 +4,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,12 @@ public class MailController {
 	private MailService ms;
 
 	@RequestMapping(value="/admin/mail.do", method= {GET,POST})
-	public String mailPage(Model model) {
+	public String mailPage(Model model, HttpSession session) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
 		
 		model.addAttribute("page", "mail/mail");
 		return "admin/template";

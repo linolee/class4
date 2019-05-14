@@ -90,9 +90,9 @@ $(function(){
 	</div>
 	<div class="card-body">
 	<input type="hidden" id="idSearchFlag" value="true"/>
-		<div>
+		<!-- <div>
   	  		<strong>전체 회원에게 전송</strong>&nbsp;<input type="checkbox"/><br/> 
-  	 	 </div>
+  	 	 </div> -->
 		<div class="form-inline" style="padding-top: 10px; padding-bottom: 10px;">
             <strong>받는사람</strong>&nbsp; 
         <div class="input-group input-group-sm">
