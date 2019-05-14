@@ -141,162 +141,166 @@ public class MypageController {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
-		String clientId = session.getAttribute("client_id").toString();
-		ListVO lvo=new ListVO("", clientId);
-		List<List<ClassList>> reviewList=new ArrayList<List<ClassList>>();
-		List<String> reviewStatus=new ArrayList<String>();
-		List<String> lcodeList=null;
-		int toDate=0;
-		int fromDate=0;
-		System.out.println(request.getParameter("toDate"));
-		System.out.println(request.getParameter("fromDate"));
-		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
-		}
-		if(!(request.getParameter("fromDate")==null)) {
-			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
-		}
-		
-		int allTotalCount=0;
-		int readyTotalCount=0;
-		int endTotalCount=0;
-		int totalCount=0;
-		
-		
-		lcodeList=ums.lcodeList(clientId);
-		if(!(request.getParameter("status")==null)) {
-			if(request.getParameter("status").equals("R")) {
-				for(int i=0; i<lcodeList.size(); i++) {
-					lvo.setLcode(lcodeList.get(i));
-					if(ums.reviewStatus(lvo)==null) {
-						readyTotalCount++;
-					}//end if
-				}//end for
-				totalCount=readyTotalCount;
+		if (session.getAttribute("client_id") != null) {
+			String clientId = session.getAttribute("client_id").toString();
+			ListVO lvo=new ListVO("", clientId);
+			List<List<ClassList>> reviewList=new ArrayList<List<ClassList>>();
+			List<String> reviewStatus=new ArrayList<String>();
+			List<String> lcodeList=null;
+			int toDate=0;
+			int fromDate=0;
+			System.out.println(request.getParameter("toDate"));
+			System.out.println(request.getParameter("fromDate"));
+			if(!(request.getParameter("toDate")==null)) {
+				toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+			}
+			if(!(request.getParameter("fromDate")==null)) {
+				fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+			}
+			
+			int allTotalCount=0;
+			int readyTotalCount=0;
+			int endTotalCount=0;
+			int totalCount=0;
+			
+			
+			lcodeList=ums.lcodeList(clientId);
+			if(!(request.getParameter("status")==null)) {
+				if(request.getParameter("status").equals("R")) {
+					for(int i=0; i<lcodeList.size(); i++) {
+						lvo.setLcode(lcodeList.get(i));
+						if(ums.reviewStatus(lvo)==null) {
+							readyTotalCount++;
+						}//end if
+					}//end for
+					totalCount=readyTotalCount;
+				}//end if
+				if(request.getParameter("status").equals("E")) {
+					for(int i=0; i<lcodeList.size(); i++) {
+						lvo.setLcode(lcodeList.get(i));
+						if(!(ums.reviewStatus(lvo)==null)) {
+							endTotalCount++;
+						}//end if
+					}//end for
+					totalCount=endTotalCount;
+				}//end if
 			}//end if
-			if(request.getParameter("status").equals("E")) {
+			if(request.getParameter("status")==null) {
 				for(int i=0; i<lcodeList.size(); i++) {
-					lvo.setLcode(lcodeList.get(i));
-					if(!(ums.reviewStatus(lvo)==null)) {
-						endTotalCount++;
-					}//end if
+					allTotalCount++;
 				}//end for
-				totalCount=endTotalCount;
+				totalCount=allTotalCount;
 			}//end if
-		}//end if
-		if(request.getParameter("status")==null) {
-			for(int i=0; i<lcodeList.size(); i++) {
-				allTotalCount++;
-			}//end for
-			totalCount=allTotalCount;
-		}//end if
-		
-		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
-		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
-		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
-			lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
-		}//end if
-		
-		int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
-		int endNum=ums.endNum(startNum);//끝번호
-		
-		if(endNum>lcodeList.size()) {
-			endNum=lcodeList.size();
-		}//end if
-		lpvo.setStartNum(startNum);
-		lpvo.setEndNum(endNum);
-		
-		if(!(request.getParameter("status")==null)) {
-			if(request.getParameter("status").equals("R")) {
+			
+			int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
+			int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
+			if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+				lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
+			}//end if
+			
+			int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
+			int endNum=ums.endNum(startNum);//끝번호
+			
+			if(endNum>lcodeList.size()) {
+				endNum=lcodeList.size();
+			}//end if
+			lpvo.setStartNum(startNum);
+			lpvo.setEndNum(endNum);
+			
+			if(!(request.getParameter("status")==null)) {
+				if(request.getParameter("status").equals("R")) {
+					for(int i=startNum-1; i<lcodeList.size(); i++) {
+						lvo.setLcode(lcodeList.get(i));
+						if(!(reviewList.size()>4)) {
+							if(ums.reviewStatus(lvo)==null) {
+								if(!(request.getParameter("toDate")==null)) {
+									if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
+											&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
+										reviewList.add(ums.classList(lvo));
+										reviewStatus.add(ums.reviewStatus(lvo));
+									}//end if
+								}//end if
+								if(request.getParameter("toDate")==null) {
+									reviewList.add(ums.classList(lvo));
+									reviewStatus.add(ums.reviewStatus(lvo));
+								}//end if
+							}//end if
+						}//end if
+					}//end for
+				}//end if
+				if(request.getParameter("status").equals("E")) {
+					for(int i=startNum-1; i<lcodeList.size(); i++) {
+						lvo.setLcode(lcodeList.get(i));
+						if(!(ums.reviewStatus(lvo)==null)) {
+							if(!(reviewList.size()>4)) {
+								if(!(request.getParameter("toDate")==null)) {
+									if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
+											&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
+										reviewList.add(ums.classList(lvo));
+										reviewStatus.add(ums.reviewStatus(lvo));
+									}//end if
+								}//end if
+								if(request.getParameter("toDate")==null) {
+									reviewList.add(ums.classList(lvo));
+									reviewStatus.add(ums.reviewStatus(lvo));
+								}//end if
+							}//end if
+						}//end if
+					}//end for
+				}//end if
+			}//end if
+			if(request.getParameter("status")==null) {
 				for(int i=startNum-1; i<lcodeList.size(); i++) {
 					lvo.setLcode(lcodeList.get(i));
 					if(!(reviewList.size()>4)) {
-						if(ums.reviewStatus(lvo)==null) {
-							if(!(request.getParameter("toDate")==null)) {
-								if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
-										&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
-									reviewList.add(ums.classList(lvo));
-									reviewStatus.add(ums.reviewStatus(lvo));
-								}//end if
-							}//end if
-							if(request.getParameter("toDate")==null) {
+						if(!(request.getParameter("toDate")==null)) {
+							if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+									&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
 								reviewList.add(ums.classList(lvo));
 								reviewStatus.add(ums.reviewStatus(lvo));
 							}//end if
 						}//end if
-					}//end if
-				}//end for
-			}//end if
-			if(request.getParameter("status").equals("E")) {
-				for(int i=startNum-1; i<lcodeList.size(); i++) {
-					lvo.setLcode(lcodeList.get(i));
-					if(!(ums.reviewStatus(lvo)==null)) {
-						if(!(reviewList.size()>4)) {
-							if(!(request.getParameter("toDate")==null)) {
-								if(Integer.parseInt(ums.classList(lvo).get(i).getStartDate().replaceAll("-", ""))>=fromDate
-										&&Integer.parseInt(ums.classList(lvo).get(i).getEndDate().replaceAll("-", ""))<=toDate ) {
-									reviewList.add(ums.classList(lvo));
-									reviewStatus.add(ums.reviewStatus(lvo));
-								}//end if
-							}//end if
-							if(request.getParameter("toDate")==null) {
-								reviewList.add(ums.classList(lvo));
-								reviewStatus.add(ums.reviewStatus(lvo));
-							}//end if
-						}//end if
-					}//end if
-				}//end for
-			}//end if
-		}//end if
-		if(request.getParameter("status")==null) {
-			for(int i=startNum-1; i<lcodeList.size(); i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(!(reviewList.size()>4)) {
-					if(!(request.getParameter("toDate")==null)) {
-						if(Integer.parseInt(ums.classList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-								&&Integer.parseInt(ums.classList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+						if(request.getParameter("toDate")==null) {
 							reviewList.add(ums.classList(lvo));
 							reviewStatus.add(ums.reviewStatus(lvo));
 						}//end if
 					}//end if
-					if(request.getParameter("toDate")==null) {
-						reviewList.add(ums.classList(lvo));
-						reviewStatus.add(ums.reviewStatus(lvo));
-					}//end if
+				}//end for
+			}//end if
+			
+			String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?");
+			if( !(request.getParameter("status")==null) ) {
+				if(request.getParameter("toDate")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")+"&");
 				}//end if
-			}//end for
-		}//end if
-		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?");
-		if( !(request.getParameter("status")==null) ) {
-			if(request.getParameter("toDate")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")+"&");
+				if(!(request.getParameter("toDate")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
+													+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
 			}//end if
-			if(!(request.getParameter("toDate")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
-												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+			if( !(request.getParameter("toDate")==null) ) {
+				if(request.getParameter("status")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?toDate="+request.getParameter("toDate")
+												+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+				if(!(request.getParameter("status")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
+					+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
 			}//end if
-		}//end if
-		if( !(request.getParameter("toDate")==null) ) {
-			if(request.getParameter("status")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?toDate="+request.getParameter("toDate")
-											+"&fromDate="+request.getParameter("fromDate")+"&");
-			}//end if
-			if(!(request.getParameter("status")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_assess.do?status="+request.getParameter("status")
-				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
-			}//end if
-		}//end if
-		
-		model.addAttribute("indexList",indexList);
-		model.addAttribute("pageScale",pageScale);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("currentPage",lpvo.getCurrentPage());
-		
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("reviewStatus", reviewStatus);
-		
-		return "user/student/mypage_assess";
+			
+			model.addAttribute("indexList",indexList);
+			model.addAttribute("pageScale",pageScale);
+			model.addAttribute("totalCount",totalCount);
+			model.addAttribute("currentPage",lpvo.getCurrentPage());
+			
+			model.addAttribute("reviewList", reviewList);
+			model.addAttribute("reviewStatus", reviewStatus);
+			
+			return "user/student/mypage_assess";
+		}else {
+			return "user/member/login";
+		}//end else
 	}//useRequest
 	
 	@ResponseBody
@@ -325,90 +329,94 @@ public class MypageController {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
-		boolean updateJjim=false;
-		String clientId = session.getAttribute("client_id").toString();
-		ListVO lvo=new ListVO("", clientId);
-		List<List<ClassList>> jjimList=new ArrayList<List<ClassList>>();
-		List<String> jjimStatus=new ArrayList<String>();
-		List<String> lcodeList=null;
-		lcodeList=ums.jjimLcodeList(clientId);
-		
-		int toDate=0;
-		int fromDate=0;
-		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
-		}
-		if(!(request.getParameter("fromDate")==null)) {
-			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
-		}
-		
-		
-		int totalCount=ums.jjimTotalCnt(clientId);
-		if(!(request.getParameter("toDate")==null)) {
-			totalCount=0;
-			for(int i=0; i<lcodeList.size(); i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
-					totalCount++;
+		if (session.getAttribute("client_id") != null) {
+			boolean updateJjim=false;
+			String clientId = session.getAttribute("client_id").toString();
+			ListVO lvo=new ListVO("", clientId);
+			List<List<ClassList>> jjimList=new ArrayList<List<ClassList>>();
+			List<String> jjimStatus=new ArrayList<String>();
+			List<String> lcodeList=null;
+			lcodeList=ums.jjimLcodeList(clientId);
+			
+			int toDate=0;
+			int fromDate=0;
+			if(!(request.getParameter("toDate")==null)) {
+				toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+			}
+			if(!(request.getParameter("fromDate")==null)) {
+				fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+			}
+			
+			
+			int totalCount=ums.jjimTotalCnt(clientId);
+			if(!(request.getParameter("toDate")==null)) {
+				totalCount=0;
+				for(int i=0; i<lcodeList.size(); i++) {
+					lvo.setLcode(lcodeList.get(i));
+					if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+							&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+						totalCount++;
+					}//end if
 				}//end if
 			}//end if
-		}//end if
-		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
-		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
-		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
-			lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
-		}//end if
-		
-		int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
-		int endNum=ums.endNum(startNum);//끝번호
-		
-		if(endNum>lcodeList.size()) {
-			endNum=lcodeList.size();
-		}//end if
-		
-		lpvo.setStartNum(startNum);
-		lpvo.setEndNum(endNum);
-		if(!(request.getParameter("addJjim")==null)) {
-			lvo.setLcode(request.getParameter("addJjim"));
-			updateJjim=ums.insertJjim(lvo);
-		}//end if
-		if(!(request.getParameter("cancelJjim")==null)) {
-			lvo.setLcode(request.getParameter("cancelJjim"));
-			updateJjim=ums.deleteJjim(lvo);
-		}//end if
-		for(int i=startNum-1; i<endNum; i++) {
-			lvo.setLcode(lcodeList.get(i));
-			if(!(request.getParameter("toDate")==null)) {
-				if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+			int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
+			int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
+			if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+				lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
+			}//end if
+			
+			int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
+			int endNum=ums.endNum(startNum);//끝번호
+			
+			if(endNum>lcodeList.size()) {
+				endNum=lcodeList.size();
+			}//end if
+			
+			lpvo.setStartNum(startNum);
+			lpvo.setEndNum(endNum);
+			if(!(request.getParameter("addJjim")==null)) {
+				lvo.setLcode(request.getParameter("addJjim"));
+				updateJjim=ums.insertJjim(lvo);
+			}//end if
+			if(!(request.getParameter("cancelJjim")==null)) {
+				lvo.setLcode(request.getParameter("cancelJjim"));
+				updateJjim=ums.deleteJjim(lvo);
+			}//end if
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(!(request.getParameter("toDate")==null)) {
+					if(Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+							&&Integer.parseInt(ums.jjimList(lcodeList.get(i)).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+						jjimList.add(ums.jjimList(lcodeList.get(i)));
+						jjimStatus.add(ums.jjimStatus(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("toDate")==null) {
 					jjimList.add(ums.jjimList(lcodeList.get(i)));
 					jjimStatus.add(ums.jjimStatus(lvo));
 				}//end if
+			}//end for
+			
+			
+			String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?");
+			if(!(request.getParameter("toDate")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?toDate="
+											+request.getParameter("toDate")
+											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
-			if(request.getParameter("toDate")==null) {
-				jjimList.add(ums.jjimList(lcodeList.get(i)));
-				jjimStatus.add(ums.jjimStatus(lvo));
-			}//end if
-		}//end for
-		
-		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?");
-		if(!(request.getParameter("toDate")==null)) {
-			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_jjim.do?toDate="
-										+request.getParameter("toDate")
-										+"&fromDate="+request.getParameter("fromDate")+"&");
-		}//end if
-		
-		model.addAttribute("indexList",indexList);
-		model.addAttribute("pageScale",pageScale);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("currentPage",lpvo.getCurrentPage());
-		
-		model.addAttribute("jjimList", jjimList);
-		model.addAttribute("jjimStatus", jjimStatus);
-		model.addAttribute("updateJjim", updateJjim);
-		return "user/student/mypage_jjim";
+			
+			model.addAttribute("indexList",indexList);
+			model.addAttribute("pageScale",pageScale);
+			model.addAttribute("totalCount",totalCount);
+			model.addAttribute("currentPage",lpvo.getCurrentPage());
+			
+			model.addAttribute("jjimList", jjimList);
+			model.addAttribute("jjimStatus", jjimStatus);
+			model.addAttribute("updateJjim", updateJjim);
+			return "user/student/mypage_jjim";
+		}else {
+			return "user/member/login";
+		}//end else
 	}//useRequest
 	
 	@ResponseBody
@@ -442,78 +450,82 @@ public class MypageController {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
-		String clientId = session.getAttribute("client_id").toString();
-		ListVO lvo=new ListVO("", clientId);
-		List<List<CancelList>> cancelList=new ArrayList<List<CancelList>>();
-		List<String> lcodeList=null;
-		lcodeList=ums.cancelLcodeList(clientId);
-		
-		int toDate=0;
-		int fromDate=0;
-		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
-		}//end if
-		if(!(request.getParameter("fromDate")==null)) {
-			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
-		}//end if
-		
-		int totalCount=ums.cancelTotalCnt(clientId);
-		if(!(request.getParameter("toDate")==null)) {
-			totalCount=0;
-			for(int i=0; i<lcodeList.size(); i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
-					totalCount++;
+		if (session.getAttribute("client_id") != null) {
+			String clientId = session.getAttribute("client_id").toString();
+			ListVO lvo=new ListVO("", clientId);
+			List<List<CancelList>> cancelList=new ArrayList<List<CancelList>>();
+			List<String> lcodeList=null;
+			lcodeList=ums.cancelLcodeList(clientId);
+			
+			int toDate=0;
+			int fromDate=0;
+			if(!(request.getParameter("toDate")==null)) {
+				toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+			}//end if
+			if(!(request.getParameter("fromDate")==null)) {
+				fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+			}//end if
+			
+			int totalCount=ums.cancelTotalCnt(clientId);
+			if(!(request.getParameter("toDate")==null)) {
+				totalCount=0;
+				for(int i=0; i<lcodeList.size(); i++) {
+					lvo.setLcode(lcodeList.get(i));
+					if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+							&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+						totalCount++;
+					}//end if
 				}//end if
 			}//end if
-		}//end if
-		
-		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
-		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
-		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
-			lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
-		}//end if
-		
-		int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
-		int endNum=ums.endNum(startNum);//끝번호
-		
-		if(endNum>lcodeList.size()) {
-			endNum=lcodeList.size();
-		}//end if
-		
-		lpvo.setStartNum(startNum);
-		lpvo.setEndNum(endNum);
-		
-		for(int i=startNum-1; i<endNum; i++) {
-			lvo.setLcode(lcodeList.get(i));
-			if(!(request.getParameter("toDate")==null)) {
-				if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
-						&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+			
+			int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
+			int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
+			if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+				lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
+			}//end if
+			
+			int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
+			int endNum=ums.endNum(startNum);//끝번호
+			
+			if(endNum>lcodeList.size()) {
+				endNum=lcodeList.size();
+			}//end if
+			
+			lpvo.setStartNum(startNum);
+			lpvo.setEndNum(endNum);
+			
+			for(int i=startNum-1; i<endNum; i++) {
+				lvo.setLcode(lcodeList.get(i));
+				if(!(request.getParameter("toDate")==null)) {
+					if(Integer.parseInt(ums.cancelList(lvo).get(0).getStartDate().replaceAll("-", ""))>=fromDate
+							&&Integer.parseInt(ums.cancelList(lvo).get(0).getEndDate().replaceAll("-", ""))<=toDate ) {
+						cancelList.add(ums.cancelList(lvo));
+					}//end if
+				}//end if
+				if(request.getParameter("toDate")==null) {
 					cancelList.add(ums.cancelList(lvo));
 				}//end if
+			}//end for
+			
+			String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?");
+			
+			if(!(request.getParameter("toDate")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?toDate="
+											+request.getParameter("toDate")
+											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
-			if(request.getParameter("toDate")==null) {
-				cancelList.add(ums.cancelList(lvo));
-			}//end if
-		}//end for
-		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?");
-		
-		if(!(request.getParameter("toDate")==null)) {
-			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_cancel.do?toDate="
-										+request.getParameter("toDate")
-										+"&fromDate="+request.getParameter("fromDate")+"&");
-		}//end if
-		
-		model.addAttribute("indexList",indexList);
-		model.addAttribute("pageScale",pageScale);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("currentPage",lpvo.getCurrentPage());
-		
-		model.addAttribute("cancelList", cancelList);
-		
-		return "user/student/mypage_cancel";
+			
+			model.addAttribute("indexList",indexList);
+			model.addAttribute("pageScale",pageScale);
+			model.addAttribute("totalCount",totalCount);
+			model.addAttribute("currentPage",lpvo.getCurrentPage());
+			
+			model.addAttribute("cancelList", cancelList);
+			
+			return "user/student/mypage_cancel";
+		}else {
+			return "user/member/login";
+		}//end else
 	}//useRequest
 	
 	
@@ -522,137 +534,141 @@ public class MypageController {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
-		String clientId = session.getAttribute("client_id").toString();
-		qnaListVO qlvo=new qnaListVO("", "", clientId);
-		List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
-		List<String> lcodeList=null;
-		List<String> qcodeList=null;
-		lcodeList=ums.qnaLcodeList(clientId);
-		qcodeList=ums.qnaQcodeList(clientId);
-		int toDate=0;
-		int fromDate=0;
-		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));////
-		}//end if
-		if(!(request.getParameter("fromDate")==null)) {
-			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
-		}//end if
-		
-		QnaStatusVO qsvo=new QnaStatusVO(clientId, "");
-		int totalCount=ums.qnaTotalCnt(clientId);
-		if(!(request.getParameter("toDate")==null)) {
-			totalCount=0;
-			for(int i=0; i<lcodeList.size(); i++) {
-				qlvo.setLcode(lcodeList.get(i));
-				qlvo.setQcode(qcodeList.get(i));
-				if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-						&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-					totalCount++;
-				}//end if
+		if (session.getAttribute("client_id") != null) {
+			String clientId = session.getAttribute("client_id").toString();
+			qnaListVO qlvo=new qnaListVO("", "", clientId);
+			List<List<QnaList>> qnaList=new ArrayList<List<QnaList>>();
+			List<String> lcodeList=null;
+			List<String> qcodeList=null;
+			lcodeList=ums.qnaLcodeList(clientId);
+			qcodeList=ums.qnaQcodeList(clientId);
+			int toDate=0;
+			int fromDate=0;
+			if(!(request.getParameter("toDate")==null)) {
+				toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));////
 			}//end if
-		}//end if
-		if(!(request.getParameter("status")==null)) {
-			qsvo.setStatus(request.getParameter("status"));
-			totalCount=ums.qnaStatusCnt(qsvo);
-		}//end if
-		
-		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
-		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
-		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
-			lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
-		}//end if
-		
-		int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
-		int endNum=ums.endNum(startNum);//끝번호
-		
-		if(endNum>lcodeList.size()) {
-			endNum=lcodeList.size();
-		}//end if
-		
-		lpvo.setStartNum(startNum);
-		lpvo.setEndNum(endNum);
-		
-		if(request.getParameter("status")==null){
-			for(int i=startNum-1; i<endNum; i++) {
-				qlvo.setLcode(lcodeList.get(i));
-				qlvo.setQcode(qcodeList.get(i));
-				if(!(request.getParameter("toDate")==null)) {
+			if(!(request.getParameter("fromDate")==null)) {
+				fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+			}//end if
+			
+			QnaStatusVO qsvo=new QnaStatusVO(clientId, "");
+			int totalCount=ums.qnaTotalCnt(clientId);
+			if(!(request.getParameter("toDate")==null)) {
+				totalCount=0;
+				for(int i=0; i<lcodeList.size(); i++) {
+					qlvo.setLcode(lcodeList.get(i));
+					qlvo.setQcode(qcodeList.get(i));
 					if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
 							&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-						qnaList.add(ums.qnaList(qlvo));
+						totalCount++;
 					}//end if
 				}//end if
-				if(request.getParameter("toDate")==null) {
-					qnaList.add(ums.qnaList(qlvo));
-				}//end if
-			}//end for
-		}//end if
-		if(!(request.getParameter("status")==null)) {
-			for(int i=startNum-1; i<endNum; i++) {
-				qlvo.setLcode(lcodeList.get(i));
-				qlvo.setQcode(qcodeList.get(i));
-				if(request.getParameter("status").equals("Y")) {
-					if(ums.qnaList(qlvo).get(i).getStatus().equals("Y")) {
-						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								qnaList.add(ums.qnaList(qlvo));
-							}//end if
-						}//end if
-						if(request.getParameter("toDate")==null) {
-							qnaList.add(ums.qnaList(qlvo));
-						}//end if
-					}//end if
-				}//end if
-				if(request.getParameter("status").equals("N")) {
-					if(ums.qnaList(qlvo).get(i).getStatus().equals("N")) {
-						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								qnaList.add(ums.qnaList(qlvo));
-							}//end if
-						}//end if
-						if(request.getParameter("toDate")==null) {
-							qnaList.add(ums.qnaList(qlvo));
-						}//end if
-					}//end if
-				}//end if
-			}//end for
-		}//end if
-		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?");
-		
-		if( !(request.getParameter("status")==null) ) {
-			if(request.getParameter("toDate")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")+"&");
-			}//end if
-			if(!(request.getParameter("toDate")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
-												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
-			}//end if
-		}//end if
-		if( !(request.getParameter("toDate")==null) ) {
-			if(request.getParameter("status")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?toDate="+request.getParameter("toDate")
-											+"&fromDate="+request.getParameter("fromDate")+"&");
 			}//end if
 			if(!(request.getParameter("status")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
-				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				qsvo.setStatus(request.getParameter("status"));
+				totalCount=ums.qnaStatusCnt(qsvo);
 			}//end if
-		}//end if
-		
-		if(!(request.getParameter("status")==null)) {
-			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status"+request.getParameter("status")+"&");
-		}//end if
-		model.addAttribute("indexList",indexList);
-		model.addAttribute("pageScale",pageScale);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("currentPage",lpvo.getCurrentPage());
-		
-		model.addAttribute("qnaList", qnaList);
-		
-		return "user/student/mypage_q&a";
+			
+			int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
+			int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
+			if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+				lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
+			}//end if
+			
+			int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
+			int endNum=ums.endNum(startNum);//끝번호
+			
+			if(endNum>lcodeList.size()) {
+				endNum=lcodeList.size();
+			}//end if
+			
+			lpvo.setStartNum(startNum);
+			lpvo.setEndNum(endNum);
+			
+			if(request.getParameter("status")==null){
+				for(int i=startNum-1; i<endNum; i++) {
+					qlvo.setLcode(lcodeList.get(i));
+					qlvo.setQcode(qcodeList.get(i));
+					if(!(request.getParameter("toDate")==null)) {
+						if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+								&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+							qnaList.add(ums.qnaList(qlvo));
+						}//end if
+					}//end if
+					if(request.getParameter("toDate")==null) {
+						qnaList.add(ums.qnaList(qlvo));
+					}//end if
+				}//end for
+			}//end if
+			if(!(request.getParameter("status")==null)) {
+				for(int i=startNum-1; i<endNum; i++) {
+					qlvo.setLcode(lcodeList.get(i));
+					qlvo.setQcode(qcodeList.get(i));
+					if(request.getParameter("status").equals("Y")) {
+						if(ums.qnaList(qlvo).get(i).getStatus().equals("Y")) {
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+										&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+									qnaList.add(ums.qnaList(qlvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								qnaList.add(ums.qnaList(qlvo));
+							}//end if
+						}//end if
+					}//end if
+					if(request.getParameter("status").equals("N")) {
+						if(ums.qnaList(qlvo).get(i).getStatus().equals("N")) {
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))>=fromDate
+										&&Integer.parseInt(ums.qnaList(qlvo).get(0).getqDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+									qnaList.add(ums.qnaList(qlvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								qnaList.add(ums.qnaList(qlvo));
+							}//end if
+						}//end if
+					}//end if
+				}//end for
+			}//end if
+			
+			String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?");
+			
+			if( !(request.getParameter("status")==null) ) {
+				if(request.getParameter("toDate")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")+"&");
+				}//end if
+				if(!(request.getParameter("toDate")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
+													+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+			}//end if
+			if( !(request.getParameter("toDate")==null) ) {
+				if(request.getParameter("status")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?toDate="+request.getParameter("toDate")
+												+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+				if(!(request.getParameter("status")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status="+request.getParameter("status")
+					+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+			}//end if
+			
+			if(!(request.getParameter("status")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_q&a.do?status"+request.getParameter("status")+"&");
+			}//end if
+			model.addAttribute("indexList",indexList);
+			model.addAttribute("pageScale",pageScale);
+			model.addAttribute("totalCount",totalCount);
+			model.addAttribute("currentPage",lpvo.getCurrentPage());
+			
+			model.addAttribute("qnaList", qnaList);
+			
+			return "user/student/mypage_q&a";
+		}else {
+			return "user/member/login";
+		}//end else
 	}//useRequest
 	
 	@RequestMapping(value="user/student/mypage_report.do", method=GET)
@@ -660,137 +676,141 @@ public class MypageController {
 		//autowired로 의존성 주입//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
-		String clientId = session.getAttribute("client_id").toString();
-		ListVO lvo=new ListVO("", clientId);
-		List<List<ReportList>> reportList=new ArrayList<List<ReportList>>();
-		List<String> lcodeList=null;
-		lcodeList=ums.reportLcodeList(clientId);
-		
-		int toDate=0;
-		int fromDate=0;
-		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
-		}//end if
-		if(!(request.getParameter("fromDate")==null)) {
-			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
-		}//end if
-		
-		ReportStatusVO rsvo=new ReportStatusVO(clientId, "");
-		int totalCount=ums.reportTotalCnt(clientId);
-		
-		if(!(request.getParameter("toDate")==null)) {
-			totalCount=0;
-			for(int i=0; i<lcodeList.size(); i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
-						&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-					totalCount++;
-				}//end if
+		if (session.getAttribute("client_id") != null) {
+			String clientId = session.getAttribute("client_id").toString();
+			ListVO lvo=new ListVO("", clientId);
+			List<List<ReportList>> reportList=new ArrayList<List<ReportList>>();
+			List<String> lcodeList=null;
+			lcodeList=ums.reportLcodeList(clientId);
+			
+			int toDate=0;
+			int fromDate=0;
+			if(!(request.getParameter("toDate")==null)) {
+				toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
 			}//end if
-		}//end if
-		
-		if(!(request.getParameter("status")==null)) {
-			rsvo.setStatus(request.getParameter("status"));
-			totalCount=ums.reportStatusCnt(rsvo);
-		}//end if
-		
-		int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
-		int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
-		if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
-			lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
-		}//end if
-		
-		int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
-		int endNum=ums.endNum(startNum);//끝번호
-		
-		if(endNum>lcodeList.size()) {
-			endNum=lcodeList.size();
-		}//end if
-		
-		lpvo.setStartNum(startNum);
-		lpvo.setEndNum(endNum);
-		
-		
-		if(request.getParameter("status")==null){
-			for(int i=startNum-1; i<endNum; i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(!(request.getParameter("toDate")==null)) {
+			if(!(request.getParameter("fromDate")==null)) {
+				fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
+			}//end if
+			
+			ReportStatusVO rsvo=new ReportStatusVO(clientId, "");
+			int totalCount=ums.reportTotalCnt(clientId);
+			
+			if(!(request.getParameter("toDate")==null)) {
+				totalCount=0;
+				for(int i=0; i<lcodeList.size(); i++) {
+					lvo.setLcode(lcodeList.get(i));
 					if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
 							&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+						totalCount++;
+					}//end if
+				}//end if
+			}//end if
+			
+			if(!(request.getParameter("status")==null)) {
+				rsvo.setStatus(request.getParameter("status"));
+				totalCount=ums.reportStatusCnt(rsvo);
+			}//end if
+			
+			int pageScale=ums.pageScale(); //한 화면에 보여줄 게시물의 수
+			int totalPage=ums.totalPage(totalCount); //총 게시물을 보여주기 위한 총 페이지 수
+			if(lpvo.getCurrentPage() == 0) { //web parameter에 값이 없을 때
+				lpvo.setCurrentPage(1); //1번부터 조회해야 하므로 1로 설정
+			}//end if
+			
+			int startNum=ums.startNum(lpvo.getCurrentPage());//시작번호
+			int endNum=ums.endNum(startNum);//끝번호
+			
+			if(endNum>lcodeList.size()) {
+				endNum=lcodeList.size();
+			}//end if
+			
+			lpvo.setStartNum(startNum);
+			lpvo.setEndNum(endNum);
+			
+			
+			if(request.getParameter("status")==null){
+				for(int i=startNum-1; i<endNum; i++) {
+					lvo.setLcode(lcodeList.get(i));
+					if(!(request.getParameter("toDate")==null)) {
+						if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+								&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+							reportList.add(ums.reportList(lvo));
+						}//end if
+					}//end if
+					if(request.getParameter("toDate")==null) {
 						reportList.add(ums.reportList(lvo));
 					}//end if
-				}//end if
-				if(request.getParameter("toDate")==null) {
-					reportList.add(ums.reportList(lvo));
-				}//end if
-			}//end for
-		}//end if
-		
-		if(!(request.getParameter("status")==null)) {
-			for(int i=startNum-1; i<endNum; i++) {
-				lvo.setLcode(lcodeList.get(i));
-				if(request.getParameter("status").equals("Y")) {
-					if(ums.reportList(lvo).get(0).getStatus().equals("Y")) {
-						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								reportList.add(ums.reportList(lvo));
-							}//end if
-						}//end if
-						if(request.getParameter("toDate")==null) {
-							reportList.add(ums.reportList(lvo));
-						}//end if
-					}//end if
-				}//end if
-				if(request.getParameter("status").equals("N")) {
-					if(ums.reportList(lvo).get(0).getStatus().equals("N")) {
-						if(!(request.getParameter("toDate")==null)) {
-							if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
-									&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
-								reportList.add(ums.reportList(lvo));
-							}//end if
-						}//end if
-						if(request.getParameter("toDate")==null) {
-							reportList.add(ums.reportList(lvo));
-						}//end if
-					}//end if
-				}//end if
-			}//end for
-		}//end if
-		
-		String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?");
-		
-		if( !(request.getParameter("status")==null) ) {
-			if(request.getParameter("toDate")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")+"&");
+				}//end for
 			}//end if
-			if(!(request.getParameter("toDate")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
-												+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
-			}//end if
-		}//end if
-		if( !(request.getParameter("toDate")==null) ) {
-			if(request.getParameter("status")==null) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?toDate="+request.getParameter("toDate")
-											+"&fromDate="+request.getParameter("fromDate")+"&");
-			}//end if
+			
 			if(!(request.getParameter("status")==null)) {
-				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
-				+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				for(int i=startNum-1; i<endNum; i++) {
+					lvo.setLcode(lcodeList.get(i));
+					if(request.getParameter("status").equals("Y")) {
+						if(ums.reportList(lvo).get(0).getStatus().equals("Y")) {
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+										&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+									reportList.add(ums.reportList(lvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								reportList.add(ums.reportList(lvo));
+							}//end if
+						}//end if
+					}//end if
+					if(request.getParameter("status").equals("N")) {
+						if(ums.reportList(lvo).get(0).getStatus().equals("N")) {
+							if(!(request.getParameter("toDate")==null)) {
+								if(Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))>=fromDate
+										&&Integer.parseInt(ums.reportList(lvo).get(0).getrDate().replaceAll("-", "").substring(0,8))<=toDate ) {
+									reportList.add(ums.reportList(lvo));
+								}//end if
+							}//end if
+							if(request.getParameter("toDate")==null) {
+								reportList.add(ums.reportList(lvo));
+							}//end if
+						}//end if
+					}//end if
+				}//end for
 			}//end if
-		}//end if
+			
+			String indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?");
+			
+			if( !(request.getParameter("status")==null) ) {
+				if(request.getParameter("toDate")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")+"&");
+				}//end if
+				if(!(request.getParameter("toDate")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
+													+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+			}//end if
+			if( !(request.getParameter("toDate")==null) ) {
+				if(request.getParameter("status")==null) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?toDate="+request.getParameter("toDate")
+												+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+				if(!(request.getParameter("status")==null)) {
+					indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status="+request.getParameter("status")
+					+"&toDate="+request.getParameter("toDate")+"&fromDate="+request.getParameter("fromDate")+"&");
+				}//end if
+			}//end if
+			
+			if(!(request.getParameter("status")==null)) {
+				indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status"+request.getParameter("status")+"&");
+			}//end if
+			
+			model.addAttribute("indexList",indexList);
+			model.addAttribute("pageScale",pageScale);
+			model.addAttribute("totalCount",totalCount);
+			model.addAttribute("currentPage",lpvo.getCurrentPage());
+			
+			model.addAttribute("reportList", reportList);
 		
-		if(!(request.getParameter("status")==null)) {
-			indexList=ums.indexList(lpvo.getCurrentPage(), totalPage, "mypage_report.do?status"+request.getParameter("status")+"&");
-		}//end if
-		
-		model.addAttribute("indexList",indexList);
-		model.addAttribute("pageScale",pageScale);
-		model.addAttribute("totalCount",totalCount);
-		model.addAttribute("currentPage",lpvo.getCurrentPage());
-		
-		model.addAttribute("reportList", reportList);
-		
-		return "user/student/mypage_report";
+			return "user/student/mypage_report";
+		}else {
+			return "user/member/login";
+		}//end else
 	}//useRequest
 }//class
