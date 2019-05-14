@@ -333,7 +333,7 @@ public class MemberController {
 		String loginPath = "";
 		switch (loginResult) {
 		case UserLoginService.login_success:
-			loginPath = "forward:/user/mainContents/mainContents.do";
+			loginPath = "/team_prj3_class4/user/main.do";
 			break;
 		case UserLoginService.login_blacklist:
 			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id=" + request.getParameter("id");
