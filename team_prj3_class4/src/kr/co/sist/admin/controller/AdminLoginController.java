@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
+import javax.servlet.http.HttpSession;
+
 import kr.co.sist.admin.service.AdminLoginService;
 import kr.co.sist.admin.vo.AdminLoginVO;
 
@@ -25,14 +28,25 @@ public class AdminLoginController {
 	}
 	
 	@RequestMapping(value="/admin/AdminLoginProcess.do", method=POST)
-	public String adminLogin(@RequestParam("loginId")String loginId, @RequestParam("loginPass")String loginPass) {
+	public String adminLogin(@RequestParam("loginId")String loginId, @RequestParam("loginPass")String loginPass, HttpSession session) {
+		
 		String url="/admin/AdminLogin";
 		
 		AdminLoginVO alvo=new AdminLoginVO(loginId, loginPass);
+		
 		if(als.adminLogin(alvo)) {
-			url="/admin/template";
+			session.setAttribute("loginFlag", "true");
+			session.setMaxInactiveInterval(60*60);
+			url="redirect:/admin/template.do";
 		}
 		
 		return url;
 	}
+	
+	@RequestMapping(value="/admin/AdminLogoutProcess.do", method=GET)
+	public String adminLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/admin/AdminLogin.do";
+	}
+	
 }

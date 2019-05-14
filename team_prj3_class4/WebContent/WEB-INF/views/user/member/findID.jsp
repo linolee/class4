@@ -55,7 +55,7 @@ body {padding-top: 0px;}
 					아이디 조회 방법 선택
 				</div>
 					<div class="card-body text-center">
-						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findID.do'"><i class="material-icons" style="font-size:50px">mail_outline</i><br>메일 주소로 찾기</button>
+						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findIdByEmail.do'"><i class="material-icons" style="font-size:50px">mail_outline</i><br>메일 주소로 찾기</button>
 						<button type="button" class="btn btn-outline-secondary" onclick="location.href='findID.do'"><i class="material-icons" style="font-size:50px">phonelink_ring</i><br>휴대폰 번호로 찾기</button>
 						
 					</div>

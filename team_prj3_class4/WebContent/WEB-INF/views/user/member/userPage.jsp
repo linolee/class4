@@ -3,31 +3,28 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <!DOCTYPE html>
 <html>
-<head>
 <meta charset="UTF-8">
-<title>Class4-회원 페이지</title>
+<title>당신을 위한 수업★Class4★</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- css -->
 <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/userPage.css" />"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/header.css" />"
-	rel="stylesheet">
-<link href="<c:url value="/resources/css/footer.css" />"
-	rel="stylesheet">
+<link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
+<link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <!-- google font -->
 <link href="https://fonts.googleapis.com/css?family=PT+Sans"
 	rel="stylesheet">
-<style type="text/css">
-#wrapper {
-	font-family: 'PT Sans', sans-serif;
-}
-</style>
-
+<!-- CSS -->
+<!-- Bootstrap core CSS -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/vendor/bootstrap/css/bootstrap.min.css" />"
+	rel="stylesheet">
+<!-- Custom styles for this template -->
+<link
+	href="<c:url value="/resources/startbootstrap-modern-business-gh-pages/css/modern-business.css" />"
+	rel="stylesheet">
 <!-- summerNote -->
 <!-- include libraries(jQuery, bootstrap) -->
 <link
@@ -43,21 +40,12 @@
 	rel="stylesheet">
 <script
 	src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
-
-<!-- tab -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-  var jb = jQuery.noConflict();
-</script>
-
 <script type="text/javascript">
 $(function(){
-	
+	var checkCurPass = false;
+	//////////////////////////////비밀번호 수정//////////////////////////////////////////////
 	$("#changePasswordBtn").click(function (){
-		if (CheckPassword()) {
+		if (CheckPassword()&&checkCurPass) {
 			$.ajax({
 				type:"POST",
 				url:"changePassword.do",
@@ -91,8 +79,10 @@ $(function(){
 			success: function(json){
 				if (json.resultFlag) {
 					$('#passwordWarning0').text('');
+					checkCurPass = true;
 				}else{
 					$('#passwordWarning0').text('비밀번호가 일치하지 않습니다.').css("color", "red");
+					checkCurPass = false;
 				}
 			},
 			error: function(xhr) {
@@ -100,7 +90,7 @@ $(function(){
 			}	
 		});
 	});
-	
+	//////////////////////////////////문의/////////////////////////////////////////
 	$("#reportSubmitBtn").click(function (){
 		$.ajax({
 			type:"POST",
@@ -121,23 +111,55 @@ $(function(){
 			}	
 		});
 	});
-	
+	////////////////////////////////////////회원정보/////////////////////////////
 	$("#deleteClientInfoBtn").click(function(){
 		location.href = "deleteUserAgreement.do"
 	});
 	
-	$("#changeClientInfoBtn[name='change']").click(function(){
-		$(".clientInfo").attr("disabled", false);
-		$("#changeClientInfoBtn").val("회원정보 수정 완료").attr("name", "send");
+	$("#changeClientInfoBtn").click(function(){
+		if($("#changeClientInfoBtn").val()=="회원정보 수정"){///////수정 버튼을 누르고 새로운 정보를 입력할 상태를 만들어 줌
+			$(".clientInfo").attr("readonly", false);
+			$.ajax({
+				type:"POST",
+				url:"memberPageRequestFavorInfo.do",
+				dataType : "json",
+				success: function(json){
+					/////////////DB에서 카테고리 목록을 받아와서 테이블로 보여준다./////////////////////
+					var favorList = json.favorList;
+					var tableCode = "";
+					tableCode += "<th>관심목록</th>"
+					tableCode += "<td><table>"
+					tableCode += "<tr>"
+					for (var i = 0; i < favorList.length; i++) {
+						if (favorList[i] != null) {
+							if (i%3 == 0 && i != 0) {
+								tableCode += "</tr><tr>"
+							}
+							tableCode += "<td><input type='checkbox' name='favor' value = "+favorList[i]+"></td>"
+							tableCode += "<td>"+favorList[i]+"</td>"
+						}
+					}
+					if (tableCode.slice(tableCode.length-4) == "<tr>") {
+						tableCode = tableCode.slice(0, length-4)
+					}
+					tableCode += "</td></table>"
+					
+					$("#favorListTr").html(tableCode);
+					///////////////////////내가 원래 가지고 있던 애들은 체크해준다//////////
+					autoFavorCheck(convertClientFavor());					
+					
+				},
+				error: function(xhr) {
+					console.log(xhr.status);
+				}	
+			});
+		
+			$("#changeClientInfoBtn").val('회원정보 수정 완료');
+		}else{///////////수정을 완료하고 입력 버튼을 누름
+			$("#clientInfo").submit();
+		}
 	});
-	
-	$("#changeClientInfoBtn[name='send']").click(function(){
-		alert("바뀐 버튼");
-		$(".clientInfo").attr("disabled", true);
-		$("#sendChangeClientInfoBtn").val("회원정보 수정").attr("name", "change");
-	});
-	
-	jb("#tabs").tabs();
+	////////////////////////////////////////////////////////////////////////////////////////
 	
 	$('#summernote').summernote({
 		placeholder : '신고 내용을 입력해주세요.',
@@ -145,6 +167,7 @@ $(function(){
 		height : 300
 	});
 	
+	$('#myTab li:first-child a').tab('show')
 });//ready
 
 function CheckPassword() {
@@ -165,96 +188,129 @@ function CheckPassword() {
 	return passwordFlag;
 }
 
-</script>	
+function convertClientFavor(){
+	var clientFavor = "${client_favor}".slice(1, "${client_favor}".length-1).split(",");
+	for (var i = 0; i < clientFavor.length; i++) {
+		clientFavor[i] = clientFavor[i].trim();
+	}
+	return clientFavor;
+}
+
+function autoFavorCheck(clientFavor){
+	for (var i = 0; i < clientFavor.length; i++) {
+		$("[value = '"+clientFavor[i]+"']").attr("checked", "checked");
+	}
+}
+
+
+</script>
+	
+<style type="text/css">
+body {padding-top: 0px;}
+</style>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
-		<div id="container">
-			<div class="areaFix">
-				<div id="userPage">
-
-					<label>회원 페이지</label>
-					<div id="tabs">
-						<ul>
-							<li><a href="#fragment-1"><span>회원정보</span></a></li>
-							<li><a href="#fragment-2"><span>비밀번호 변경</span></a></li>
-							<li><a href="#fragment-3"><span>관리자 문의</span></a></li>
-						</ul>
-						<div id="fragment-1">
-							<table>
-								<tr>
-									<th>이름</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.name}" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<th>아이디</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.client_id}" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<th>생년월일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.birth}" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<th>휴대전화</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.tel}" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<th>이메일</th>
-									<td colspan="${fn:length(client_favor) }"><input type="text" class="clientInfo" value="${clientInfo.email }" disabled="disabled"></td>
-								</tr>
-								<tr>
-									<th>관심목록</th>
-									<c:if test="${fn:length(client_favor) == 0}">
-										<td>관심 목록이 없습니다.</td>
-									</c:if>
-									<c:forEach var="favor" items="${client_favor }">
-										<td>${favor }</td>
-									</c:forEach>
-								</tr>
-							</table>
-							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="change">
-							<input type="button" value="회원정보 수정" id="changeClientInfoBtn" class="inputBtn" name="send">
-							<input type="button" value="회원 탈퇴" id="deleteClientInfoBtn" class="inputBtn">
-						</div>
-						<div id="fragment-2">
-							<table>
-								<tr>
-									<td>현재 비밀번호 입력</td>
-									<td><input type="password" id="pass0"></td>
-								</tr>
-								<tr>
-									<td colspan="2"><label id="passwordWarning0"></label></td>
-								</tr>
-								<tr>
-									<td>비밀번호 입력</td>
-									<td><input type="password" id="pass1" onchange="CheckPassword()"></td>
-								</tr>
-								<tr>
-									<td>비밀번호 재입력</td>
-									<td><input type="password" id="pass2" onchange="CheckPassword()"></td>
-								</tr>
-								<tr>
-									<td colspan="2"><label id="passwordWarning"></label></td>
-								</tr>
-							</table>
-							<br> <input type="button" value="비밀번호 변경" id="changePasswordBtn" class="inputBtn">
-						</div>
-						<div id="fragment-3">
-
-							<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
-							<div id="summernote"></div>
-							<div id="reportBtnDiv">
-								<input type="button" value="제출하기" id="reportSubmitBtn" class="inputBtn">
-							</div>
-						</div>
+		<div class="container my-5">
+			<!-- Page Heading/Breadcrumbs -->
+			<h1 class="mt-4 mb-3">
+				회원 정보 <small>Client Info</small>
+			</h1>
+			<ul class="nav nav-tabs"  id="myTab" role="tablist">
+			  <li class="nav-item">
+			    <a class="nav-link" id="clientInfoTab-tab" data-toggle="tab" href="#clientInfoTab" role="tab" aria-controls="clientInfo" aria-selected="false">회원정보</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="changePass-tab" data-toggle="tab" href="#changePass" role="tab" aria-controls="changePass" aria-selected="false">비밀번호 변경</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" id="report-tab" data-toggle="tab" href="#report" role="tab" aria-controls="report" aria-selected="false">관리자 문의</a>
+			  </li>
+			</ul>
+			<div class="tab-content">
+			  	<div class="tab-pane" id="clientInfoTab" role="tabpanel" aria-labelledby="home-tab">
+					<div class="mb-8 col-lg-8 mx-auto">
+						<form id="clientInfo" action="changeClientInfo.do" method="post">
+						<table class="table">
+							<tr>
+								<th>이름</th>
+								<td colspan="${fn:length(client_favor) }"><input type="text" name="name" class="form-control clientInfoNoChange" value="${clientInfo.name}" disabled="disabled" ></td>
+							</tr>
+							<tr>
+								<th>아이디</th>
+								<td colspan="${fn:length(client_favor) }"><input type="text" name="client_id" class="form-control clientInfoNoChange" value="${clientInfo.client_id}" disabled="disabled"></td>
+							</tr>
+							<tr>
+								<th>생년월일</th>
+								<td colspan="${fn:length(client_favor) }"><input type="text" name="birth" class="form-control clientInfoNoChange" value="${clientInfo.birth}" disabled="disabled"></td>
+							</tr>
+							<tr>
+								<th>휴대전화</th>
+								<td colspan="${fn:length(client_favor) }"><input type="text" name="tel" class="form-control clientInfo" value="${clientInfo.tel}" readonly="readonly" maxlength="14"></td>
+							</tr>
+							<tr>
+								<th>이메일</th>
+								<td colspan="${fn:length(client_favor) }"><input type="text" name="email" class="form-control clientInfo" value="${clientInfo.email }" readonly="readonly"></td>
+							</tr>
+							<tr id="favorListTr">
+								<th>관심목록</th>
+								<c:if test="${fn:length(client_favor) == 0}">
+									<td>관심 목록이 없습니다.</td>
+								</c:if>
+								<c:forEach var="favor" items="${client_favor }">
+									<td>${favor }</td>
+								</c:forEach>
+							</tr>
+						</table>
+						</form>
+					<input type="button" class="btn btn-secondary inputBtn" value="회원정보 수정" id="changeClientInfoBtn" name="change">
+					<input type="button" class="btn btn-secondary inputBtn" value="회원 탈퇴" id="deleteClientInfoBtn">
 					</div>
 				</div>
-
+			  <div class="tab-pane" id="changePass" role="tabpanel" aria-labelledby="changePass-tab">
+			  	<div class="mb-5 col-lg-5 mx-auto">
+				<table class="table">
+					<tr>
+						<td>현재 비밀번호 입력</td>
+						<td><input class="form-control" type="password" id="pass0"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><label id="passwordWarning0"></label></td>
+					</tr>
+					<tr>
+						<td>비밀번호 입력</td>
+						<td><input class="form-control" type="password" id="pass1" onchange="CheckPassword()"></td>
+					</tr>
+					<tr>
+						<td>비밀번호 재입력</td>
+						<td><input class="form-control" type="password" id="pass2" onchange="CheckPassword()"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><label id="passwordWarning"></label></td>
+					</tr>
+				</table>
+				<br> <input type="button" value="비밀번호 변경" id="changePasswordBtn" class="btn btn-secondary inputBtn">
+			  	</div>
+			  </div>
+			  <div class="tab-pane" id="report" role="tabpanel" aria-labelledby="report-tab">
+			  	<div class="mb-10 col-lg-10 mx-auto">
+					<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
+					<div id="summernote"></div>
+					<div id="reportBtnDiv">
+						<input type="button" value="제출하기" id="reportSubmitBtn" class="btn btn-secondary inputBtn">
+					</div>
+			  	</div>
+			  </div>
 			</div>
+
+			<!-- /.row -->
+
 		</div>
+		<!-- /.container -->
+
 		<div id="footer">
 			<c:import url="../footer/footer.jsp" />
 		</div>

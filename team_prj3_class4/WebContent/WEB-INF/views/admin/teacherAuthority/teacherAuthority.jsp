@@ -49,11 +49,7 @@ function teacherPermitInfo(id, tName) {
 $(function(){		
  	$("#permission").click(function(){
 		if(confirm("정말 강사 권한을 승인하시겠습니까?")){
-			//$("#reportReason").val("");
-			//$("[name='addFrm']").submit();
-			
-				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherPermission.do",
 						data: queryString,
@@ -80,7 +76,7 @@ $(function(){
 			//$("[name='addFrm']").submit();
 			
 				//function addBlack(userId) {
-				 	 var queryString = "id="+$("#tId").text();
+				 	 var queryString = "id="+$("#tnName").text();
 				 	$.ajax({
 						url: "teacherRefuse.do",
 						data: queryString,
@@ -107,7 +103,7 @@ $(function(){
 <!--  -->
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 강사 권한 승인
+		<h5 style="margin-bottom: 0px;"><strong>강의 권한 승인</strong></h5>
 	</div>
 	<div class="card-body">
 		<form name="teacherPermitSearch" class="form-inline" action="teacherAuthority.do" method="get">
@@ -119,7 +115,7 @@ $(function(){
             <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-secondary" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>
@@ -141,7 +137,7 @@ $(function(){
 			<tbody>
 				<c:if test="${empty teacherPermitList }">
 				<tr>
-					<td colspan="6" align="center">
+					<td colspan="7" align="center">
 						<strong>승인 대기중인 강사가 없습니다</strong>
 					</td>
 				</tr>

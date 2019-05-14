@@ -3,41 +3,52 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.sist.user.mapper.userpage_mapper">
-<resultMap type="kr.co.sist.user.domain.ClientPageInfo" id="ClientPageInfo">
-	<result column="client_id" property="client_id"/>
-	<result column="name" property="name"/>
-	<result column="birth" property="birth"/>
-	<result column="gender" property="gender"/>
-	<result column="email" property="email"/>
-	<result column="status" property="status"/>
-	<result column="tel" property="tel"/>
-	<result column="inputdate" property="inputdate"/>
-</resultMap>
-<select id="selectClientPageInfo" resultMap="ClientPageInfo" parameterType="String">
-	select client_id, name, birth, gender, email, status, tel, inputdate
-	from client
-	where client_id = #{client_id}
-</select>
-<select id="selectClientFavor" resultType="String" parameterType="String">
-	select category
-	from favor
-	where client_id = #{client_id}
-</select>
-<insert id="deleteUser" parameterType="String">
-	insert into deleted_user(client_id, d_date)
-	values
-	(#{client_id}, sysdate)
-</insert>
-<select id="checkPassword" resultType="String" parameterType="kr.co.sist.user.vo.UserLoginVO">
-	select client_id
-	from client
-	where client_id = #{Id} and pass = #{pass}
-</select>
-<update id="changePassword" parameterType="kr.co.sist.user.vo.ChangePasswordVO">
-	update client
-	set pass = #{password}
-	where client_id = #{client_id}
-</update>
+	<resultMap type="kr.co.sist.user.domain.ClientPageInfo" id="ClientPageInfo">
+		<result column="client_id" property="client_id"/>
+		<result column="name" property="name"/>
+		<result column="birth" property="birth"/>
+		<result column="gender" property="gender"/>
+		<result column="email" property="email"/>
+		<result column="status" property="status"/>
+		<result column="tel" property="tel"/>
+		<result column="inputdate" property="inputdate"/>
+	</resultMap>
+	<select id="selectClientPageInfo" resultMap="ClientPageInfo" parameterType="String">
+		select client_id, name, birth, gender, email, status, tel, inputdate
+		from client
+		where client_id = #{client_id}
+	</select>
+	<select id="selectClientFavor" resultType="String" parameterType="String">
+		select category
+		from favor
+		where client_id = #{client_id}
+	</select>
+	<insert id="deleteUser" parameterType="String">
+		insert into deleted_user(client_id, d_date)
+		values
+		(#{client_id}, sysdate)
+	</insert>
+	<select id="checkPassword" resultType="String" parameterType="kr.co.sist.user.vo.UserLoginVO">
+		select client_id
+		from client
+		where client_id = #{Id} and pass = #{pass}
+	</select>
+	<update id="changePassword" parameterType="kr.co.sist.user.vo.ChangePasswordVO">
+		update client
+		set pass = #{password}
+		where client_id = #{client_id}
+	</update>
+	<update id="memberUpdate" parameterType="kr.co.sist.user.vo.MemberUpdateVO">
+		update client
+		set
+		email = #{email},
+		tel = #{tel}
+		where client_id = #{client_id}
+	</update>
+	<delete id="favorDelete" parameterType="String">
+		delete favor
+		where client_id = #{client_id}
+	</delete>
 </mapper>
 
 

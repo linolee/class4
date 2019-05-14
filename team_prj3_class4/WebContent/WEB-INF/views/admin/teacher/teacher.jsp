@@ -29,6 +29,12 @@ function teacherInfo(teacherName) {
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce));
 			// 공백 변환처리
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
+			
+			var tImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			if(null!=json.img){
+				tImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+json.img;
+			}
+			$("#tImg").attr("src", tImg);
 
 			var output;
 	 		$("#lesson *").remove();
@@ -69,7 +75,7 @@ function teacherInfo(teacherName) {
 </script>
 <div class="card">
 	<div class="card-header">
-		<i class="fa fa-align-justify"></i> 강사 조회
+		<h5 style="margin-bottom: 0px;"><strong>강사 조회</strong></h5>
 	</div>
 	<div class="card-body">
 		<form name="teacherSearch" class="form-inline" action="teacher.do" method="get">
@@ -82,7 +88,7 @@ function teacherInfo(teacherName) {
             <input type="text" name="keyword" id="keyword" value="" class="form-control input-search" placeholder="검색어" style="height:35px;">
             <span class="input-group-btn">
                 <span class="input-group-btn">
-               		 <button type="submit" id="searchBtn" class="btn btn-info" title="검색"><i class="glyphicon glyphicon-search"></i></button>
+               		 <button type="submit" id="searchBtn" class="btn btn-secondary" title="검색"><i class="glyphicon glyphicon-search"></i></button>
            		</span>
             </span>
         </div>

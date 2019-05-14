@@ -5,7 +5,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="modal">강사 권한 부여</h5>
+				<h5 class="modal-title" id="modal"><strong>강사 권한 부여</strong></h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -14,9 +14,7 @@
 			<div class="modal-body">
 				<form action="./reportAction.jsp" method="post">
 
-					<!-- temp table -->
-
-					<table class="table table-responsive-sm" style="text-align: center">
+					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
@@ -49,20 +47,12 @@
 						</tbody>
 					</table>
 
-					<!-- temp table -->
-
 					<div class="form-group">
 						<label>경력사항</label>
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">
 							<tbody id="career">
-								<!-- <tr>
-									<td width="50px" class="col-10">경력경력경력경력경력경력경력</td>
-								</tr>
-								<tr style="border-bottom: 1px solid #C8CED3;">
-									<td width="50px" class="col-10">경력2경력2경력2경력2경력2경력2경력2</td>
-								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -76,7 +66,7 @@
 					<div style="text-align: center">
 						<div style="display: inline-block;">
 							<div class="form-row">
-								<div class="modal-footer">
+								<div class="modal-footer" style="border-top:none;">
 									<button type="button" class="btn btn-primary"	data-dismiss="modal" id="permission">승인</button>
 									<button type="button" class="btn btn-danger"	data-dismiss="modal" id="refuse">거절</button>
 								</div>
