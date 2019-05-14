@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.152/resources/css/main_v190130.css">
 <style type="text/css">
 #wrap{ margin: 0px auto; width: 1100px; height: 860px;}
 #mypageTitle{font-family:NanumGothic, '돋움', dotum, Helvetica, sans-serif; 
@@ -41,12 +41,12 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/summernote/bootstrap.css"/>" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/bootstrap.js"></script>
+<script src="http://211.63.89.152/resources/summernote/bootstrap.js"></script>
 
 <!-- include summernote css/js -->
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
+<link href="http://211.63.89.152/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://211.63.89.152/resources/summernote/summernote-lite.js"></script>
+<script src="http://211.63.89.152/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 function addClass() {
    

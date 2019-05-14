@@ -29,9 +29,9 @@ function teacherInfo(teacherName) {
 			// 공백 변환처리
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
 			
-			var tImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			var tImg="http://211.63.89.152/upload/common/default.jpg";
 			if(null!=json.img){
-				tImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+decodeURIComponent(json.img);
+				tImg="http://211.63.89.152/upload/teacher/"+decodeURIComponent(json.img);
 			}
 			$("#tImg").attr("src", tImg);
 

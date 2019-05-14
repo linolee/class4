@@ -222,7 +222,7 @@ $(function () {
 							<tr>
 								<td>
 									<a data-toggle="modal" href="#modalCategory" style="width:150px;">
-										<img src="http://localhost:8080/team_prj3_class4/upload/category/${cate.img }" class="categoryImg" onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
+										<img src="http://211.63.89.152/upload/category/${cate.img }" class="categoryImg" onerror="this.src='http://211.63.89.152/upload/common/default.jpg'">
 									</a>
 								</td>
 							</tr>

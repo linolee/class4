@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- include summernote css/js -->
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
+<link href="http://211.63.89.152/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://211.63.89.152/resources/summernote/summernote-lite.js"></script>
+<script src="http://211.63.89.152/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 $(function () {
 	$('.summernote_q').summernote({ airMode: true });
