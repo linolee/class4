@@ -74,7 +74,7 @@ body {
 		<div id="header">
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
-		<div class="container my-5">
+		<div class="container my-5" id="container">
 			<!-- Page Heading/Breadcrumbs -->
 			<h1 class="mt-4 mb-3">
 				비밀번호 찾기 <small>Find Password</small>
