@@ -79,8 +79,4 @@ public class BlackListService {
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		BlackListService bls=new BlackListService();
-		bls.deleteBlack("asdf");
-	}
 }

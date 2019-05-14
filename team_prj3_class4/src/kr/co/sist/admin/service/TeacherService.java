@@ -70,7 +70,6 @@ public class TeacherService {
 					json_temp.put("lessonName", URLEncoder.encode(listLesson.get(i).getLname(), "UTF-8"));
 					json_temp.put("lessonStatus", listLesson.get(i).getStatus());
 					json_arr.add(json_temp);
-					System.out.println("----------------------------------------- lesson : "+listLesson.get(i).getLname());
 				}
 			}
 			
@@ -79,10 +78,7 @@ public class TeacherService {
 			if(!listCareer.isEmpty()) {
 				for(int i=0; i<listCareer.size();i++) {
 					json_temp2=new JSONObject();
-					/*json_temp2.put("career", URLEncoder.encode(listCareer.get(i).getCareer(), "UTF-8"));*/
 					json_temp2.put("career", URLEncoder.encode(listCareer.get(i).getCareer(), "UTF-8"));
-					
-					System.out.println("--------------------------------- career : "+listCareer.get(i));
 					
 					json_arr2.add(json_temp2);
 				}
@@ -103,15 +99,4 @@ public class TeacherService {
 			return list;
 		}
 			
-		public static void main(String[] args) {
-			TeacherService ts=new TeacherService();
-//			ts.selectDeatailTeacher("백인재");
-			OptionSearchVO osvo=new OptionSearchVO();
-			osvo.setCurrentPage(1);
-			osvo.setStartNum(1);
-			osvo.setEndNum(10);
-			osvo.setOption("t.teacher_name");
-			osvo.setKeyword("백인재");
-			ts.teacherOptionSearch(osvo);
-		}
 }

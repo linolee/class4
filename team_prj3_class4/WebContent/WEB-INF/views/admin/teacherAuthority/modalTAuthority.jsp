@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="modal fade" id="modalTAuthority" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
@@ -17,14 +16,24 @@
 					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
 							<tr>
+								<td rowspan="5" colspan="2" style="width:55%;">
+									<img id="tImg" style="width:100%; height:50%;"  onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
+									
+								</td>
+							</tr>
+							<tr>
 								<td width="50px" style="background: #C8CED3">아이디</td>
 								<td width="50px" id="tId"></td>
+							</tr>
+							<tr>
 								<td width="50px" style="background: #C8CED3">카테고리</td>
 								<td width="80px" id="tCategory"></td>
 							</tr>
 							<tr>
 								<td width="50px" style="background: #C8CED3">이름</td>
 								<td width="50px" id="tName"></td>
+							</tr>
+							<tr>
 								<td width="50px" style="background: #C8CED3">강사명</td>
 								<td width="50px" id="tnName"></td>
 							</tr>
