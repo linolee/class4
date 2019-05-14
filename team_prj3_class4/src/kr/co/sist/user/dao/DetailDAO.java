@@ -213,6 +213,19 @@ public class DetailDAO {
 		return flag;
 	}//insertJoin
 	
+	public boolean updateJoin(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("updateJoin2", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//updateJoin
+	
 	public boolean cancelJoin(ListVO lvo) {
 		boolean flag=false;
 		int cnt=0;
@@ -222,6 +235,7 @@ public class DetailDAO {
 			flag=true;
 			ss.commit();
 		}//end if
+		
 		ss.close();
 		return flag;
 	}//cancelJoin
