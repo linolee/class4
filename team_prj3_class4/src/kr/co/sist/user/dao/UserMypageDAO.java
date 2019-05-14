@@ -21,6 +21,7 @@ import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
 import kr.co.sist.user.vo.TotalVO;
+import kr.co.sist.user.vo.qnaListVO;
 
 @Component
 public class UserMypageDAO {
@@ -54,6 +55,14 @@ public class UserMypageDAO {
 		ss.update("endStatus2");//리스트 조회 전 강의 끝나는 날짜 받아서 종료 또는 취소로 만들어주는 쿼리를 수행
 		ss.commit();///
 		list=ss.selectList("classList", lvo);
+		ss.close();
+		return list;
+	}//selectClass
+	
+	public List<ClassList> jjimList(String lcode){
+		List<ClassList> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("jjimList", lcode);
 		ss.close();
 		return list;
 	}//selectClass
@@ -209,10 +218,18 @@ public class UserMypageDAO {
 		return list;
 	}//qnaLcodeList
 	
-	public List<QnaList> qnaList(ListVO lvo) {
+	public List<String> qnaQcodeList(String clientId) {
+		List<String> list=null;
+		SqlSession ss=getSessionFactory().openSession();
+		list=ss.selectList("qnaQcodeList", clientId);
+		ss.close();
+		return list;
+	}//qnaLcodeList
+	
+	public List<QnaList> qnaList(qnaListVO qlvo) {
 		List<QnaList> list=null;
 		SqlSession ss=getSessionFactory().openSession();
-		list=ss.selectList("qnaList", lvo);
+		list=ss.selectList("qnaList", qlvo);
 		ss.close();
 		return list;
 	}//qnaList

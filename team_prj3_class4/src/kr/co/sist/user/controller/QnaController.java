@@ -39,9 +39,8 @@ public class QnaController {
 			QnaVO qvo=new QnaVO(lcode, clientId, subject, contents); 
 			
 			insertFlag=ums.insertQna(qvo);
-			
 			if(insertFlag) {
-				return "/user/classDetail/detail";
+				return "redirect:/user/classDetail/detail.do?lcode="+lcode;
 			}else {
 				return "user/student/question";
 			}//end else

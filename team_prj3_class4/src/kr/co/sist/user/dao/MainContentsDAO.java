@@ -49,6 +49,16 @@ public class MainContentsDAO {
 		return category;
 	}//selectCategory
 	
+	public String selectCategoryCnt(){
+		String cnt="";
+		
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.selectOne("selectCategoryListCnt") ;
+		ss.close();
+		return cnt;
+	}
+	
+	
 	public List<Category> selectImgCategory(){
 		List<Category> imgCate=null;
 		
@@ -57,6 +67,9 @@ public class MainContentsDAO {
 		ss.close();
 		return imgCate;
 	}//selectImgCategory
+	
+	
+	
 	
 	public List<Recommend> selectRecommend(){
 		List<Recommend> recommend=null;
@@ -67,6 +80,16 @@ public class MainContentsDAO {
 		return recommend;
 	}//selectRecommend
 	
+	public String selectRecommendCnt(){
+		String cnt="";
+		
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("selectRecommendCnt");
+		ss.close();
+		return cnt;
+	}
+	
+	
 	public List<LatestReview> selectLatestReview(){
 		List<LatestReview> latestreview=null;
 		
@@ -74,6 +97,15 @@ public class MainContentsDAO {
 		latestreview=ss.selectList("selectLatestReview");
 		ss.close();
 		return latestreview;
+	}
+	
+	public String selectLatestReviewCnt(){
+		String cnt="";
+		
+		SqlSession ss=getSessionFactory().openSession();
+		cnt=ss.selectOne("selectLatestReviewCnt");
+		ss.close();
+		return cnt;
 	}
 
 /*	public static void main(String[] args) {
@@ -83,4 +115,5 @@ public class MainContentsDAO {
 		
 	}//main
 */	
+	
 }//class

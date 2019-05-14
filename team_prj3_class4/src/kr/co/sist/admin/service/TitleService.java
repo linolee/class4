@@ -2,18 +2,13 @@ package kr.co.sist.admin.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-
-import kr.co.sist.admin.vo.CategoryImgVO;
 
 @Component
 public class TitleService {

@@ -9,10 +9,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import kr.co.sist.user.domain.AdminQnA;
 import kr.co.sist.user.domain.ClientPageInfo;
 import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.MemberFavorVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
+import kr.co.sist.user.vo.SearchListVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 public class UserPageDAOImpl implements UserPageDAO {
@@ -131,10 +133,28 @@ public class UserPageDAOImpl implements UserPageDAO {
 		}
 		return cnt;
 	}
+	@Override
+	public List<AdminQnA> selectQnaList(SearchListVO slvo){
+		List<AdminQnA> list = null;
+		SqlSession ss=getSessionFactory().openSession();
+		list = ss.selectList("selectAdminQnaList", slvo);
+		return list;
+	}
+	
+	@Override
+	public int selectTotalCount(String client_id) {
+		SqlSession ss=getSessionFactory().openSession();
+		return ss.selectOne("adminQnaTotalCnt", client_id);
+	}
 	
 	public static void main(String[] args) {
 		UserPageDAOImpl upd = new UserPageDAOImpl();
-		System.out.println(upd.checkPassword(new UserLoginVO("linolee", "1234")));
+		System.out.println(upd.selectTotalCount("linolee"));
+		List<AdminQnA> list = upd.selectQnaList(new SearchListVO(6, 10, 2, "linolee"));
+		for (AdminQnA adminQnA : list) {
+			System.out.println(adminQnA);
+		}
+//		System.out.println(upd.checkPassword(new UserLoginVO("linolee", "1234")));
 //		System.out.println(upd.selectClientFavor("linolee"));
 	}
 

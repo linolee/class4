@@ -324,9 +324,20 @@ $(function(){
 	
 	$("#upfile").change(function() {
 		var upfile = $("#upfile").val();
+		
 		if(upfile == ""){
 			alert("이미지를 선택해주세요.");
 			return false;
+		} // end if
+		
+		if(upfile != ""){
+			var fileExt = upfile.substring(upfile.lastIndexOf(".")+1);
+			var reg = /gif|jpg|jpeg|png/i; // 업로드 가능 확장자.
+			
+			if(reg.test(fileExt) == false){
+				alert("첨부 파일은 gif, jpg, png로 된 이미지만 가능합니다.");
+				return false;
+			} // end if
 		} // end if
 		readURL(this);
 	}); // end click
@@ -393,6 +404,8 @@ $(function(){
 	    return false; */
 	});
 
+	
+	
 });//ready
 
 </script>

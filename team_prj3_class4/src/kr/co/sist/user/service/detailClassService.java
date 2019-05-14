@@ -347,6 +347,12 @@ public class detailClassService {
 		return flag;
 	}//insertJoin
 	
+	public boolean updateJoin(ListVO lvo) {
+		boolean flag=false;
+		flag=d_dao.updateJoin(lvo);
+		return flag;
+	}//insertJoin
+	
 	public boolean cancelJoin(ListVO lvo) {
 		boolean flag=false;
 		flag=d_dao.cancelJoin(lvo);
