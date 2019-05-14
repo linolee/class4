@@ -132,8 +132,8 @@ public class ClassRegistService {
 				mr.getParameter("classTogether"), //
 				Integer.parseInt( mr.getParameter("startHour") ) * 60 + Integer.parseInt( mr.getParameter("startMin") ), 
 				Integer.parseInt( mr.getParameter("endHour") ) * 60 + Integer.parseInt( mr.getParameter("endMin") ), 
-				Integer.parseInt( mr.getParameter("minPerson") ), //
-				Integer.parseInt( mr.getParameter("maxPerson") ) );//
+				Integer.parseInt( mr.getParameter("maxPerson") ), //
+				Integer.parseInt( mr.getParameter("minPerson") ) );//
 		//System.out.println("============"+crvo.toString());
 		try {
 			c_dao.insertLesson(crvo);

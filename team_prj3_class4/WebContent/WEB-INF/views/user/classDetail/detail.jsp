@@ -220,7 +220,11 @@ $(function () {
             		<td width="150px">인원수</td>
             	</tr>
             	<tr>
-            		<td><c:out value="${summary.address}"/><br/></td>
+            	<c:set var="gu" value="${summary.address}"/>
+                <c:if test="${gu eq '중'}">
+                <c:set var="gu" value="중구"/>
+                </c:if>
+            		<td><c:out value="${gu}"/><br/></td>
             		<td><c:out value="${summary.class_time}"/>시간 <c:out value="${summary.class_time2}"/>분</td>
             		<td><c:out value="${summary.max_member}"/>명</td>
            		</tr>
@@ -509,7 +513,7 @@ $(function () {
 									</c:if>
 									<div style="text-align: center; width: 100%">
 										<div style="display: inline-block;">
-											<ul class="pagination ">
+											<ul class="pagination " style="width: 100%; display: flex;">
 												<c:out value="${ indexList }" escapeXml="false" />
 												<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
 											</ul>
@@ -625,7 +629,7 @@ $(function () {
 	                           <c:forEach var="day" items="${requestScope.day}">
                                   <c:out value="${day}"/>,
                                 </c:forEach>
-                                 <c:out value="${classTime.start_time}"/>시 <c:out value="${classTime.start_time2}"/>분 ~ <c:out value="${classTime.end_time}"/>시 <c:out value="${classTime.end_time2}"/>분
+                                 <c:out value="${classTime.start_time}"/>시<c:out value="${classTime.start_time2}"/>분 ~ <c:out value="${classTime.end_time}"/>시<c:out value="${classTime.end_time2}"/>분
                                   &nbsp; &nbsp; &nbsp; &nbsp; 
                                   <c:out value="${joinCount.now_member}"/>
                                   <c:if test="${empty joinCount.now_member}">0</c:if>
@@ -659,7 +663,11 @@ $(function () {
 	                      </div>
 	                      <dl class="clear_fix" style="padding-top:10px;border-top:1px solid #cdcdcd;">
 	                          <dt>지역정보</dt>
-	                          <dd title="${addr.si}&gt;${addr.gu}"><c:out value="${addr.si}"/>&gt;<c:out value="${addr.gu}"/></dd>
+	                          <c:set var="gu" value="${addr.gu}"/>
+	                          <c:if test="${gu eq '중'}">
+	                          <c:set var="gu" value="중구"/>
+	                          </c:if>
+	                          <dd title="${addr.si}&gt;${addr.gu}"><c:out value="${addr.si}"/>&gt;<c:out value="${gu}"/></dd>
 	                      </dl>
 	                      <dl class="clear_fix">
 	                          <dt>수강인원</dt>
@@ -720,9 +728,6 @@ $(function () {
 								<c:when test="${status eq 'E'}">
 				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 종료 "/>
 			                  	</c:when>
-<%-- 			                  	<c:when test="${now ge max}">
-				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 정원초괴"/>
-			                  	</c:when> --%>
  			                  	<c:otherwise>
 				                  	<input type="button" class="btn" id="closeBtn2" value="클래스 정원초괴"/>
 			                  	</c:otherwise> 
@@ -732,24 +737,29 @@ $(function () {
 		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
+		                  	<c:set var="now" value="${joinCount.now_member}"/>
+		                  	<c:set var="max" value="${summary.max_member}"/>
+		                  	<c:if test="${ joinCount.now_member eq null }">
+		                  		<c:set var="now" value="0"/>
+		                  	</c:if>
 		                  	<c:choose>
-								<c:when test="${joinStatus2.status eq Y}"> <!-- true면 신청한상태 -->
+								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F'}">
+				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
+								</c:when>
+			                  	<c:when test="${detailc.status eq 'E'}">
+				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
+			                  	</c:when>
+								<c:when test="${joinStatus2.status eq 'Y'}"> <!-- true면 신청한상태 -->
 									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
 			                  	</c:when>
-								<c:when test="${'joinCount.now_member' eq 'joinCount.max_member'}">
+			                  	<c:when test="${detailc.status eq 'F'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>
-			                  	</c:when>
-			                  	<c:when test="${detailc.status eq F}">
-				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>
-			                  	</c:when>
-			                  	<c:when test="${detailc.status eq E}">
-				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
 			                  	</c:when>
 								<%-- <c:when test="${'joinStatus' eq 'false'}"> <!-- true면 신청한상태 -->
 									<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
 								</c:when> --%>
  			                  	<c:otherwise>
-				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
+				                  	<input type="button" class="btn" id="closeBtn" value="클래스 정원초과 "/>
 			                  	</c:otherwise> 
 		                  	</c:choose>
 						</c:otherwise>

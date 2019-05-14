@@ -16,7 +16,8 @@
 						<tbody>
 							<tr>
 								<td rowspan="5" colspan="2" style="width:55%;">
-									<img id="tImg" style="width:100%; height:50%;" src="http://localhost:8080/team_prj3_class4/upload/common/default.jpg">
+									<img id="tImg" style="width:100%; height:50%;"  onerror="this.src='http://localhost:8080/team_prj3_class4/upload/common/default.jpg'">
+									
 								</td>
 							</tr>
 							<tr>
@@ -55,7 +56,7 @@
 					</table>
 
 					<div class="form-group">
-						<label>진행중인 강의</label>
+						<label><strong>진행중인 강의</strong></label>
 
 						<table class="table table-responsive-sm" style="text-align: center">
 							<tbody id="lesson">
@@ -63,7 +64,7 @@
 						</table>
 					</div>
 					<div class="form-group">
-						<label>경력사항</label>
+						<label><strong>경력사항</strong></label>
 
 						<table class="table table-responsive-sm" style="text-align: center">
 							<tbody id="career">
@@ -72,7 +73,7 @@
 					</div>
 					
 					<div class="form-group">
-						<label>자기소개</label>
+						<label><strong>자기소개</strong></label>
 						<textarea name="reportContent" class="form-control" maxlength="2048"
 								style="height:180px; resize: none;" readonly="readonly" id="tIntro"></textarea>
 					</div>
