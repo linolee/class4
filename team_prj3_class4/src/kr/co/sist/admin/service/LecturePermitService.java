@@ -2,7 +2,6 @@ package kr.co.sist.admin.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONArray;
@@ -16,14 +15,9 @@ import kr.co.sist.admin.vo.LectureRefuseReasonVO;
 import kr.co.sist.admin.vo.ListVO;
 import kr.co.sist.admin.vo.OptionSearchVO;
 import kr.co.sist.user.domain.Addr;
-import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
-import kr.co.sist.user.domain.JoinCount;
-import kr.co.sist.user.domain.QnA;
-import kr.co.sist.user.domain.ReviewDomain;
 import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
-import kr.co.sist.user.domain.TClass;
 import kr.co.sist.user.service.detailClassService;
 
 @Component
@@ -66,7 +60,6 @@ public class LecturePermitService {
 		addr=dcs.searchAddr(lcode);
 		
 		
-		////// -/-**-*--**-*/--*//**/*/*/*/*/*/*/*/*------ //////
 		try {
 			
 			json.put("lname", URLEncoder.encode(summary.getLname(), "UTF-8"));
@@ -77,7 +70,6 @@ public class LecturePermitService {
 				json.put("teacher_img", URLEncoder.encode(summary.getImg(), "UTF-8"));
 			}
 			json.put("teacher_name", URLEncoder.encode(summary.getTeacher_name(), "UTF-8"));
-			// json.put("address", URLEncoder.encode(summary.getAddress(), "UTF-8"));
 			json.put("class_time", summary.getClass_time());
 			json.put("max_member", summary.getMax_member());
 			if(null!=summary.getBanner_img()) {
@@ -152,12 +144,6 @@ public class LecturePermitService {
 	public void lectureRefuseReason(LectureRefuseReasonVO lrrvo){
 		LecturePermitDAO lpdao=LecturePermitDAO.getInstance();
 		lpdao.lectureRefuseReason(lrrvo);
-	}
-	
-	
-	public static void main(String[] args) {
-		LecturePermitService lps=new LecturePermitService();
-		lps.lectureRefuse("in11202");
 	}
 	
 }

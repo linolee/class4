@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
 <link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
@@ -38,20 +37,12 @@ function lecturePermitDetail(lcode) {
 			$("#ls_teacher_name").text(decodeURIComponent(json.teacher_name.replace(space," ")));
 			
 			if(null!=json.detailContents){
-				/* $("#ls_contents").text(decodeURIComponent(json.detailContents.replace(space," "))); */ 
 				$("#ls_contents .note-editable").html(decodeURIComponent(json.detailContents.replace(space," "))); 
-				/* $("#ls_contents").append('<textarea class="summernote_q" >'+json.detailContents+'</textarea>'); */
 			} else{
 				$("#ls_contents .note-editable").text("입력되지 않았습니다");
 			}
-/* 			if(null!=json.detailContents){
-				$("#ls_contents").val(decodeURIComponent(json.detailContents.replace(space," ")));
-			} else{
-				$("#ls_contents").val("입력되지 않았습니다");
-			} */
 			
 			if(null!=json.detailCurriculum){
-				/* $("#ls_curriculum").text(decodeURIComponent(json.detailCurriculum.replace(space," "))); */
 				$("#ls_curriculum .note-editable").html(decodeURIComponent(json.detailCurriculum.replace(space," ")));
 			} else{
 				$("#ls_curriculum .note-editable").text("입력되지 않았습니다");
@@ -62,7 +53,6 @@ function lecturePermitDetail(lcode) {
 			} else{
 				$("#ls_others .note-editable").text("입력되지 않았습니다");
 			}
-			/* $("#ls_detailAddress").text(decodeURIComponent(json.detailAddress.replace(space," "))); */
 			$("#addressHdn").val(decodeURIComponent(json.detailAddress.replace(space," ")));
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
 			
@@ -132,12 +122,6 @@ function lecturePermitDetail(lcode) {
 	
 	/* 지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도지도 */
 	
-	$(function (){
-		//alert(detailAddress);
-		/* setMarker("서울시 송파구 오륜동","클래스 위치"); */
-		//setMarker(detailAddress,"클래스 위치");
-	});//ready
-	
 	function setMarker(addr,dong){
 		// 지도를 생성합니다    
 		var map = new daum.maps.Map(mapContainer, mapOption); 
@@ -148,11 +132,6 @@ function lecturePermitDetail(lcode) {
 		// 주소로 좌표를 검색합니다
 		geocoder.addressSearch(addr, function(result, status) {
 			
-		/* alert(addr);
-		alert(result);			
-		alert(status);
-		alert(daum.maps.services.Status.OK); */
-		
 	    // 정상적으로 검색이 완료됐으면 
 	     if (status === daum.maps.services.Status.OK) {
 	

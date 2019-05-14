@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="modal fade" id="modalAddBlackList" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
@@ -12,7 +11,6 @@
 				</button>
 			</div>
 			<div class="modal-body">
-
 
 					<table class="table table-responsive-sm table-bordered" style="text-align: center">
 						<tbody>
@@ -42,7 +40,7 @@
 					</table>
 
 					<div class="form-group">
-						<label>사유</label>
+						<label><strong>사유</strong></label>
 						<textarea id="reportReason" name="reportContent" class="form-control" maxlength="2048"
 								style="height:180px; resize: none;"></textarea>
 					</div>

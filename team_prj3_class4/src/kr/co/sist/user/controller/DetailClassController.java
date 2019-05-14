@@ -74,6 +74,9 @@ public class DetailClassController {
 		rvlist = dcs.searchRvList(rvlistvlo);
 		String indexList = dcs.RindexList(rvlistvlo.getCurrentPage(), rtotalPage, "detail.do?lcode="+lcode, rvlistvlo.getLcode());
 		
+		
+		
+		
 		summary=dcs.searchSummary(lcode);
 		star=dcs.searchStar(lcode);
 		career=dcs.searchCareer(lcode);
@@ -88,6 +91,7 @@ public class DetailClassController {
 		joinCount=dcs.searchJoinCount(lcode);
 		like=dcs.searchLike(lcode);
 		addr=dcs.searchAddr(lcode);
+
 		
 		/*String clientId="";
 		clientId = session.getAttribute("client_id").toString();
@@ -119,7 +123,15 @@ public class DetailClassController {
 		model.addAttribute("keyword", rvlistvlo.getLcode());
 		model.addAttribute("page", "question");// @@
 		
-		System.out.println(summary);
+		if(id != null) {
+			ListVO lvo=new ListVO(lcode, id);
+			Join joinStatus3=null;
+			joinStatus3=dcs.joinStatus(lvo);
+			model.addAttribute("joinStatus3",joinStatus3);
+		}
+		
+		
+		//System.out.println(summary);
 		
 		return "user/classDetail/detail";
 	}//mvRecommendCalss
@@ -133,12 +145,21 @@ public class DetailClassController {
 		String clientId = session.getAttribute("client_id").toString();
 		boolean updateJoinStudent=false;
 		ListVO lvo=new ListVO(lcode, clientId);
+		
+		Join joinStatus2=null;
+		joinStatus2=dcs.joinStatus(lvo);
+		
 		String sendjs=null;
 		boolean joinStatus=(dcs.joinStatus(lvo)!=null);
-		if(joinStatus) { //결과가 있으면 신청한상태=>update cancel
+		if(joinStatus2.getStatus().equals("Y")) { //결과가 있으면 신청한상태=>update cancel
 			updateJoinStudent=dcs.cancelJoin(lvo);
 			if(updateJoinStudent){
 				sendjs="취소";
+			}//end if
+		}else if(joinStatus2.getStatus().equals("C")) {
+			updateJoinStudent=dcs.updateJoin(lvo);
+			if(updateJoinStudent) {
+				sendjs="다시신청";
 			}//end if
 		}else { //그렇지 않으면 신청안한상태로 =>신청
 			updateJoinStudent=dcs.insertJoin(lvo);
@@ -146,10 +167,7 @@ public class DetailClassController {
 				sendjs="신청";
 			}//end if
 		}//end else
-		
-		Join joinStatus2=null;
-		joinStatus2=dcs.joinStatus(lvo);
-		
+	
 		
 		model.addAttribute("joinStatus2",joinStatus2);
 		model.addAttribute("joinStatus",joinStatus);
@@ -208,8 +226,8 @@ public class DetailClassController {
 			break;
 		}
 		
-		System.out.println(uls.login(ulvo, session));
-		System.out.println(session.getAttribute("name"));
+		//System.out.println(uls.login(ulvo, session));
+		//System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);

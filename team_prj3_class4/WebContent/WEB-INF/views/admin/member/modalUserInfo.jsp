@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="modal fade" id="modalUserInfo" tabindex="-1" role="dialog"
 	aria-labelledby="modal" aria-hidden="true">
 	<div class="modal-dialog">
@@ -43,7 +42,7 @@
 					</table>
 
 					<div class="form-group">
-						<label>수강 강의 목록</label>
+						<label><strong>수강 강의 목록</strong></label>
 
 						<table class="table table-responsive-sm"
 							style="text-align: center">

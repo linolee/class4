@@ -102,6 +102,23 @@ public class mainContentsService {
 		return recommend3;
 	}//selectRecommend3
 	
+	public int reviewCnt() {
+		int cnt= Integer.parseInt( mc_dao.selectLatestReviewCnt() );
+		
+		return cnt;
+	}
+	public int recommendCnt() {
+		int cnt= Integer.parseInt( mc_dao.selectRecommendCnt() );
+		
+		return cnt;
+	}
+	public int caterogyCnt() {
+		int cnt= Integer.parseInt( mc_dao.selectCategoryCnt() );
+		
+		return cnt;
+	}
+	
+	
 	public List<LatestReview> selectLatestReview1(){
 		List<LatestReview> latestreview=null;
 		List<LatestReview> latestreview1=null;

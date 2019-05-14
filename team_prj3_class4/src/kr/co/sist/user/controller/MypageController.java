@@ -532,7 +532,7 @@ public class MypageController {
 		int toDate=0;
 		int fromDate=0;
 		if(!(request.getParameter("toDate")==null)) {
-			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));
+			toDate=Integer.parseInt(request.getParameter("toDate").replaceAll("-", ""));////
 		}//end if
 		if(!(request.getParameter("fromDate")==null)) {
 			fromDate=Integer.parseInt(request.getParameter("fromDate").replaceAll("-", ""));
