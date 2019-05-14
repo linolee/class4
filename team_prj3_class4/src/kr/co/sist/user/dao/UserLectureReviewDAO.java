@@ -37,12 +37,36 @@ public class UserLectureReviewDAO {
 		} // end if
 		return ssf;
 	}// getSqlSessionFactory
+
+///////////////////////////////////////////////////////////////페이징//////////////////////////////////////////////////////////////	
+	public int reviewTotalCnt(Map<String, Object> param) {
+	SqlSession ss = getSessionFactory().openSession();
 	
-	public List<Review> selectReview (Map<String, String> map){
+	int cnt = ss.selectOne("reviewTotalCnt", param);
+	ss.close();
+	
+	return cnt;
+} // reviewTotalCnt
+///////////////////////////////////////////////////////////////페이징//////////////////////////////////////////////////////////////		
+	
+	public List<Review> selectReview(Map<String, Object> map){
 		SqlSession ss = getSessionFactory().openSession();
 		
-		System.out.println(map.get("tn_list"));
-		List<Review> list = ss.selectList("selectReview",map);
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		System.out.println(map.get("nameList"));
+		
+		List<Review> list = ss.selectList("selectReview", map);
 		ss.close();
 		
 		return list;
@@ -62,8 +86,7 @@ public class UserLectureReviewDAO {
 		ss.close();
 		
 		return list;
-	} // selectTeacherName
-	
+	} // selectTeacherNam
 	public Review selectReviewDetail(Map<String, String> map){
 		SqlSession ss = getSessionFactory().openSession();
 		

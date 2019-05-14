@@ -3,8 +3,14 @@ package kr.co.sist.user.domain;
 public class Review {
 
 	private String lname, name, subject, rDate, teacherName, lcode, contents, clientId;
-	private int num;
+	private int num, score;
 
+	public int getScore() {
+		return score;
+	}
+	public void setScore(int score) {
+		this.score = score;
+	}
 	public String getContents() {
 		return contents;
 	}

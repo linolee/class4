@@ -21,6 +21,7 @@ import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
 import kr.co.sist.user.domain.TClass;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.ReviewListVO;
 
 @Component
 public class DetailDAO {
@@ -102,19 +103,19 @@ public class DetailDAO {
 		return noptList;
 	}//selectNoOpt
 	
-	public List<ReviewDomain> selectReviewList(String lcode){
+	public List<ReviewDomain> selectReviewList(ReviewListVO rvlistvo){
 		List<ReviewDomain> rvList=null;
 		
 		SqlSession ss=getSessionFactory().openSession();
-		rvList=ss.selectList("selectReviewList", lcode);
+		rvList=ss.selectList("selectReviewList", rvlistvo);
 		ss.close();
 		return rvList;
 	}//selectReviewList
 	
-	public int selectRTotalCount() {
+	public int selectRTotalCount(String lcode) {
 		int cnt=0;
 		SqlSession ss = getSessionFactory().openSession();
-		cnt=ss.selectOne("selectReviewTotalCnt");
+		cnt=ss.selectOne("selectReviewTotalCnt",lcode);
 		ss.close();
 		return cnt;
 	}//selectRTotalCount
@@ -212,6 +213,19 @@ public class DetailDAO {
 		return flag;
 	}//insertJoin
 	
+	public boolean updateJoin(ListVO lvo) {
+		boolean flag=false;
+		int cnt=0;
+		SqlSession ss=getSessionFactory().openSession();
+		cnt = ss.insert("updateJoin2", lvo);
+		if(cnt != 0) {
+			flag=true;
+			ss.commit();
+		}//end if
+		ss.close();
+		return flag;
+	}//updateJoin
+	
 	public boolean cancelJoin(ListVO lvo) {
 		boolean flag=false;
 		int cnt=0;
@@ -221,9 +235,18 @@ public class DetailDAO {
 			flag=true;
 			ss.commit();
 		}//end if
+		
 		ss.close();
 		return flag;
 	}//cancelJoin
+	
+	public String joinStatus1(ListVO lvo) {
+		String joinstatus="";
+		SqlSession ss=getSessionFactory().openSession();
+		joinstatus=ss.selectOne("joinStatus", lvo);
+		ss.close();
+		return joinstatus;
+	}
 	
 	
 /*	public static void main(String[] args) {

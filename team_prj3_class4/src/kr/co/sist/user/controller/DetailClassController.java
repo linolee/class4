@@ -4,8 +4,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.sist.admin.domain.QnaQuestionList;
 import kr.co.sist.user.domain.Addr;
 import kr.co.sist.user.domain.ClassTime;
 import kr.co.sist.user.domain.DetailContents;
+import kr.co.sist.user.domain.Join;
 import kr.co.sist.user.domain.JoinCount;
 import kr.co.sist.user.domain.QnA;
 import kr.co.sist.user.domain.ReviewDomain;
@@ -33,6 +31,7 @@ import kr.co.sist.user.domain.TClass;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.detailClassService;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.ReviewListVO;
 import kr.co.sist.user.vo.UserLoginVO;
 
 
@@ -40,7 +39,7 @@ import kr.co.sist.user.vo.UserLoginVO;
 public class DetailClassController {
 			
 	@RequestMapping(value="/user/classDetail/detail.do", method=GET)
-	public String showDetailClass(kr.co.sist.admin.vo.ListVO listvo,HttpSession session,String lcode,Model model) {
+	public String showDetailClass(HttpSession session,String lcode,Model model, ReviewListVO rvlistvlo) {
 		
 		String id=(String) session.getAttribute("client_id");
 
@@ -57,22 +56,26 @@ public class DetailClassController {
 		String like=null;
 		Addr addr=null;
 
-		//String lcodetest="2";
-		
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		detailClassService dcs=ac.getBean(detailClassService.class);
 		
-		int totalCount = dcs.RtotalCount();// 총 게시물의 수//
-		int pageScale = dcs.RpageScale();
-		int totalPage = dcs.RtotalPage(totalCount);// 전체 게시물을 보여주기 위한 총 페이지 수
-		if (listvo.getCurrentPage() == 0) { // web parameter에 값이 없을 때
-			listvo.setCurrentPage(1);
+		int rtotalCount = dcs.RtotalCount(lcode);// 총 게시물의 수//
+		int rpageScale = dcs.RpageScale();
+		int rtotalPage = dcs.RtotalPage(rtotalCount);// 전체 게시물을 보여주기 위한 총 페이지 수
+		if (rvlistvlo.getCurrentPage() == 0) { // web parameter에 값이 없을 때
+			rvlistvlo.setCurrentPage(1);
 		}
-		int startNum = dcs.RstartNum(listvo.getCurrentPage());
+		int startNum = dcs.RstartNum(rvlistvlo.getCurrentPage());
 		int endNum = dcs.RendNum(startNum);
-		listvo.setStartNum(startNum);
-		listvo.setEndNum(endNum);
-		rvlist = dcs.searchRvList(lcode);
+		rvlistvlo.setStartNum(startNum);
+		rvlistvlo.setEndNum(endNum);
+		rvlistvlo.setLcode(lcode);
+		
+		rvlist = dcs.searchRvList(rvlistvlo);
+		String indexList = dcs.RindexList(rvlistvlo.getCurrentPage(), rtotalPage, "detail.do?lcode="+lcode, rvlistvlo.getLcode());
+		
+		
+		
 		
 		summary=dcs.searchSummary(lcode);
 		star=dcs.searchStar(lcode);
@@ -80,7 +83,7 @@ public class DetailClassController {
 		optlist=dcs.searchOpt(lcode);
 		noptlist=dcs.searchNoOpt();
 		detailc=dcs.searchDeContents(lcode);
-		rvlist=dcs.searchRvList(lcode);
+		//rvlist=dcs.searchRvList(lcode);
 		qnalist=dcs.searchQnaList(lcode);
 		tclist=dcs.searchTclassList(lcode);
 		day=dcs.searchClassday(lcode);
@@ -88,7 +91,14 @@ public class DetailClassController {
 		joinCount=dcs.searchJoinCount(lcode);
 		like=dcs.searchLike(lcode);
 		addr=dcs.searchAddr(lcode);
+
 		
+		/*String clientId="";
+		clientId = session.getAttribute("client_id").toString();
+		ListVO lvo=new ListVO(lcode, clientId);
+		joinStatus=(dcs.joinStatus(lvo)!=null);*/
+		//true 결과가 있으면 신청한상태=>update cancel
+
 		model.addAttribute("id",id);
 		
 		model.addAttribute("summary",summary);
@@ -106,7 +116,22 @@ public class DetailClassController {
 		model.addAttribute("like",like);
 		model.addAttribute("addr",addr);
 		
-		System.out.println(summary);
+		model.addAttribute("indexList",indexList);
+		model.addAttribute("rpageScale",rpageScale);
+		model.addAttribute("totalCount", rtotalCount);
+		model.addAttribute("currentPage", rvlistvlo.getCurrentPage());
+		model.addAttribute("keyword", rvlistvlo.getLcode());
+		model.addAttribute("page", "question");// @@
+		
+		if(id != null) {
+			ListVO lvo=new ListVO(lcode, id);
+			Join joinStatus3=null;
+			joinStatus3=dcs.joinStatus(lvo);
+			model.addAttribute("joinStatus3",joinStatus3);
+		}
+		
+		
+		//System.out.println(summary);
 		
 		return "user/classDetail/detail";
 	}//mvRecommendCalss
@@ -120,19 +145,39 @@ public class DetailClassController {
 		String clientId = session.getAttribute("client_id").toString();
 		boolean updateJoinStudent=false;
 		ListVO lvo=new ListVO(lcode, clientId);
+		
+		Join joinStatus2=null;
+		joinStatus2=dcs.joinStatus(lvo);
+		
+		
 		String sendjs=null;
-		boolean joinStatus=(dcs.joinStatus(lvo)!=null);
-		if(joinStatus) { //결과가 있으면 신청한상태=>update cancel
-			updateJoinStudent=dcs.cancelJoin(lvo);
-			if(updateJoinStudent){
-				sendjs="취소";
-			}//end if
-		}else { //그렇지 않으면 신청안한상태로 =>신청
+		//boolean joinStatus=(dcs.joinStatus(lvo)!=null);
+		if(joinStatus2 != null) {
+			if(joinStatus2.getStatus().equals("Y")) { //결과가 있으면 신청한상태=>update cancel
+				updateJoinStudent=dcs.cancelJoin(lvo);
+				if(updateJoinStudent){
+					sendjs="취소";
+				}//end if
+			}else if(joinStatus2.getStatus().equals("C")) {
+				updateJoinStudent=dcs.updateJoin(lvo);
+				if(updateJoinStudent) {
+					sendjs="다시신청";
+				}//end if
+			}else { //그렇지 않으면 신청안한상태로 =>신청
+				updateJoinStudent=dcs.insertJoin(lvo);
+				if(updateJoinStudent) {
+					sendjs="신청";
+				}//end if
+			}//end else
+			
+		}else {
 			updateJoinStudent=dcs.insertJoin(lvo);
-			if(updateJoinStudent) {
-				sendjs="신청";
-			}//end if
-		}//end else
+			sendjs="신청";
+		}
+	
+		
+		model.addAttribute("joinStatus2",joinStatus2);
+		//model.addAttribute("joinStatus",joinStatus);
 		return sendjs;
 	}//classJoin
 	
@@ -151,22 +196,45 @@ public class DetailClassController {
 		case UserLoginService.login_success:
 			loginPath = "/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 			break;
+		/*case UserLoginService.login_success:
+			loginPath = "/team_prj3_class4/user/main.do";
+			break;
 		case UserLoginService.login_blacklist:
-			loginPath = "/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
+			break;
+		case UserLoginService.login_deletedUser:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
+			break;
+		case UserLoginService.login_fail:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
+			break;*/
+		case UserLoginService.login_blacklist:
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
 			//loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black";
 			break;
 		case UserLoginService.login_deletedUser:
-			loginPath = "/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
 			//loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted";
 			break;
 		case UserLoginService.login_fail:
-			loginPath = "/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+			/*try {
+				PrintWriter out=response.getWriter();
+				out=response.getWriter();
+				out.println("<script>");
+				out.println("alert('다시 시도해보세용');");
+				out.println("history.go(-1);");
+				out.println("</script>");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			*/
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
 			//loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail";
 			break;
 		}
 		
-		System.out.println(uls.login(ulvo, session));
-		System.out.println(session.getAttribute("name"));
+		//System.out.println(uls.login(ulvo, session));
+		//System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);

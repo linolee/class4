@@ -34,21 +34,37 @@ a {color: #4b4783;}
 #m-content  {width: 90%; margin: 20px; display: block; margin-left: auto; margin-right: auto; padding: 5px; resize: none;}
 .modal-btn  {width: 35%; padding-top: 15px; margin: auto; margin-bottom: 15px; text-align: center;}
 .modal-btn btn { margin-right: 20px;}
-.modal-date {padding-bottom: 10px;}
+.modal-date  {padding-bottom: 10px;}
 .modal-writer {padding-bottom: 10px;}
+.modal-rate {padding-bottom: 10px;}
 .modal-reply {margin: 20px;}
 #m-reply {width: 100%; height: 90px; padding: 5px; resize: none;}
+.checked { color: orange;}
 
 /* Class Status */
-.applyPeoples {background:#fff; position: absolute; top: 40%; left: 39%; z-index: 9999;}
+.applyPeoples {height: auto; width: 400px; background:#fff; border: 1px solid #888888; position: absolute; top: 85%; left: 36%; z-index: 9999;}
+.applyPeoples h2 {text-align: center; font-weight: bold; padding: 10px;}
+.applyPeoples input {margin-left: 42%; height: 100%; margin-bottom: 10px;}
+#applyTr {width: 93%;}
+.apply-th {height: 45px; background-color: #605CA0;  color: #fff; margin: auto; text-align: center;}
+.apply-tr {text-align: center; height: 30px;}
 .tdHeight {height: 100px; font-size: 16px;}
 .class-list {text-align: center; height: 50px;}
+.class-list input {margin-top: 1px;}
 .panel-classList {padding-top: 25px; margin: auto; padding-bottom: 10px;}
 .panel-classList a {padding: 21px;}
 .panel-classList a:hover {font-weight: bold;}
+.ico {display: inline-block; padding: 0 11px; height: 34px; width: 80px; line-height: 31px; color: #fff;}
+.ac {border: 1px solid #9b0101; background: #f46060;}
+.rd {border: 1px solid #228288; background: #2fb7bf;}
+.ys {border: 1px solid #1c7817; background: #2dbf26;}
+.fn {border: 1px solid #383838; background: #777;}
+.in {border: 1px solid #000; background: #2c2c2c;}
+.ed {border: 1px solid #4b4783; background: #645fab;}
+.cc {border: 1px solid #e0820d; background: #fa8d2f;}
 
 /* 관리자 문의 */
-.addBtn {padding-top: 15px; float: right;} 
+.addBtn {margin-bottom: 10px; margin-right: 35px; float: right;} 
 #addQuestion {width: 500px; position: absolute; top: 35%; left: 35%; z-index: 9999;}
 #addQuestionFrm {border: 1px solid #333333; background-color: #FFFFFF; padding: 20px;}
 .qnaFormTitle {height: 30px; width: 92%; margin-left: 5px; padding: 5px; border: 1px solid #d1d1d1;}
@@ -56,26 +72,35 @@ a {color: #4b4783;}
 #qnaTxtArea {width: 100%; height: 200px; padding: 5px; border: 1px solid #d1d1d1; resize: none;}
 
 /* 강사 프로필 관리 */
-#addProfile {height: auto; width: 400px; position: absolute; top:10%; left: 35%; background: #fff; z-index: 9999;}
-#addProfileFrm {height:480px; padding: 10px;}
+#profileForm {height: auto; width: 400px; position: absolute; top:10%; left: 35%; background: #fff; z-index: 9999; position: absolute;}
+#addProfileFrm {padding: 10px;}
+#updateProfileFrm {padding: 10px;}
 .picture-area {height: 170px;}
-.picture-panel {width: 100px; height: 120px; border: 1px solid #888888; margin: 0px auto; margin-top: 5px; margin-bottom: 5px;}
+.picture-panel {width: 100px; border: 1px solid #888888; margin: 0px auto; margin-top: 5px; margin-bottom: 5px;}
 .picture-panel span {padding-left: 33%;}
 .picture-btn {text-align: center;}
+.picture-btn input {width: 100px; height: 100%; margin-left: 37%;}
 #picUpload {height: 100%;}
-.teacher-info {height: 290px; margin-top: 10px;}
+.teacher-info {margin-top: 10px;}
 .teacher-info-name-area {padding-bottom: 15px;}
-.teacher-info-name span {padding-right: 5px; font-weight: bold;}
+.teacher-info-name span {padding-right: 18px; font-weight: bold;}
 .inputBox {height: 30px; width: 60%; margin-right: 5px; padding: 5px;}
 #doubleCheck {height: 100%;}
 .teacher-edu {padding-bottom: 15px;}
 .teacher-edu span {padding-right: 5px; padding-bottom: 10px; font-weight: bold;}
 .classField {width: 60%; height: 30px;}
 .teacher-career {padding-bottom: 15px;}
-.teacher-career span {padding-right: 5px; font-weight: bold;}
+.careerOption {padding-right: 5px; font-weight: bold;}
+.career-span {margin-right: 10px;}
 #careerList {overflow: auto; height: 160px;}
-.careerDiv {padding-top: 5px;}
-#delCareer {height: 100%; margin-right: 10px;}
+.careerDiv {border-bottom: 1px solid #e5e5e5; width: 90%; margin-left: 5%; padding: 4px;}
+.delCareer {height: 100%; margin-right: 10px;}
 #addCareer {height: 100%;}
+.teacher-intro-area {height: 100px;}
 .teacher-intro-area span {padding-right: 5px; font-weight: bold;}
 #teacher-intro {width: 84%; height: 80px; float: right; margin-top: -18px; padding: 5px; margin-left: 5px; border: 1px solid #eeeeee; margin-bottom: 15px; resize: none;}
+.profileBtn {text-align: center;}
+.profileBtn input {margin-right: 5px;}
+
+/* 림처리 */
+.backLayer {display:none; background-color:black; position:absolute; left:0px; top:0px;} 

@@ -44,7 +44,7 @@ public class ReportController {
 		insertFlag=rs.insertReport(rvo);
 		
 		if(insertFlag) {
-			return "/user/classDetail/detail";
+			return "redirect:/user/classDetail/detail.do?lcode="+lcode;
 		}else {
 			return "user/student/report";
 		}//end else

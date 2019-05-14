@@ -46,7 +46,7 @@ $(function(){
 
 
 </script>
-<!--  -->
+
 <div class="card">
 	<div class="card-header">
 		<h5 style="margin-bottom: 0px;"><strong>블랙리스트</strong></h5>
@@ -118,9 +118,7 @@ $(function(){
 </div>
             
 
-<!--  -->
 
-<!-- modal -->
 
 <div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog">
@@ -155,7 +153,5 @@ $(function(){
 			</div>
 		</div>
 	</div>
-
-<!-- modal -->
 
 <c:import url="blacklist/modalBlackList.jsp"/>

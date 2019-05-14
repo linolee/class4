@@ -16,20 +16,35 @@
 		<result column="main_img" property="main_img"/>
 	</resultMap>
 	<select id="selectCategoryClassList" resultMap="SearchClassList1" parameterType="kr.co.sist.user.vo.SearchListVO" >
-		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img
+		<!-- select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img
 		from(
 		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, row_number() over(order by lcode desc) r_num
 		from lesson
 		where category like '%'||#{keyword}||'%'
 				or inner_category like '%'||#{keyword}||'%'
 		)
-		where r_num between #{ startNum } and #{ endNum }
+		where r_num between #{ startNum } and #{ endNum } -->
+      select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, cur_member, max_member
+      from(
+      select b.lcode, b.teacher_name, b.category, b.inner_category, b.lname, b.status, b.start_date, b.end_date, b.main_img, a.cur_member, b.max_member, row_number() over(order by b.lcode desc) r_num
+      from
+      (select lesson.lcode, count(*) cur_member
+      from lesson, students
+      where students.status != 'C' and lesson.lcode = students.lcode group by lesson.lcode ) a,
+      (select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, max_member
+      from lesson
+      where (category like '%'||#{keyword}||'%' or inner_category like '%'||#{keyword}||'%') and status != 'A' and status != 'R' and status != 'C'
+      ) b
+      where a.lcode(+) = b.lcode
+      
+      )
+      where r_num between #{ startNum } and #{ endNum }
 	</select>
 
 	<select id="selectCategoryTotalCnt" resultType="int" parameterType="String">
 		select count(*) cnt from lesson
-		where category like '%'||#{keyword}||'%'
-		or inner_category like '%'||#{keyword}||'%'
+		where (category like '%'||#{keyword}||'%'
+		or inner_category like '%'||#{keyword}||'%') and status != 'A' and status != 'R' and status != 'C' and status != 'E'
 	</select>
 
 	<select id="selectCategoryTotal" resultType="String">

@@ -11,6 +11,14 @@
 	order by category
 	]]>
 </select>
+<select id="selectCategoryListCnt" resultType="String">
+	<![CDATA[
+	select count(category) 
+	from category 
+	order by category
+	]]>
+</select>
+
 
 <resultMap type="kr.co.sist.user.domain.Category" id="category">
 	<result column="category" property="category"/>
@@ -23,6 +31,7 @@
 	where rownum <= 9 
 	]]>
 </select>
+
  
 <resultMap type="kr.co.sist.user.domain.Recommend" id="recommend">
 	<result column="lcode" property="lcode"/>
@@ -37,9 +46,24 @@
 <select id="selectRecommend" resultMap="recommend">
 	<![CDATA[
 	select * from(
-	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, substr(l.address,instr(address,' ')+1,instr(address,'구',7,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
+	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, 
+			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
 	from lesson l left join review r
 	on l.lcode=r.lcode
+	where l.status != 'A' and l.status != 'R' and l.status != 'C' and l.status != 'E'
+	group by   l_date,l.lcode,main_img, banner_img, lname, teacher_name, address
+	order by star desc,l_date
+	)where rownum<=9
+	]]>
+</select>
+<select id="selectRecommendCnt" resultType="String">
+	<![CDATA[
+	select count(*) from(
+	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, 
+			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
+	from lesson l left join review r
+	on l.lcode=r.lcode
+	where l.status != 'A' and l.status != 'R' and l.status != 'C' and l.status != 'E'
 	group by   l_date,l.lcode,main_img, banner_img, lname, teacher_name, address
 	order by star desc,l_date
 	)where rownum<=9
@@ -60,6 +84,19 @@
 <select id="selectLatestReview" resultMap="latestreview">
 	<![CDATA[
 	select * from
+	(select client_id, r.lcode, subject,r.contents, score, r_date, rank() over(partition by r.lcode order by r_date desc) rank, l.main_img, lname
+	from review r, lesson l
+	where l.lcode=r.lcode)
+	where score>=2
+	and rownum<=9
+	and rank=1
+	order by r_date desc,score
+	]]>
+</select>
+
+<select id="selectLatestReviewCnt" resultType="String">
+	<![CDATA[
+	select count(*) from
 	(select client_id, r.lcode, subject,r.contents, score, r_date, rank() over(partition by r.lcode order by r_date desc) rank, l.main_img, lname
 	from review r, lesson l
 	where l.lcode=r.lcode)

@@ -17,6 +17,7 @@ import kr.co.sist.user.domain.Star;
 import kr.co.sist.user.domain.Summary;
 import kr.co.sist.user.domain.TClass;
 import kr.co.sist.user.vo.ListVO;
+import kr.co.sist.user.vo.ReviewListVO;
 
 @Component
 public class detailClassService {
@@ -66,32 +67,32 @@ public class detailClassService {
 	public List<String> searchNoOpt() {
 		List<String> noptlist=null;
 		noptlist=d_dao.selectNoOpt();
-		for(String o:olist) {
-			for(String x:noptlist) {
-				if(olist==noptlist) {
-					noptlist.remove("o");
+		for(int a=0; a<olist.size(); a++) {
+			for(int b=0; b<noptlist.size(); b++) {
+				if(noptlist.get(b).equals(olist.get(a)) ) {
+					noptlist.remove(olist.get(a));
 				}//end if
 			}//end for
 		}//end for
 		return noptlist;
 	}//searchNoOpt
 	
-	public List<ReviewDomain> searchRvList(String lcode){
+	public List<ReviewDomain> searchRvList(ReviewListVO rvlistvo){
 		List<ReviewDomain> rvlist=null;
-		rvlist=d_dao.selectReviewList(lcode);
+		rvlist=d_dao.selectReviewList(rvlistvo);
 		return rvlist;
 	}//searchRvList
 	
 	// 1. 전체 게시물 수 얻기
-	public int RtotalCount() {
+	public int RtotalCount(String lcode) {
 		int cnt = 0;
-		cnt = d_dao.selectRTotalCount();
+		cnt = d_dao.selectRTotalCount(lcode);
 		return cnt;
 	}
 
 	// 2. 한 화면에 보여질 게시물의 수
 	public int RpageScale() {
-		int pageScale = 1;
+		int pageScale = 6;
 
 		return pageScale;
 	}
@@ -130,7 +131,7 @@ public class detailClassService {
 	 * @return
 	 */
 	// 현재 게시판의 페이지 인덱스 설정
-	public String RindexList(int current_page, int total_page, String list_url) {
+	public String RindexList(int current_page, int total_page, String list_url,String lcode) {
 		int pagenumber; // 화면에 보여질 페이지 인덱스 수
 		int startpage; // 화면에 보여질 시작페이지 번호
 		int endpage; // 화면에 보여질 마지막페이지 번호
@@ -157,9 +158,9 @@ public class detailClassService {
 		// 첫번째 페이지 인덱스 화면이 아닌경우
 		if (current_page > pagenumber) {
 			curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href=" + list_url + "&currentPage=" + curpage + "#review"+">Prev</a>]</li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href='#review'>Prev</a>]</li>";
 			
 		}
 
@@ -168,9 +169,9 @@ public class detailClassService {
 
 		while (curpage <= endpage) {
 			if (curpage == current_page) {
-				strList = strList + "<li class='page-item active'><a class='page-link' href='#'>"+current_page+"</a>";
+				strList = strList + "<li class='page-item active'>[<a class='page-link' href='#review'>"+current_page+"</a>]";
 			} else {
-				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="+curpage+">"+curpage+"</a></li>";
+				strList = strList + "<li class='page-item'>[<a class='page-link' href=" + list_url + "&currentPage="+curpage+"#review"+">"+curpage+ "</a>]</li>";
 			} // end else
 
 			curpage++;
@@ -179,9 +180,9 @@ public class detailClassService {
 		// 뒤에 페이지가 더 있는경우
 		if (total_page > endpage) {
 			curpage = endpage + 1;
-			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href="+list_url+"&currentPage="+curpage+"#review"+">Next</a>]</li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href='#review'>Next</a>]</li>";
 		} // end else
 
 		return strList;
@@ -343,6 +344,12 @@ public class detailClassService {
 	public boolean insertJoin(ListVO lvo) {
 		boolean flag=false;
 		flag=d_dao.insertJoin(lvo);
+		return flag;
+	}//insertJoin
+	
+	public boolean updateJoin(ListVO lvo) {
+		boolean flag=false;
+		flag=d_dao.updateJoin(lvo);
 		return flag;
 	}//insertJoin
 	

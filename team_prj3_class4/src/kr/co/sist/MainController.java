@@ -18,6 +18,11 @@ import kr.co.sist.user.service.mainContentsService;
 
 @Controller
 public class MainController {
+	
+	@RequestMapping(value = "user/main.do", method = GET)
+	public String mainPage() {
+		return "forward:/user/mainContents/mainContents.do";
+	}// mainPage
 		
 	@RequestMapping(value="/user/mainContents/mainContents.do", method = GET)
 	public String showContentsForm(Model model) {
@@ -36,16 +41,32 @@ public class MainController {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		mainContentsService mcs=ac.getBean(mainContentsService.class);
 		categoryList=mcs.showMenuCategory();
-		imgCate=mcs.searchImgCategory();
-		imgCate1=mcs.searchImgCategory1();
-		imgCate2=mcs.searchImgCategory2();
-		imgCate3=mcs.searchImgCategory3();
-		recommend1=mcs.selectRecommend1();
-		recommend2=mcs.selectRecommend2();
-		recommend3=mcs.selectRecommend3();
-		latestreview1=mcs.selectLatestReview1();
-		latestreview2=mcs.selectLatestReview2();
-		latestreview3=mcs.selectLatestReview3();
+		
+		int c_cnt = -1;//카테고리 수
+		int rc_cnt = -1;//레커멘드? 수
+		int rv_cnt = -1;//리뷰 수
+		c_cnt = mcs.caterogyCnt();
+		rc_cnt = mcs.recommendCnt();
+		rv_cnt = mcs.reviewCnt();
+		
+		if(c_cnt >= 9) {
+			imgCate=mcs.searchImgCategory();
+			imgCate1=mcs.searchImgCategory1();
+			imgCate2=mcs.searchImgCategory2();
+			imgCate3=mcs.searchImgCategory3();
+		}
+		////
+		if(rc_cnt >= 9) {
+			recommend1=mcs.selectRecommend1();
+			recommend2=mcs.selectRecommend2();
+			recommend3=mcs.selectRecommend3();
+		}
+		
+		if(rv_cnt >= 9) {
+			latestreview1=mcs.selectLatestReview1();
+			latestreview2=mcs.selectLatestReview2();
+			latestreview3=mcs.selectLatestReview3();
+		}
 		
 		model.addAttribute("clist",categoryList);
 		model.addAttribute("imgCate",imgCate);
