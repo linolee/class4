@@ -113,7 +113,7 @@ public class UserTeacherService {
 			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="
 			+ curpage + ">Prev</a></li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
+//			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 		}
 		
 		curpage = startpage;
@@ -134,7 +134,7 @@ public class UserTeacherService {
 			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="
 			+ curpage + ">Next</a></li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
+//			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
 		} // end else
 		
 		return strList;

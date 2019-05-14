@@ -107,7 +107,7 @@ public class UserReviewService {
 			curpage = startpage - 1;
 			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + currentPageStr + "currentPage=" + curpage + ">Prev</a></li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
+//			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 			
 		}
 
@@ -128,7 +128,7 @@ public class UserReviewService {
 			curpage = endpage + 1;
 			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
+//			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
 		} // end else
 
 		return strList;
