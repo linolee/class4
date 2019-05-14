@@ -86,8 +86,8 @@
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate1.category}'">
 		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate1.img}">
-	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
-	    				<label><c:out value="${imgCate1.category}"/></label>
+	    			<div style="width:100%;height:40px;clear:both;text-align:center;position: absolute;font-size: 30px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif; background: #A0A0A0">
+	    				<label style="color:#FFF;"><c:out value="${imgCate1.category}"/></label>
 	    			</div>
 		    		</div>
 		    	</c:forEach>
@@ -97,8 +97,8 @@
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate2.category}'">
 		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate2.img}">
-	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
-	    				<label><c:out value="${imgCate2.category}"/></label>
+	    			<div style="width:100%;height:40px;clear:both;text-align:center;position: absolute;font-size: 30px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;background: #A0A0A0">
+	    				<label style="color:#FFF;"><c:out value="${imgCate2.category}"/></label>
 	    			</div>
 		    		</div>
 		    	</c:forEach>
@@ -108,8 +108,8 @@
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate3.category}'">
 		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate3.img}">
-	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
-	    				<label><c:out value="${imgCate3.category}"/></label>
+	    			<div style="width:100%;height:40px;clear:both;text-align:center;position: absolute;font-size: 30px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;background: #A0A0A0">
+	    				<label style="color:#FFF;"><c:out value="${imgCate3.category}"/></label>
 	    			</div>
 		    		</div>
 		    	</c:forEach>
