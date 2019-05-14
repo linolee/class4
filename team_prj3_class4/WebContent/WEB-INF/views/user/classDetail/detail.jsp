@@ -568,7 +568,7 @@ $(function () {
 								<c:forEach var="tclist" items="${requestScope.tclist}">
 								<div style="cursor:pointer;width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
 									<div style="width: 150px; height: 100px;">
-										<img style="width: 150px; height: 100px;" src="/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
+										<img style="width: 150px; height: 100px;" src="/team_prj3_class4/upload/lessonMain/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
 									</div>
 									<div style="width: 150px; height: 100px;">
