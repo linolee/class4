@@ -149,28 +149,35 @@ public class DetailClassController {
 		Join joinStatus2=null;
 		joinStatus2=dcs.joinStatus(lvo);
 		
+		
 		String sendjs=null;
-		boolean joinStatus=(dcs.joinStatus(lvo)!=null);
-		if(joinStatus2.getStatus().equals("Y")) { //결과가 있으면 신청한상태=>update cancel
-			updateJoinStudent=dcs.cancelJoin(lvo);
-			if(updateJoinStudent){
-				sendjs="취소";
-			}//end if
-		}else if(joinStatus2.getStatus().equals("C")) {
-			updateJoinStudent=dcs.updateJoin(lvo);
-			if(updateJoinStudent) {
-				sendjs="다시신청";
-			}//end if
-		}else { //그렇지 않으면 신청안한상태로 =>신청
+		//boolean joinStatus=(dcs.joinStatus(lvo)!=null);
+		if(joinStatus2 != null) {
+			if(joinStatus2.getStatus().equals("Y")) { //결과가 있으면 신청한상태=>update cancel
+				updateJoinStudent=dcs.cancelJoin(lvo);
+				if(updateJoinStudent){
+					sendjs="취소";
+				}//end if
+			}else if(joinStatus2.getStatus().equals("C")) {
+				updateJoinStudent=dcs.updateJoin(lvo);
+				if(updateJoinStudent) {
+					sendjs="다시신청";
+				}//end if
+			}else { //그렇지 않으면 신청안한상태로 =>신청
+				updateJoinStudent=dcs.insertJoin(lvo);
+				if(updateJoinStudent) {
+					sendjs="신청";
+				}//end if
+			}//end else
+			
+		}else {
 			updateJoinStudent=dcs.insertJoin(lvo);
-			if(updateJoinStudent) {
-				sendjs="신청";
-			}//end if
-		}//end else
+			sendjs="신청";
+		}
 	
 		
 		model.addAttribute("joinStatus2",joinStatus2);
-		model.addAttribute("joinStatus",joinStatus);
+		//model.addAttribute("joinStatus",joinStatus);
 		return sendjs;
 	}//classJoin
 	
