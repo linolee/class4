@@ -17,6 +17,7 @@
 <!-- <link href="/docs/4.0/assets/css/docs.min.css" rel="stylesheet"> -->
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -33,6 +34,10 @@
 /* webshim.polyfill('forms forms-ext'); */
 function viewDetail(clientId,lcode) {
 	
+	$("#starScore").children().each(function() {
+		$(this).remove();
+	});
+	
 	var clientId = clientId;
 	var lcode = lcode;
 	var sendData = {"clientId":clientId, "lcode":lcode};
@@ -47,6 +52,19 @@ function viewDetail(clientId,lcode) {
 			$("#m-content").val(msg.contents);
 			$("#rDate").text(msg.rDate);
 			$("#wName").text(msg.name);
+			
+			var score = msg.score;
+			var scoreStr = "";
+			
+			for(var i = 1; i <= 5; i++){
+				if(i <= score){
+	 				scoreStr += '<span class="fa fa-star checked"></span>';			
+				}else{
+		 			scoreStr += '<span class="fa fa-star"></span>';
+				} // end else
+			} // end for
+			
+			$("#starScore").append(scoreStr);
 			
 			$(".panel-modal").show();
 		},
@@ -82,7 +100,6 @@ jQuery(function($) {
     $('#toDate').on('change', function() {
 	$('#fromDate').prop('max', $(this).val());
     });
-    
     
 });
 
@@ -131,7 +148,7 @@ jQuery(function($) {
 				
 				<!-- total_cnt -->
 				<div class="total_cnt">
-					총 <strong>${cnt}</strong>개의 게시글이 있습니다.
+					총 <strong>${totalCount}</strong>개의 게시글이 있습니다.
 				</div>
 				<!--// total_cnt -->
 				
@@ -155,8 +172,9 @@ jQuery(function($) {
 							</tr>
 						<c:if test="${not empty requestScope.r_list}">
 						<c:forEach var="List" items="${ requestScope.r_list }" varStatus="status">
+						<c:set var="i" value="${i+1}"/>
 							<tr class="content-list">
-								<td><c:out value="${ status.index+1 }"/></td>
+								<td>${ (totalCount-(currentPage-1)*pageScale-i)+1 }</td>
 								<td><c:out value="${ List.lname }"/></td>
 								<td><a href="#" onclick="viewDetail('${List.clientId}','${List.lcode}')"><c:out value="${ List.subject }"/></a></td>
 								<td><c:out value="${ List.name }"/></td>
@@ -176,16 +194,14 @@ jQuery(function($) {
 				</div>
 				<!--// listContents -->
 				
-				<!-- prev & next btn -->
-<!-- 						<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_first.gif" alt="처음으로"></a> -->
-<!-- 						<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_last.gif" alt="마지막으로"></a> -->
-				<div class="paging" style="text-aling: center">
-					<nav class="pagenate purple">
-						<!-- escapeXml="false" c:out으로 태그를 출력 할 때 -->
-						<c:out value="${indexList }" escapeXml="false"/>
-					</nav>
-				</div>
-				<!--// prev & next btn -->
+				<div style="text-align: center">
+					<div style="display: inline-block;">
+						<ul class="pagination ">
+							<c:out value="${ indexList }" escapeXml="false"/>
+						</ul>
+					</div>
+				</div>	
+				
 			</div>
 			<!--//row -->
 		</div>
@@ -207,6 +223,9 @@ jQuery(function($) {
 					</div>
 					<div class="modal-writer">
 						작성자 : <span id="wName"></span>
+					</div>
+					<div class="modal-rate">
+						별&nbsp;&nbsp;&nbsp;점 : <span id="starScore"></span>
 					</div>
 				</div>
 			</div>

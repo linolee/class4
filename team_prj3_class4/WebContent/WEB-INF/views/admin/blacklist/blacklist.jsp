@@ -5,17 +5,11 @@
 <script type="text/javascript">
 $(function(){
 	
-/* 	$("[name='detailBlackList']").click(function(){
-		var blackDetailName=$("[name='detailBlackList']").attr("id");
-		alert(blackDetailName);
-	}); */
-	
 	$("[name='detailBlackList']").click(function(){
 		var blackDetailName="";
 		blackDetailName=$(this).attr("id");
 
 				$.ajax({
-					//url:"../WEB-INF/views/admin/blacklist/ajaxTest.jsp",
 					url:"blackDetail.do",
 					type:"get",
 					data: "userID="+blackDetailName,
@@ -28,7 +22,6 @@ $(function(){
 						$("#bId").text(json.idResult);
 						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
-						//$("[name='hdnBlack']").val(decodeURIComponent(json.Id));
 						$("#bBirth").text(json.birth);
 						$("#bGender").text(json.gender);
 						$("#bTel").text(json.tel);

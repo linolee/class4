@@ -158,9 +158,9 @@ public class detailClassService {
 		// 첫번째 페이지 인덱스 화면이 아닌경우
 		if (current_page > pagenumber) {
 			curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
-			strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + "&lcode="+ lcode + ">Prev</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href=" + list_url + "&currentPage=" + curpage + "#review"+">Prev</a>]</li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href='#review'>Prev</a>]</li>";
 			
 		}
 
@@ -169,9 +169,9 @@ public class detailClassService {
 
 		while (curpage <= endpage) {
 			if (curpage == current_page) {
-				strList = strList + "<li class='page-item active'><a class='page-link' href='#'>"+current_page+"</a>";
+				strList = strList + "<li class='page-item active'>[<a class='page-link' href='#review'>"+current_page+"</a>]";
 			} else {
-				strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage="+curpage+"&lcode="+ lcode +">"+curpage+"</a></li>";
+				strList = strList + "<li class='page-item'>[<a class='page-link' href=" + list_url + "&currentPage="+curpage+"#review"+">"+curpage+ "</a>]</li>";
 			} // end else
 
 			curpage++;
@@ -180,9 +180,9 @@ public class detailClassService {
 		// 뒤에 페이지가 더 있는경우
 		if (total_page > endpage) {
 			curpage = endpage + 1;
-			strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+"&lcode="+ lcode +">Next</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href="+list_url+"&currentPage="+curpage+"#review"+">Next</a>]</li>";
 		} else {
-			strList = strList + "<li class='page-item'><a class='page-link' href='#'>Next</a></li>";
+			strList = strList + "<li class='page-item'>[<a class='page-link' href='#review'>Next</a>]</li>";
 		} // end else
 
 		return strList;

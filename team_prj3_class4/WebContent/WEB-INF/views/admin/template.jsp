@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>HI</title>
+<title>SIST Class4 2019 WEB Project</title>
 <style type="text/css">
 #file, #file2, #file3 { display:none; } 	
 .titleImg, .categoryImg{width:900px; height:300px; width:100%; height:100%;}

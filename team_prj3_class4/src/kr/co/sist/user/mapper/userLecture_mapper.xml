@@ -12,22 +12,62 @@
 	<result column="teacher_name" property="teacherName"/>
 	<result column="max_member" property="maxMember"/>
 	<result column="now_member" property="nowMember"/>
-	
 	<result column="client_id" property="clientId"/>
 	<result column="name" property="name"/>
 	<result column="tel" property="tel"/>
 </resultMap>
-<select id="selectLectureInfo" resultMap="LectureViewInfo" parameterType="map">
-	select STATUS, LNAME, LCODE, TO_CHAR(START_DATE,'yyyy-mm-dd') START_DATE,  TO_CHAR(END_DATE,'yyyy-mm-dd') END_DATE, TEACHER_NAME, MAX_MEMBER,
-		nvl((select count(*)
-			from STUDENTS
-			where lcode = #{ lcode }), 0) as now_member
-	from LESSON
-	where lcode = #{ lcode } <!-- map으로 넘길땐 key값으로 -->
 
-	<if test="status != null and !status.equals('') and !status.equals('All')">
-		and status = #{status}
-	</if>
+<select id="selectClassApplyCnt" resultMap="LectureViewInfo">
+	select S.lcode, count(*) now_member
+		from STUDENTS S
+			, CLIENT C
+		where S.client_id = C.client_id and	S.status = 'Y'
+		group by S.lcode
+</select>
+
+<select id="lectureTotalCnt" resultType="int" parameterType="map">
+	select count(*)
+		from LESSON
+		where teacher_name in
+        <foreach collection="nameList" item="name"  open="(" close=")" separator=",">
+            #{name}
+        </foreach>
+		<if test="status != null and !status.equals('') and !status.equals('All')">
+			and status = #{status}
+		</if>
+</select>
+
+<select id="selectLectureInfo" resultMap="LectureViewInfo" parameterType="map">
+	select *
+	from 
+		(select
+				L.STATUS, L.LNAME, L.LCODE,
+				TO_CHAR(L.START_DATE,'yyyy-mm-dd') START_DATE, TO_CHAR(L.END_DATE,'yyyy-mm-dd') END_DATE,
+				L.TEACHER_NAME, L.MAX_MEMBER
+				, nvl(A.now_member, 0) now_member
+				, row_number() over(order by L.lcode desc)r_num
+			from LESSON L
+		left outer join
+			(	
+				select S.lcode, count(*) now_member
+					from STUDENTS S
+						, CLIENT C
+					where S.client_id = C.client_id and	S.status = 'Y'
+					group by S.lcode
+			)		
+				A
+		on (A.lcode = L.lcode)
+		where L.teacher_name in
+		        <foreach collection="nameList" item="name"  open="(" close=")" separator=",">
+		            #{name}
+		        </foreach>
+	    		<if test="status != null and !status.equals('') and !status.equals('All')">
+					and L.status = #{status}
+				</if> 
+		) TT
+	
+	where
+		r_num between #{lpvo.startNum} and #{lpvo.endNum}	
 </select>
 
 <select id="selectLcode" resultType="String" parameterType="String">
@@ -60,10 +100,52 @@
     group by L.status
 </select>
 
+<!-- 신청 마감 -->
+<select id="selectApplyClassStatus" resultType="String" parameterType="map">
+	select lcode
+		from LESSON
+		where teacher_name = #{teacherName}
+			and status = 'Y' and due_date &lt; #{today}
+</select>
+<update id="updateApplyClassStatus" parameterType="String">
+	update LESSON
+		set status = 'F'
+		where lcode = #{value}
+		
+</update>
+
+<!-- 진행중 -->
+<select id="selectProgressClassStatus" resultType="String" parameterType="map">
+	select lcode
+		from LESSON
+		where teacher_name = #{teacherName}
+			and status in ('Y', 'F')
+			and #{today} &gt;= start_date and #{today} &lt; end_date
+</select>
+<update id="updateProgressClassStatus" parameterType="String">
+	update LESSON
+		set status = 'I'
+		where lcode = #{value}
+</update>
+
+<!-- 종료 -->
+<select id="selectEndClassStatus" resultType="String" parameterType="map">
+	select lcode
+		from LESSON
+		where teacher_name = #{teacherName}
+		and end_date &lt; #{today}
+</select>
+<update id="updateEndClassStatus" parameterType="String">
+	update LESSON
+		set status = 'E'
+		where lcode = #{value}
+</update>
+
+<!-- 오픈으로 상태값 변경 -->
+<update id="changeOpenClass" parameterType="String">
+	update LESSON
+		set status = 'Y'
+		where lcode = #{value}
+</update>
+
 </mapper>
-
-
-
-
-
-

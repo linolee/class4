@@ -57,7 +57,7 @@ body {padding-top: 0px;}
 			<c:import url="../header/header.jsp"></c:import>
 		</div>
 
-		<div id="container">
+		<div id="container" id="container">
 			<div class="areaFix">
 				<div class="container my-5">
 					<!-- Page Heading/Breadcrumbs -->

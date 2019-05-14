@@ -140,7 +140,11 @@
 			    					<c:out value="${recommend1.teacher_name}"/>
 			    				</div>
 			    				<div style="float: right;">
-			    					<c:out value="${recommend1.si}"/>><c:out value="${recommend1.gu}"/>
+			    				<c:set var="gu" value="${recommend1.gu}"/>
+		                          <c:if test="${gu eq '중'}">
+		                          <c:set var="gu" value="중구"/>
+		                          </c:if> 
+			    					<c:out value="${recommend1.si}"/>><c:out value="${gu}"/>
 			    				</div>
 			    				<br/>
 			    				<div style="margin:5px;height:33px;float: left;position:absolute;">
@@ -177,7 +181,11 @@
 			    					<c:out value="${recommend2.teacher_name}"/>
 			    				</div>
 			    				<div style="float: right;">
-			    					<c:out value="${recommend2.si}"/>><c:out value="${recommend2.gu}"/>
+			    				<c:set var="gu" value="${recommend2.gu}"/>
+	                          <c:if test="${gu eq '중'}">
+	                          <c:set var="gu" value="중구"/>
+	                          </c:if> 
+			    					<c:out value="${recommend2.si}"/>><c:out value="${gu}"/>
 			    				</div>
 			    				<br/>
 			    				<div style="margin:5px;height:33px;float: left;position:absolute;">
@@ -212,7 +220,11 @@
 		    					<c:out value="${recommend3.teacher_name}"/>
 		    				</div>
 		    				<div style="float: right;">
-		    					<c:out value="${recommend3.si}"/>><c:out value="${recommend3.gu}"/>
+		    				<c:set var="gu" value="${recommend3.gu}"/>
+	                          <c:if test="${gu eq '중'}">
+	                          <c:set var="gu" value="중구"/>
+	                          </c:if> 
+		    					<c:out value="${recommend3.si}"/>><c:out value="${gu}"/>
 		    				</div>
 		    				<br/>
 		    				<div style="margin:5px;height:33px;float: left;position:absolute;">

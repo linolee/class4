@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +25,13 @@ public class QuestionController {
 	private QnaService qs;
 	
 	@RequestMapping(value="/admin/question.do",method=GET)
-	public String questionPage( ListVO lvo, Model model ) {
+	public String questionPage( ListVO lvo, Model model, HttpSession session) {
+		
+		String loginChk=(String)session.getAttribute("loginFlag");
+		if("true"!=loginChk) {
+			return "redirect:/admin/AdminLogin.do";
+		}
+		
 		List<QnaQuestionList> list = null;
 
 		int totalCount = qs.totalCount();// 총 게시물의 수//
