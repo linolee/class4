@@ -168,6 +168,9 @@ $(function(){
 	});
 	
 	$('#myTab li:first-child a').tab('show')
+	if ("${param.currentPage}" != "") {
+		$('#myTab li:last-child a').tab('show')
+	}
 });//ready
 
 function CheckPassword() {
@@ -297,11 +300,83 @@ body {padding-top: 0px;}
 			  </div>
 			  <div class="tab-pane" id="report" role="tabpanel" aria-labelledby="report-tab">
 			  	<div class="mb-10 col-lg-10 mx-auto">
-					<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
-					<div id="summernote"></div>
-					<div id="reportBtnDiv">
-						<input type="button" value="제출하기" id="reportSubmitBtn" class="btn btn-secondary inputBtn">
+					<c:forEach var="listItem" items="${list }" varStatus="i" begin="1" step="1">
+					  <div class="card">
+					    <div class="card-header" id="heading${i.index }">
+					    	<table class="table">
+					    		<tr>
+					    			<th rowspan="2">
+					    				<c:choose>
+				    					<c:when test="${listItem.a_contents ne null}">
+								        <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapse${i.index }" aria-expanded="false" aria-controls="collapse${i.index }">
+								          	열기
+								        </button>
+				    					</c:when>
+				    					<c:otherwise>
+								        <button class="btn btn-light collapsed" type="button" data-toggle="collapse" data-target="#collapse${i.index }" aria-expanded="false" aria-controls="collapse${i.index }">
+								          	열기
+								        </button>
+				    					</c:otherwise>
+					    				</c:choose>
+					    			</th>
+					    			<th>문의 제목</th>
+					    			<th>질문 날짜</th>
+					    		</tr>
+					    		<tr>
+					    			<td>${listItem.q_subject }</td>
+					    			<td>${listItem.q_date }</td>
+					    		</tr>
+					    	</table>
+					      <h5 class="mb-0">
+					      </h5>
+					    </div>
+					    <div id="collapse${i.index }" class="collapse" aria-labelledby="heading${i.index }" data-parent="#accordionExample">
+					      <div class="card-body">
+					      	<table class="table">
+					    		<tr>
+					    			<th>문의 내용</th>
+					    			<td>${listItem.q_contents }</td>
+					    		</tr>
+					    		<c:if test="${listItem.a_contents ne null}">
+					    		<tr>
+					    			<th>답변 내용</th>
+					    			<td>${listItem.a_contents }</td>
+					    		</tr>
+					    		<tr>
+					    			<th>답변 날짜</th>
+					    			<td>${listItem.a_date}</td>
+					    		</tr>
+					    		</c:if>
+					    	</table>
+					      </div>
+					    </div>
+					  </div>
+					  </c:forEach>
+	  				<div style="text-align: center">
+						<div style="display: inline-block;">
+							<ul class="pagination ">
+								<c:out value="${ indexList }" escapeXml="false" />
+								<!-- escapeXml은 c:out으로 태그를 출력하게 만든다 -->
+							</ul>
+						</div>
 					</div>
+			  		
+			  		
+				    	<div class="card-header text-center" id="headingQna">
+					      <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseQna" aria-expanded="false" aria-controls="collapseQna">
+					      	관리자에게 문의
+					      </button>
+					    </div>
+					    <div id="collapseQna" class="collapse" aria-labelledby="headingQna" data-parent="#accordionExample">
+					      <div class="card-body">
+							<input type="text" id="reportSubject" placeholder="제목을 입력해주세요.">
+							<div id="summernote"></div>
+							<div id="reportBtnDiv" class="text-center">
+								<input type="button" value="제출하기" id="reportSubmitBtn" class="btn btn-secondary inputBtn">
+							</div>
+					      </div>
+					    </div>
+					  </div>
 			  	</div>
 			  </div>
 			</div>

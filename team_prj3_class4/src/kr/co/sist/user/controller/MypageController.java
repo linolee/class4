@@ -36,7 +36,7 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_list.do",method=GET)
 	public String indexPage( Model model ,  HttpSession session, HttpServletRequest request, ListPageVO lpvo) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -60,17 +60,17 @@ public class MypageController {
 			}//end if
 			if( !(request.getParameter("status") == null) ) {
 				tvo.setStatus(request.getParameter("status"));
-				totalCount=ums.totalCount(tvo); //ì´ ê²Œì‹œë¬¼ì˜ ìˆ˜
+				totalCount=ums.totalCount(tvo); //ÃÑ °Ô½Ã¹°ÀÇ ¼ö
 			}//end if
 			
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
@@ -138,7 +138,7 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_assess.do", method=GET)
 	public String mypageAssess(Model model ,  HttpSession session, HttpServletRequest request, ListPageVO lpvo) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -192,14 +192,14 @@ public class MypageController {
 				totalCount=allTotalCount;
 			}//end if
 			
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
@@ -307,7 +307,7 @@ public class MypageController {
 	@RequestMapping(value="user/student/mypage_assessWriter.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String mypage_assessWriter(Model model, HttpSession session, String lcode, String review, String point) {
 		int lessonPoint=Integer.parseInt(point);
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		String aa="";
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
@@ -318,7 +318,7 @@ public class MypageController {
 		}//end if
 		if( (ums.reviewStatus(lvo)==null) ) {
 			ums.insertReview(rvo);
-			aa="ì„±ê³µ";
+			aa="¼º°ø";
 		}//end if
 		
 		return aa;
@@ -326,7 +326,7 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_jjim.do", method=GET)
 	public String mypageJjim(Model model ,  HttpSession session, HttpServletRequest request, ListPageVO lpvo) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -359,14 +359,14 @@ public class MypageController {
 					}//end if
 				}//end if
 			}//end if
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
@@ -422,7 +422,7 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="user/student/jjimHeart.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
 	public String jjimHeart(Model model, HttpSession session, String lcode) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		String clientId = session.getAttribute("client_id").toString();
@@ -434,20 +434,20 @@ public class MypageController {
 		if( !(status==null) ) {
 			updateJjim=ums.deleteJjim(lvo);
 			if(updateJjim) {
-				jjim="â™¡";
+				jjim="¢½";
 			}//end if
 		}//end if
 		if( status==null ) {
 			updateJjim=ums.insertJjim(lvo);
 			if(updateJjim) {
-				jjim="â™¥";
+				jjim="¢¾";
 			}//end if
 		}//end if
 		return jjim;
 	}//searchDetail
 	@RequestMapping(value="user/student/mypage_cancel.do", method=GET)
 	public String mypageCancel(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -478,14 +478,14 @@ public class MypageController {
 				}//end if
 			}//end if
 			
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
@@ -531,7 +531,7 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_q&a.do", method=GET)
 	public String mypageQA(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -569,14 +569,14 @@ public class MypageController {
 				totalCount=ums.qnaStatusCnt(qsvo);
 			}//end if
 			
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
@@ -673,7 +673,7 @@ public class MypageController {
 	
 	@RequestMapping(value="user/student/mypage_report.do", method=GET)
 	public String mypageReport(Model model, HttpSession session, ListPageVO lpvo, HttpServletRequest request) {
-		//autowiredë¡œ ì˜ì¡´ì„± ì£¼ìž…//
+		//autowired·Î ÀÇÁ¸¼º ÁÖÀÔ//
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
 		UserMypageService ums = ac.getBean(UserMypageService.class);
 		if (session.getAttribute("client_id") != null) {
@@ -711,14 +711,14 @@ public class MypageController {
 				totalCount=ums.reportStatusCnt(rsvo);
 			}//end if
 			
-			int pageScale=ums.pageScale(); //í•œ í™”ë©´ì— ë³´ì—¬ì¤„ ê²Œì‹œë¬¼ì˜ ìˆ˜
-			int totalPage=ums.totalPage(totalCount); //ì´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ íŽ˜ì´ì§€ ìˆ˜
-			if(lpvo.getCurrentPage() == 0) { //web parameterì— ê°’ì´ ì—†ì„ ë•Œ
-				lpvo.setCurrentPage(1); //1ë²ˆë¶€í„° ì¡°íšŒí•´ì•¼ í•˜ë¯€ë¡œ 1ë¡œ ì„¤ì •
+			int pageScale=ums.pageScale(); //ÇÑ È­¸é¿¡ º¸¿©ÁÙ °Ô½Ã¹°ÀÇ ¼ö
+			int totalPage=ums.totalPage(totalCount); //ÃÑ °Ô½Ã¹°À» º¸¿©ÁÖ±â À§ÇÑ ÃÑ ÆäÀÌÁö ¼ö
+			if(lpvo.getCurrentPage() == 0) { //web parameter¿¡ °ªÀÌ ¾øÀ» ¶§
+				lpvo.setCurrentPage(1); //1¹øºÎÅÍ Á¶È¸ÇØ¾ß ÇÏ¹Ç·Î 1·Î ¼³Á¤
 			}//end if
 			
-			int startNum=ums.startNum(lpvo.getCurrentPage());//ì‹œìž‘ë²ˆí˜¸
-			int endNum=ums.endNum(startNum);//ëë²ˆí˜¸
+			int startNum=ums.startNum(lpvo.getCurrentPage());//½ÃÀÛ¹øÈ£
+			int endNum=ums.endNum(startNum);//³¡¹øÈ£
 			
 			if(endNum>lcodeList.size()) {
 				endNum=lcodeList.size();
