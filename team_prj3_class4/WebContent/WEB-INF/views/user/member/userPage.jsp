@@ -53,6 +53,7 @@
   var jb = jQuery.noConflict();
 </script>
 
+
 <script type="text/javascript">
 $(function(){
 	var checkCurPass = false;

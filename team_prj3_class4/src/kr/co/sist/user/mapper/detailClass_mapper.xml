@@ -50,9 +50,10 @@
 	<result column="address" property="address"/>
 	<result column="address2" property="address2"/>
 	<result column="together" property="together"/>
+	<result column="status" property="status"/>
 </resultMap>
 <select id="selectDeContents" resultMap="detailContents" parameterType="String">
-	select contents,curriculum,others,address,address2,together
+	select contents,curriculum,others,address,address2,together,status
 	from lesson
 	where lcode= #{lcode}
 </select>
@@ -75,14 +76,16 @@
 	<result column="score" property="score"/>
 	<result column="r_date" property="r_date"/>
 </resultMap>
-<select id="selectReviewList" resultMap="Review" parameterType="String">
-	select   client_id, subject, contents, score, r_date
+<select id="selectReviewList" resultMap="Review" parameterType="kr.co.sist.user.vo.ReviewListVO">
+	select *
+	from(select   client_id, subject, contents, score, r_date, row_number() over(order by lcode desc) r_num
 	from review
-	where lcode = #{lcode}
+	where lcode = #{lcode})
+	where r_num between #{ startNum } and #{ endNum }
 </select>
 
-<select id="selectReviewTotalCnt" resultType="int">
-select count(*) cnt from review
+<select id="selectReviewTotalCnt" resultType="int" parameterType="String">
+select count(*) cnt from review where lcode=#{lcode}
 </select>
 
 <resultMap type="kr.co.sist.user.domain.QnA" id="qna">
@@ -204,8 +207,13 @@ where client_id=#{clientId}
 and lcode=#{lcode}
 </select>
 
-
-
+<select id="joinStatus" resultType="String" parameterType="kr.co.sist.user.vo.ListVO">
+select status
+from students
+where client_id=#{clientId}
+and lcode=#{lcode}
+and status='Y'
+</select>
 
 
 </mapper>

@@ -18,17 +18,17 @@
 	</resultMap>
 	
 	<select id="selectClassList" resultMap="SearchClassList" parameterType="kr.co.sist.user.vo.SearchListVO" >
-		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, cur_member, max_member
+		select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, cur_member, max_member, due_date
 		from(
 		
-		select b.lcode, b.teacher_name, b.category, b.inner_category, b.lname, b.status, b.start_date, b.end_date, b.main_img, a.cur_member, b.max_member, row_number() over(order by b.lcode desc) r_num
+		select b.lcode, b.teacher_name, b.category, b.inner_category, b.lname, b.status, b.start_date, b.end_date, b.main_img, a.cur_member, b.max_member, b.due_date, row_number() over(order by b.lcode desc) r_num
 		from
 		(select lesson.lcode, count(*) cur_member
 		from lesson, students
 		where students.status != 'C' and lesson.lcode = students.lcode group by lesson.lcode ) a,
-		(select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, max_member
+		(select lcode, teacher_name, category, inner_category, lname, status, start_date, end_date, main_img, max_member, due_date
 		from lesson
-		where lname like '%'||#{keyword}||'%' and status != 'A' and status != 'R' and status != 'C'
+		where lname like '%'||#{keyword}||'%' and status != 'A' and status != 'R' and status != 'C' and status != 'E'
 		) b
 		where a.lcode(+) = b.lcode
 		
@@ -40,7 +40,7 @@
 
 	<select id="searchTotalCnt" resultType="int">
 		select count(*) cnt from lesson
-		where lname like '%'||#{keyword}||'%' and status != 'A' and status != 'R' and status != 'C'
+		where lname like '%'||#{keyword}||'%' and status != 'A' and status != 'R' and status != 'C' and status != 'E'
 	</select>
 
 	<select id="searchCategory" resultType="String">

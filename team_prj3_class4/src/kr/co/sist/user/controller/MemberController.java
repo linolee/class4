@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -21,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.service.FindIdpassService;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
+import kr.co.sist.user.vo.FindIdVO;
+import kr.co.sist.user.vo.FindPassVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
@@ -42,7 +46,10 @@ public class MemberController {
 	private UserPageService ups;
 	private UserJoinService ujs;
 	private UserReportService urs;
-
+	
+	@Autowired
+	private FindIdpassService fis;
+	
 	public MemberController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
@@ -52,15 +59,8 @@ public class MemberController {
 		this.urs = ac.getBean("UserReportService", UserReportService.class);
 	}
 
+
 	/////////////////////////////////////화면이동/////////////////////////////////////////////
-	
-	@RequestMapping(value = "user/main.do", method = GET)
-	public String mainPage() {
-
-		return "main";
-	}// mainPage
-
-
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
 		return "user/member/login";
@@ -69,14 +69,49 @@ public class MemberController {
 	@RequestMapping(value = "user/member/findID.do", method = GET)
 	public String findIDPage() {
 
-		return "user/member/findID";//
+		return "user/member/findID2";//
+	}// findIDPage
+
+	//id 찾기 결과
+	@RequestMapping(value = "user/member/findIDResult.do", method = POST)
+	public String findIDResultPage(HttpServletRequest request, Model m) {
+		//autowired
+		//ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		//FindIdpassService fis = ac.getBean(FindIdpassService.class);
+		
+		FindIdVO fivo = new FindIdVO(request.getParameter("name"), request.getParameter("email"));
+		String id = fis.searchId(fivo);
+		
+		m.addAttribute("id", id);
+		m.addAttribute("name", fivo.getName());
+		m.addAttribute("email", fivo.getEmail());
+		
+		return "user/member/findIDResult";//
 	}// findIDPage
 
 	@RequestMapping(value = "user/member/findPass.do", method = GET)
 	public String findPassPage() {
 
-		return "user/member/findPass";
+		return "user/member/findPass2";
 	}// findPassPage
+	
+	//비밀번호 찾기 결과
+	@RequestMapping(value = "user/member/findPassResult.do", method = POST)
+	public String findPassResultPage(HttpServletRequest request, Model m) {
+		//autowired
+		//ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
+		//FindIdpassService fis = ac.getBean(FindIdpassService.class);
+		
+		FindPassVO fpvo = new FindPassVO(request.getParameter("id"), request.getParameter("name"), request.getParameter("email"));
+		boolean flag = fis.searchPass(request, fpvo);
+		
+		//System.out.println("pass : " + flag);
+		
+		m.addAttribute("flag", flag);
+		m.addAttribute("email", fpvo.getEmail());
+		
+		return "user/member/findPassResult";//
+	}// findIDPage
 
 	@RequestMapping(value = "user/member/joinAgreement.do", method = GET)
 	public String joinAgreementPage() {
@@ -101,7 +136,7 @@ public class MemberController {
 
 		return "user/member/report";
 	}// reportPage
-	
+
 	@RequestMapping(value = "user/teacher/teacherPage.do", method = GET)
 	public void teacherPage(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		try {
@@ -110,88 +145,87 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}// teacherPage
-	
+
 	@RequestMapping(value = "user/member/findIdByEmail.do", method = GET)
 	public String findIdByEmailPage() {
-		
+
 		return "user/member/findIdByEmail";
 	}// reportPage
-	
-	/////////////////////////////////문의////////////////////////////////////////
-	
+
+	///////////////////////////////// 문의////////////////////////////////////////
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
 	public String guestReportSubmint(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
 		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// 입력이 성공했다면
 			json.put("resultFlag", true);
-		}else {
+		} else {
 			json.put("resultFlag", false);
 		}
 		return json.toJSONString();
 	}
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/memberReportSubmit.do", method = POST)
 	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
 		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {//입력이 성공했다면
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// 입력이 성공했다면
 			json.put("resultFlag", true);
-		}else {
+		} else {
 			json.put("resultFlag", false);
 		}
 		return json.toJSONString();
 	}
-	
-	///////////////////////////회원가입/////////////////////////////////////
-	
+
+	/////////////////////////// 회원가입/////////////////////////////////////
+
 	@RequestMapping(value = "user/member/join.do", method = POST)
 	public String joinPage(HttpServletRequest request, Model model) {
 		model.addAttribute("categoryMapping", ujs.CategoryMapping());
-		String[] emailDomainList = {"naver.com","google.com","daum.net", "hanmail.com", "hotmail.com", "sist.com"};
+		String[] emailDomainList = { "naver.com", "google.com", "daum.net", "hanmail.com", "hotmail.com", "sist.com" };
 		model.addAttribute("emailDomainList", emailDomainList);
 		return "user/member/join";
 	}// joinPage
-	
-	
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkId.do", method = POST)
 	public String checkId(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkId(request.getParameter("client_id"))) {//입력한 아이디가 이미 존재한다면
+		if (ujs.checkId(request.getParameter("client_id"))) {// 입력한 아이디가 이미 존재한다면
 			json.put("checkId", true);
-		}else {
+		} else {
 			json.put("checkId", false);
 		}
 		return json.toJSONString();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkTel.do", method = POST)
 	public String checkTel(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkTel(request.getParameter("tel"))) {//입력한 아이디가 이미 존재한다면
+		if (ujs.checkTel(request.getParameter("tel"))) {// 입력한 아이디가 이미 존재한다면
 			json.put("checkTel", true);
-		}else {
+		} else {
 			json.put("checkTel", false);
 		}
 		return json.toJSONString();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkEmail.do", method = POST)
 	public String checkEmail(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkEmail(request.getParameter("email"))) {//입력한 아이디가 이미 존재한다면
+		if (ujs.checkEmail(request.getParameter("email"))) {// 입력한 아이디가 이미 존재한다면
 			json.put("checkEmail", true);
-		}else {
+		} else {
 			json.put("checkEmail", false);
 		}
 		return json.toJSONString();
 	}
-	
+
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
 		//넘겨진 parameter 값으로 VO를 생성
@@ -204,14 +238,14 @@ public class MemberController {
 			favors =request.getParameterValues("favors");
 		}
 		ujs.memberJoin(mjvo, favors);
+
 		return "main";
 	}// joinPage
 
-	/////////////////////////////////회원정보/////////////////////////////////////////////////////////
-	
-	
+	///////////////////////////////// 회원정보///////////////////////////////////////////////////////
+
 	@RequestMapping(value = "user/member/userPage.do")
-	public String userPage(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
+	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			ClientPageInfo clientInfo = ups.clientInfo(client_id);
@@ -219,46 +253,47 @@ public class MemberController {
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
 			return "user/member/userPage";
-		}else {
+		} else {
 			return "user/member/login";
 		}
 	}// userPage
-	
+
 	@RequestMapping(value = "user/member/deleteUserAgreement.do", method = GET)
 	public String deleteUserAgreementPage() {
-		
+
 		return "user/member/deleteUserAgreement";
 	}// deleteUserAgreementPage
-	
+
 	@RequestMapping(value = "user/member/deleteUser.do", method = POST)
 	public String deleteUser(HttpSession session) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			session.invalidate();
 			if (ups.deleteUser(client_id) == 1) {
-				System.out.println(client_id+" 정상 삭제 완료");
+				System.out.println(client_id + " 정상 삭제 완료");
 			}
-			
+
 			return "main";
-		}else {
+		} else {
 			return "user/member/login";
 		}
 	}// deleteUserAgreementPage
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/changePassword.do", method = POST)
 	public String changePassword(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
-		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+		if (ups.changePassword(new ChangePasswordVO(session.getAttribute("client_id").toString(),
+				request.getParameter("password"))) == 1) {
 			json.put("resultFlag", true);
-		}else {
+		} else {
 			json.put("resultFlag", false);
 		}
 		return json.toJSONString();
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value = "user/member/memberPageRequestFavorInfo.do", method = POST, produces="text/plain;charset=UTF-8")
+	@RequestMapping(value = "user/member/memberPageRequestFavorInfo.do", method = POST, produces = "text/plain;charset=UTF-8")
 	public String memberPageRequestFavorInfo(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
 		JSONArray jsonArray = new JSONArray();
@@ -271,43 +306,47 @@ public class MemberController {
 		json.put("favorList", jsonArray);
 		return json.toJSONString();
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "user/member/checkPassword.do", method = POST)
 	public String checkPassword(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
-		if (ups.checkPassword(new UserLoginVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
+		if (ups.checkPassword(
+				new UserLoginVO(session.getAttribute("client_id").toString(), request.getParameter("password"))) == 1) {
 			json.put("resultFlag", true);
-		}else {
+		} else {
 			json.put("resultFlag", false);
 		}
 		return json.toJSONString();
 	}
-	
+
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
-	public String changeClientInfo(HttpServletRequest request ,HttpServletResponse response, HttpSession session, Model model) {
+	public String changeClientInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			Model model) {
 		String client_id = session.getAttribute("client_id").toString();
-		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"), request.getParameter("tel"));
+		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"),
+				request.getParameter("tel"));
 		ups.memberUpdate(mu_vo);
-		String[] favors= {}; 
+		String[] favors = {};
 		if (request.getParameterValues("favor") != null) {
-			favors =request.getParameterValues("favor");
+			favors = request.getParameterValues("favor");
 		}
 		ups.favorUpdate(client_id, favors);
-		return userPage(request ,response, session, model);
+		return userPage(request, response, session, model);
 	}
-	
 
 ///////////////////////////////////////////로그인///////////////////////////////////////////////////////////
-	
+
 	@RequestMapping(value = "user/teacher/login.do", method = POST)
 	public String loginTeacher() {
 		return "forward:/user/member/login.do";
 	}
+
 	@RequestMapping(value = "user/student/login.do", method = POST)
 	public String loginStudent() {
 		return "forward:/user/member/login.do";
 	}
+
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		// 입력받은 id와 pass로 vo를 생성
@@ -320,32 +359,30 @@ public class MemberController {
 			loginPath = "/team_prj3_class4/user/main.do";
 			break;
 		case UserLoginService.login_blacklist:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id="+request.getParameter("id");
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=black&id=" + request.getParameter("id");
 			break;
 		case UserLoginService.login_deletedUser:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id="+request.getParameter("id");
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=deleted&id=" + request.getParameter("id");
 			break;
 		case UserLoginService.login_fail:
-			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id="+request.getParameter("id");
+			loginPath = "/team_prj3_class4/user/member/loginPage.do?result=fail&id=" + request.getParameter("id");
 			break;
 		}
-		
-		//다시 원래 페이지로 돌아옴
+
+		// 다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}// login
-	
+
 	@RequestMapping(value = "user/member/logout.do", method = GET)
 	public String logout(HttpServletRequest request, HttpSession session) {
-		session.invalidate();//세션을 지우고
-		//다시 원래 페이지로 돌아옴
+		session.invalidate();// 세션을 지우고
+		// 다시 원래 페이지로 돌아옴
 		String referer = request.getHeader("Referer");
-		return "redirect:"+referer;
+		return "redirect:" + referer;
 	}// logout
-
-
 
 }
