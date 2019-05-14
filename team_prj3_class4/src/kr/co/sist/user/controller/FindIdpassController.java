@@ -22,7 +22,7 @@ public class FindIdpassController {
 	@RequestMapping(value = "user/member/findID.do", method = GET)
 	public String findIDPage() {
 
-		return "user/member/findID2";//
+		return "user/member/findID2";////
 	}// findIDPage
 
 	//id 찾기 결과
