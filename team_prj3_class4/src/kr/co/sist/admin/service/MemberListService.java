@@ -71,10 +71,12 @@ public class MemberListService {
 			json.put("jid", md.getClient_id());
 			json.put("jname", URLEncoder.encode(md.getName(),"UTF-8"));
 			json.put("jbirth", md.getBirth());
-			json.put("jgender", md.getGender());
 			json.put("jtel", md.getTel());
 			json.put("jinputdate", md.getInputdate());
 			json.put("jemail", md.getEmail());
+			json.put("jgender", md.getGender());
+			
+
 			
 			JSONObject json_temp = null;
 			if(!list.isEmpty()) {

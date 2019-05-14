@@ -23,13 +23,22 @@ $(function(){
 						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
 						$("#bBirth").text(json.birth);
-						$("#bGender").text(json.gender);
 						$("#bTel").text(json.tel);
 						$("#bInputdate").text(json.inputdate);
 						$("#bEmail").text(json.email);
 						$("#bReason").text(decodeURIComponent(json.reason.replace(space," ")));
 						$("#bBinputdate").val(json.b_date);
 
+						var jsonGender=json.gender;
+						var gender="";
+						if(jsonGender=="M"){
+							gender="남자";
+						}else{
+							gender="여자";
+						}
+						$("#bGender").text(gender);
+						
+						
 					}//success
 				});//ajax
 
@@ -98,7 +107,7 @@ $(function(){
                       		<td><c:out value="${black.client_id }"/></td>
                       		<td><c:out value="${black.name }"/></td>
                       		<td><c:out value="${black.birth }"/></td>
-                      		<td><c:out value="${black.gender }"/></td>
+                      		<td><c:out value="${black.gender=='M'?'남자':'여자' }"/></td>
                       		<td><c:out value="${black.email }"/></td>
                       		<td>
 	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }" ><span class="badge badge-danger">상세정보</span></a> 
