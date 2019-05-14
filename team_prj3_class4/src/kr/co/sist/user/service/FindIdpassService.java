@@ -4,7 +4,11 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +20,7 @@ import kr.co.sist.user.vo.UpdatePassVO;
 @Component
 public class FindIdpassService {
 
-	@Autowired
+	@Autowired(required=false)
 	private JavaMailSender mailSender;
 	@Autowired
 	private FindIdpassDAO f_dao;

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -22,14 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.sist.user.domain.ClientPageInfo;
-import kr.co.sist.user.service.FindIdpassService;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
 import kr.co.sist.user.service.UserReportService;
 import kr.co.sist.user.vo.ChangePasswordVO;
-import kr.co.sist.user.vo.FindIdVO;
-import kr.co.sist.user.vo.FindPassVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
@@ -47,9 +43,6 @@ public class MemberController {
 	private UserJoinService ujs;
 	private UserReportService urs;
 	
-	@Autowired
-	private FindIdpassService fis;
-	
 	public MemberController() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContext.xml");
 
@@ -66,52 +59,7 @@ public class MemberController {
 		return "user/member/login";
 	}// loginPage
 
-	@RequestMapping(value = "user/member/findID.do", method = GET)
-	public String findIDPage() {
-
-		return "user/member/findID2";//
-	}// findIDPage
-
-	//id 찾기 결과
-	@RequestMapping(value = "user/member/findIDResult.do", method = POST)
-	public String findIDResultPage(HttpServletRequest request, Model m) {
-		//autowired
-		//ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
-		//FindIdpassService fis = ac.getBean(FindIdpassService.class);
-		
-		FindIdVO fivo = new FindIdVO(request.getParameter("name"), request.getParameter("email"));
-		String id = fis.searchId(fivo);
-		
-		m.addAttribute("id", id);
-		m.addAttribute("name", fivo.getName());
-		m.addAttribute("email", fivo.getEmail());
-		
-		return "user/member/findIDResult";//
-	}// findIDPage
-
-	@RequestMapping(value = "user/member/findPass.do", method = GET)
-	public String findPassPage() {
-
-		return "user/member/findPass2";
-	}// findPassPage
-	
-	//비밀번호 찾기 결과
-	@RequestMapping(value = "user/member/findPassResult.do", method = POST)
-	public String findPassResultPage(HttpServletRequest request, Model m) {
-		//autowired
-		//ApplicationContext ac = new ClassPathXmlApplicationContext("kr/co/sist/di/ApplicationContextMainC.xml");
-		//FindIdpassService fis = ac.getBean(FindIdpassService.class);
-		
-		FindPassVO fpvo = new FindPassVO(request.getParameter("id"), request.getParameter("name"), request.getParameter("email"));
-		boolean flag = fis.searchPass(request, fpvo);
-		
-		//System.out.println("pass : " + flag);
-		
-		m.addAttribute("flag", flag);
-		m.addAttribute("email", fpvo.getEmail());
-		
-		return "user/member/findPassResult";//
-	}// findIDPage
+	//id pass 찾기가 잇엇던 곳 ,, //
 
 	@RequestMapping(value = "user/member/joinAgreement.do", method = GET)
 	public String joinAgreementPage() {
