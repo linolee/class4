@@ -40,11 +40,11 @@
 	<table class="table table-responsive-sm table-striped" style="text-align:center">
 		<thead>
 			<tr>
-				<th width="100px">강의코드</th>
-				<th width="100px">카테고리</th>
-				<th width="500px" align="center">강의명</th>
-				<th width="200px">강사명</th>
-				<th width="100px">진행상황</th>
+				<th width="150px">강의코드</th>
+				<th width="150px">카테고리</th>
+				<th width="350px" align="center">강의명</th>
+				<th width="250px">강사명</th>
+				<th width="150px">진행상황</th>
 			</tr>
 		</thead>
 		<tbody>

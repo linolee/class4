@@ -127,12 +127,12 @@ $(function(){
 			<thead>
 				<tr>
 					<th width="100px">번호</th>
-					<th width="100px">아이디</th>
-					<th width="100px">이름</th>
-					<th width="100px">생년월일</th>
+					<th width="150px">아이디</th>
+					<th width="150px">이름</th>
+					<th width="130px">생년월일</th>
 					<th width="100px">성별</th>
 					<th width="200px">이메일</th>
-					<th width="200px">비고</th>
+					<th width="50px">비고</th>
 				</tr>
 			</thead>
 			<tbody>
