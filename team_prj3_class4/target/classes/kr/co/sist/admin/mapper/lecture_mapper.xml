@@ -13,7 +13,7 @@
 </resultMap>
 
 <select id="lectureTotalCnt" resultType="int">
-select count(*) cnt from lesson where authority='Y'
+select count(*) cnt from lesson where not status='A'
 </select>
 
 <select id="selectLectureList" resultMap="lectureResult">
