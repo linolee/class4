@@ -226,8 +226,8 @@ public class DetailClassController {
 			break;
 		}
 		
-		System.out.println(uls.login(ulvo, session));
-		System.out.println(session.getAttribute("name"));
+		//System.out.println(uls.login(ulvo, session));
+		//System.out.println(session.getAttribute("name"));
 		//다시 원래 페이지로 돌아옴
 		try {
 			response.sendRedirect(loginPath);
