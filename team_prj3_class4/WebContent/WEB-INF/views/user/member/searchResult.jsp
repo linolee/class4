@@ -49,7 +49,7 @@ body {
 		</div>
 
 		<!-- Page Content -->
-		<div class="container">
+		<div class="container" id="container">
 
 			<!-- Page Heading/Breadcrumbs -->
 				<div class="card">
