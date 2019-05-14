@@ -159,7 +159,7 @@ $(function () {
 		<h5 style="margin-bottom: 0px;"><strong>타이틀</strong></h5>
 	</div>
 	<div class="card-body">
-                    <div style="font-size:15px;"> ★ 이미지 최적사이즈는 가로1200px, 세로 400px입니다</div>
+                    <div style="font-size:15px;"> ★ 이미지 최적사이즈는 가로960px, 세로 640px입니다</div>
 				
 		<div>
 				<table class="table table-responsive-sm">
