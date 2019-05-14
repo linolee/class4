@@ -65,4 +65,10 @@ from client where ${option} like '%'||#{keyword}||'%') c left outer join blackli
 where r_num between #{startNum} and #{endNum}
 </select>
 
+<select id="deleteUserChk" parameterType="String">
+select c.client_id
+from client c, deleted_user d
+where d.client_id=#{client_id} and c.client_id=#{client_id}
+</select>
+
 </mapper>

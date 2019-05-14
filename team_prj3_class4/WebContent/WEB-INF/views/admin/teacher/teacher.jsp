@@ -149,9 +149,7 @@ function teacherInfo(teacherName) {
 					<td><c:out value="${teacher.birth }"/></td>
 					<td><c:out value="${teacher.email }"/></td>
 					<td>
-						<!-- <form method="get" action="./member.jsp" class="form-inline"> -->
 							<a data-toggle="modal" href="#modalTeacher" onclick="teacherInfo('${ teacher.teacherName }')"><span class="badge badge-primary">상세정보</span></a>
-						<!-- </form> -->
 					</td>
 				</tr>
 				</c:forEach>

@@ -157,12 +157,10 @@ $(function(){
 					<td><c:out value="${ member.email }"/></td>
 					
 					<td>
-						<form method="get" action="./member.jsp" class="form-inline">
 							<a data-toggle="modal" href="#modalUserInfo" onclick="userInfo('${ member.client_id }')"><span class="badge badge-primary">상세정보</span></a>
 							<c:if test="${empty member.reason }">
 								<a data-toggle="modal" href="#modalAddBlackList" onclick="addBlack('${ member.client_id }')"><span class="badge badge-warning">블랙리스트 등록</span></a>
 							</c:if>
-						</form>
 					</td>
 				</tr>
 				</c:forEach>
