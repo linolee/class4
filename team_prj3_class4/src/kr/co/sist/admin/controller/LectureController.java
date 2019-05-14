@@ -77,7 +77,13 @@ public class LectureController {
 		}
 		
 		String indexList = is.indexList(lvo.getCurrentPage(), totalPage, "lecture.do");
-		
+		System.out.println("-+++-+--++-+-+-+-+-+-+++-+-+-+-+-");
+		System.out.println("-+++-+--++-+-+-+-+-+-+++-+-+-+-+-");
+		System.out.println(lvo.getCurrentPage());
+		System.out.println(totalPage);
+		System.out.println(indexList);
+		System.out.println("-+++-+--++-+-+-+-+-+-+++-+-+-+-+-");
+		System.out.println("-+++-+--++-+-+-+-+-+-+++-+-+-+-+-");
 		model.addAttribute("page", "lecture/lecture");
 		model.addAttribute("lectureList", list);
 		model.addAttribute("indexList", indexList);

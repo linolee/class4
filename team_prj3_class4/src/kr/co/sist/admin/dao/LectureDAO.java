@@ -83,11 +83,11 @@ public class LectureDAO {
 	}
 	public static void main(String[] args) {
 		LectureDAO ldao=new LectureDAO();
-		LectureStatusVO lsvo=new LectureStatusVO();
+		/*LectureStatusVO lsvo=new LectureStatusVO();
 		lsvo.setCurrentPage(1);
 		lsvo.setStartNum(1);
 		lsvo.setEndNum(10);
-		lsvo.setStatus("F");
-		System.out.println(ldao.lectureStatusSearch(lsvo));
+		lsvo.setStatus("F");*/
+		ldao.selectTotalCount();
 	}
 }

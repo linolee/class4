@@ -94,7 +94,6 @@ $(function(){
                       	<c:forEach var="black" items="${blackList }">
                       	<c:set var="i" value="${i+1 }"/>
                       	<tr>
-                      		<!-- <input type="hidden" value="" id="hdnBlackList"/> -->
                       		<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
                       		<td><c:out value="${black.client_id }"/></td>
                       		<td><c:out value="${black.name }"/></td>
@@ -102,9 +101,7 @@ $(function(){
                       		<td><c:out value="${black.gender }"/></td>
                       		<td><c:out value="${black.email }"/></td>
                       		<td>
-	                           <form method="get" action="./member.jsp" class="form-inline">
 	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }" ><span class="badge badge-danger">상세정보</span></a> 
-                          	</form>
                           </td> 
                       	</tr>
                       	</c:forEach>
