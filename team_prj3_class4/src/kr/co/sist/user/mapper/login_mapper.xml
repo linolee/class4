@@ -19,18 +19,18 @@
 	<result column="b_date" property="b_date"/>
 </resultMap>
 <select id="selectBlacklist" resultMap="Blacklist" parameterType="String">
-	select client_id
-	from client
-	where client_id = #{id} and deleted = 'Y'
+	select client_id, reason, b_date
+	from blacklist
+	where client_id = #{id} 
 </select>
 <resultMap type="kr.co.sist.user.domain.DeletedUser" id="DeletedUser">
 	<result column="client_id" property="client_id"/>
 	<result column="d_date" property="d_date"/>
 </resultMap>
 <select id="selectDeletedUser" resultMap="DeletedUser" parameterType="String">
-	select client_id, d_date
-	from deleted_user
-	where client_id = #{id} 
+	select client_id
+	from client
+	where client_id = #{id} and deleted = 'Y'
 </select>
 
 </mapper>
