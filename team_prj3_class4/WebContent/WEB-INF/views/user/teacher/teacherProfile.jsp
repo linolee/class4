@@ -407,12 +407,39 @@ $(function(){
 	
 	
 });//ready
+/* 
+//배경 조절 버튼 클릭시 클릭 이벤트
+$("#profileForm").click(function(){ 
+   var width = $(window).width(); 
+   var height = $(window).height(); //화면을 가리는 레이어의 사이즈 조정 
+   $(".backLayer").width(width); 
+   $(".backLayer").height(height); //화면을 가리는 레이어를 보여준다 (0.5초동안 30%의 농도의 투명도) 
+   $(".backLayer").fadeTo(500, 0.3); //팝업 레이어 보이게 
+   var loadingDivObj = $("#profileForm"); 
+   loadingDivObj.css("top", $(document).height()/2-150); 
+   loadingDivObj.css("left",$(document).width()/2-150); 
+   loadingDivObj.fadeIn(500); 
+});
+//esc키 누르면 화면 잠김 해제 
+$(document).keydown(function(event){ 
+   if(event.which=='27'){ 
+      $("#loadingDiv").fadeOut(300); 
+      $(".backLayer").fadeOut(1000); 
+   } 
+}); 
 
+//윈도우가 resize될때마다 wrap 조정 
+$(window).resize(function(){ 
+   var width = $(window).width(); 
+   var height = $(window).height(); 
+   $(".backLayer").width(width).height(height); 
+}); */
 </script>
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 </head>
 <body>
+<!-- <div class="backLayer" style=""> -->
 <div id="wrap">
 	<div id="header">
 		<c:import url="../header/header.jsp"></c:import>
@@ -561,7 +588,8 @@ $(function(){
 	<div id="footer">
 		<c:import url="../footer/footer.jsp" />
 	</div>
-</div>
+</div>	
+<!-- </div> -->
 
 </body>
 </html>
