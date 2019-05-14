@@ -493,12 +493,12 @@ $(function () {
 											<div style="margin-left:8px;">
 											<c:out value="${rvlist.subject}"/>
 											</div>
+											</td> --%>
 											<td style="text-align: left; font-size:15px;margin-left: 5px;">
 												<div style="margin-left:8px;">
 												<c:out value="${rvlist.contents}"/>
 												</div>
 											</td>
-											</td> --%>
 										</tr>
 										<tr style="border-bottom: 1px solid #ccc;">
 											<td style="text-align: left; font-size: 12px; color: #ccc;">
