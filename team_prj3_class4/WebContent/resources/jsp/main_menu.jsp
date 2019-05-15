@@ -10,7 +10,7 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> -->
 
 <!-- SmartMenus jQuery plugin -->
-<script type="text/javascript" src="http://localhost:8080/spring_mvc/common/smartmenu/jquery.smartmenus.min.js"></script>
+<script type="text/javascript" src="http://localhost:8080/team_prj3_class4/common/smartmenu/jquery.smartmenus.min.js"></script>
 
 <!-- SmartMenus jQuery init -->
 <script type="text/javascript">
