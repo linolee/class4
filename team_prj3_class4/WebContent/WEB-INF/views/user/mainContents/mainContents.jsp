@@ -22,7 +22,7 @@
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="/team_prj3_class4/resources/maincontents/touchslider.js"></script>
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/maincontents/touchslider.js"></script>
 <script type="text/javascript">
  $(function(){
 	 $(".imgcategory").click(function(){
@@ -47,13 +47,13 @@
 			    <li style='display:block; width: 1100px;height: 500px;'>
 			    <div id="TitleImg1">
 			    	<!-- <img src="/team_prj3_class4/resources/img/headerImg1.jpg" width="100%" height="100%" /> -->
-			    	<img src="/team_prj3_class4/upload/title/titleImg01.jpg" width="100%" height="100%" />
+			    	<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg01.jpg" width="100%" height="100%" />
 				</div></li>
 			    <li style="width: 1100px;"><div id="TitleImg2">
-			    	<img src="/team_prj3_class4/upload/title/titleImg02.jpg" width="100%" height="100%" />
+			    	<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg02.jpg" width="100%" height="100%" />
 				</div></li>
 			    <li style="width: 1100px;"><div id="TitleImg3">
-			    	<img src="/team_prj3_class4/upload/title/titleImg03.jpg" width="100%" height="100%" />
+			    	<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg03.jpg" width="100%" height="100%" />
 				</div></li>
 			  </ul>
 		</div>
@@ -85,7 +85,7 @@
 		    	<c:forEach var="imgCate1" items="${ requestScope.imgCate1}">
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate1.category}'">
-		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate1.img}">
+		    		<img style="float: left;position:none; width:100%;height:100%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/category/${imgCate1.img}">
 	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
 	    				<label><c:out value="${imgCate1.category}"/></label>
 	    			</div>
@@ -96,7 +96,7 @@
 		    	<c:forEach var="imgCate2" items="${ requestScope.imgCate2}">
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate2.category}'">
-		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate2.img}">
+		    		<img style="float: left;position:none; width:100%;height:100%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/category/${imgCate2.img}">
 	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
 	    				<label><c:out value="${imgCate2.category}"/></label>
 	    			</div>
@@ -107,7 +107,7 @@
 		    	<c:forEach var="imgCate3" items="${ requestScope.imgCate3}">
 		    		<c:set var="i" value="${ i + 1 }"/>
 		    		<div id="cg0${i}" class="imgcategory" onclick="location.href='categorySearch.do?keyword=${imgCate3.category}'">
-		    		<img style="float: left;position:none; width:100%;height:100%;" src="/team_prj3_class4/upload/category/${imgCate3.img}">
+		    		<img style="float: left;position:none; width:100%;height:100%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/category/${imgCate3.img}">
 	    			<div style="width:100%;clear:both;text-align:center;position: absolute;font-size: 24px; top:75px; font-weight:bold;font-family: NanumGothic, '돋움', dotum, Helvetica, sans-serif;">
 	    				<label><c:out value="${imgCate3.category}"/></label>
 	    			</div>
@@ -128,9 +128,9 @@
 				<li style='display:block; height: 300px'><div>
 					<c:forEach var="recommend1" items="${ requestScope.recommend1}">
 			    		<c:set var="a" value="${a + 1 }"/>
-			    		<div id="rc0${a}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend1.lcode}'">
+			    		<div id="rc0${a}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend1.lcode}'">
 			    		<input type="hidden" name="recommend" value="${recommend1.lcode}"/>
-			    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${recommend1.main_img}">
+			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${recommend1.main_img}">
 			    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 			    				<div style="width:250px; height:42px;font-size: 17px; font-weight:bold;">
 			    					<c:out value="${recommend1.lname}"/>
@@ -170,8 +170,8 @@
 				<li><div>
 					<c:forEach var="recommend2" items="${ requestScope.recommend2}">
 			    		<c:set var="a" value="${a + 1 }"/>
-			    		<div id="rc0${a}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend2.lcode}'">
-			    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${recommend2.main_img}">
+			    		<div id="rc0${a}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend2.lcode}'">
+			    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${recommend2.main_img}">
 			    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 			    				<div style="width:250px; height:42px;font-size: 17px; font-weight:bold;">
 			    					<c:out value="${recommend2.lname}"/>
@@ -209,8 +209,8 @@
 			    <li><div>
 			    <c:forEach var="recommend3" items="${ requestScope.recommend3}">
 		    		<c:set var="a" value="${a + 1 }"/>
-		    		<div id="rc0${a}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend3.lcode}'">
-		    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${recommend3.main_img}">
+		    		<div id="rc0${a}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${recommend3.lcode}'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${recommend3.main_img}">
 		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 		    				<div style="width:250px; height:42px;font-size: 17px; font-weight:bold;">
 		    					<c:out value="${recommend3.lname}"/>
@@ -259,8 +259,8 @@
 			    <li style='display:block; height: 300px'>
 			    	<c:forEach var="latestreview1" items="${ requestScope.latestreview1}">
 		    		<c:set var="j" value="${j + 1 }"/>
-		    		<div id="rv0${j}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview1.lcode}#review'">
-		    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${latestreview1.main_img}">
+		    		<div id="rv0${j}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview1.lcode}#review'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${latestreview1.main_img}">
 		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
 		    					<c:out value="${latestreview1.lname}"/>
@@ -287,8 +287,8 @@
 			    <li><div>
 			    	<c:forEach var="latestreview2" items="${ requestScope.latestreview2}">
 		    		<c:set var="j" value="${j + 1 }"/>
-		    		<div id="rv0${j}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview2.lcode}#review'">
-		    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${latestreview2.main_img}">
+		    		<div id="rv0${j}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview2.lcode}#review'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${latestreview2.main_img}">
 		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
 		    					<c:out value="${latestreview2.lname}"/>
@@ -314,8 +314,8 @@
 			    <li><div>
 			    	<c:forEach var="latestreview3" items="${ requestScope.latestreview3}">
 		    		<c:set var="j" value="${j + 1 }"/>
-		    		<div id="rv0${j}" class="recommend" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview3.lcode}#review'">
-		    		<img style="float:left;position:none; width:100%;height:50%;" src="/team_prj3_class4/upload/lessonMain/${latestreview3.main_img}">
+		    		<div id="rv0${j}" class="recommend" onclick="location.href='http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${latestreview3.lcode}#review'">
+		    		<img style="float:left;position:none; width:100%;height:50%;" src="http://211.63.89.148:8080/team_prj3_class4/upload/lessonMain/${latestreview3.main_img}">
 		    			<div style="width:250px; height:105px;position: absolute;top:130px; margin: 5px;">
 		    				<div style="width:250px; height:35px;font-size: 15px; font-weight:bold;">
 		    					<c:out value="${latestreview3.lname}"/>

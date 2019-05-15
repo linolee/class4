@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.148:8080/team_prj3_class4/resources/css/main_v190130.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/class.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.148:8080/team_prj3_class4/resources/css/class.css">
 
 <!-- Bootstrap btn include -->
 <!-- <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
@@ -140,7 +140,7 @@ function setModal(url, teacherName) {
 	});
 	
 	//이미지 비우기
-	$("#img").attr("src", "http://localhost:8080/team_prj3_class4/common/images/default.png");
+	$("#img").attr("src", "http://211.63.89.148:8080/team_prj3_class4/common/images/default.png");
 	
 	// 카테고리 불러오기
 	$.ajax({
@@ -184,7 +184,7 @@ function setModalTeacherInfo (url, teacherName) {
 			success: function (msg) {
 				//teacher Info set
 				var teacherInfo = msg.list;
-				$("#img").attr("src", "http://localhost:8080/team_prj3_class4/upload/teacher/"+teacherInfo.img);
+				$("#img").attr("src", "http://211.63.89.148:8080/team_prj3_class4/upload/teacher/"+teacherInfo.img);
 				$("#teacherStatus").val(teacherInfo.status);
 				$("#teacherName").val(teacherInfo.teacherName);
 				$("#teacherName").attr("readonly",true);
@@ -517,14 +517,14 @@ $(window).resize(function(){
 			<!-- profile form -->
 			<div id="profileForm">
 				<div id="updateProfileFrm">
-					<form name="addTeacherForm" id="addTeacherForm" action="/team_prj3_class4/user/teacher/add_teacher.do" method="post" enctype="multipart/Form-data"> 
+					<form name="addTeacherForm" id="addTeacherForm" action="http://211.63.89.148:8080/team_prj3_class4/user/teacher/add_teacher.do" method="post" enctype="multipart/Form-data"> 
 						<input type="hidden" id="mode" name="mode" value="add">
 						<input type="hidden" id="careerVal" name="careerVal" value="">
 						<input type="hidden" id="teacherStatus" name="teacherStatus" value="">
 						<div>
 							<div class="picture-area">
 								<div class="picture-panel">
-									<img src="http://localhost:8080/team_prj3_class4/common/images/default.png" id="img" style="width: 98px; height: 100px"/>
+									<img src="http://211.63.89.148:8080/team_prj3_class4/common/images/default.png" id="img" style="width: 98px; height: 100px"/>
 								</div>
 								<div class="picture-btn">
 									<input type="file" value="사진등록" class="btn btn-primary" id="upfile" name="upfile"><br>

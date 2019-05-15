@@ -178,7 +178,7 @@ $(function () {
 											<input type="hidden" name="titleNumber" value="01"/>
 											<input type="file" id="file" name="file"/>
 											<button type="button" id="btn-upload" name="btn-upload" value="temp" style="margin-top:10px; width:1200px; height:400px;">
-												<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg01.jpg" class="categoryImg" id="foo">
+												<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg01.jpg" class="categoryImg" id="foo">
 											</button>
 										</form>
 										<span class="input-group-btn col-3" style="   padding-left: 50px;    padding-right: 30px;    padding-bottom: 20px;    padding-top: 50px;    border-bottom-width: 20px; margin-bottom: 0px;">
@@ -205,7 +205,7 @@ $(function () {
 										<input type="hidden" name="titleNumber" value="02"/>
 										<input type="file" id="file2" name="file"/>
 										<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
-											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg02.jpg" class="categoryImg" id="foo2">
+											<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg02.jpg" class="categoryImg" id="foo2">
 										</button>
 									</form>
 									<span class="input-group-btn col-3">
@@ -231,7 +231,7 @@ $(function () {
 										<input type="hidden" name="titleNumber" value="03"/>
 										<input type="file" id="file3" name="file"/>
 										<button type="button" id="btn-upload3" name="temp" value="temp" style="margin-top:10px; width:1200px; height:400px;">
-											<img src="http://localhost:8080/team_prj3_class4/upload/title/titleImg03.jpg" class="categoryImg" id="foo3">
+											<img src="http://211.63.89.148:8080/team_prj3_class4/upload/title/titleImg03.jpg" class="categoryImg" id="foo3">
 										</button>
 									</form>
 									<span class="input-group-btn col-3">

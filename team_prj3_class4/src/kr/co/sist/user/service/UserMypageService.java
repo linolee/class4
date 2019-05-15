@@ -277,7 +277,7 @@ public class UserMypageService {
 		curpage = startpage - 1; // 시작페이지 번호보다 1 적은 페이지로 이동
 		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&lt;&lt;</a> ]";
 	}else{
-		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/left.png'/>";
+		strList = strList + "<img src='http://211.63.89.148:8080/team_prj3_class4/common/images/left.png'/>";
 	}
 
 	strList = strList + " ... ";
@@ -302,7 +302,7 @@ public class UserMypageService {
 		curpage = endpage + 1; 
 		strList = strList + "[ <a href="+list_url+"currentPage="+curpage+">&gt;&gt;</a> ]";
 	}else{
-		strList = strList + "<img src='http://localhost:8080/team_prj3_class4/common/images/right.png'/>";
+		strList = strList + "<img src='http://211.63.89.148:8080/team_prj3_class4/common/images/right.png'/>";
 	}//end else
 
 	return strList;

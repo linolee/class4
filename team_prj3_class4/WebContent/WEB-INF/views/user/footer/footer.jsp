@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%!
-	String serverDomain = "http://localhost:8080";
+	String serverDomain = "http://211.63.89.148:8080";
 	/* 바꿀 때 헤더도 바꿀 것 */
 %>
 			<div class="areaFix">

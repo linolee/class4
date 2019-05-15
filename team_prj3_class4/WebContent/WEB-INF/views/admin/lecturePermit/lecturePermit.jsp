@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=acbead349136da6f3bb665febdb9861f&libraries=services"></script>
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
+<link href="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 $(function () {
 	$('.summernote_q').summernote({ airMode: true });
@@ -57,14 +57,14 @@ function lecturePermitDetail(lcode) {
 			detailAddress=decodeURIComponent(json.detailAddress.replace(space," "));
 			
 			/*  */
-			var bannerImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
-			var teacherImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
+			var bannerImg="http://211.63.89.148:8080/team_prj3_class4/upload/common/default.jpg";
+			var teacherImg="http://211.63.89.148:8080/team_prj3_class4/upload/common/default.jpg";
 			if(null!=json.banner_img){
-				bannerImg="http://localhost:8080/team_prj3_class4/upload/lessonBanner/"+json.banner_img;
+				bannerImg="http://211.63.89.148:8080/team_prj3_class4/upload/lessonBanner/"+json.banner_img;
 			}
 			
 			if(null!=json.teacher_img){
-				teacherImg="http://localhost:8080/team_prj3_class4/upload/teacher/"+json.teacher_img
+				teacherImg="http://211.63.89.148:8080/team_prj3_class4/upload/teacher/"+json.teacher_img
 			}
 			$("#ls_bannerImg").attr("src", bannerImg);
 			$("#ls_teacherImg").attr("src", teacherImg);

@@ -45,7 +45,7 @@
        </li>
        <li><a href="http://211.63.89.151:8080/team_prj3_class4/day0319/file_list.jsp">Download</a></li>
        <li><a href="http://211.63.89.151:8080/team_prj3_class4/day0320/mr_upload_form.jsp">당신도 김본좌!!!</a>
-       <li><a href="http://localhost:8080/team_prj3_class4/xml0326/jtbc_rss.jsp">JTBC RSS</a></li>
+       <li><a href="http://211.63.89.148:8080/team_prj3_class4/xml0326/jtbc_rss.jsp">JTBC RSS</a></li>
        </li>
     </ul>
 </nav>

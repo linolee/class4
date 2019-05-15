@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>class4-마이페이지 수강평</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/common/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.148:8080/team_prj3_class4/common/main_v190130.css">
 <link href="<c:url value="/resources/css/header.css" />" rel="stylesheet">
 <link href="<c:url value="/resources/css/footer.css" />" rel="stylesheet">
 <style type="text/css">
@@ -177,7 +177,7 @@ td{ border-bottom: 1px solid #EEEEEE; }
 		<input type="hidden" name="pageFlag"/>
 		<input type="hidden" name="lcode"/>
 	</form>
-		<div style="float: right"><img src="http://localhost:8080/team_prj3_class4/common/images/class4.png"/></div>
+		<div style="float: right"><img src="http://211.63.89.148:8080/team_prj3_class4/common/images/class4.png"/></div>
 		<div id="mypageTitle">마이페이지</div>
 		<div id="headerTitle2">회원님의 소중한 정보들을 관리하실 수 있습니다.</div>
 		<div style="padding-top: 30px; padding-bottom: 20px;">

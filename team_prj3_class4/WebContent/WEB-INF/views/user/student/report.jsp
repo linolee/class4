@@ -109,12 +109,12 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/summernote/bootstrap.css"/>" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/bootstrap.js"></script>
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/bootstrap.js"></script>
 
 <!-- include summernote css/js -->
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
+<link href="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="http://211.63.89.148:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#writeButton").click(function(){
@@ -146,7 +146,7 @@ p.btn_write button{width:58px;height:21px;background:url(//www.afreecatv.com/ima
 		});
 		$("#cancelButton").click(function(){
 			if(confirm("작성을 종료하시겠습니까?")){
-				window.location.href="http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode="+$("#lcode").val();
+				window.location.href="http://211.63.89.148:8080/team_prj3_class4/user/classDetail/detail.do?lcode="+$("#lcode").val();
 			}//end if
 		});
 	});//ready

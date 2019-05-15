@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville|Nanum+Myeongjo" rel="stylesheet"> 
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/main_v190130.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.148:8080/team_prj3_class4/resources/css/main_v190130.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="http://localhost:8080/team_prj3_class4/resources/css/class.css">
+<link rel="stylesheet" type="text/css" href="http://211.63.89.148:8080/team_prj3_class4/resources/css/class.css">
 
 <!-- Bootstrap btn include -->
 <!-- <link href="/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
@@ -118,10 +118,10 @@ $(function(){
 	<!-- prev & next btn -->
 	<div class="paging" align="center">
 		<nav class="pagenate purple">
-			<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_first.gif" alt="처음으로"></a>
-			<a href="#" class="btn prev"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_prev.gif" alt="이전"></a>
-			<a href="#" class="btn last"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_next.gif" alt="다음"></a>
-			<a href="#" class="btn"><img src="http://localhost:8080/team_prj3_class4/resources/img/btn_page_nate_last.gif" alt="마지막으로"></a>
+			<a href="#" class="btn"><img src="http://211.63.89.148:8080/team_prj3_class4/resources/img/btn_page_nate_first.gif" alt="처음으로"></a>
+			<a href="#" class="btn prev"><img src="http://211.63.89.148:8080/team_prj3_class4/resources/img/btn_page_nate_prev.gif" alt="이전"></a>
+			<a href="#" class="btn last"><img src="http://211.63.89.148:8080/team_prj3_class4/resources/img/btn_page_nate_next.gif" alt="다음"></a>
+			<a href="#" class="btn"><img src="http://211.63.89.148:8080/team_prj3_class4/resources/img/btn_page_nate_last.gif" alt="마지막으로"></a>
 		</nav>
 	</div>
 	

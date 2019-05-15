@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%!
 	/* String serverDomain = "http://211.63.89.151:8080"; */
-	String serverDomain = "http://localhost:8080";
+	String serverDomain = "http://211.63.89.148:8080";
 	/* 바꿀 때 푸터도 바꿀 것 */
 %>
 			<div class="areaFix">

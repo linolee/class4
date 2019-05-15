@@ -33,7 +33,7 @@
 								<td>
 									<input type="file" id="file2" name="file2" class="file"/>
 									<button type="button" id="btn-upload2" name="temp" value="temp" style="margin-top:10px;">
-				                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg" id="foo2">
+				                  		<img src="http://211.63.89.148:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg" id="foo2">
 									</button>
 								</td>
 							</tr>

@@ -25,7 +25,7 @@
 							<input type="hidden" value=${cate.category } name="hdnCateName" id="hdnCateName"/>
 						</c:forEach>
 						<button type="button" id="btn-upload" name="temp" value="temp" style="margin-top:10px;">
-	                  		<img src="http://localhost:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg2" id="foo">
+	                  		<img src="http://211.63.89.148:8080/team_prj3_class4/resources/admin/default.jpg" class="upCategoryImg2" id="foo">
 						</button>
 			         </form>
 			         
