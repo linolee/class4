@@ -1,5 +1,6 @@
 package kr.co.sist.admin.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,21 +28,21 @@ public class CategoryService {
 	@Autowired
 	private CategoryDAO c_dao;
 	
-	// 1. �쟾泥� 寃뚯떆臾� �닔 �뼸湲�
+	// 1. 占쎌읈筌ｏ옙 野껊슣�뻻�눧占� 占쎈땾 占쎈섯疫뀐옙
 			public int totalCount() {
 				int cnt = 0;
 				cnt = c_dao.selectTotalCount();
 				return cnt;
 			}
 
-			// 2. �븳 �솕硫댁뿉 蹂댁뿬吏� 寃뚯떆臾쇱쓽 �닔
+			// 2. 占쎈립 占쎌넅筌롫똻肉� 癰귣똻肉э쭪占� 野껊슣�뻻�눧�눘�벥 占쎈땾
 			public int pageScale() {
 				int pageScale = 1;
 
 				return pageScale;
 			}
 
-			// 3. 珥� �럹�씠吏� �닔 援ы븯湲�
+			// 3. �룯占� 占쎈읂占쎌뵠筌욑옙 占쎈땾 �뤃�뗫릭疫뀐옙
 			public int totalPage(int totalCount) {
 				int totalPage = totalCount / pageScale();
 				if (totalCount % pageScale() != 0) {
@@ -51,15 +52,15 @@ public class CategoryService {
 				return totalPage;
 			}
 
-			// 4. �떆�옉 �럹�씠吏� 踰덊샇 援ы븯湲�
-			// current_page�뿉 �뵲�씪 �떆�옉 踰덊샇�뒗 �떖�씪吏꾨떎. 1-> 1, 2->11, 3->21 ,,,
+			// 4. 占쎈뻻占쎌삂 占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈 �뤃�뗫릭疫뀐옙
+			// current_page占쎈퓠 占쎈뎡占쎌뵬 占쎈뻻占쎌삂 甕곕뜇�깈占쎈뮉 占쎈뼎占쎌뵬筌욊쑬�뼄. 1-> 1, 2->11, 3->21 ,,,
 			public int startNum(int currentPage) {
 				int startNum = 1;
 				startNum = currentPage * pageScale() - pageScale() + 1;
 				return startNum;
 			}
 
-			// 5. �걹踰덊샇 �뼸湲�
+			// 5. 占쎄국甕곕뜇�깈 占쎈섯疫뀐옙
 			public int endNum(int startNum) {
 				int endNum = startNum + pageScale() - 1;
 
@@ -67,48 +68,48 @@ public class CategoryService {
 			}
 			
 			/**
-			 * �씤�뜳�뒪 由ъ뒪�듃 [ << ] ... [1][2][3] ... [ >> ]
+			 * 占쎌뵥占쎈쑔占쎈뮞 �뵳�딅뮞占쎈뱜 [ << ] ... [1][2][3] ... [ >> ]
 			 * 
 			 * @param current_page
 			 * @param total_page
 			 * @param list_url
 			 * @return
 			 */
-			// �쁽�옱 寃뚯떆�뙋�쓽 �럹�씠吏� �씤�뜳�뒪 �꽕�젙
+			// 占쎌겱占쎌삺 野껊슣�뻻占쎈솇占쎌벥 占쎈읂占쎌뵠筌욑옙 占쎌뵥占쎈쑔占쎈뮞 占쎄퐬占쎌젟
 			public String indexList(int current_page, int total_page, String list_url) {
-				int pagenumber; // �솕硫댁뿉 蹂댁뿬吏� �럹�씠吏� �씤�뜳�뒪 �닔
-				int startpage; // �솕硫댁뿉 蹂댁뿬吏� �떆�옉�럹�씠吏� 踰덊샇
-				int endpage; // �솕硫댁뿉 蹂댁뿬吏� 留덉�留됲럹�씠吏� 踰덊샇
-				int curpage; // �씠�룞�븯怨좎옄 �븯�뒗 �럹�씠吏� 踰덊샇
+				int pagenumber; // 占쎌넅筌롫똻肉� 癰귣똻肉э쭪占� 占쎈읂占쎌뵠筌욑옙 占쎌뵥占쎈쑔占쎈뮞 占쎈땾
+				int startpage; // 占쎌넅筌롫똻肉� 癰귣똻肉э쭪占� 占쎈뻻占쎌삂占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈
+				int endpage; // 占쎌넅筌롫똻肉� 癰귣똻肉э쭪占� 筌띾뜆占쏙쭕�맪�읂占쎌뵠筌욑옙 甕곕뜇�깈
+				int curpage; // 占쎌뵠占쎈짗占쎈릭�⑥쥙�쁽 占쎈릭占쎈뮉 占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈
 
-				String strList = ""; // 由ы꽩�맆 �럹�씠吏� �씤�뜳�뒪 由ъ뒪�듃
+				String strList = ""; // �뵳�뗪쉘占쎈쭍 占쎈읂占쎌뵠筌욑옙 占쎌뵥占쎈쑔占쎈뮞 �뵳�딅뮞占쎈뱜
 
-				pagenumber = 10; // �븳 �솕硫댁쓽 �럹�씠吏� �씤�뜳�뒪 �닔
+				pagenumber = 10; // 占쎈립 占쎌넅筌롫똻�벥 占쎈읂占쎌뵠筌욑옙 占쎌뵥占쎈쑔占쎈뮞 占쎈땾
 
-				// �떆�옉 �럹�씠吏�踰덊샇 援ы븯湲�
+				// 占쎈뻻占쎌삂 占쎈읂占쎌뵠筌욑옙甕곕뜇�깈 �뤃�뗫릭疫뀐옙
 				startpage = ((current_page - 1) / pagenumber) * pagenumber + 1;
 
-				// 留덉�留� �럹�씠吏�踰덊샇 援ы븯湲�
+				// 筌띾뜆占쏙쭕占� 占쎈읂占쎌뵠筌욑옙甕곕뜇�깈 �뤃�뗫릭疫뀐옙
 				endpage = (((startpage - 1) + pagenumber) / pagenumber) * pagenumber;
 
-				// 珥� �럹�씠吏� �닔媛� 怨꾩궛�맂 留덉�留됲럹�씠吏� 踰덊샇蹂대떎 �옉�쓣寃쎌슦
+				// �룯占� 占쎈읂占쎌뵠筌욑옙 占쎈땾揶쏉옙 �④쑴沅쏉옙留� 筌띾뜆占쏙쭕�맪�읂占쎌뵠筌욑옙 甕곕뜇�깈癰귣��뼄 占쎌삂占쎌뱽野껋럩�뒭
 
-				// 珥� �럹�씠吏� �닔媛� 留덉�留됲럹�씠吏� 踰덊샇媛� �맖
+				// �룯占� 占쎈읂占쎌뵠筌욑옙 占쎈땾揶쏉옙 筌띾뜆占쏙쭕�맪�읂占쎌뵠筌욑옙 甕곕뜇�깈揶쏉옙 占쎈쭡
 
 				if (total_page <= endpage) {
 					endpage = total_page;
 				} // end if
 
-				// 泥ル쾲吏� �럹�씠吏� �씤�뜳�뒪 �솕硫댁씠 �븘�땶寃쎌슦
+				// 筌ｃ꺂苡뀐쭪占� 占쎈읂占쎌뵠筌욑옙 占쎌뵥占쎈쑔占쎈뮞 占쎌넅筌롫똻�뵠 占쎈툡占쎈빒野껋럩�뒭
 				if (current_page > pagenumber) {
-					curpage = startpage - 1; // �떆�옉�럹�씠吏� 踰덊샇蹂대떎 1 �쟻�� �럹�씠吏�濡� �씠�룞
+					curpage = startpage - 1; // 占쎈뻻占쎌삂占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈癰귣��뼄 1 占쎌읅占쏙옙 占쎈읂占쎌뵠筌욑옙嚥∽옙 占쎌뵠占쎈짗
 					strList = strList + "<li class='page-item'><a class='page-link' href=" + list_url + "?currentPage=" + curpage + ">Prev</a></li>";
 				} else {
 					strList = strList + "<li class='page-item'><a class='page-link' href='#'>Prev</a></li>";
 					
 				}
 
-				// �떆�옉�럹�씠吏� 踰덊샇遺��꽣 留덉�留됲럹�씠吏� 踰덊샇源뚯� �솕硫댁뿉 �몴�떆
+				// 占쎈뻻占쎌삂占쎈읂占쎌뵠筌욑옙 甕곕뜇�깈�겫占쏙옙苑� 筌띾뜆占쏙쭕�맪�읂占쎌뵠筌욑옙 甕곕뜇�깈繹먮슣占� 占쎌넅筌롫똻肉� 占쎈ご占쎈뻻
 				curpage = startpage;
 
 				while (curpage <= endpage) {
@@ -121,7 +122,7 @@ public class CategoryService {
 					curpage++;
 				} // end while
 
-				// �뮘�뿉 �럹�씠吏�媛� �뜑 �엳�뒗寃쎌슦
+				// 占쎈츟占쎈퓠 占쎈읂占쎌뵠筌욑옙揶쏉옙 占쎈쐭 占쎌뿳占쎈뮉野껋럩�뒭
 				if (total_page > endpage) {
 					curpage = endpage + 1;
 					strList = strList + "<li class='page-item'><a class='page-link' href="+list_url+"?currentPage="+curpage+">Next</a></li>";
@@ -157,9 +158,12 @@ public class CategoryService {
 	
 	public boolean fileUploadProcess(HttpServletRequest request) throws IOException{
 		boolean flag=false;
-		MultipartRequest mr=new MultipartRequest(request, 
-				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
-						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+		
+		String fsl = File.separator;
+		String root = request.getSession().getServletContext().getRealPath(fsl);
+		String rootPath = root + "/upload/category" + fsl;
+		
+		MultipartRequest mr=new MultipartRequest(request, rootPath, 1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 		/*MultipartRequest mr=new MultipartRequest(request, 
 				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category",
 				1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());*/
@@ -180,12 +184,11 @@ public class CategoryService {
 	public boolean addNewCategory(HttpServletRequest request ) throws IOException {
 		boolean flag=false;
 		
-		/*MultipartRequest mr=new MultipartRequest(request, 
-				"C:/Users/in112/git/class4/team_prj3_class4/WebContent/upload/category",
-						1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());*/
-		MultipartRequest mr=new MultipartRequest(request, 
-				"C:/Users/sist/git/class4/team_prj3_class4/WebContent/upload/category/",
-				1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
+		String fsl = File.separator;
+		String root = request.getSession().getServletContext().getRealPath(fsl);
+		String rootPath = root + "/upload/category" + fsl;
+		
+		MultipartRequest mr=new MultipartRequest(request, rootPath,1024*1024*10, "UTF-8", new DefaultFileRenamePolicy());
 		
 		
 		String categoryName=mr.getParameter("newCateHdn");
