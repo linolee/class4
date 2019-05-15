@@ -70,7 +70,7 @@ public class ClassRegistService {
 	public boolean addLesson(HttpServletRequest request) throws IOException {
 		boolean flag = false;
 		
-		String fsl = File.separator;
+		String fsl = File.separator;//
 		String root = request.getSession().getServletContext().getRealPath(fsl);
 		String rootPath = root + "/upload" + fsl;
 		String rootPath1 = root + "/upload/lessonBanner" + fsl;
