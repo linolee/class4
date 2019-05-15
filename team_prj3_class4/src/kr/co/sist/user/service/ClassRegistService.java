@@ -69,9 +69,18 @@ public class ClassRegistService {
 
 	public boolean addLesson(HttpServletRequest request) throws IOException {
 		boolean flag = false;
+		
+		String fsl = File.separator;
+		String root = request.getSession().getServletContext().getRealPath(fsl);
+		String rootPath = root + "upload" + fsl;
+		String rootPath1 = root + "upload/lessonBanner" + fsl;
+		String rootPath2 = root + "upload/lessonMain" + fsl;
+		
+		
 		String savePath1 = "C:/Users/owner/git/class4/team_prj3_class4/WebContent/upload/lessonBanner/";
 		String savePath2 = "C:/Users/owner/git/class4/team_prj3_class4/WebContent/upload/lessonMain/";
-		MultipartRequest mr = new MultipartRequest(request, savePath1, 1024 * 1024 * 10, "UTF-8", new DefaultFileRenamePolicy());
+		//MultipartRequest mr = new MultipartRequest(request, savePath1, 1024 * 1024 * 10, "UTF-8", new DefaultFileRenamePolicy());
+		MultipartRequest mr = new MultipartRequest(request, rootPath1, 1024 * 1024 * 10, "UTF-8", new DefaultFileRenamePolicy());
 
 		String formName="";
 		String fileName = mr.getFilesystemName("topBannerImg");
@@ -96,8 +105,10 @@ public class ClassRegistService {
 				i = fileName.lastIndexOf("."); // 파일 확장자 위치
 				String realFileName = "tb_" + now + fileName.substring(i, fileName.length()); // 확장자 합치기
 				
-				oldFile = new File(savePath1 + fileName);
-				newFile = new File(savePath1 + realFileName);
+//				oldFile = new File(savePath1 + fileName);
+//				newFile = new File(savePath1 + realFileName);
+				oldFile = new File(rootPath1 + fileName);
+				newFile = new File(rootPath1 + realFileName);
 				
 				oldFile.renameTo(newFile); // 파일명 변경
 				topBannerImgName = realFileName;
@@ -106,8 +117,10 @@ public class ClassRegistService {
 				i = fileName.lastIndexOf("."); // 파일 확장자 위치
 				String realFileName = "mb_" + now + fileName.substring(i, fileName.length()); // 확장자 합치기
 				
-				oldFile = new File(savePath1 + fileName);
-				newFile = new File(savePath2 + realFileName);
+//				oldFile = new File(savePath1 + fileName);
+//				newFile = new File(savePath2 + realFileName);
+				oldFile = new File(rootPath1 + fileName);
+				newFile = new File(rootPath2 + realFileName);
 				
 				oldFile.renameTo(newFile); // 파일명 변경
 				mainBannerImgName = realFileName;
