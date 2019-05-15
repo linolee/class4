@@ -20,13 +20,24 @@ function teacherInfo(teacherName) {
 			$("#tName").text(decodeURIComponent(json.tName));
 			$("#tnName").text(decodeURIComponent(json.tTName));
 			$("#tBirth").text(json.tBirth);
-			$("#tGender").text(json.tGender);
 			$("#tTel").text(json.tTel);
 			$("#tInputdate").text(json.tInputdate);
 			$("#tEmail").text(json.tEmail);
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce));
 			// 공백 변환처리
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
+			
+			var jsonGender=json.tGender;
+			var gender="";
+			if(jsonGender=="M"){
+				gender="남자";
+			} else {
+				gender="여자";
+			}
+			
+			$("#tGender").text(gender);
+			
+			
 			
 			var tImg="http://localhost:8080/team_prj3_class4/upload/common/default.jpg";
 			if(null!=json.img){
@@ -47,7 +58,7 @@ function teacherInfo(teacherName) {
  					} else if(jsonStatus=="Y"){
  						status="<span class='btn btn-brand btn-sm btn-vine'>오픈";
  					} else if(jsonStatus=="F"){
- 						status="<span class='btn btn-brand btn-sm btn-dribble'>마감";
+ 						status="<span class='btn btn-brand btn-sm btn-dribbble'>마감";
  					} else if(jsonStatus=="I"){
  						status="<span class='btn btn-brand btn-sm btn-github'>진행 중";
  					} else if(jsonStatus=="E"){
@@ -140,7 +151,7 @@ function teacherInfo(teacherName) {
 					<td><c:out value="${teacher.teacherName }"/></td>
 					<td><c:out value="${teacher.clientId }"/></td>
 					<td><c:out value="${teacher.name }"/></td>
-					<td><c:out value="${teacher.gender }"/></td>
+					<td><c:out value="${teacher.gender=='M'?'남자':'여자' }"/></td>
 					<td><c:out value="${teacher.birth }"/></td>
 					<td><c:out value="${teacher.email }"/></td>
 					<td>

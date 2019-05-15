@@ -68,7 +68,7 @@ public class UserPageDAOImpl implements UserPageDAO {
 	@Override
 	public int deleteUser(String client_id) {
 		SqlSession ss=getSessionFactory().openSession();
-		int cnt = ss.insert("deleteUser", client_id);
+		int cnt = ss.update("deleteUser", client_id);
 		if (cnt == 1) {
 			ss.commit();
 		}

@@ -47,7 +47,7 @@
 	<![CDATA[
 	select * from(
 	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, 
-			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
+			substr(l.address,instr(address,' ')+1,instr(address,' ',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
 	from lesson l left join review r
 	on l.lcode=r.lcode
 	where l.status != 'A' and l.status != 'R' and l.status != 'C' and l.status != 'E'
@@ -60,7 +60,7 @@
 	<![CDATA[
 	select count(*) from(
 	select l.lcode,main_img, lname, teacher_name, substr(address,1,instr(address,' ')-1) si, 
-			substr(l.address,instr(address,' ')+1,instr(address,'구',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
+			substr(l.address,instr(address,' ')+1,instr(address,' ',5,1)-instr(address,' ')-1) gu,l_date, avg(nvl(r.score,0)) star
 	from lesson l left join review r
 	on l.lcode=r.lcode
 	where l.status != 'A' and l.status != 'R' and l.status != 'C' and l.status != 'E'

@@ -568,7 +568,7 @@ $(function () {
 								<c:forEach var="tclist" items="${requestScope.tclist}">
 								<div style="cursor:pointer;width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
 									<div style="width: 150px; height: 100px;">
-										<img style="width: 150px; height: 100px;" src="/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
+										<img style="width: 150px; height: 100px;" src="/team_prj3_class4/upload/lessonMain/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
 									</div>
 									<div style="width: 150px; height: 100px;">
@@ -752,11 +752,11 @@ $(function () {
 								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F' && (joinStatus3.status eq 'C'||empty joinStatus3.status) }">
 				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
 								</c:when>
+								<c:when test="${joinStatus3.status eq 'Y'}"> <!-- true면 신청한상태 -->
+									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
+			                  	</c:when>
 			                  	<c:when test="${detailc.status eq 'E'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
-			                  	</c:when>
-								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F' && joinStatus3.status eq 'Y'}"> <!-- true면 신청한상태 -->
-									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
 			                  	</c:when>
 			                  	<c:when test="${detailc.status eq 'F'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>

@@ -56,7 +56,6 @@ $(function(){
 		var emailFlag=$("[name='email']").val();
 		var titleFlag=$("[name='title']").val();
 		var contentFlag=$("[name='content']").val();
-		alert(contentFlag);
 		
 		if(""==emailFlag){
 			alert("이메일을 입력해주세요");
