@@ -72,9 +72,9 @@ public class ClassRegistService {
 		
 		String fsl = File.separator;
 		String root = request.getSession().getServletContext().getRealPath(fsl);
-		String rootPath = root + "upload" + fsl;
-		String rootPath1 = root + "upload/lessonBanner" + fsl;
-		String rootPath2 = root + "upload/lessonMain" + fsl;
+		String rootPath = root + "/upload" + fsl;
+		String rootPath1 = root + "/upload/lessonBanner" + fsl;
+		String rootPath2 = root + "/upload/lessonMain" + fsl;
 		
 		
 		String savePath1 = "C:/Users/owner/git/class4/team_prj3_class4/WebContent/upload/lessonBanner/";
