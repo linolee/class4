@@ -169,7 +169,6 @@ $(function(){
 			
 		/* function lecturePermission() { */
 		 	var queryString = $("#lcodeHdn").val();
-		 	alert(queryString);
 		 	$.ajax({
 				url: "lecturePermission.do",
 				data: queryString,
