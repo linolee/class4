@@ -19,7 +19,6 @@ function teacherPermitInfo(id, tName) {
 			$("#tName").text(decodeURIComponent(json.tName));
 			$("#tnName").text(decodeURIComponent(json.tTName));
 			$("#tBirth").text(json.tBirth);
-			$("#tGender").text(json.tGender);
 			$("#tTel").text(json.tTel);
 			$("#tInputdate").text(json.tInputdate);
 			$("#tEmail").text(json.tEmail);
@@ -28,6 +27,15 @@ function teacherPermitInfo(id, tName) {
 			$("#tIntro").text(decodeURIComponent(json.tIntroduce.replace(space," ")));
 
 			var tImg="http://211.63.89.148:8080/team_prj3_class4/upload/common/default.jpg";
+			var jsonGender=json.tGender;
+			var gender="";
+			if(jsonGender=="M"){
+				gender="남자";
+			}else{
+				gender="여자";
+			}
+			$("#tGender").text(gender);
+
 			if(null!=json.img){
 				tImg="http://211.63.89.148:8080/team_prj3_class4/upload/teacher/"+decodeURIComponent(json.img);
 			}
@@ -149,7 +157,7 @@ $(function(){
 					<td><c:out value="${teacherPermit.client_id }"/></td>
 					<td><c:out value="${teacherPermit.teacher_name }"/></td>
 					<td><c:out value="${teacherPermit.birth }"/></td>
-					<td><c:out value="${teacherPermit.gender }"/></td>
+					<td><c:out value="${teacherPermit.gender=='M'?'남자':'여자' }"/></td>
 					<td><c:out value="${teacherPermit.email }"/></td>
 					<td>
 							<a data-toggle="modal" href="#modalTAuthority" onclick="teacherPermitInfo('${ teacherPermit.client_id }','${teacherPermit.teacher_name }')"><span

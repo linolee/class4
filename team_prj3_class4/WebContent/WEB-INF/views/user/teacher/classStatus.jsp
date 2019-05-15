@@ -44,7 +44,7 @@
 function viewImport( code ) {
 	var code = code;	//ClassCode
 	var sendData = {"classCode":code};
-	
+
 	$.ajax({
 		url: "<c:url value='/user/teacher/apply_peoples.do' />",
 		type: "GET",
@@ -53,13 +53,25 @@ function viewImport( code ) {
 		dataType: "json",
 		success : function (msg) {
 			var str = "";
-			for(var i=0; i < msg.length; i++){
+			
+			$(".apply-tr").each(function() {
+				console.log(this);
+				$(this).remove();
+			});
+			
+			if (msg.length > 0) {
+				for(var i = 0; i < msg.length; i++){
+					str += "<tr class=\"apply-tr\">";
+					str += 		"<td>"+msg[i].clientId+"</td>";
+					str += 		"<td>"+msg[i].name+"</td>";
+					str += 		"<td>"+msg[i].tel+"</td>";
+					str += "</tr>";
+				} // end for
+			} else {
 				str += "<tr class=\"apply-tr\">";
-				str += 		"<td>"+msg[i].clientId+"</td>";
-				str += 		"<td>"+msg[i].name+"</td>";
-				str += 		"<td>"+msg[i].tel+"</td>";
-				str += "</tr>";
-			} // end for 
+				str += 		"<td colspan=\"3\">신청인원이 없습니다.</td>";
+				str += "</tr>";				
+			}
 
 			//div에 append
 			$("#applyTr").append(str);

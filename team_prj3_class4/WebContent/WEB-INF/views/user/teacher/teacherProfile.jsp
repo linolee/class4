@@ -35,8 +35,9 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-var index = 0;
 var flag = 1;
+var index = 99;
+
 function addTeacherCareer() {
 	
 	//경력사항 입력 여부 확인
@@ -88,6 +89,9 @@ function closeModal() {
 	$("#addProfileFrm").css("height", "480px");
 	
 	$("#profileForm").hide();
+	
+	$("#loadingDiv").fadeOut(300); 
+	$(".backLayer").fadeOut(300); 
 	
 } //closeModal
 
@@ -166,6 +170,11 @@ function setModal(url, teacherName) {
 
 function setModalTeacherInfo (url, teacherName) {
 	var btnStr = "";
+	
+	$("#careerList").children().each(function() {
+		$(this).remove();
+	});
+	
 	if(url == "addProfile"){
 		$("#mode").val("add");
 		$("#teacherStatus").val("");
@@ -342,70 +351,6 @@ $(function(){
 		readURL(this);
 	}); // end click
 	
-	$("#addTeacherProfile").on("click", function() {
-/* 		//value
-		var upfile 		 = $("#upfile").val();
-		var teacherName  = $("#teacherName").val();
-		var classField   = $("#classField").val();
-		var inputCareer  = $("#careerList").children().length;
-		var teacherIntro = $("#teacher-intro").val();
-		var careerStr	 = "";
-		
-		console.log(upfile);
-		alert(111111111111111);
-	   
-		//필수값 확인
-		if(upfile == ""){
-			alert("이미지를 선택해주세요.");
-			return false;
-		} // end if
-		
-	    if(teacherName == null || teacherName == ''){
-	       alert("강사명을 입력해주세요.");
-	       $("#teacherName").focus();
-	       return false;
-	    }	   
-	    
-		var category=$('#classField option:selected').val();
-		if(category == 'none'){
-	        alert("교육분야를 선택해주세요.");
-	        $("#classField").focus();
-	        return false;
-	    }
-	    
-		if(inputCareer == null || inputCareer == 0){
-	       alert("경력사항을 입력해주세요.");
-	       $("#inputCareer").focus();
-	       return false;
-	    } else {
-	    	$(".careerDiv").find(".career-span").each(function() {
-	    		careerStr += $(this).text();
-	    		careerStr += ",";
-	    	});
-	    }  
-	    
-	    if(teacherIntro == null || teacherIntro == ''){
-	       alert("자기소개를 입력해주세요.");
-	       $("#teacherIntro").focus();
-	       return false;
-	    }  
-	    
-	    $("#teacherName").on("change", function() {
-	    	flag = 0;
-	    });
-	    
-		if(flag == 0){
-			alert("중복확인을 해주세요.");
-			 return false;
-		}
-	    
-	    $("#careerVal").val(careerStr);
-	    
-	    return false; */
-	});
-
-	
-	
 });//ready
 /* 
 //배경 조절 버튼 클릭시 클릭 이벤트
@@ -501,7 +446,7 @@ $(window).resize(function(){
 								<td><c:out value="${list.teacherName }"/></td>
 								<td><c:out value="${list.category }"/></td>
 								<td><c:out value="${list.introduce }"/></td>
-								<td><input type="button" class="btn btn-warning" value="상세보기" onclick="setModal('updateProfile', '${list.teacherName }')"></td>
+								<td><input type="button" class="btn btn-warning" id="viewDetailProfile" value="상세보기" onclick="setModal('updateProfile', '${list.teacherName }')"></td>
 							</tr>
 						</c:forEach>
 						</c:when>

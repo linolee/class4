@@ -19,10 +19,18 @@ function userInfo(userId) {
 			$("#mId").text(json.jid);
 			$("#mName").text(decodeURIComponent(json.jname));
 			$("#mBirth").text(json.jbirth);
-			$("#mGender").text(json.jgender);
 			$("#mTel").text(json.jtel);
 			$("#mInputdate").text(json.jinputdate);
 			$("#mEmail").text(json.jemail);
+			
+			var jsonGender=json.jgender;
+			var gender="";
+			if(jsonGender=="M"){
+				gender="남자";
+			} else{
+				gender="여자";
+			}
+			$("#mGender").text(gender);
 
 			var output;
 	 		$("#lessons *").remove();
@@ -38,7 +46,7 @@ function userInfo(userId) {
 						} else if(jsonStatus=="Y"){
 							status="<span class='btn btn-brand btn-sm btn-vine'>오픈";
 						} else if(jsonStatus=="F"){
-							status="<span class='btn btn-brand btn-sm btn-dribble'>마감";
+							status="<span class='btn btn-brand btn-sm btn-dribbble'>마감";
 						} else if(jsonStatus=="I"){
 							status="<span class='btn btn-brand btn-sm btn-github'>진행 중";
 						} else if(jsonStatus=="E"){
@@ -171,7 +179,7 @@ $(function(){
 					<td><c:out value="${ member.client_id }"/></td>
 					<td><c:out value="${ member.name }"/></td>
 					<td><c:out value="${ member.birth }"/></td>
-					<td><c:out value="${ member.gender }"/></td>
+					<td><c:out value="${ member.gender=='M'?'남자':'여자' }"/></td>
 					<td><c:out value="${ member.email }"/></td>
 					
 					<td>

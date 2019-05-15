@@ -87,6 +87,7 @@
 	from STUDENTS s, CLIENT c
 	where s.client_id = c.client_id
 		and s.lcode = #{lcode}
+		and s.status = 'Y'
 </select>
 
 <resultMap type="kr.co.sist.user.domain.StatusCnt" id="StatusCnt">

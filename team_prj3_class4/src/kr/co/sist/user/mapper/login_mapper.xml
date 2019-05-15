@@ -28,9 +28,9 @@
 	<result column="d_date" property="d_date"/>
 </resultMap>
 <select id="selectDeletedUser" resultMap="DeletedUser" parameterType="String">
-	select client_id, d_date
-	from deleted_user
-	where client_id = #{id} 
+	select client_id
+	from client
+	where client_id = #{id} and deleted = 'Y'
 </select>
 
 </mapper>

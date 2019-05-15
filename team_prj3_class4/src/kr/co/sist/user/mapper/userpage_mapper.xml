@@ -23,11 +23,14 @@
 		from favor
 		where client_id = #{client_id}
 	</select>
-	<insert id="deleteUser" parameterType="String">
-		insert into deleted_user(client_id, d_date)
+	<update id="deleteUser" parameterType="String">
+		update client
+		set deleted = 'Y'
+		where client_id = #{client_id}
+		<!-- insert into deleted_user(client_id, d_date)
 		values
-		(#{client_id}, sysdate)
-	</insert>
+		(#{client_id}, sysdate) -->
+	</update>
 	<select id="checkPassword" resultType="String" parameterType="kr.co.sist.user.vo.UserLoginVO">
 		select client_id
 		from client
