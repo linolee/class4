@@ -46,7 +46,7 @@ function userInfo(userId) {
 						} else if(jsonStatus=="Y"){
 							status="<span class='btn btn-brand btn-sm btn-vine'>오픈";
 						} else if(jsonStatus=="F"){
-							status="<span class='btn btn-brand btn-sm btn-dribble'>마감";
+							status="<span class='btn btn-brand btn-sm btn-dribbble'>마감";
 						} else if(jsonStatus=="I"){
 							status="<span class='btn btn-brand btn-sm btn-github'>진행 중";
 						} else if(jsonStatus=="E"){
