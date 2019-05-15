@@ -432,6 +432,7 @@ public class MypageController {
 		ListVO lvo=new ListVO(lcode, clientId);
 		String jjim="";
 		String status=ums.jjimStatus(lvo);
+		
 		if( !(status==null) ) {
 			updateJjim=ums.deleteJjim(lvo);
 			if(updateJjim) {

@@ -134,7 +134,6 @@ td{ border-bottom: 1px solid #EEEEEE; }
 				console.log( xhr.status );
 			},
 			success : function( aa ){
-				alert(aa);
 				$(".w"+lcode).html("작성완료");
 			}
 		}); 
