@@ -17,6 +17,7 @@ import kr.co.sist.user.vo.ReviewVO;
 import kr.co.sist.user.vo.StatusCntVO;
 import kr.co.sist.user.vo.StatusListVO;
 import kr.co.sist.user.vo.TotalVO;
+import kr.co.sist.user.vo.qnaListVO;
 
 @Component
 public class UserMypageService {
@@ -27,6 +28,14 @@ public class UserMypageService {
 		List<ClassList> list=null;
 		
 		list=um_dao.selectClass(lvo);
+		
+		return list;
+	}//classList
+	
+	public List<ClassList> jjimList(String lcode){
+		List<ClassList> list=null;
+		
+		list=um_dao.jjimList(lcode);
 		
 		return list;
 	}//classList
@@ -137,9 +146,15 @@ public class UserMypageService {
 		return list;
 	}//qnaLcodeList
 	
-	public List<QnaList> qnaList(ListVO lvo){
+	public List<String> qnaQcodeList(String clientId){
+		List<String> list=null;
+		list=um_dao.qnaQcodeList(clientId);
+		return list;
+	}//qnaLcodeList
+	
+	public List<QnaList> qnaList(qnaListVO qlvo){
 		List<QnaList> list=null;
-		list=um_dao.qnaList(lvo);
+		list=um_dao.qnaList(qlvo);
 		return list;
 	}//qnaList
 	

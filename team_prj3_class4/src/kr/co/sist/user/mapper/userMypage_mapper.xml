@@ -21,6 +21,12 @@
 			where lcode=#{lcode}) n
 	where s.lcode=#{lcode} and l.lcode=#{lcode} and s.client_id=#{clientId}
 </select>
+<select id="jjimList" parameterType="String" resultMap="classListResult">
+	select l.lcode, l.lname, to_char(l.start_date, 'yyyy-mm-dd') start_date,
+			to_char(l.end_date, 'yyyy-mm-dd') end_date,  l.teacher_name
+	from lesson l
+	where l.lcode=#{lcode}
+</select>
 
 <resultMap type="kr.co.sist.user.domain.CancelList" id="cancelListResult">
 	<result column="lname" property="lname"/>
@@ -108,14 +114,20 @@
 	<result column="lcode" property="lcode"/>
 	<result column="qcode" property="qcode"/>
 </resultMap>
-<select id="qnaList" parameterType="kr.co.sist.user.vo.ListVO" resultMap="qnaListResult">
+<select id="qnaList" parameterType="kr.co.sist.user.vo.qnaListVO" resultMap="qnaListResult">
 	select		q.q_date, l.lname, q.status, q.lcode, qcode
 	from		lesson_qna q, lesson l
-	where	l.lcode=#{lcode} and q.lcode=#{lcode} and q.client_id=#{clientId}
+	where	q.qcode=#{qcode} and q.client_id=#{clientId} and l.lcode=#{lcode}
 </select>
 
 <select id="qnaLcodeList" parameterType="String" resultType="String">
 	select		lcode
+	from		lesson_qna
+	where	client_id=#{clientId}
+</select>
+
+<select id="qnaQcodeList" parameterType="String" resultType="String">
+	select		qcode
 	from		lesson_qna
 	where	client_id=#{clientId}
 </select>

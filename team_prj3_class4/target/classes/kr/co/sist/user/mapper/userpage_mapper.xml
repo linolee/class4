@@ -23,11 +23,14 @@
 		from favor
 		where client_id = #{client_id}
 	</select>
-	<insert id="deleteUser" parameterType="String">
-		insert into deleted_user(client_id, d_date)
+	<update id="deleteUser" parameterType="String">
+		update client
+		set deleted = 'Y'
+		where client_id = #{client_id}
+		<!-- insert into deleted_user(client_id, d_date)
 		values
-		(#{client_id}, sysdate)
-	</insert>
+		(#{client_id}, sysdate) -->
+	</update>
 	<select id="checkPassword" resultType="String" parameterType="kr.co.sist.user.vo.UserLoginVO">
 		select client_id
 		from client
@@ -49,6 +52,27 @@
 		delete favor
 		where client_id = #{client_id}
 	</delete>
+	<resultMap type="kr.co.sist.user.domain.AdminQnA" id="qnaList">
+		<result column="qcode" property="qcode"/>
+		<result column="q_subject" property="q_subject"/>
+		<result column="q_contents" property="q_contents"/>
+		<result column="a_contents" property="a_contents"/>
+		<result column="q_date" property="q_date"/>
+		<result column="a_date" property="a_date"/>
+	</resultMap>
+	<select id="selectAdminQnaList" parameterType="kr.co.sist.user.vo.SearchListVO" resultMap="qnaList">
+		select qcode, q_subject, q_contents, a_contents, q_date, a_date
+		from(
+			select qcode, q_subject, q_contents, a_contents, q_date, a_date, row_number() over(order by q_date desc) r_num
+			from qna
+			where client_id = #{keyword}
+		)
+		where r_num between #{ startNum } and #{ endNum }
+	</select>
+		<select id="adminQnaTotalCnt" resultType="int">
+		select count(*) cnt from qna
+		where client_id = #{client_id}
+	</select>
 </mapper>
 
 

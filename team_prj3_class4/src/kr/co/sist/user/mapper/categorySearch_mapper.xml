@@ -48,8 +48,7 @@
 	</select>
 
 	<select id="selectCategoryTotal" resultType="String">
-		select category from category union
-		select inner_category from innercategory
+		select category from category
 	</select>
 
 </mapper>

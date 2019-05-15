@@ -84,7 +84,7 @@ dt{float:left; font-weight: bold; font-size:15px; height: 30px;font-color: #adad
 dd{font-size: 15px; font-color: #adadad; float: right;} 
 #qnaBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #joinBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
-#cancelBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
+#cancelBtn{width: 50%; height:40px; background-color:#DC4E41; float: left; color: #ffffff; font-weight: bold;}
 #closeBtn{width: 50%; height:40px; background-color:#5F6368; float: left; color: #ffffff; font-weight: bold;cursor: default}
 #likeBtn{width: 50%; height:40px; background-color:#4944A0; float: right; color: #ffffff; font-weight: bold;}
 #reportBtn{width: 50%; height:40px; background-color:#4944A0; float: left; color: #ffffff; font-weight: bold;}
@@ -100,19 +100,19 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <!-- include summernote css/js -->
-<link href="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
-<script src="http://localhost:8080/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
+<link href="/team_prj3_class4/resources/summernote/summernote-lite.css" rel="stylesheet">
+<script src="/team_prj3_class4/resources/summernote/summernote-lite.js"></script>
+<script src="/team_prj3_class4/resources/summernote/lang/summernote-ko-KR.js"></script>
 <script type="text/javascript">
  $(function(){
 	$("#qnaBtn").click(function(){
-		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
+		location.href="/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#guestqnaBtn").click(function(){
-		location.href="http://localhost:8080/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
+		location.href="/team_prj3_class4/user/student/question.do?lcode="+$("[name='lcode']").val();	
 	});
 	$("#reportBtn").click(function(){
-		location.href="http://localhost:8080/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
+		location.href="/team_prj3_class4/user/student/report.do?lcode="+$("[name='lcode']").val();	
 	});
 	$(".qnaContents").click(function(){
         //var txt=$(".qnaContents").text();
@@ -123,7 +123,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
  });//ready
 	function jjim(lcode){
 		$.ajax({
-			url : "http://localhost:8080/team_prj3_class4/user/student/jjimHeart.do",
+			url : "/team_prj3_class4/user/student/jjimHeart.do",
 			data : "lcode="+lcode,
 			dataType : "text",
 			type : "get",
@@ -148,7 +148,7 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 	}//jjim
 	function classJoin(lcode){
 		$.ajax({
-			url : "http://localhost:8080/team_prj3_class4/user/student/classJoin.do",
+			url : "/team_prj3_class4/user/student/classJoin.do",
 			data : "lcode="+lcode,
 			dataType : "text",
 			type : "get",
@@ -159,13 +159,18 @@ dd{font-size: 15px; font-color: #adadad; float: right;}
 			success : function( sendjs ){
 				if(sendjs=="신청"){
 					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
-					alert("해당 클래스를 신청했습니다^^");
-					$("#joinBtn").val("클래스 신청취소");
+					alert("해당 클래스를 신청하셨습니다^^");
+					$("#joinBtn").val("클래스 취소하기");
 				}//end if
 				if(sendjs=="취소"){
 					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
 					alert("신청을 취소하셨습니다ㅜㅜ");
 					$("#joinBtn").val("클래스 신청하기");
+				}//end if
+				if(sendjs=="다시신청"){
+					location.href="/team_prj3_class4/user/classDetail/detail.do?lcode="+lcode;
+					alert("해당 클래스를 신청하셨습니다");
+					$("#joinBtn").val("클래스 취소하기");
 				}//end if
 			}
 		});
@@ -197,7 +202,7 @@ $(function () {
 		<div id="detail">
 			<div id="classTitleImg" style="height: 400px; top:20px; ">
 				<!-- 대표이미지 -->
-				<img style="width: 100%; height: 400px;" src="http://localhost:8080/team_prj3_class4/upload/lessonBanner/${summary.banner_img}">
+				<img style="width: 100%; height: 400px;" src="/team_prj3_class4/upload/lessonBanner/${summary.banner_img}">
 			</div>
             <div id="summary" style="margin: 5px;">
             <%-- <c:forEach var="summary" items="${ requestScope.summary }">
@@ -211,7 +216,7 @@ $(function () {
             	<table style="margin: 20px;">
             	<tr>
             		<td rowspan="4" style="width: 180px; height: 180px;">
-            			<img style="width: 50px; height: 50px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
+            			<img style="width: 50px; height: 50px;" src="/team_prj3_class4/upload/teacher/${summary.img}">
             			<br/>
 						<c:out value="${summary.teacher_name}"/>
 					</td>
@@ -459,7 +464,7 @@ $(function () {
 								<c:forEach var="rvlist" items="${ requestScope.rvlist }">
 								<table style="margin-left: 10px; width: 640px; border-bottom: 1px solid #ccc; padding:10px;">
 										<tr>
-											<td rowspan="3" style="width: 100px;">
+											<td rowspan="2" style="width: 100px;">
 												<c:out value="${rvlist.client_id}"/><br/>
 												<input type="hidden" value="${rvlist.score}" id="rvScore"/>
 												<c:choose>
@@ -484,23 +489,21 @@ $(function () {
 												</c:choose>
 												<%-- <c:out value="${rvlist.score}"/> --%>
 											</td>
-											<td style="text-align: left;margin-left: 5px;">
+											<%-- <td style="text-align: left;margin-left: 5px;">
 											<div style="margin-left:8px;">
 											<c:out value="${rvlist.subject}"/>
 											</div>
+											</td> --%>
+											<td style="text-align: left; font-size:15px;margin-left: 5px;">
+												<div style="margin-left:8px;">
+												<c:out value="${rvlist.contents}"/>
+												</div>
 											</td>
 										</tr>
-										<tr>
-										<td style="text-align: left; font-size:15px;margin-left: 5px;">
-											<div style="margin-left:8px;">
-											<c:out value="${rvlist.contents}"/>
-											</div>
-										</td>
-										</tr>
 										<tr style="border-bottom: 1px solid #ccc;">
-										<td style="text-align: left; font-size: 12px; color: #ccc;">
-											<span style="margin-left:8px;"><c:out value="${rvlist.r_date}"/></span>
-										</td>
+											<td style="text-align: left; font-size: 12px; color: #ccc;">
+												<span style="margin-left:8px;"><c:out value="${rvlist.r_date}"/></span>
+											</td>
 										</tr>
 									</table>
 									</c:forEach>
@@ -535,9 +538,9 @@ $(function () {
 											<td><a href="#void" class="qnaContents"><c:out value="${qnalist.subject}"/></a></td>
 											<td><c:out value="${qnalist.inputdate}"/></td>
 										</tr>
-										<tr>
+										<%-- <tr>
 										<td colspan="3"><div class="contents"><c:out value="${qnalist.contents}"/></div></td>
-										</tr> 
+										</tr> --%> 
 									</c:forEach> 
 									<c:if test="${empty qnalist}">
 										<tr>
@@ -554,7 +557,7 @@ $(function () {
 								<div style="float: right; border-left: 1px solid #cfcfcf;width: 150px; height: 200px; text-align: center;">
 									<div style="float:none;margin-top: 15px;margin-bottom:10px ; margin-left:39px;
 										width: 50%; height: 40%;">
-										<img style="width: 100%; height:100%;"src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
+										<img style="width: 100%; height:100%;"src="/team_prj3_class4/upload/teacher/${summary.img}">
 									</div>
 									<span style=""><c:out value="${summary.teacher_name}"/></span><br/>
 									<span style="">
@@ -563,9 +566,9 @@ $(function () {
 									</span>
 								</div>
 								<c:forEach var="tclist" items="${requestScope.tclist}">
-								<div style="cursor:pointer;width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='http://localhost:8080/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
+								<div style="cursor:pointer;width: 150px; height: 200px; float: left; margin: 7px;" onclick="location.href='/team_prj3_class4/user/classDetail/detail.do?lcode=${tclist.lcode}'">
 									<div style="width: 150px; height: 100px;">
-										<img style="width: 150px; height: 100px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${tclist.main_img}"/>
+										<img style="width: 150px; height: 100px;" src="/team_prj3_class4/upload/lessonMain/${tclist.main_img}"/>
 										<%-- <c:out value="${tclist.main_img}"/><br/> --%>
 									</div>
 									<div style="width: 150px; height: 100px;">
@@ -597,7 +600,7 @@ $(function () {
 				  <div class="box m_info">
 	                  <div class="clear_fix" style="height: 50px;">
 	                      <div class="pic" style="float: left;">
-	                        <img style="width: 40px; height: 40px; margin-right: 10px;" src="http://localhost:8080/team_prj3_class4/upload/teacher/${summary.img}">
+	                        <img style="width: 40px; height: 40px; margin-right: 10px;" src="/team_prj3_class4/upload/teacher/${summary.img}">
 						  </div>
 	                      <div class="info" style=:float:right;>
 	                          <p class="name"><br/><c:out value="${summary.teacher_name}"/></p>
@@ -734,6 +737,8 @@ $(function () {
 		                  	</c:choose>
 						</c:when>
 						<c:otherwise>  <!-- 회원은 신청 -->
+						<c:if test="${summary.tId ne id}">
+							
 		                  	<input type="button" class="btn" id="likeBtn" value="찜하기"  onclick="jjim('${param.lcode }')"/>
 	           				<input type="button" class="btn" id="reportBtn" value="신고하기" />
 		                  	<input type="button" class="btn" id="qnaBtn" value="강사에게 문의하기"/>
@@ -742,15 +747,16 @@ $(function () {
 		                  	<c:if test="${ joinCount.now_member eq null }">
 		                  		<c:set var="now" value="0"/>
 		                  	</c:if>
+		                  	<%-- joinStatus3.status : <c:out value="${ joinStatus3.status }"/> --%>
 		                  	<c:choose>
-								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F'}">
+								<c:when test="${now lt max && detailc.status ne 'E' && detailc.status ne 'F' && (joinStatus3.status eq 'C'||empty joinStatus3.status) }">
 				                  	<input type="button" class="btn" id="joinBtn" value="클래스 신청하기 "  onclick="classJoin('${param.lcode}')"/>
 								</c:when>
+								<c:when test="${joinStatus3.status eq 'Y'}"> <!-- true면 신청한상태 -->
+									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
+			                  	</c:when>
 			                  	<c:when test="${detailc.status eq 'E'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 종료 "/>
-			                  	</c:when>
-								<c:when test="${joinStatus2.status eq 'Y'}"> <!-- true면 신청한상태 -->
-									<input type="button" class="btn" id="cancelBtn" value="클래스 취소하기 " onclick="classJoin('${param.lcode}')"/>
 			                  	</c:when>
 			                  	<c:when test="${detailc.status eq 'F'}">
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 마감 "/>
@@ -762,6 +768,8 @@ $(function () {
 				                  	<input type="button" class="btn" id="closeBtn" value="클래스 정원초과 "/>
 			                  	</c:otherwise> 
 		                  	</c:choose>
+		                  	
+		                  </c:if>
 						</c:otherwise>
 						</c:choose>
 	                  
@@ -784,7 +792,7 @@ $(function () {
 		<div class="modal" id="modal" style="font-size: 20px;"> 
          <div class="modal-content"> 
              <span class="close-button">&times;</span> 
-             <img style="margin-left: 140px;" src="http://localhost:8080/team_prj3_class4/resources/img/logo.png"/>
+             <img style="margin-left: 140px;" src="/team_prj3_class4/resources/img/logo.png"/>
              <!-- <h1 class="title" style="text-align: center;">Class4</h1> --> 
 <!--              <form action="#post.php" method="POST"> 
 				<form id="FrmLogin" method="post"> -->

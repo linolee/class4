@@ -222,7 +222,6 @@ td{ border-bottom: 1px solid #EEEEEE; }
 					</c:choose>
 				</td>
 			</tr>
-		<c:set var="i" value="${i+1 }"/>
 		</c:forEach>
 		<c:if test="${ empty qnaList }">
 		<tr>

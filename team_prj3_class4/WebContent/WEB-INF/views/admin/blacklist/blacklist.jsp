@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script type="text/javascript">
@@ -23,13 +22,21 @@ $(function(){
 						$("[name='hdnBlack']").val(json.idResult);
 						$("#bName").text(decodeURIComponent(json.name));
 						$("#bBirth").text(json.birth);
-						$("#bGender").text(json.gender);
 						$("#bTel").text(json.tel);
 						$("#bInputdate").text(json.inputdate);
 						$("#bEmail").text(json.email);
 						$("#bReason").text(decodeURIComponent(json.reason.replace(space," ")));
 						$("#bBinputdate").val(json.b_date);
 
+						var jsonGender=json.gender;
+						var gender="";
+						if(jsonGender=="M"){
+							gender="남자";
+						}else{
+							gender="여자";
+						}
+						$("#bGender").text(gender);
+						
 					}//success
 				});//ajax
 
@@ -43,7 +50,6 @@ $(function(){
 		}); 
 	
 });
-
 
 </script>
 
@@ -94,17 +100,14 @@ $(function(){
                       	<c:forEach var="black" items="${blackList }">
                       	<c:set var="i" value="${i+1 }"/>
                       	<tr>
-                      		<!-- <input type="hidden" value="" id="hdnBlackList"/> -->
                       		<td><c:out value="${ (totalCount-(currentPage-1)*pageScale-i)+1 }"/></td>
                       		<td><c:out value="${black.client_id }"/></td>
                       		<td><c:out value="${black.name }"/></td>
                       		<td><c:out value="${black.birth }"/></td>
-                      		<td><c:out value="${black.gender }"/></td>
+                      		<td><c:out value="${black.gender=='M'?'남자':'여자' }"/></td>
                       		<td><c:out value="${black.email }"/></td>
                       		<td>
-	                           <form method="get" action="./member.jsp" class="form-inline">
 	                          <a data-toggle="modal" href="#modalBlackList"  name="detailBlackList" id="${black.client_id }" ><span class="badge badge-danger">상세정보</span></a> 
-                          	</form>
                           </td> 
                       	</tr>
                       	</c:forEach>
@@ -120,41 +123,4 @@ $(function(){
                   </div>
 </div>
             
-
-
-
-<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modal">상세정보</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<form action="./reportAction.jsp" method="post">
-						
-						<div class="form-group">
-							<label>제목</label>
-							<input type="text" name="reportTitle" class="form-control" maxlength="30">
-						</div>
-						<div class="form-group">
-							<label>내용</label>
-							<textarea name="reportContent" class="form-control" maxlength="2048"
-								style="height:180px;"></textarea>
-						</div>
-						<div class="form-row">
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-								<button type="submit" class="btn btn-danger">ㄱㄱ</button> 
-							</div>
-						</div>
-					</form>
-				
-				</div>
-			</div>
-		</div>
-	</div>
-
 <c:import url="blacklist/modalBlackList.jsp"/>

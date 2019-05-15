@@ -20,7 +20,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.sist.user.domain.AdminQnA;
 import kr.co.sist.user.domain.ClientPageInfo;
+import kr.co.sist.user.domain.SearchClassList;
 import kr.co.sist.user.service.UserJoinService;
 import kr.co.sist.user.service.UserLoginService;
 import kr.co.sist.user.service.UserPageService;
@@ -29,6 +31,7 @@ import kr.co.sist.user.vo.ChangePasswordVO;
 import kr.co.sist.user.vo.GuestReportVO;
 import kr.co.sist.user.vo.MemberJoinVO;
 import kr.co.sist.user.vo.MemberUpdateVO;
+import kr.co.sist.user.vo.SearchListVO;
 import kr.co.sist.user.vo.UserLoginVO;
 import kr.co.sist.user.vo.memberReportVO;
 
@@ -53,13 +56,13 @@ public class MemberController {
 	}
 
 
-	/////////////////////////////////////È­¸éÀÌµ¿/////////////////////////////////////////////
+	/////////////////////////////////////í™”ë©´ì´ë™/////////////////////////////////////////////
 	@RequestMapping(value = "user/member/loginPage.do", method = GET)
 	public String loginPage() {
 		return "user/member/login";
 	}// loginPage
 
-	//id pass Ã£±â°¡ ÀÕ¾ù´ø °÷ ,, //
+	//id pass ì°¾ê¸°ê°€ ì‡ì—‡ë˜ ê³³ ,, //
 
 	@RequestMapping(value = "user/member/joinAgreement.do", method = GET)
 	public String joinAgreementPage() {
@@ -100,14 +103,14 @@ public class MemberController {
 		return "user/member/findIdByEmail";
 	}// reportPage
 
-	///////////////////////////////// ¹®ÀÇ////////////////////////////////////////
-
+	///////////////////////////////// ë¬¸ì˜////////////////////////////////////////
+	
 	@ResponseBody
 	@RequestMapping(value = "user/member/guestReportSubmit.do", method = POST)
 	public String guestReportSubmint(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
 		if (urs.guestReportSubmit(new GuestReportVO(request.getParameter("guest_email"),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// ÀÔ·ÂÀÌ ¼º°øÇß´Ù¸é
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// ì…ë ¥ì´ ì„±ê³µí–ˆë‹¤ë©´
 			json.put("resultFlag", true);
 		} else {
 			json.put("resultFlag", false);
@@ -120,7 +123,7 @@ public class MemberController {
 	public String memberReportSubmit(HttpServletRequest request, HttpSession session) {
 		JSONObject json = new JSONObject();
 		if (urs.memberReportSubmit(new memberReportVO(session.getAttribute("client_id").toString(),
-				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// ÀÔ·ÂÀÌ ¼º°øÇß´Ù¸é
+				request.getParameter("q_subject"), request.getParameter("q_contents")))) {// ì…ë ¥ì´ ì„±ê³µí–ˆë‹¤ë©´
 			json.put("resultFlag", true);
 		} else {
 			json.put("resultFlag", false);
@@ -128,7 +131,7 @@ public class MemberController {
 		return json.toJSONString();
 	}
 
-	/////////////////////////// È¸¿ø°¡ÀÔ/////////////////////////////////////
+	/////////////////////////// íšŒì›ê°€ì…/////////////////////////////////////
 
 	@RequestMapping(value = "user/member/join.do", method = POST)
 	public String joinPage(HttpServletRequest request, Model model) {
@@ -142,7 +145,7 @@ public class MemberController {
 	@RequestMapping(value = "user/member/checkId.do", method = POST)
 	public String checkId(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkId(request.getParameter("client_id"))) {// ÀÔ·ÂÇÑ ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
+		if (ujs.checkId(request.getParameter("client_id"))) {// ì…ë ¥í•œ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´
 			json.put("checkId", true);
 		} else {
 			json.put("checkId", false);
@@ -154,7 +157,7 @@ public class MemberController {
 	@RequestMapping(value = "user/member/checkTel.do", method = POST)
 	public String checkTel(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkTel(request.getParameter("tel"))) {// ÀÔ·ÂÇÑ ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
+		if (ujs.checkTel(request.getParameter("tel"))) {// ì…ë ¥í•œ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´
 			json.put("checkTel", true);
 		} else {
 			json.put("checkTel", false);
@@ -166,7 +169,7 @@ public class MemberController {
 	@RequestMapping(value = "user/member/checkEmail.do", method = POST)
 	public String checkEmail(HttpServletRequest request) {
 		JSONObject json = new JSONObject();
-		if (ujs.checkEmail(request.getParameter("email"))) {// ÀÔ·ÂÇÑ ¾ÆÀÌµğ°¡ ÀÌ¹Ì Á¸ÀçÇÑ´Ù¸é
+		if (ujs.checkEmail(request.getParameter("email"))) {// ì…ë ¥í•œ ì•„ì´ë””ê°€ ì´ë¯¸ ì¡´ì¬í•œë‹¤ë©´
 			json.put("checkEmail", true);
 		} else {
 			json.put("checkEmail", false);
@@ -176,7 +179,7 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/memberJoin.do", method = POST)
 	public String join(HttpServletRequest request, Model model) {
-		//³Ñ°ÜÁø parameter °ªÀ¸·Î VO¸¦ »ı¼º
+		//ë„˜ê²¨ì§„ parameter ê°’ìœ¼ë¡œ VOë¥¼ ìƒì„±
 		MemberJoinVO mjvo = new MemberJoinVO(request.getParameter("client_id"), request.getParameter("pass"), request.getParameter("name"),
 				request.getParameterValues("birth")[0]+request.getParameterValues("birth")[1]+request.getParameterValues("birth")[2],
 				request.getParameter("gender"), request.getParameterValues("email")[0]+"@"+request.getParameterValues("email")[1],
@@ -187,19 +190,45 @@ public class MemberController {
 		}
 		ujs.memberJoin(mjvo, favors);
 
-		return "main";
+		return "user/mainContents/mainContents";
 	}// joinPage
 
-	///////////////////////////////// È¸¿øÁ¤º¸///////////////////////////////////////////////////////
+	///////////////////////////////// íšŒì›ì •ë³´///////////////////////////////////////////////////////
 
 	@RequestMapping(value = "user/member/userPage.do")
-	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model) {
+	public String userPage(HttpServletRequest request, HttpServletResponse response, HttpSession session, Model model, SearchListVO slvo) {
 		if (session.getAttribute("client_id") != null) {
 			String client_id = session.getAttribute("client_id").toString();
 			ClientPageInfo clientInfo = ups.clientInfo(client_id);
 			model.addAttribute("clientInfo", clientInfo);
 			List<String> clientFavor = ups.clientFavor(client_id);
 			model.addAttribute("client_favor", clientFavor);
+			///////////////////////////////////////////////////////
+			List<AdminQnA> list = null;
+			int totalCount = ups.totalCount(client_id);// ì´ ê²Œì‹œë¬¼ì˜ ìˆ˜//
+			int pageScale = ups.pageScale();
+			int totalPage = ups.totalPage(totalCount);// ì „ì²´ ê²Œì‹œë¬¼ì„ ë³´ì—¬ì£¼ê¸° ìœ„í•œ ì´ í˜ì´ì§€ ìˆ˜
+			if (slvo.getCurrentPage() == 0) { // web parameterì— ê°’ì´ ì—†ì„ ë•Œ
+				slvo.setCurrentPage(1);
+			}
+			int startNum = ups.startNum(slvo.getCurrentPage());
+			int endNum = ups.endNum(startNum);
+			slvo.setStartNum(startNum);
+			slvo.setEndNum(endNum);
+			slvo.setKeyword(client_id);
+
+			list = ups.searchQnaList(slvo);// ë¦¬ìŠ¤íŠ¸ ëª©ë¡ ì¡°íšŒ
+
+			String indexList = ups.indexList(slvo.getCurrentPage(), totalPage, "userPage.do", slvo.getKeyword());
+			model.addAttribute("list", list);// @@
+			model.addAttribute("indexList", indexList);
+			model.addAttribute("pageScale", pageScale);
+			model.addAttribute("totalCount", totalCount);
+			model.addAttribute("currentPage", slvo.getCurrentPage());
+
+			model.addAttribute("page", "question");// @@
+
+			
 			return "user/member/userPage";
 		} else {
 			return "user/member/login";
@@ -218,7 +247,7 @@ public class MemberController {
 			String client_id = session.getAttribute("client_id").toString();
 			session.invalidate();
 			if (ups.deleteUser(client_id) == 1) {
-				System.out.println(client_id + " Á¤»ó »èÁ¦ ¿Ï·á");
+				System.out.println(client_id + " ì •ìƒ ì‚­ì œ ì™„ë£Œ");
 			}
 
 			return "main";
@@ -270,7 +299,7 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/changeClientInfo.do", method = POST)
 	public String changeClientInfo(HttpServletRequest request, HttpServletResponse response, HttpSession session,
-			Model model) {
+			Model model, SearchListVO slvo) {
 		String client_id = session.getAttribute("client_id").toString();
 		MemberUpdateVO mu_vo = new MemberUpdateVO(client_id, request.getParameter("email"),
 				request.getParameter("tel"));
@@ -280,10 +309,10 @@ public class MemberController {
 			favors = request.getParameterValues("favor");
 		}
 		ups.favorUpdate(client_id, favors);
-		return userPage(request, response, session, model);
+		return userPage(request, response, session, model, slvo);
 	}
 
-///////////////////////////////////////////·Î±×ÀÎ///////////////////////////////////////////////////////////
+///////////////////////////////////////////ë¡œê·¸ì¸///////////////////////////////////////////////////////////
 
 	@RequestMapping(value = "user/teacher/login.do", method = POST)
 	public String loginTeacher() {
@@ -297,9 +326,9 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/login.do", method = POST)
 	public void login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		// ÀÔ·Â¹ŞÀº id¿Í pass·Î vo¸¦ »ı¼º
+		// ì…ë ¥ë°›ì€ idì™€ passë¡œ voë¥¼ ìƒì„±
 		UserLoginVO ulvo = new UserLoginVO(request.getParameter("id"), request.getParameter("pass"));
-		// »ı¼ºµÈ vo·Î login method¸¦ ½ÇÇà
+		// ìƒì„±ëœ voë¡œ login methodë¥¼ ì‹¤í–‰
 		int loginResult = uls.login(ulvo, session);
 		String loginPath = "";
 		switch (loginResult) {
@@ -317,7 +346,7 @@ public class MemberController {
 			break;
 		}
 
-		// ´Ù½Ã ¿ø·¡ ÆäÀÌÁö·Î µ¹¾Æ¿È
+		// ë‹¤ì‹œ ì›ë˜ í˜ì´ì§€ë¡œ ëŒì•„ì˜´
 		try {
 			response.sendRedirect(loginPath);
 		} catch (IOException e) {
@@ -327,8 +356,8 @@ public class MemberController {
 
 	@RequestMapping(value = "user/member/logout.do", method = GET)
 	public String logout(HttpServletRequest request, HttpSession session) {
-		session.invalidate();// ¼¼¼ÇÀ» Áö¿ì°í
-		// ´Ù½Ã ¿ø·¡ ÆäÀÌÁö·Î µ¹¾Æ¿È
+		session.invalidate();// ì„¸ì…˜ì„ ì§€ìš°ê³ 
+		// ë‹¤ì‹œ ì›ë˜ í˜ì´ì§€ë¡œ ëŒì•„ì˜´
 		String referer = request.getHeader("Referer");
 		return "redirect:" + referer;
 	}// logout
